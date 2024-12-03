@@ -63,22 +63,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var fillPx = FillPx.Decode(pointer, current, out current);
-            message.AppendDouble(FillPx.FixTag, fillPx);
-
-            var fillQty = FillQty.Decode(pointer, current, out current);
-            message.AppendDouble(FillQty.FixTag, fillQty);
-
-            var fillMatchId = (int)FillMatchId.Decode(pointer, current, out current);
-            message.AppendInt(FillMatchId.FixTag, fillMatchId);
-
-            var fillExecId = FillExecId.Decode(pointer, current, out current);
-            message.AppendInt(FillExecId.FixTag, fillExecId);
-
-            var fillLiquidityInd = FillLiquidityInd.Decode(pointer, current, out current);
-            message.AppendInt(FillLiquidityInd.FixTag, fillLiquidityInd);
-
-            current += Pad7.Length;
+            FillsGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

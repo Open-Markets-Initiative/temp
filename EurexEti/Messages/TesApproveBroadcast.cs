@@ -358,56 +358,17 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad3.Encode(pointer, current, out current);
 
-            var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-            LegSecurityId.Encode(pointer, current, legSecurityId, out current);
+            var trdInstrmntLegGrpComp = message.GetString(TrdInstrmntLegGrpComp.FixTag);
+            TrdInstrmntLegGrpComp.Encode(pointer, current, trdInstrmntLegGrpComp, out current);
 
-            var legPrice = group.GetDouble(LegPrice.FixTag);
-            LegPrice.Encode(pointer, current, legPrice, out current);
+            var instrumentEventGrpComp = message.GetString(InstrumentEventGrpComp.FixTag);
+            InstrumentEventGrpComp.Encode(pointer, current, instrumentEventGrpComp, out current);
 
-            var legQty = group.GetDouble(LegQty.FixTag);
-            LegQty.Encode(pointer, current, legQty, out current);
+            var instrumentAttributeGrpComp = message.GetString(InstrumentAttributeGrpComp.FixTag);
+            InstrumentAttributeGrpComp.Encode(pointer, current, instrumentAttributeGrpComp, out current);
 
-            var eventDate = (uint)group.GetInt(EventDate.FixTag);
-            EventDate.Encode(pointer, current, eventDate, out current);
-
-            var eventType = (byte)group.GetInt(EventType.FixTag);
-            EventType.Encode(pointer, current, eventType, out current);
-
-            Pad3.Encode(pointer, current, out current);
-
-            var instrAttribType = (byte)group.GetInt(InstrAttribType.FixTag);
-            InstrAttribType.Encode(pointer, current, instrAttribType, out current);
-
-            if (group.TryGetString(InstrAttribValue.FixTag, out var instrAttribValue))
-            {
-                InstrAttribValue.Encode(pointer, current, instrAttribValue, out current);
-            }
-            else
-            {
-                InstrAttribValue.SetNull(pointer, current, out current);
-            }
-
-            Pad7.Encode(pointer, current, out current);
-
-            if (group.TryGetString(UnderlyingStipValue.FixTag, out var underlyingStipValue))
-            {
-                UnderlyingStipValue.Encode(pointer, current, underlyingStipValue, out current);
-            }
-            else
-            {
-                UnderlyingStipValue.SetNull(pointer, current, out current);
-            }
-
-            if (group.TryGetToken(UnderlyingStipType.FixTag, out var underlyingStipType))
-            {
-                UnderlyingStipType.Encode(pointer, current, underlyingStipType, out current);
-            }
-            else
-            {
-                UnderlyingStipType.SetNull(pointer, current, out current);
-            }
-
-            Pad1.Encode(pointer, current, out current);
+            var underlyingStipGrpComp = message.GetString(UnderlyingStipGrpComp.FixTag);
+            UnderlyingStipGrpComp.Encode(pointer, current, underlyingStipGrpComp, out current);
 
             if (message.TryGetString(VarText.FixTag, out var varText))
             {
@@ -686,44 +647,13 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad3.Length;
 
-            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+            TrdInstrmntLegGrpComp.Decode(ref message, pointer, current, out current);
 
-            var legPrice = LegPrice.Decode(pointer, current, out current);
-            message.AppendDouble(LegPrice.FixTag, legPrice);
+            InstrumentEventGrpComp.Decode(ref message, pointer, current, out current);
 
-            var legQty = LegQty.Decode(pointer, current, out current);
-            message.AppendDouble(LegQty.FixTag, legQty);
+            InstrumentAttributeGrpComp.Decode(ref message, pointer, current, out current);
 
-            var eventDate = (int)EventDate.Decode(pointer, current, out current);
-            message.AppendInt(EventDate.FixTag, eventDate);
-
-            var eventType = EventType.Decode(pointer, current, out current);
-            message.AppendInt(EventType.FixTag, eventType);
-
-            current += Pad3.Length;
-
-            var instrAttribType = InstrAttribType.Decode(pointer, current, out current);
-            message.AppendInt(InstrAttribType.FixTag, instrAttribType);
-
-            if (InstrAttribValue.TryDecode(pointer, current, out var instrAttribValue, out current))
-            {
-                message.AppendString(InstrAttribValue.FixTag, instrAttribValue);
-            }
-
-            current += Pad7.Length;
-
-            if (UnderlyingStipValue.TryDecode(pointer, current, out var underlyingStipValue, out current))
-            {
-                message.AppendString(UnderlyingStipValue.FixTag, underlyingStipValue);
-            }
-
-            if (UnderlyingStipType.TryDecode(pointer, current, out var underlyingStipType, out current))
-            {
-                message.AppendToken(UnderlyingStipType.FixTag, underlyingStipType);
-            }
-
-            current += Pad1.Length;
+            UnderlyingStipGrpComp.Decode(ref message, pointer, current, out current);
 
             if (VarText.TryDecode(pointer, current, out var varText, out current))
             {

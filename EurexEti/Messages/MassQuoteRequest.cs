@@ -92,20 +92,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad5.Encode(pointer, current, out current);
 
-            var securityId = group.GetLong(SecurityId.FixTag);
-            SecurityId.Encode(pointer, current, securityId, out current);
-
-            var bidPx = group.GetDouble(BidPx.FixTag);
-            BidPx.Encode(pointer, current, bidPx, out current);
-
-            var bidSize = group.GetDouble(BidSize.FixTag);
-            BidSize.Encode(pointer, current, bidSize, out current);
-
-            var offerPx = group.GetDouble(OfferPx.FixTag);
-            OfferPx.Encode(pointer, current, offerPx, out current);
-
-            var offerSize = group.GetDouble(OfferSize.FixTag);
-            OfferSize.Encode(pointer, current, offerSize, out current);
+            var quoteEntryGrpComp = message.GetString(QuoteEntryGrpComp.FixTag);
+            QuoteEntryGrpComp.Encode(pointer, current, quoteEntryGrpComp, out current);
 
             // --- complete header ---
 
@@ -185,20 +173,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad5.Length;
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
-
-            var bidPx = BidPx.Decode(pointer, current, out current);
-            message.AppendDouble(BidPx.FixTag, bidPx);
-
-            var bidSize = BidSize.Decode(pointer, current, out current);
-            message.AppendDouble(BidSize.FixTag, bidSize);
-
-            var offerPx = OfferPx.Decode(pointer, current, out current);
-            message.AppendDouble(OfferPx.FixTag, offerPx);
-
-            var offerSize = OfferSize.Decode(pointer, current, out current);
-            message.AppendDouble(OfferSize.FixTag, offerSize);
+            QuoteEntryGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

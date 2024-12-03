@@ -227,100 +227,23 @@ namespace Eurex.EtiDerivatives.v121
                 UnderlyingIssuer.SetNull(pointer, current, out current);
             }
 
-            var allocQty = group.GetDouble(AllocQty.FixTag);
-            AllocQty.Encode(pointer, current, allocQty, out current);
+            var sideAllocGrpBcComp = message.GetString(SideAllocGrpBcComp.FixTag);
+            SideAllocGrpBcComp.Encode(pointer, current, sideAllocGrpBcComp, out current);
 
-            var reversalApprovalTime = group.GetULong(ReversalApprovalTime.FixTag);
-            ReversalApprovalTime.Encode(pointer, current, reversalApprovalTime, out current);
+            var trdInstrmntLegGrpComp = message.GetString(TrdInstrmntLegGrpComp.FixTag);
+            TrdInstrmntLegGrpComp.Encode(pointer, current, trdInstrmntLegGrpComp, out current);
 
-            var individualAllocId = (uint)group.GetInt(IndividualAllocId.FixTag);
-            IndividualAllocId.Encode(pointer, current, individualAllocId, out current);
+            var instrumentEventGrpComp = message.GetString(InstrumentEventGrpComp.FixTag);
+            InstrumentEventGrpComp.Encode(pointer, current, instrumentEventGrpComp, out current);
 
-            var tesEnrichmentRuleId = (uint)group.GetInt(TesEnrichmentRuleId.FixTag);
-            TesEnrichmentRuleId.Encode(pointer, current, tesEnrichmentRuleId, out current);
+            var trdClearingPriceLegGrpComp = message.GetString(TrdClearingPriceLegGrpComp.FixTag);
+            TrdClearingPriceLegGrpComp.Encode(pointer, current, trdClearingPriceLegGrpComp, out current);
 
-            if (group.TryGetString(PartyExecutingFirm.FixTag, out var partyExecutingFirm))
-            {
-                PartyExecutingFirm.Encode(pointer, current, partyExecutingFirm, out current);
-            }
-            else
-            {
-                PartyExecutingFirm.SetNull(pointer, current, out current);
-            }
+            var instrumentAttributeGrpComp = message.GetString(InstrumentAttributeGrpComp.FixTag);
+            InstrumentAttributeGrpComp.Encode(pointer, current, instrumentAttributeGrpComp, out current);
 
-            if (group.TryGetString(PartyExecutingTrader.FixTag, out var partyExecutingTrader))
-            {
-                PartyExecutingTrader.Encode(pointer, current, partyExecutingTrader, out current);
-            }
-            else
-            {
-                PartyExecutingTrader.SetNull(pointer, current, out current);
-            }
-
-            var side = (byte)group.GetInt(Side.FixTag);
-            Side.Encode(pointer, current, side, out current);
-
-            var tradeAllocStatus = (byte)group.GetInt(TradeAllocStatus.FixTag);
-            TradeAllocStatus.Encode(pointer, current, tradeAllocStatus, out current);
-
-            Pad3.Encode(pointer, current, out current);
-
-            var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-            LegSecurityId.Encode(pointer, current, legSecurityId, out current);
-
-            var legPrice = group.GetDouble(LegPrice.FixTag);
-            LegPrice.Encode(pointer, current, legPrice, out current);
-
-            var legQty = group.GetDouble(LegQty.FixTag);
-            LegQty.Encode(pointer, current, legQty, out current);
-
-            var eventDate = (uint)group.GetInt(EventDate.FixTag);
-            EventDate.Encode(pointer, current, eventDate, out current);
-
-            var eventType = (byte)group.GetInt(EventType.FixTag);
-            EventType.Encode(pointer, current, eventType, out current);
-
-            Pad3.Encode(pointer, current, out current);
-
-            var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-            LegSecurityId.Encode(pointer, current, legSecurityId, out current);
-
-            var legClearingTradePrice = group.GetDouble(LegClearingTradePrice.FixTag);
-            LegClearingTradePrice.Encode(pointer, current, legClearingTradePrice, out current);
-
-            var instrAttribType = (byte)group.GetInt(InstrAttribType.FixTag);
-            InstrAttribType.Encode(pointer, current, instrAttribType, out current);
-
-            if (group.TryGetString(InstrAttribValue.FixTag, out var instrAttribValue))
-            {
-                InstrAttribValue.Encode(pointer, current, instrAttribValue, out current);
-            }
-            else
-            {
-                InstrAttribValue.SetNull(pointer, current, out current);
-            }
-
-            Pad7.Encode(pointer, current, out current);
-
-            if (group.TryGetString(UnderlyingStipValue.FixTag, out var underlyingStipValue))
-            {
-                UnderlyingStipValue.Encode(pointer, current, underlyingStipValue, out current);
-            }
-            else
-            {
-                UnderlyingStipValue.SetNull(pointer, current, out current);
-            }
-
-            if (group.TryGetToken(UnderlyingStipType.FixTag, out var underlyingStipType))
-            {
-                UnderlyingStipType.Encode(pointer, current, underlyingStipType, out current);
-            }
-            else
-            {
-                UnderlyingStipType.SetNull(pointer, current, out current);
-            }
-
-            Pad1.Encode(pointer, current, out current);
+            var underlyingStipGrpComp = message.GetString(UnderlyingStipGrpComp.FixTag);
+            UnderlyingStipGrpComp.Encode(pointer, current, underlyingStipGrpComp, out current);
 
             if (message.TryGetString(VarText.FixTag, out var varText))
             {
@@ -516,80 +439,17 @@ namespace Eurex.EtiDerivatives.v121
                 message.AppendString(UnderlyingIssuer.FixTag, underlyingIssuer);
             }
 
-            var allocQty = AllocQty.Decode(pointer, current, out current);
-            message.AppendDouble(AllocQty.FixTag, allocQty);
+            SideAllocGrpBcComp.Decode(ref message, pointer, current, out current);
 
-            var reversalApprovalTime = ReversalApprovalTime.Decode(pointer, current, out current);
-            message.AppendULong(ReversalApprovalTime.FixTag, reversalApprovalTime);
+            TrdInstrmntLegGrpComp.Decode(ref message, pointer, current, out current);
 
-            var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
-            message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
+            InstrumentEventGrpComp.Decode(ref message, pointer, current, out current);
 
-            var tesEnrichmentRuleId = (int)TesEnrichmentRuleId.Decode(pointer, current, out current);
-            message.AppendInt(TesEnrichmentRuleId.FixTag, tesEnrichmentRuleId);
+            TrdClearingPriceLegGrpComp.Decode(ref message, pointer, current, out current);
 
-            if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
-            {
-                message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
-            }
+            InstrumentAttributeGrpComp.Decode(ref message, pointer, current, out current);
 
-            if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
-            {
-                message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
-            }
-
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
-
-            var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
-            message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
-
-            current += Pad3.Length;
-
-            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
-
-            var legPrice = LegPrice.Decode(pointer, current, out current);
-            message.AppendDouble(LegPrice.FixTag, legPrice);
-
-            var legQty = LegQty.Decode(pointer, current, out current);
-            message.AppendDouble(LegQty.FixTag, legQty);
-
-            var eventDate = (int)EventDate.Decode(pointer, current, out current);
-            message.AppendInt(EventDate.FixTag, eventDate);
-
-            var eventType = EventType.Decode(pointer, current, out current);
-            message.AppendInt(EventType.FixTag, eventType);
-
-            current += Pad3.Length;
-
-            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
-
-            var legClearingTradePrice = LegClearingTradePrice.Decode(pointer, current, out current);
-            message.AppendDouble(LegClearingTradePrice.FixTag, legClearingTradePrice);
-
-            var instrAttribType = InstrAttribType.Decode(pointer, current, out current);
-            message.AppendInt(InstrAttribType.FixTag, instrAttribType);
-
-            if (InstrAttribValue.TryDecode(pointer, current, out var instrAttribValue, out current))
-            {
-                message.AppendString(InstrAttribValue.FixTag, instrAttribValue);
-            }
-
-            current += Pad7.Length;
-
-            if (UnderlyingStipValue.TryDecode(pointer, current, out var underlyingStipValue, out current))
-            {
-                message.AppendString(UnderlyingStipValue.FixTag, underlyingStipValue);
-            }
-
-            if (UnderlyingStipType.TryDecode(pointer, current, out var underlyingStipType, out current))
-            {
-                message.AppendToken(UnderlyingStipType.FixTag, underlyingStipType);
-            }
-
-            current += Pad1.Length;
+            UnderlyingStipGrpComp.Decode(ref message, pointer, current, out current);
 
             if (VarText.TryDecode(pointer, current, out var varText, out current))
             {

@@ -57,16 +57,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var orderQty = OrderQty.Decode(pointer, current, out current);
-            message.AppendDouble(OrderQty.FixTag, orderQty);
-
-            var quoteId = QuoteId.Decode(pointer, current, out current);
-            message.AppendULong(QuoteId.FixTag, quoteId);
-
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
-
-            current += Pad7.Length;
+            SrqsHitQuoteGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

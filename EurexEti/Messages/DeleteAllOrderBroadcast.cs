@@ -98,16 +98,11 @@ namespace Eurex.EtiDerivatives.v121
             var side = (byte)message.GetInt(Side.FixTag);
             Side.Encode(pointer, current, side, out current);
 
-            var notAffectedOrderId = group.GetULong(NotAffectedOrderId.FixTag);
-            NotAffectedOrderId.Encode(pointer, current, notAffectedOrderId, out current);
+            var notAffectedOrdersGrpComp = message.GetString(NotAffectedOrdersGrpComp.FixTag);
+            NotAffectedOrdersGrpComp.Encode(pointer, current, notAffectedOrdersGrpComp, out current);
 
-            var notAffOrigClOrdId = group.GetULong(NotAffOrigClOrdId.FixTag);
-            NotAffOrigClOrdId.Encode(pointer, current, notAffOrigClOrdId, out current);
-
-            var affectedOrderRequestId = (uint)group.GetInt(AffectedOrderRequestId.FixTag);
-            AffectedOrderRequestId.Encode(pointer, current, affectedOrderRequestId, out current);
-
-            Pad4.Encode(pointer, current, out current);
+            var affectedOrderRequestsGrpComp = message.GetString(AffectedOrderRequestsGrpComp.FixTag);
+            AffectedOrderRequestsGrpComp.Encode(pointer, current, affectedOrderRequestsGrpComp, out current);
 
             // --- complete header ---
 
@@ -197,16 +192,9 @@ namespace Eurex.EtiDerivatives.v121
             var side = Side.Decode(pointer, current, out current);
             message.AppendInt(Side.FixTag, side);
 
-            var notAffectedOrderId = NotAffectedOrderId.Decode(pointer, current, out current);
-            message.AppendULong(NotAffectedOrderId.FixTag, notAffectedOrderId);
+            NotAffectedOrdersGrpComp.Decode(ref message, pointer, current, out current);
 
-            var notAffOrigClOrdId = NotAffOrigClOrdId.Decode(pointer, current, out current);
-            message.AppendULong(NotAffOrigClOrdId.FixTag, notAffOrigClOrdId);
-
-            var affectedOrderRequestId = (int)AffectedOrderRequestId.Decode(pointer, current, out current);
-            message.AppendInt(AffectedOrderRequestId.FixTag, affectedOrderRequestId);
-
-            current += Pad4.Length;
+            AffectedOrderRequestsGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

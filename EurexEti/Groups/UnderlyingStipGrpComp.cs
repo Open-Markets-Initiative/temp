@@ -66,17 +66,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            if (UnderlyingStipValue.TryDecode(pointer, current, out var underlyingStipValue, out current))
-            {
-                message.AppendString(UnderlyingStipValue.FixTag, underlyingStipValue);
-            }
-
-            if (UnderlyingStipType.TryDecode(pointer, current, out var underlyingStipType, out current))
-            {
-                message.AppendToken(UnderlyingStipType.FixTag, underlyingStipType);
-            }
-
-            current += Pad1.Length;
+            UnderlyingStipGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

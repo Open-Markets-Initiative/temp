@@ -68,27 +68,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var price = Price.Decode(pointer, current, out current);
-            message.AppendDouble(Price.FixTag, price);
-
-            var orderQty = OrderQty.Decode(pointer, current, out current);
-            message.AppendDouble(OrderQty.FixTag, orderQty);
-
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
-
-            current += Pad4.Length;
-
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
-
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
-
-            var productComplex = ProductComplex.Decode(pointer, current, out current);
-            message.AppendInt(ProductComplex.FixTag, productComplex);
-
-            current += Pad6.Length;
+            OrderEntryGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

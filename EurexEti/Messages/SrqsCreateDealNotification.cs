@@ -271,66 +271,11 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad3.Encode(pointer, current, out current);
 
-            var securityId = group.GetLong(SecurityId.FixTag);
-            SecurityId.Encode(pointer, current, securityId, out current);
+            var orderBookItemGrpComp = message.GetString(OrderBookItemGrpComp.FixTag);
+            OrderBookItemGrpComp.Encode(pointer, current, orderBookItemGrpComp, out current);
 
-            var bestBidPx = group.GetDouble(BestBidPx.FixTag);
-            BestBidPx.Encode(pointer, current, bestBidPx, out current);
-
-            var bestBidSize = group.GetDouble(BestBidSize.FixTag);
-            BestBidSize.Encode(pointer, current, bestBidSize, out current);
-
-            var bestOfferPx = group.GetDouble(BestOfferPx.FixTag);
-            BestOfferPx.Encode(pointer, current, bestOfferPx, out current);
-
-            var bestOfferSize = group.GetDouble(BestOfferSize.FixTag);
-            BestOfferSize.Encode(pointer, current, bestOfferSize, out current);
-
-            var mdBookType = (byte)group.GetInt(MdBookType.FixTag);
-            MdBookType.Encode(pointer, current, mdBookType, out current);
-
-            var mdSubBookType = (byte)group.GetInt(MdSubBookType.FixTag);
-            MdSubBookType.Encode(pointer, current, mdSubBookType, out current);
-
-            Pad6.Encode(pointer, current, out current);
-
-            var sideLastQty = group.GetDouble(SideLastQty.FixTag);
-            SideLastQty.Encode(pointer, current, sideLastQty, out current);
-
-            var quoteId = group.GetULong(QuoteId.FixTag);
-            QuoteId.Encode(pointer, current, quoteId, out current);
-
-            var targetPartyIdExecutingTrader = (uint)group.GetInt(TargetPartyIdExecutingTrader.FixTag);
-            TargetPartyIdExecutingTrader.Encode(pointer, current, targetPartyIdExecutingTrader, out current);
-
-            if (group.TryGetString(TargetPartyExecutingFirm.FixTag, out var targetPartyExecutingFirm))
-            {
-                TargetPartyExecutingFirm.Encode(pointer, current, targetPartyExecutingFirm, out current);
-            }
-            else
-            {
-                TargetPartyExecutingFirm.SetNull(pointer, current, out current);
-            }
-
-            if (group.TryGetString(TargetPartyExecutingTrader.FixTag, out var targetPartyExecutingTrader))
-            {
-                TargetPartyExecutingTrader.Encode(pointer, current, targetPartyExecutingTrader, out current);
-            }
-            else
-            {
-                TargetPartyExecutingTrader.SetNull(pointer, current, out current);
-            }
-
-            if (group.TryGetString(TargetPartyEnteringTrader.FixTag, out var targetPartyEnteringTrader))
-            {
-                TargetPartyEnteringTrader.Encode(pointer, current, targetPartyEnteringTrader, out current);
-            }
-            else
-            {
-                TargetPartyEnteringTrader.SetNull(pointer, current, out current);
-            }
-
-            Pad3.Encode(pointer, current, out current);
+            var srqsTargetPartyTrdGrpComp = message.GetString(SrqsTargetPartyTrdGrpComp.FixTag);
+            SrqsTargetPartyTrdGrpComp.Encode(pointer, current, srqsTargetPartyTrdGrpComp, out current);
 
             // --- complete header ---
 
@@ -529,54 +474,9 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad3.Length;
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
+            OrderBookItemGrpComp.Decode(ref message, pointer, current, out current);
 
-            var bestBidPx = BestBidPx.Decode(pointer, current, out current);
-            message.AppendDouble(BestBidPx.FixTag, bestBidPx);
-
-            var bestBidSize = BestBidSize.Decode(pointer, current, out current);
-            message.AppendDouble(BestBidSize.FixTag, bestBidSize);
-
-            var bestOfferPx = BestOfferPx.Decode(pointer, current, out current);
-            message.AppendDouble(BestOfferPx.FixTag, bestOfferPx);
-
-            var bestOfferSize = BestOfferSize.Decode(pointer, current, out current);
-            message.AppendDouble(BestOfferSize.FixTag, bestOfferSize);
-
-            var mdBookType = MdBookType.Decode(pointer, current, out current);
-            message.AppendInt(MdBookType.FixTag, mdBookType);
-
-            var mdSubBookType = MdSubBookType.Decode(pointer, current, out current);
-            message.AppendInt(MdSubBookType.FixTag, mdSubBookType);
-
-            current += Pad6.Length;
-
-            var sideLastQty = SideLastQty.Decode(pointer, current, out current);
-            message.AppendDouble(SideLastQty.FixTag, sideLastQty);
-
-            var quoteId = QuoteId.Decode(pointer, current, out current);
-            message.AppendULong(QuoteId.FixTag, quoteId);
-
-            var targetPartyIdExecutingTrader = (int)TargetPartyIdExecutingTrader.Decode(pointer, current, out current);
-            message.AppendInt(TargetPartyIdExecutingTrader.FixTag, targetPartyIdExecutingTrader);
-
-            if (TargetPartyExecutingFirm.TryDecode(pointer, current, out var targetPartyExecutingFirm, out current))
-            {
-                message.AppendString(TargetPartyExecutingFirm.FixTag, targetPartyExecutingFirm);
-            }
-
-            if (TargetPartyExecutingTrader.TryDecode(pointer, current, out var targetPartyExecutingTrader, out current))
-            {
-                message.AppendString(TargetPartyExecutingTrader.FixTag, targetPartyExecutingTrader);
-            }
-
-            if (TargetPartyEnteringTrader.TryDecode(pointer, current, out var targetPartyEnteringTrader, out current))
-            {
-                message.AppendString(TargetPartyEnteringTrader.FixTag, targetPartyEnteringTrader);
-            }
-
-            current += Pad3.Length;
+            SrqsTargetPartyTrdGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

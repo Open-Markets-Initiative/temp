@@ -49,8 +49,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var notAffectedSecurityId = NotAffectedSecurityId.Decode(pointer, current, out current);
-            message.AppendULong(NotAffectedSecurityId.FixTag, notAffectedSecurityId);
+            NotAffectedSecuritiesGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

@@ -54,13 +54,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var riskLimitQty = RiskLimitQty.Decode(pointer, current, out current);
-            message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);
-
-            var riskLimitType = RiskLimitType.Decode(pointer, current, out current);
-            message.AppendInt(RiskLimitType.FixTag, riskLimitType);
-
-            current += Pad7.Length;
+            RiskLimitQtyGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

@@ -75,26 +75,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var partyDetailIdExecutingTrader = (int)PartyDetailIdExecutingTrader.Decode(pointer, current, out current);
-            message.AppendInt(PartyDetailIdExecutingTrader.FixTag, partyDetailIdExecutingTrader);
-
-            if (PartyDetailExecutingTrader.TryDecode(pointer, current, out var partyDetailExecutingTrader, out current))
-            {
-                message.AppendString(PartyDetailExecutingTrader.FixTag, partyDetailExecutingTrader);
-            }
-
-            var partyDetailRoleQualifier = PartyDetailRoleQualifier.Decode(pointer, current, out current);
-            message.AppendInt(PartyDetailRoleQualifier.FixTag, partyDetailRoleQualifier);
-
-            var partyDetailStatus = PartyDetailStatus.Decode(pointer, current, out current);
-            message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
-
-            if (PartyDetailDeskId.TryDecode(pointer, current, out var partyDetailDeskId, out current))
-            {
-                message.AppendString(PartyDetailDeskId.FixTag, partyDetailDeskId);
-            }
-
-            current += Pad1.Length;
+            PartyDetailsGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

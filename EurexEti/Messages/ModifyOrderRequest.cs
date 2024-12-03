@@ -263,19 +263,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad23.Encode(pointer, current, out current);
 
-            if (group.TryGetString(LegAccount.FixTag, out var legAccount))
-            {
-                LegAccount.Encode(pointer, current, legAccount, out current);
-            }
-            else
-            {
-                LegAccount.SetNull(pointer, current, out current);
-            }
-
-            var legPositionEffect = group.GetToken(LegPositionEffect.FixTag);
-            LegPositionEffect.Encode(pointer, current, legPositionEffect, out current);
-
-            Pad5.Encode(pointer, current, out current);
+            var legOrdGrpComp = message.GetString(LegOrdGrpComp.FixTag);
+            LegOrdGrpComp.Encode(pointer, current, legOrdGrpComp, out current);
 
             // --- complete header ---
 
@@ -478,15 +467,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad23.Length;
 
-            if (LegAccount.TryDecode(pointer, current, out var legAccount, out current))
-            {
-                message.AppendString(LegAccount.FixTag, legAccount);
-            }
-
-            var legPositionEffect = LegPositionEffect.Decode(pointer, current, out current);
-            message.AppendToken(LegPositionEffect.FixTag, legPositionEffect);
-
-            current += Pad5.Length;
+            LegOrdGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

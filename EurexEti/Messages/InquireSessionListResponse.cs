@@ -46,16 +46,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad6.Encode(pointer, current, out current);
 
-            var partyIdSessionId = (uint)group.GetInt(PartyIdSessionId.FixTag);
-            PartyIdSessionId.Encode(pointer, current, partyIdSessionId, out current);
-
-            var sessionMode = (byte)group.GetInt(SessionMode.FixTag);
-            SessionMode.Encode(pointer, current, sessionMode, out current);
-
-            var sessionSubMode = (byte)group.GetInt(SessionSubMode.FixTag);
-            SessionSubMode.Encode(pointer, current, sessionSubMode, out current);
-
-            Pad2.Encode(pointer, current, out current);
+            var sessionsGrpComp = message.GetString(SessionsGrpComp.FixTag);
+            SessionsGrpComp.Encode(pointer, current, sessionsGrpComp, out current);
 
             // --- complete header ---
 
@@ -93,16 +85,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad6.Length;
 
-            var partyIdSessionId = (int)PartyIdSessionId.Decode(pointer, current, out current);
-            message.AppendInt(PartyIdSessionId.FixTag, partyIdSessionId);
-
-            var sessionMode = SessionMode.Decode(pointer, current, out current);
-            message.AppendInt(SessionMode.FixTag, sessionMode);
-
-            var sessionSubMode = SessionSubMode.Decode(pointer, current, out current);
-            message.AppendInt(SessionSubMode.FixTag, sessionSubMode);
-
-            current += Pad2.Length;
+            SessionsGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

@@ -69,28 +69,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
-
-            var bestBidPx = BestBidPx.Decode(pointer, current, out current);
-            message.AppendDouble(BestBidPx.FixTag, bestBidPx);
-
-            var bestBidSize = BestBidSize.Decode(pointer, current, out current);
-            message.AppendDouble(BestBidSize.FixTag, bestBidSize);
-
-            var bestOfferPx = BestOfferPx.Decode(pointer, current, out current);
-            message.AppendDouble(BestOfferPx.FixTag, bestOfferPx);
-
-            var bestOfferSize = BestOfferSize.Decode(pointer, current, out current);
-            message.AppendDouble(BestOfferSize.FixTag, bestOfferSize);
-
-            var mdBookType = MdBookType.Decode(pointer, current, out current);
-            message.AppendInt(MdBookType.FixTag, mdBookType);
-
-            var mdSubBookType = MdSubBookType.Decode(pointer, current, out current);
-            message.AppendInt(MdSubBookType.FixTag, mdSubBookType);
-
-            current += Pad6.Length;
+            OrderBookItemGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

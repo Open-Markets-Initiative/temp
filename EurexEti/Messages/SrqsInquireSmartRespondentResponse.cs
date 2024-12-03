@@ -49,25 +49,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad2.Encode(pointer, current, out current);
 
-            if (group.TryGetString(PartyDetailExecutingUnit.FixTag, out var partyDetailExecutingUnit))
-            {
-                PartyDetailExecutingUnit.Encode(pointer, current, partyDetailExecutingUnit, out current);
-            }
-            else
-            {
-                PartyDetailExecutingUnit.SetNull(pointer, current, out current);
-            }
-
-            if (group.TryGetString(PartyDetailExecutingTrader.FixTag, out var partyDetailExecutingTrader))
-            {
-                PartyDetailExecutingTrader.Encode(pointer, current, partyDetailExecutingTrader, out current);
-            }
-            else
-            {
-                PartyDetailExecutingTrader.SetNull(pointer, current, out current);
-            }
-
-            Pad5.Encode(pointer, current, out current);
+            var smartPartyDetailGrpComp = message.GetString(SmartPartyDetailGrpComp.FixTag);
+            SmartPartyDetailGrpComp.Encode(pointer, current, smartPartyDetailGrpComp, out current);
 
             // --- complete header ---
 
@@ -108,17 +91,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad2.Length;
 
-            if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
-            {
-                message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
-            }
-
-            if (PartyDetailExecutingTrader.TryDecode(pointer, current, out var partyDetailExecutingTrader, out current))
-            {
-                message.AppendString(PartyDetailExecutingTrader.FixTag, partyDetailExecutingTrader);
-            }
-
-            current += Pad5.Length;
+            SmartPartyDetailGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

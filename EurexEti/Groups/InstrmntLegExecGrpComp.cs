@@ -66,25 +66,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
-
-            var legLastPx = LegLastPx.Decode(pointer, current, out current);
-            message.AppendDouble(LegLastPx.FixTag, legLastPx);
-
-            var legLastQty = LegLastQty.Decode(pointer, current, out current);
-            message.AppendDouble(LegLastQty.FixTag, legLastQty);
-
-            var legExecId = LegExecId.Decode(pointer, current, out current);
-            message.AppendInt(LegExecId.FixTag, legExecId);
-
-            var legSide = LegSide.Decode(pointer, current, out current);
-            message.AppendInt(LegSide.FixTag, legSide);
-
-            var fillRefId = FillRefId.Decode(pointer, current, out current);
-            message.AppendInt(FillRefId.FixTag, fillRefId);
-
-            current += Pad2.Length;
+            InstrmntLegExecGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

@@ -84,31 +84,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var sideLastQty = SideLastQty.Decode(pointer, current, out current);
-            message.AppendDouble(SideLastQty.FixTag, sideLastQty);
-
-            var quoteId = QuoteId.Decode(pointer, current, out current);
-            message.AppendULong(QuoteId.FixTag, quoteId);
-
-            var targetPartyIdExecutingTrader = (int)TargetPartyIdExecutingTrader.Decode(pointer, current, out current);
-            message.AppendInt(TargetPartyIdExecutingTrader.FixTag, targetPartyIdExecutingTrader);
-
-            if (TargetPartyExecutingFirm.TryDecode(pointer, current, out var targetPartyExecutingFirm, out current))
-            {
-                message.AppendString(TargetPartyExecutingFirm.FixTag, targetPartyExecutingFirm);
-            }
-
-            if (TargetPartyExecutingTrader.TryDecode(pointer, current, out var targetPartyExecutingTrader, out current))
-            {
-                message.AppendString(TargetPartyExecutingTrader.FixTag, targetPartyExecutingTrader);
-            }
-
-            if (TargetPartyEnteringTrader.TryDecode(pointer, current, out var targetPartyEnteringTrader, out current))
-            {
-                message.AppendString(TargetPartyEnteringTrader.FixTag, targetPartyEnteringTrader);
-            }
-
-            current += Pad3.Length;
+            SrqsTargetPartyTrdGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

@@ -52,11 +52,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
-
-            var legClearingTradePrice = LegClearingTradePrice.Decode(pointer, current, out current);
-            message.AppendDouble(LegClearingTradePrice.FixTag, legClearingTradePrice);
+            TrdClearingPriceLegGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

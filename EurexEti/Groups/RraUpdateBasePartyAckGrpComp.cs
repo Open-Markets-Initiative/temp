@@ -60,15 +60,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
-            {
-                message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
-            }
-
-            current += Pad1.Length;
-
-            var riskLimitResult = (short)RiskLimitResult.Decode(pointer, current, out current);
-            message.AppendInt(RiskLimitResult.FixTag, riskLimitResult);
+            RraUpdateBasePartyAckGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

@@ -64,23 +64,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad3.Encode(pointer, current, out current);
 
-            var exposureDuration = group.GetLong(ExposureDuration.FixTag);
-            ExposureDuration.Encode(pointer, current, exposureDuration, out current);
-
-            var cumQty = group.GetDouble(CumQty.FixTag);
-            CumQty.Encode(pointer, current, cumQty, out current);
-
-            var delta = group.GetDouble(Delta.FixTag);
-            Delta.Encode(pointer, current, delta, out current);
-
-            var vega = group.GetDouble(Vega.FixTag);
-            Vega.Encode(pointer, current, vega, out current);
-
-            var pctCount = group.GetInt(PctCount.FixTag);
-            PctCount.Encode(pointer, current, pctCount, out current);
-
-            var targetPartyIdSessionId = (uint)group.GetInt(TargetPartyIdSessionId.FixTag);
-            TargetPartyIdSessionId.Encode(pointer, current, targetPartyIdSessionId, out current);
+            var mmParameterGrpComp = message.GetString(MmParameterGrpComp.FixTag);
+            MmParameterGrpComp.Encode(pointer, current, mmParameterGrpComp, out current);
 
             // --- complete header ---
 
@@ -136,23 +121,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad3.Length;
 
-            var exposureDuration = ExposureDuration.Decode(pointer, current, out current);
-            message.AppendLong(ExposureDuration.FixTag, exposureDuration);
-
-            var cumQty = CumQty.Decode(pointer, current, out current);
-            message.AppendDouble(CumQty.FixTag, cumQty);
-
-            var delta = Delta.Decode(pointer, current, out current);
-            message.AppendDouble(Delta.FixTag, delta);
-
-            var vega = Vega.Decode(pointer, current, out current);
-            message.AppendDouble(Vega.FixTag, vega);
-
-            var pctCount = PctCount.Decode(pointer, current, out current);
-            message.AppendInt(PctCount.FixTag, pctCount);
-
-            var targetPartyIdSessionId = (int)TargetPartyIdSessionId.Decode(pointer, current, out current);
-            message.AppendInt(TargetPartyIdSessionId.FixTag, targetPartyIdSessionId);
+            MmParameterGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

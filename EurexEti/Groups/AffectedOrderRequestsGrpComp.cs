@@ -51,10 +51,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var affectedOrderRequestId = (int)AffectedOrderRequestId.Decode(pointer, current, out current);
-            message.AppendInt(AffectedOrderRequestId.FixTag, affectedOrderRequestId);
-
-            current += Pad4.Length;
+            AffectedOrderRequestsGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

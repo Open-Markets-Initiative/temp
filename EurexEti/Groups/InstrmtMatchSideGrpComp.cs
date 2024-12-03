@@ -93,48 +93,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
-
-            var lastPx = LastPx.Decode(pointer, current, out current);
-            message.AppendDouble(LastPx.FixTag, lastPx);
-
-            var transBkdTime = TransBkdTime.Decode(pointer, current, out current);
-            message.AppendULong(TransBkdTime.FixTag, transBkdTime);
-
-            var relatedClosePrice = RelatedClosePrice.Decode(pointer, current, out current);
-            message.AppendDouble(RelatedClosePrice.FixTag, relatedClosePrice);
-
-            var clearingTradePrice = ClearingTradePrice.Decode(pointer, current, out current);
-            message.AppendDouble(ClearingTradePrice.FixTag, clearingTradePrice);
-
-            var packageId = (int)PackageId.Decode(pointer, current, out current);
-            message.AppendInt(PackageId.FixTag, packageId);
-
-            var sideMarketSegmentId = SideMarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
-
-            var sideTrdSubTyp = (short)SideTrdSubTyp.Decode(pointer, current, out current);
-            message.AppendInt(SideTrdSubTyp.FixTag, sideTrdSubTyp);
-
-            var productComplex = ProductComplex.Decode(pointer, current, out current);
-            message.AppendInt(ProductComplex.FixTag, productComplex);
-
-            var tradePublishIndicator = TradePublishIndicator.Decode(pointer, current, out current);
-            message.AppendInt(TradePublishIndicator.FixTag, tradePublishIndicator);
-
-            var instrmtMatchSideId = InstrmtMatchSideId.Decode(pointer, current, out current);
-            message.AppendInt(InstrmtMatchSideId.FixTag, instrmtMatchSideId);
-
-            var effectOnBasket = EffectOnBasket.Decode(pointer, current, out current);
-            message.AppendInt(EffectOnBasket.FixTag, effectOnBasket);
-
-            if (TradeReportText.TryDecode(pointer, current, out var tradeReportText, out current))
-            {
-                message.AppendString(TradeReportText.FixTag, tradeReportText);
-            }
-
-            current += Pad6.Length;
+            InstrmtMatchSideGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

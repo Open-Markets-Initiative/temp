@@ -214,22 +214,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad2.Encode(pointer, current, out current);
 
-            var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-            LegSecurityId.Encode(pointer, current, legSecurityId, out current);
-
-            var legRatioQty = (uint)group.GetInt(LegRatioQty.FixTag);
-            LegRatioQty.Encode(pointer, current, legRatioQty, out current);
-
-            var legSymbol = group.GetInt(LegSymbol.FixTag);
-            LegSymbol.Encode(pointer, current, legSymbol, out current);
-
-            var legSecurityType = (byte)group.GetInt(LegSecurityType.FixTag);
-            LegSecurityType.Encode(pointer, current, legSecurityType, out current);
-
-            var legSide = (byte)group.GetInt(LegSide.FixTag);
-            LegSide.Encode(pointer, current, legSide, out current);
-
-            Pad6.Encode(pointer, current, out current);
+            var quotReqLegsGrpComp = message.GetString(QuotReqLegsGrpComp.FixTag);
+            QuotReqLegsGrpComp.Encode(pointer, current, quotReqLegsGrpComp, out current);
 
             // --- complete header ---
 
@@ -399,22 +385,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad2.Length;
 
-            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
-
-            var legRatioQty = (int)LegRatioQty.Decode(pointer, current, out current);
-            message.AppendInt(LegRatioQty.FixTag, legRatioQty);
-
-            var legSymbol = LegSymbol.Decode(pointer, current, out current);
-            message.AppendInt(LegSymbol.FixTag, legSymbol);
-
-            var legSecurityType = LegSecurityType.Decode(pointer, current, out current);
-            message.AppendInt(LegSecurityType.FixTag, legSecurityType);
-
-            var legSide = LegSide.Decode(pointer, current, out current);
-            message.AppendInt(LegSide.FixTag, legSide);
-
-            current += Pad6.Length;
+            QuotReqLegsGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

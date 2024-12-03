@@ -106,42 +106,11 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad2.Encode(pointer, current, out current);
 
-            var fillPx = group.GetDouble(FillPx.FixTag);
-            FillPx.Encode(pointer, current, fillPx, out current);
+            var fillsGrpComp = message.GetString(FillsGrpComp.FixTag);
+            FillsGrpComp.Encode(pointer, current, fillsGrpComp, out current);
 
-            var fillQty = group.GetDouble(FillQty.FixTag);
-            FillQty.Encode(pointer, current, fillQty, out current);
-
-            var fillMatchId = (uint)group.GetInt(FillMatchId.FixTag);
-            FillMatchId.Encode(pointer, current, fillMatchId, out current);
-
-            var fillExecId = group.GetInt(FillExecId.FixTag);
-            FillExecId.Encode(pointer, current, fillExecId, out current);
-
-            var fillLiquidityInd = (byte)group.GetInt(FillLiquidityInd.FixTag);
-            FillLiquidityInd.Encode(pointer, current, fillLiquidityInd, out current);
-
-            Pad7.Encode(pointer, current, out current);
-
-            var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-            LegSecurityId.Encode(pointer, current, legSecurityId, out current);
-
-            var legLastPx = group.GetDouble(LegLastPx.FixTag);
-            LegLastPx.Encode(pointer, current, legLastPx, out current);
-
-            var legLastQty = group.GetDouble(LegLastQty.FixTag);
-            LegLastQty.Encode(pointer, current, legLastQty, out current);
-
-            var legExecId = group.GetInt(LegExecId.FixTag);
-            LegExecId.Encode(pointer, current, legExecId, out current);
-
-            var legSide = (byte)group.GetInt(LegSide.FixTag);
-            LegSide.Encode(pointer, current, legSide, out current);
-
-            var fillRefId = (byte)group.GetInt(FillRefId.FixTag);
-            FillRefId.Encode(pointer, current, fillRefId, out current);
-
-            Pad2.Encode(pointer, current, out current);
+            var instrmntLegExecGrpComp = message.GetString(InstrmntLegExecGrpComp.FixTag);
+            InstrmntLegExecGrpComp.Encode(pointer, current, instrmntLegExecGrpComp, out current);
 
             // --- complete header ---
 
@@ -239,42 +208,9 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad2.Length;
 
-            var fillPx = FillPx.Decode(pointer, current, out current);
-            message.AppendDouble(FillPx.FixTag, fillPx);
+            FillsGrpComp.Decode(ref message, pointer, current, out current);
 
-            var fillQty = FillQty.Decode(pointer, current, out current);
-            message.AppendDouble(FillQty.FixTag, fillQty);
-
-            var fillMatchId = (int)FillMatchId.Decode(pointer, current, out current);
-            message.AppendInt(FillMatchId.FixTag, fillMatchId);
-
-            var fillExecId = FillExecId.Decode(pointer, current, out current);
-            message.AppendInt(FillExecId.FixTag, fillExecId);
-
-            var fillLiquidityInd = FillLiquidityInd.Decode(pointer, current, out current);
-            message.AppendInt(FillLiquidityInd.FixTag, fillLiquidityInd);
-
-            current += Pad7.Length;
-
-            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
-
-            var legLastPx = LegLastPx.Decode(pointer, current, out current);
-            message.AppendDouble(LegLastPx.FixTag, legLastPx);
-
-            var legLastQty = LegLastQty.Decode(pointer, current, out current);
-            message.AppendDouble(LegLastQty.FixTag, legLastQty);
-
-            var legExecId = LegExecId.Decode(pointer, current, out current);
-            message.AppendInt(LegExecId.FixTag, legExecId);
-
-            var legSide = LegSide.Decode(pointer, current, out current);
-            message.AppendInt(LegSide.FixTag, legSide);
-
-            var fillRefId = FillRefId.Decode(pointer, current, out current);
-            message.AppendInt(FillRefId.FixTag, fillRefId);
-
-            current += Pad2.Length;
+            InstrmntLegExecGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

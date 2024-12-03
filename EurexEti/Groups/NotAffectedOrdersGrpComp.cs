@@ -52,11 +52,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var notAffectedOrderId = NotAffectedOrderId.Decode(pointer, current, out current);
-            message.AppendULong(NotAffectedOrderId.FixTag, notAffectedOrderId);
-
-            var notAffOrigClOrdId = NotAffOrigClOrdId.Decode(pointer, current, out current);
-            message.AppendULong(NotAffOrigClOrdId.FixTag, notAffOrigClOrdId);
+            NotAffectedOrdersGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

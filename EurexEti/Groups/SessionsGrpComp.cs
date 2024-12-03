@@ -57,16 +57,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var partyIdSessionId = (int)PartyIdSessionId.Decode(pointer, current, out current);
-            message.AppendInt(PartyIdSessionId.FixTag, partyIdSessionId);
-
-            var sessionMode = SessionMode.Decode(pointer, current, out current);
-            message.AppendInt(SessionMode.FixTag, sessionMode);
-
-            var sessionSubMode = SessionSubMode.Decode(pointer, current, out current);
-            message.AppendInt(SessionSubMode.FixTag, sessionSubMode);
-
-            current += Pad2.Length;
+            SessionsGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

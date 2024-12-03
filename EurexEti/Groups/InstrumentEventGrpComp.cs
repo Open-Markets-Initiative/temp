@@ -54,13 +54,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var eventDate = (int)EventDate.Decode(pointer, current, out current);
-            message.AppendInt(EventDate.FixTag, eventDate);
-
-            var eventType = EventType.Decode(pointer, current, out current);
-            message.AppendInt(EventType.FixTag, eventType);
-
-            current += Pad3.Length;
+            InstrumentEventGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

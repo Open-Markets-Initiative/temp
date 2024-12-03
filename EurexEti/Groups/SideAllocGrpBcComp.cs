@@ -84,35 +84,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var allocQty = AllocQty.Decode(pointer, current, out current);
-            message.AppendDouble(AllocQty.FixTag, allocQty);
-
-            var reversalApprovalTime = ReversalApprovalTime.Decode(pointer, current, out current);
-            message.AppendULong(ReversalApprovalTime.FixTag, reversalApprovalTime);
-
-            var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
-            message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
-
-            var tesEnrichmentRuleId = (int)TesEnrichmentRuleId.Decode(pointer, current, out current);
-            message.AppendInt(TesEnrichmentRuleId.FixTag, tesEnrichmentRuleId);
-
-            if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
-            {
-                message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
-            }
-
-            if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
-            {
-                message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
-            }
-
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
-
-            var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
-            message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
-
-            current += Pad3.Length;
+            SideAllocGrpBcComp.Decode(ref message, pointer, current, out current);
 
         }
     }

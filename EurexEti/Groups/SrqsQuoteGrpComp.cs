@@ -49,8 +49,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var quoteId = QuoteId.Decode(pointer, current, out current);
-            message.AppendULong(QuoteId.FixTag, quoteId);
+            SrqsQuoteGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

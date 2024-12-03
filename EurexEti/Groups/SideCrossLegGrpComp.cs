@@ -63,18 +63,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var legInputSource = LegInputSource.Decode(pointer, current, out current);
-            message.AppendInt(LegInputSource.FixTag, legInputSource);
-
-            var legPositionEffect = LegPositionEffect.Decode(pointer, current, out current);
-            message.AppendToken(LegPositionEffect.FixTag, legPositionEffect);
-
-            if (LegAccount.TryDecode(pointer, current, out var legAccount, out current))
-            {
-                message.AppendString(LegAccount.FixTag, legAccount);
-            }
-
-            current += Pad4.Length;
+            SideCrossLegGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

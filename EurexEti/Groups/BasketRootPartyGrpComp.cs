@@ -78,25 +78,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var rootPartySubIdType = (short)RootPartySubIdType.Decode(pointer, current, out current);
-            message.AppendInt(RootPartySubIdType.FixTag, rootPartySubIdType);
-
-            if (RootPartyContraFirm.TryDecode(pointer, current, out var rootPartyContraFirm, out current))
-            {
-                message.AppendString(RootPartyContraFirm.FixTag, rootPartyContraFirm);
-            }
-
-            if (RootPartyContraTrader.TryDecode(pointer, current, out var rootPartyContraTrader, out current))
-            {
-                message.AppendString(RootPartyContraTrader.FixTag, rootPartyContraTrader);
-            }
-
-            if (BasketSideTradeReportId.TryDecode(pointer, current, out var basketSideTradeReportId, out current))
-            {
-                message.AppendString(BasketSideTradeReportId.FixTag, basketSideTradeReportId);
-            }
-
-            current += Pad7.Length;
+            BasketRootPartyGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

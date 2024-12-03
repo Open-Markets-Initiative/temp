@@ -78,37 +78,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
-
-            var quoteEventPx = QuoteEventPx.Decode(pointer, current, out current);
-            message.AppendDouble(QuoteEventPx.FixTag, quoteEventPx);
-
-            var quoteEventQty = QuoteEventQty.Decode(pointer, current, out current);
-            message.AppendDouble(QuoteEventQty.FixTag, quoteEventQty);
-
-            var quoteMsgId = QuoteMsgId.Decode(pointer, current, out current);
-            message.AppendULong(QuoteMsgId.FixTag, quoteMsgId);
-
-            var quoteEventMatchId = (int)QuoteEventMatchId.Decode(pointer, current, out current);
-            message.AppendInt(QuoteEventMatchId.FixTag, quoteEventMatchId);
-
-            var quoteEventExecId = QuoteEventExecId.Decode(pointer, current, out current);
-            message.AppendInt(QuoteEventExecId.FixTag, quoteEventExecId);
-
-            var quoteEventType = QuoteEventType.Decode(pointer, current, out current);
-            message.AppendInt(QuoteEventType.FixTag, quoteEventType);
-
-            var quoteEventSide = QuoteEventSide.Decode(pointer, current, out current);
-            message.AppendInt(QuoteEventSide.FixTag, quoteEventSide);
-
-            var quoteEventLiquidityInd = QuoteEventLiquidityInd.Decode(pointer, current, out current);
-            message.AppendInt(QuoteEventLiquidityInd.FixTag, quoteEventLiquidityInd);
-
-            var quoteEventReason = QuoteEventReason.Decode(pointer, current, out current);
-            message.AppendInt(QuoteEventReason.FixTag, quoteEventReason);
-
-            current += Pad4.Length;
+            QuoteEventGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

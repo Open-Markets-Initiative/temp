@@ -115,122 +115,14 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad6.Encode(pointer, current, out current);
 
-            var rootPartySubIdType = (ushort)group.GetInt(RootPartySubIdType.FixTag);
-            RootPartySubIdType.Encode(pointer, current, rootPartySubIdType, out current);
+            var basketRootPartyGrpComp = message.GetString(BasketRootPartyGrpComp.FixTag);
+            BasketRootPartyGrpComp.Encode(pointer, current, basketRootPartyGrpComp, out current);
 
-            if (group.TryGetString(RootPartyContraFirm.FixTag, out var rootPartyContraFirm))
-            {
-                RootPartyContraFirm.Encode(pointer, current, rootPartyContraFirm, out current);
-            }
-            else
-            {
-                RootPartyContraFirm.SetNull(pointer, current, out current);
-            }
+            var instrmtMatchSideGrpComp = message.GetString(InstrmtMatchSideGrpComp.FixTag);
+            InstrmtMatchSideGrpComp.Encode(pointer, current, instrmtMatchSideGrpComp, out current);
 
-            if (group.TryGetString(RootPartyContraTrader.FixTag, out var rootPartyContraTrader))
-            {
-                RootPartyContraTrader.Encode(pointer, current, rootPartyContraTrader, out current);
-            }
-            else
-            {
-                RootPartyContraTrader.SetNull(pointer, current, out current);
-            }
-
-            if (group.TryGetString(BasketSideTradeReportId.FixTag, out var basketSideTradeReportId))
-            {
-                BasketSideTradeReportId.Encode(pointer, current, basketSideTradeReportId, out current);
-            }
-            else
-            {
-                BasketSideTradeReportId.SetNull(pointer, current, out current);
-            }
-
-            Pad7.Encode(pointer, current, out current);
-
-            var securityId = group.GetLong(SecurityId.FixTag);
-            SecurityId.Encode(pointer, current, securityId, out current);
-
-            var lastPx = group.GetDouble(LastPx.FixTag);
-            LastPx.Encode(pointer, current, lastPx, out current);
-
-            var transBkdTime = group.GetULong(TransBkdTime.FixTag);
-            TransBkdTime.Encode(pointer, current, transBkdTime, out current);
-
-            var relatedClosePrice = group.GetDouble(RelatedClosePrice.FixTag);
-            RelatedClosePrice.Encode(pointer, current, relatedClosePrice, out current);
-
-            var clearingTradePrice = group.GetDouble(ClearingTradePrice.FixTag);
-            ClearingTradePrice.Encode(pointer, current, clearingTradePrice, out current);
-
-            var packageId = (uint)group.GetInt(PackageId.FixTag);
-            PackageId.Encode(pointer, current, packageId, out current);
-
-            var sideMarketSegmentId = group.GetInt(SideMarketSegmentId.FixTag);
-            SideMarketSegmentId.Encode(pointer, current, sideMarketSegmentId, out current);
-
-            var sideTrdSubTyp = (ushort)group.GetInt(SideTrdSubTyp.FixTag);
-            SideTrdSubTyp.Encode(pointer, current, sideTrdSubTyp, out current);
-
-            var productComplex = (byte)group.GetInt(ProductComplex.FixTag);
-            ProductComplex.Encode(pointer, current, productComplex, out current);
-
-            var tradePublishIndicator = (byte)group.GetInt(TradePublishIndicator.FixTag);
-            TradePublishIndicator.Encode(pointer, current, tradePublishIndicator, out current);
-
-            var instrmtMatchSideId = (byte)group.GetInt(InstrmtMatchSideId.FixTag);
-            InstrmtMatchSideId.Encode(pointer, current, instrmtMatchSideId, out current);
-
-            var effectOnBasket = (byte)group.GetInt(EffectOnBasket.FixTag);
-            EffectOnBasket.Encode(pointer, current, effectOnBasket, out current);
-
-            if (group.TryGetString(TradeReportText.FixTag, out var tradeReportText))
-            {
-                TradeReportText.Encode(pointer, current, tradeReportText, out current);
-            }
-            else
-            {
-                TradeReportText.SetNull(pointer, current, out current);
-            }
-
-            Pad6.Encode(pointer, current, out current);
-
-            var allocQty = group.GetDouble(AllocQty.FixTag);
-            AllocQty.Encode(pointer, current, allocQty, out current);
-
-            var individualAllocId = (uint)group.GetInt(IndividualAllocId.FixTag);
-            IndividualAllocId.Encode(pointer, current, individualAllocId, out current);
-
-            var partySubIdType = (ushort)group.GetInt(PartySubIdType.FixTag);
-            PartySubIdType.Encode(pointer, current, partySubIdType, out current);
-
-            var side = (byte)group.GetInt(Side.FixTag);
-            Side.Encode(pointer, current, side, out current);
-
-            var instrmtMatchSideId = (byte)group.GetInt(InstrmtMatchSideId.FixTag);
-            InstrmtMatchSideId.Encode(pointer, current, instrmtMatchSideId, out current);
-
-            var tradeAllocStatus = (byte)group.GetInt(TradeAllocStatus.FixTag);
-            TradeAllocStatus.Encode(pointer, current, tradeAllocStatus, out current);
-
-            if (group.TryGetString(PartyExecutingFirm.FixTag, out var partyExecutingFirm))
-            {
-                PartyExecutingFirm.Encode(pointer, current, partyExecutingFirm, out current);
-            }
-            else
-            {
-                PartyExecutingFirm.SetNull(pointer, current, out current);
-            }
-
-            if (group.TryGetString(PartyExecutingTrader.FixTag, out var partyExecutingTrader))
-            {
-                PartyExecutingTrader.Encode(pointer, current, partyExecutingTrader, out current);
-            }
-            else
-            {
-                PartyExecutingTrader.SetNull(pointer, current, out current);
-            }
-
-            Pad4.Encode(pointer, current, out current);
+            var basketSideAllocGrpComp = message.GetString(BasketSideAllocGrpComp.FixTag);
+            BasketSideAllocGrpComp.Encode(pointer, current, basketSideAllocGrpComp, out current);
 
             // --- complete header ---
 
@@ -329,98 +221,11 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad6.Length;
 
-            var rootPartySubIdType = (short)RootPartySubIdType.Decode(pointer, current, out current);
-            message.AppendInt(RootPartySubIdType.FixTag, rootPartySubIdType);
+            BasketRootPartyGrpComp.Decode(ref message, pointer, current, out current);
 
-            if (RootPartyContraFirm.TryDecode(pointer, current, out var rootPartyContraFirm, out current))
-            {
-                message.AppendString(RootPartyContraFirm.FixTag, rootPartyContraFirm);
-            }
+            InstrmtMatchSideGrpComp.Decode(ref message, pointer, current, out current);
 
-            if (RootPartyContraTrader.TryDecode(pointer, current, out var rootPartyContraTrader, out current))
-            {
-                message.AppendString(RootPartyContraTrader.FixTag, rootPartyContraTrader);
-            }
-
-            if (BasketSideTradeReportId.TryDecode(pointer, current, out var basketSideTradeReportId, out current))
-            {
-                message.AppendString(BasketSideTradeReportId.FixTag, basketSideTradeReportId);
-            }
-
-            current += Pad7.Length;
-
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
-
-            var lastPx = LastPx.Decode(pointer, current, out current);
-            message.AppendDouble(LastPx.FixTag, lastPx);
-
-            var transBkdTime = TransBkdTime.Decode(pointer, current, out current);
-            message.AppendULong(TransBkdTime.FixTag, transBkdTime);
-
-            var relatedClosePrice = RelatedClosePrice.Decode(pointer, current, out current);
-            message.AppendDouble(RelatedClosePrice.FixTag, relatedClosePrice);
-
-            var clearingTradePrice = ClearingTradePrice.Decode(pointer, current, out current);
-            message.AppendDouble(ClearingTradePrice.FixTag, clearingTradePrice);
-
-            var packageId = (int)PackageId.Decode(pointer, current, out current);
-            message.AppendInt(PackageId.FixTag, packageId);
-
-            var sideMarketSegmentId = SideMarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
-
-            var sideTrdSubTyp = (short)SideTrdSubTyp.Decode(pointer, current, out current);
-            message.AppendInt(SideTrdSubTyp.FixTag, sideTrdSubTyp);
-
-            var productComplex = ProductComplex.Decode(pointer, current, out current);
-            message.AppendInt(ProductComplex.FixTag, productComplex);
-
-            var tradePublishIndicator = TradePublishIndicator.Decode(pointer, current, out current);
-            message.AppendInt(TradePublishIndicator.FixTag, tradePublishIndicator);
-
-            var instrmtMatchSideId = InstrmtMatchSideId.Decode(pointer, current, out current);
-            message.AppendInt(InstrmtMatchSideId.FixTag, instrmtMatchSideId);
-
-            var effectOnBasket = EffectOnBasket.Decode(pointer, current, out current);
-            message.AppendInt(EffectOnBasket.FixTag, effectOnBasket);
-
-            if (TradeReportText.TryDecode(pointer, current, out var tradeReportText, out current))
-            {
-                message.AppendString(TradeReportText.FixTag, tradeReportText);
-            }
-
-            current += Pad6.Length;
-
-            var allocQty = AllocQty.Decode(pointer, current, out current);
-            message.AppendDouble(AllocQty.FixTag, allocQty);
-
-            var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
-            message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
-
-            var partySubIdType = (short)PartySubIdType.Decode(pointer, current, out current);
-            message.AppendInt(PartySubIdType.FixTag, partySubIdType);
-
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
-
-            var instrmtMatchSideId = InstrmtMatchSideId.Decode(pointer, current, out current);
-            message.AppendInt(InstrmtMatchSideId.FixTag, instrmtMatchSideId);
-
-            var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
-            message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
-
-            if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
-            {
-                message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
-            }
-
-            if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
-            {
-                message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
-            }
-
-            current += Pad4.Length;
+            BasketSideAllocGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

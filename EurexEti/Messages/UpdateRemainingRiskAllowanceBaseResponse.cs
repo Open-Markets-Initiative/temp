@@ -58,19 +58,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad6.Encode(pointer, current, out current);
 
-            if (group.TryGetString(PartyDetailExecutingUnit.FixTag, out var partyDetailExecutingUnit))
-            {
-                PartyDetailExecutingUnit.Encode(pointer, current, partyDetailExecutingUnit, out current);
-            }
-            else
-            {
-                PartyDetailExecutingUnit.SetNull(pointer, current, out current);
-            }
-
-            Pad1.Encode(pointer, current, out current);
-
-            var riskLimitResult = (ushort)group.GetInt(RiskLimitResult.FixTag);
-            RiskLimitResult.Encode(pointer, current, riskLimitResult, out current);
+            var rraUpdateBasePartyAckGrpComp = message.GetString(RraUpdateBasePartyAckGrpComp.FixTag);
+            RraUpdateBasePartyAckGrpComp.Encode(pointer, current, rraUpdateBasePartyAckGrpComp, out current);
 
             // --- complete header ---
 
@@ -120,15 +109,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad6.Length;
 
-            if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
-            {
-                message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
-            }
-
-            current += Pad1.Length;
-
-            var riskLimitResult = (short)RiskLimitResult.Decode(pointer, current, out current);
-            message.AppendInt(RiskLimitResult.FixTag, riskLimitResult);
+            RraUpdateBasePartyAckGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

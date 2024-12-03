@@ -84,39 +84,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var riskLimitQty = RiskLimitQty.Decode(pointer, current, out current);
-            message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);
-
-            var riskLimitOpenQty = RiskLimitOpenQty.Decode(pointer, current, out current);
-            message.AppendDouble(RiskLimitOpenQty.FixTag, riskLimitOpenQty);
-
-            var riskLimitNetPositionQty = RiskLimitNetPositionQty.Decode(pointer, current, out current);
-            message.AppendDouble(RiskLimitNetPositionQty.FixTag, riskLimitNetPositionQty);
-
-            var nettingCoefficient = NettingCoefficient.Decode(pointer, current, out current);
-            message.AppendDouble(NettingCoefficient.FixTag, nettingCoefficient);
-
-            var quoteWeightingCoefficient = QuoteWeightingCoefficient.Decode(pointer, current, out current);
-            message.AppendDouble(QuoteWeightingCoefficient.FixTag, quoteWeightingCoefficient);
-
-            var activationDate = (int)ActivationDate.Decode(pointer, current, out current);
-            message.AppendInt(ActivationDate.FixTag, activationDate);
-
-            var riskLimitType = RiskLimitType.Decode(pointer, current, out current);
-            message.AppendInt(RiskLimitType.FixTag, riskLimitType);
-
-            var riskLimitRequestingPartyRole = RiskLimitRequestingPartyRole.Decode(pointer, current, out current);
-            message.AppendInt(RiskLimitRequestingPartyRole.FixTag, riskLimitRequestingPartyRole);
-
-            var riskLimitViolationIndicator = RiskLimitViolationIndicator.Decode(pointer, current, out current);
-            message.AppendInt(RiskLimitViolationIndicator.FixTag, riskLimitViolationIndicator);
-
-            if (RiskLimitGroup.TryDecode(pointer, current, out var riskLimitGroup, out current))
-            {
-                message.AppendString(RiskLimitGroup.FixTag, riskLimitGroup);
-            }
-
-            current += Pad6.Length;
+            RiskLimitsRptGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

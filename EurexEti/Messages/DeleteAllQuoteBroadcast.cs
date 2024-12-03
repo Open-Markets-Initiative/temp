@@ -97,8 +97,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad1.Encode(pointer, current, out current);
 
-            var notAffectedSecurityId = group.GetULong(NotAffectedSecurityId.FixTag);
-            NotAffectedSecurityId.Encode(pointer, current, notAffectedSecurityId, out current);
+            var notAffectedSecuritiesGrpComp = message.GetString(NotAffectedSecuritiesGrpComp.FixTag);
+            NotAffectedSecuritiesGrpComp.Encode(pointer, current, notAffectedSecuritiesGrpComp, out current);
 
             // --- complete header ---
 
@@ -183,8 +183,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad1.Length;
 
-            var notAffectedSecurityId = NotAffectedSecurityId.Decode(pointer, current, out current);
-            message.AppendULong(NotAffectedSecurityId.FixTag, notAffectedSecurityId);
+            NotAffectedSecuritiesGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

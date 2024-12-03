@@ -66,17 +66,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
-            {
-                message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
-            }
-
-            if (PartyDetailExecutingTrader.TryDecode(pointer, current, out var partyDetailExecutingTrader, out current))
-            {
-                message.AppendString(PartyDetailExecutingTrader.FixTag, partyDetailExecutingTrader);
-            }
-
-            current += Pad5.Length;
+            SmartPartyDetailGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

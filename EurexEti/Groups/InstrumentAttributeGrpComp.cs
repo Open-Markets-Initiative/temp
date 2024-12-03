@@ -60,15 +60,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var instrAttribType = InstrAttribType.Decode(pointer, current, out current);
-            message.AppendInt(InstrAttribType.FixTag, instrAttribType);
-
-            if (InstrAttribValue.TryDecode(pointer, current, out var instrAttribValue, out current))
-            {
-                message.AppendString(InstrAttribValue.FixTag, instrAttribValue);
-            }
-
-            current += Pad7.Length;
+            InstrumentAttributeGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

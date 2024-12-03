@@ -60,19 +60,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var orderEventPx = OrderEventPx.Decode(pointer, current, out current);
-            message.AppendDouble(OrderEventPx.FixTag, orderEventPx);
-
-            var orderEventQty = OrderEventQty.Decode(pointer, current, out current);
-            message.AppendDouble(OrderEventQty.FixTag, orderEventQty);
-
-            var orderEventMatchId = (int)OrderEventMatchId.Decode(pointer, current, out current);
-            message.AppendInt(OrderEventMatchId.FixTag, orderEventMatchId);
-
-            var orderEventReason = OrderEventReason.Decode(pointer, current, out current);
-            message.AppendInt(OrderEventReason.FixTag, orderEventReason);
-
-            current += Pad3.Length;
+            OrderEventGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

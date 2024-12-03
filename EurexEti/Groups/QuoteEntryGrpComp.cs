@@ -61,20 +61,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
-
-            var bidPx = BidPx.Decode(pointer, current, out current);
-            message.AppendDouble(BidPx.FixTag, bidPx);
-
-            var bidSize = BidSize.Decode(pointer, current, out current);
-            message.AppendDouble(BidSize.FixTag, bidSize);
-
-            var offerPx = OfferPx.Decode(pointer, current, out current);
-            message.AppendDouble(OfferPx.FixTag, offerPx);
-
-            var offerSize = OfferSize.Decode(pointer, current, out current);
-            message.AppendDouble(OfferSize.FixTag, offerSize);
+            QuoteEntryGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

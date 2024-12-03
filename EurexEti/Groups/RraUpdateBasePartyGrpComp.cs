@@ -66,21 +66,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var remainingRiskAllowanceBaseLong = RemainingRiskAllowanceBaseLong.Decode(pointer, current, out current);
-            message.AppendDouble(RemainingRiskAllowanceBaseLong.FixTag, remainingRiskAllowanceBaseLong);
-
-            var remainingRiskAllowanceBaseShort = RemainingRiskAllowanceBaseShort.Decode(pointer, current, out current);
-            message.AppendDouble(RemainingRiskAllowanceBaseShort.FixTag, remainingRiskAllowanceBaseShort);
-
-            var riskLimitId = (int)RiskLimitId.Decode(pointer, current, out current);
-            message.AppendInt(RiskLimitId.FixTag, riskLimitId);
-
-            if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
-            {
-                message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
-            }
-
-            current += Pad7.Length;
+            RraUpdateBasePartyGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

@@ -286,70 +286,17 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad4.Encode(pointer, current, out current);
 
-            if (group.TryGetString(LegAccount.FixTag, out var legAccount))
-            {
-                LegAccount.Encode(pointer, current, legAccount, out current);
-            }
-            else
-            {
-                LegAccount.SetNull(pointer, current, out current);
-            }
+            var legOrdGrpComp = message.GetString(LegOrdGrpComp.FixTag);
+            LegOrdGrpComp.Encode(pointer, current, legOrdGrpComp, out current);
 
-            var legPositionEffect = group.GetToken(LegPositionEffect.FixTag);
-            LegPositionEffect.Encode(pointer, current, legPositionEffect, out current);
+            var fillsGrpComp = message.GetString(FillsGrpComp.FixTag);
+            FillsGrpComp.Encode(pointer, current, fillsGrpComp, out current);
 
-            Pad5.Encode(pointer, current, out current);
+            var instrmntLegExecGrpComp = message.GetString(InstrmntLegExecGrpComp.FixTag);
+            InstrmntLegExecGrpComp.Encode(pointer, current, instrmntLegExecGrpComp, out current);
 
-            var fillPx = group.GetDouble(FillPx.FixTag);
-            FillPx.Encode(pointer, current, fillPx, out current);
-
-            var fillQty = group.GetDouble(FillQty.FixTag);
-            FillQty.Encode(pointer, current, fillQty, out current);
-
-            var fillMatchId = (uint)group.GetInt(FillMatchId.FixTag);
-            FillMatchId.Encode(pointer, current, fillMatchId, out current);
-
-            var fillExecId = group.GetInt(FillExecId.FixTag);
-            FillExecId.Encode(pointer, current, fillExecId, out current);
-
-            var fillLiquidityInd = (byte)group.GetInt(FillLiquidityInd.FixTag);
-            FillLiquidityInd.Encode(pointer, current, fillLiquidityInd, out current);
-
-            Pad7.Encode(pointer, current, out current);
-
-            var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-            LegSecurityId.Encode(pointer, current, legSecurityId, out current);
-
-            var legLastPx = group.GetDouble(LegLastPx.FixTag);
-            LegLastPx.Encode(pointer, current, legLastPx, out current);
-
-            var legLastQty = group.GetDouble(LegLastQty.FixTag);
-            LegLastQty.Encode(pointer, current, legLastQty, out current);
-
-            var legExecId = group.GetInt(LegExecId.FixTag);
-            LegExecId.Encode(pointer, current, legExecId, out current);
-
-            var legSide = (byte)group.GetInt(LegSide.FixTag);
-            LegSide.Encode(pointer, current, legSide, out current);
-
-            var fillRefId = (byte)group.GetInt(FillRefId.FixTag);
-            FillRefId.Encode(pointer, current, fillRefId, out current);
-
-            Pad2.Encode(pointer, current, out current);
-
-            var orderEventPx = group.GetDouble(OrderEventPx.FixTag);
-            OrderEventPx.Encode(pointer, current, orderEventPx, out current);
-
-            var orderEventQty = group.GetDouble(OrderEventQty.FixTag);
-            OrderEventQty.Encode(pointer, current, orderEventQty, out current);
-
-            var orderEventMatchId = (uint)group.GetInt(OrderEventMatchId.FixTag);
-            OrderEventMatchId.Encode(pointer, current, orderEventMatchId, out current);
-
-            var orderEventReason = (byte)group.GetInt(OrderEventReason.FixTag);
-            OrderEventReason.Encode(pointer, current, orderEventReason, out current);
-
-            Pad3.Encode(pointer, current, out current);
+            var orderEventGrpComp = message.GetString(OrderEventGrpComp.FixTag);
+            OrderEventGrpComp.Encode(pointer, current, orderEventGrpComp, out current);
 
             // --- complete header ---
 
@@ -583,66 +530,13 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad4.Length;
 
-            if (LegAccount.TryDecode(pointer, current, out var legAccount, out current))
-            {
-                message.AppendString(LegAccount.FixTag, legAccount);
-            }
+            LegOrdGrpComp.Decode(ref message, pointer, current, out current);
 
-            var legPositionEffect = LegPositionEffect.Decode(pointer, current, out current);
-            message.AppendToken(LegPositionEffect.FixTag, legPositionEffect);
+            FillsGrpComp.Decode(ref message, pointer, current, out current);
 
-            current += Pad5.Length;
+            InstrmntLegExecGrpComp.Decode(ref message, pointer, current, out current);
 
-            var fillPx = FillPx.Decode(pointer, current, out current);
-            message.AppendDouble(FillPx.FixTag, fillPx);
-
-            var fillQty = FillQty.Decode(pointer, current, out current);
-            message.AppendDouble(FillQty.FixTag, fillQty);
-
-            var fillMatchId = (int)FillMatchId.Decode(pointer, current, out current);
-            message.AppendInt(FillMatchId.FixTag, fillMatchId);
-
-            var fillExecId = FillExecId.Decode(pointer, current, out current);
-            message.AppendInt(FillExecId.FixTag, fillExecId);
-
-            var fillLiquidityInd = FillLiquidityInd.Decode(pointer, current, out current);
-            message.AppendInt(FillLiquidityInd.FixTag, fillLiquidityInd);
-
-            current += Pad7.Length;
-
-            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
-
-            var legLastPx = LegLastPx.Decode(pointer, current, out current);
-            message.AppendDouble(LegLastPx.FixTag, legLastPx);
-
-            var legLastQty = LegLastQty.Decode(pointer, current, out current);
-            message.AppendDouble(LegLastQty.FixTag, legLastQty);
-
-            var legExecId = LegExecId.Decode(pointer, current, out current);
-            message.AppendInt(LegExecId.FixTag, legExecId);
-
-            var legSide = LegSide.Decode(pointer, current, out current);
-            message.AppendInt(LegSide.FixTag, legSide);
-
-            var fillRefId = FillRefId.Decode(pointer, current, out current);
-            message.AppendInt(FillRefId.FixTag, fillRefId);
-
-            current += Pad2.Length;
-
-            var orderEventPx = OrderEventPx.Decode(pointer, current, out current);
-            message.AppendDouble(OrderEventPx.FixTag, orderEventPx);
-
-            var orderEventQty = OrderEventQty.Decode(pointer, current, out current);
-            message.AppendDouble(OrderEventQty.FixTag, orderEventQty);
-
-            var orderEventMatchId = (int)OrderEventMatchId.Decode(pointer, current, out current);
-            message.AppendInt(OrderEventMatchId.FixTag, orderEventMatchId);
-
-            var orderEventReason = OrderEventReason.Decode(pointer, current, out current);
-            message.AppendInt(OrderEventReason.FixTag, orderEventReason);
-
-            current += Pad3.Length;
+            OrderEventGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

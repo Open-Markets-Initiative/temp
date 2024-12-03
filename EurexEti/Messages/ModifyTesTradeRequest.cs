@@ -107,46 +107,11 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad1.Encode(pointer, current, out current);
 
-            var allocQty = group.GetDouble(AllocQty.FixTag);
-            AllocQty.Encode(pointer, current, allocQty, out current);
+            var sideAllocGrpComp = message.GetString(SideAllocGrpComp.FixTag);
+            SideAllocGrpComp.Encode(pointer, current, sideAllocGrpComp, out current);
 
-            var individualAllocId = (uint)group.GetInt(IndividualAllocId.FixTag);
-            IndividualAllocId.Encode(pointer, current, individualAllocId, out current);
-
-            var tesEnrichmentRuleId = (uint)group.GetInt(TesEnrichmentRuleId.FixTag);
-            TesEnrichmentRuleId.Encode(pointer, current, tesEnrichmentRuleId, out current);
-
-            var side = (byte)group.GetInt(Side.FixTag);
-            Side.Encode(pointer, current, side, out current);
-
-            if (group.TryGetString(PartyExecutingFirm.FixTag, out var partyExecutingFirm))
-            {
-                PartyExecutingFirm.Encode(pointer, current, partyExecutingFirm, out current);
-            }
-            else
-            {
-                PartyExecutingFirm.SetNull(pointer, current, out current);
-            }
-
-            if (group.TryGetString(PartyExecutingTrader.FixTag, out var partyExecutingTrader))
-            {
-                PartyExecutingTrader.Encode(pointer, current, partyExecutingTrader, out current);
-            }
-            else
-            {
-                PartyExecutingTrader.SetNull(pointer, current, out current);
-            }
-
-            Pad4.Encode(pointer, current, out current);
-
-            var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-            LegSecurityId.Encode(pointer, current, legSecurityId, out current);
-
-            var legPrice = group.GetDouble(LegPrice.FixTag);
-            LegPrice.Encode(pointer, current, legPrice, out current);
-
-            var legQty = group.GetDouble(LegQty.FixTag);
-            LegQty.Encode(pointer, current, legQty, out current);
+            var trdInstrmntLegGrpComp = message.GetString(TrdInstrmntLegGrpComp.FixTag);
+            TrdInstrmntLegGrpComp.Encode(pointer, current, trdInstrmntLegGrpComp, out current);
 
             // --- complete header ---
 
@@ -233,38 +198,9 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad1.Length;
 
-            var allocQty = AllocQty.Decode(pointer, current, out current);
-            message.AppendDouble(AllocQty.FixTag, allocQty);
+            SideAllocGrpComp.Decode(ref message, pointer, current, out current);
 
-            var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
-            message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
-
-            var tesEnrichmentRuleId = (int)TesEnrichmentRuleId.Decode(pointer, current, out current);
-            message.AppendInt(TesEnrichmentRuleId.FixTag, tesEnrichmentRuleId);
-
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
-
-            if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
-            {
-                message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
-            }
-
-            if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
-            {
-                message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
-            }
-
-            current += Pad4.Length;
-
-            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
-
-            var legPrice = LegPrice.Decode(pointer, current, out current);
-            message.AppendDouble(LegPrice.FixTag, legPrice);
-
-            var legQty = LegQty.Decode(pointer, current, out current);
-            message.AppendDouble(LegQty.FixTag, legQty);
+            TrdInstrmntLegGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

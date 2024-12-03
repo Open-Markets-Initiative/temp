@@ -64,23 +64,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var exposureDuration = ExposureDuration.Decode(pointer, current, out current);
-            message.AppendLong(ExposureDuration.FixTag, exposureDuration);
-
-            var cumQty = CumQty.Decode(pointer, current, out current);
-            message.AppendDouble(CumQty.FixTag, cumQty);
-
-            var delta = Delta.Decode(pointer, current, out current);
-            message.AppendDouble(Delta.FixTag, delta);
-
-            var vega = Vega.Decode(pointer, current, out current);
-            message.AppendDouble(Vega.FixTag, vega);
-
-            var pctCount = PctCount.Decode(pointer, current, out current);
-            message.AppendInt(PctCount.FixTag, pctCount);
-
-            var targetPartyIdSessionId = (int)TargetPartyIdSessionId.Decode(pointer, current, out current);
-            message.AppendInt(TargetPartyIdSessionId.FixTag, targetPartyIdSessionId);
+            MmParameterGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

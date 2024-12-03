@@ -76,8 +76,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad3.Encode(pointer, current, out current);
 
-            var quoteId = group.GetULong(QuoteId.FixTag);
-            QuoteId.Encode(pointer, current, quoteId, out current);
+            var srqsQuoteGrpComp = message.GetString(SrqsQuoteGrpComp.FixTag);
+            SrqsQuoteGrpComp.Encode(pointer, current, srqsQuoteGrpComp, out current);
 
             // --- complete header ---
 
@@ -137,8 +137,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad3.Length;
 
-            var quoteId = QuoteId.Decode(pointer, current, out current);
-            message.AppendULong(QuoteId.FixTag, quoteId);
+            SrqsQuoteGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

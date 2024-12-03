@@ -83,13 +83,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad1.Encode(pointer, current, out current);
 
-            var riskLimitQty = group.GetDouble(RiskLimitQty.FixTag);
-            RiskLimitQty.Encode(pointer, current, riskLimitQty, out current);
-
-            var riskLimitType = (byte)group.GetInt(RiskLimitType.FixTag);
-            RiskLimitType.Encode(pointer, current, riskLimitType, out current);
-
-            Pad7.Encode(pointer, current, out current);
+            var riskLimitQtyGrpComp = message.GetString(RiskLimitQtyGrpComp.FixTag);
+            RiskLimitQtyGrpComp.Encode(pointer, current, riskLimitQtyGrpComp, out current);
 
             // --- complete header ---
 
@@ -152,13 +147,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad1.Length;
 
-            var riskLimitQty = RiskLimitQty.Decode(pointer, current, out current);
-            message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);
-
-            var riskLimitType = RiskLimitType.Decode(pointer, current, out current);
-            message.AppendInt(RiskLimitType.FixTag, riskLimitType);
-
-            current += Pad7.Length;
+            RiskLimitQtyGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

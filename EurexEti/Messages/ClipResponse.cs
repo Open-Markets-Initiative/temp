@@ -73,16 +73,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad6.Encode(pointer, current, out current);
 
-            var orderId = group.GetULong(OrderId.FixTag);
-            OrderId.Encode(pointer, current, orderId, out current);
-
-            var inputSource = (byte)group.GetInt(InputSource.FixTag);
-            InputSource.Encode(pointer, current, inputSource, out current);
-
-            var side = (byte)group.GetInt(Side.FixTag);
-            Side.Encode(pointer, current, side, out current);
-
-            Pad6.Encode(pointer, current, out current);
+            var crossRequestAckSideGrpComp = message.GetString(CrossRequestAckSideGrpComp.FixTag);
+            CrossRequestAckSideGrpComp.Encode(pointer, current, crossRequestAckSideGrpComp, out current);
 
             // --- complete header ---
 
@@ -147,16 +139,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad6.Length;
 
-            var orderId = OrderId.Decode(pointer, current, out current);
-            message.AppendULong(OrderId.FixTag, orderId);
-
-            var inputSource = InputSource.Decode(pointer, current, out current);
-            message.AppendInt(InputSource.FixTag, inputSource);
-
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
-
-            current += Pad6.Length;
+            CrossRequestAckSideGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

@@ -60,19 +60,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var packageId = (int)PackageId.Decode(pointer, current, out current);
-            message.AppendInt(PackageId.FixTag, packageId);
-
-            var sideMarketSegmentId = SideMarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
-
-            var allocId = (int)AllocId.Decode(pointer, current, out current);
-            message.AppendInt(AllocId.FixTag, allocId);
-
-            var sideTrdSubTyp = (short)SideTrdSubTyp.Decode(pointer, current, out current);
-            message.AppendInt(SideTrdSubTyp.FixTag, sideTrdSubTyp);
-
-            current += Pad2.Length;
+            BasketExecGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

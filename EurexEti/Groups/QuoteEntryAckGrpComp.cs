@@ -63,22 +63,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- TODO ---
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
-
-            var cxlSize = CxlSize.Decode(pointer, current, out current);
-            message.AppendDouble(CxlSize.FixTag, cxlSize);
-
-            var quoteEntryRejectReason = (int)QuoteEntryRejectReason.Decode(pointer, current, out current);
-            message.AppendInt(QuoteEntryRejectReason.FixTag, quoteEntryRejectReason);
-
-            var quoteEntryStatus = QuoteEntryStatus.Decode(pointer, current, out current);
-            message.AppendInt(QuoteEntryStatus.FixTag, quoteEntryStatus);
-
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
-
-            current += Pad2.Length;
+            QuoteEntryAckGrpComp.Decode(ref message, pointer, current, out current);
 
         }
     }

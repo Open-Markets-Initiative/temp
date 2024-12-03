@@ -236,16 +236,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad6.Encode(pointer, current, out current);
 
-            var orderQty = group.GetDouble(OrderQty.FixTag);
-            OrderQty.Encode(pointer, current, orderQty, out current);
-
-            var quoteId = group.GetULong(QuoteId.FixTag);
-            QuoteId.Encode(pointer, current, quoteId, out current);
-
-            var side = (byte)group.GetInt(Side.FixTag);
-            Side.Encode(pointer, current, side, out current);
-
-            Pad7.Encode(pointer, current, out current);
+            var srqsHitQuoteGrpComp = message.GetString(SrqsHitQuoteGrpComp.FixTag);
+            SrqsHitQuoteGrpComp.Encode(pointer, current, srqsHitQuoteGrpComp, out current);
 
             // --- complete header ---
 
@@ -409,16 +401,7 @@ namespace Eurex.EtiDerivatives.v121
 
             current += Pad6.Length;
 
-            var orderQty = OrderQty.Decode(pointer, current, out current);
-            message.AppendDouble(OrderQty.FixTag, orderQty);
-
-            var quoteId = QuoteId.Decode(pointer, current, out current);
-            message.AppendULong(QuoteId.FixTag, quoteId);
-
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
-
-            current += Pad7.Length;
+            SrqsHitQuoteGrpComp.Decode(ref message, pointer, current, out current);
 
             return FixErrorCode.None;
         }

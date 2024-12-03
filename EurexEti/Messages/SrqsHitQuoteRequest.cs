@@ -249,7 +249,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- complete header ---
 
-            BodyLen.Encode(pointer, offset, current - offset);
+            BodyLen.Encode(pointer, offset, (uint)(current - offset));
         }
 
         /// <summary>

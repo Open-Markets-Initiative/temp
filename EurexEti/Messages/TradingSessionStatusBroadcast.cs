@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Trading Session Status Broadcast
         /// </summary>
-        public const string Identifier = "Trading Session Status Broadcast";
+        public const string Identifier = "10307";
 
         /// <summary>
         ///  Encode Trading Session Status Broadcast Message

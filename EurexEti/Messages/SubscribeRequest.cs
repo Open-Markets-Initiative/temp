@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Subscribe Request
         /// </summary>
-        public const string Identifier = "Subscribe Request";
+        public const string Identifier = "10025";
 
         /// <summary>
         ///  Encode Subscribe Request Message

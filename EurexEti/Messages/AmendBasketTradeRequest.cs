@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Amend Basket Trade Request
         /// </summary>
-        public const string Identifier = "Amend Basket Trade Request";
+        public const string Identifier = "10629";
 
         /// <summary>
         ///  Encode Amend Basket Trade Request Message

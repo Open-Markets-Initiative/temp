@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Tes Reversal Broadcast
         /// </summary>
-        public const string Identifier = "Tes Reversal Broadcast";
+        public const string Identifier = "10632";
 
         /// <summary>
         ///  Encode Tes Reversal Broadcast Message

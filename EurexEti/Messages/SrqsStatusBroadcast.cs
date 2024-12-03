@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Srqs Status Broadcast
         /// </summary>
-        public const string Identifier = "Srqs Status Broadcast";
+        public const string Identifier = "10714";
 
         /// <summary>
         ///  Encode Srqs Status Broadcast Message

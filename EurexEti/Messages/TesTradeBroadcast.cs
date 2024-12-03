@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Tes Trade Broadcast
         /// </summary>
-        public const string Identifier = "Tes Trade Broadcast";
+        public const string Identifier = "10614";
 
         /// <summary>
         ///  Encode Tes Trade Broadcast Message

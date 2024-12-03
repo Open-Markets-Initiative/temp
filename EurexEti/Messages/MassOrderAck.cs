@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Mass Order Ack
         /// </summary>
-        public const string Identifier = "Mass Order Ack";
+        public const string Identifier = "10116";
 
         /// <summary>
         ///  Encode Mass Order Ack Message

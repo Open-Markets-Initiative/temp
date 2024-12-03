@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Forced Logout Notification
         /// </summary>
-        public const string Identifier = "Forced Logout Notification";
+        public const string Identifier = "10012";
 
         /// <summary>
         ///  Encode Forced Logout Notification Message

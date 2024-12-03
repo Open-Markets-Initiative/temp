@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Clip Response
         /// </summary>
-        public const string Identifier = "Clip Response";
+        public const string Identifier = "10133";
 
         /// <summary>
         ///  Encode Clip Response Message

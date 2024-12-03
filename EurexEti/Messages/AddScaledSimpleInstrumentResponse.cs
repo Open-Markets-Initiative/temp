@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Add Scaled Simple Instrument Response
         /// </summary>
-        public const string Identifier = "Add Scaled Simple Instrument Response";
+        public const string Identifier = "10328";
 
         /// <summary>
         ///  Encode Add Scaled Simple Instrument Response Message

@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Tes Response
         /// </summary>
-        public const string Identifier = "Tes Response";
+        public const string Identifier = "10611";
 
         /// <summary>
         ///  Encode Tes Response Message

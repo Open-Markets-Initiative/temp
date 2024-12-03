@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Party Action Report
         /// </summary>
-        public const string Identifier = "Party Action Report";
+        public const string Identifier = "10042";
 
         /// <summary>
         ///  Encode Party Action Report Message

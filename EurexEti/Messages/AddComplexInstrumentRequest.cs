@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Add Complex Instrument Request
         /// </summary>
-        public const string Identifier = "Add Complex Instrument Request";
+        public const string Identifier = "10301";
 
         /// <summary>
         ///  Encode Add Complex Instrument Request Message

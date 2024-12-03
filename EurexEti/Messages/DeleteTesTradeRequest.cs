@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Delete Tes Trade Request
         /// </summary>
-        public const string Identifier = "Delete Tes Trade Request";
+        public const string Identifier = "10602";
 
         /// <summary>
         ///  Encode Delete Tes Trade Request Message

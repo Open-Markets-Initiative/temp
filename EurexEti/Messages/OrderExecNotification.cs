@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Order Exec Notification
         /// </summary>
-        public const string Identifier = "Order Exec Notification";
+        public const string Identifier = "10104";
 
         /// <summary>
         ///  Encode Order Exec Notification Message

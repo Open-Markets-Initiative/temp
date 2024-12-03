@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Inquire Pre Trade Risk Limits Request
         /// </summary>
-        public const string Identifier = "Inquire Pre Trade Risk Limits Request";
+        public const string Identifier = "10311";
 
         /// <summary>
         ///  Encode Inquire Pre Trade Risk Limits Request Message

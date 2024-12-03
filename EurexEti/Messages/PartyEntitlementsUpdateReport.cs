@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Party Entitlements Update Report
         /// </summary>
-        public const string Identifier = "Party Entitlements Update Report";
+        public const string Identifier = "10034";
 
         /// <summary>
         ///  Encode Party Entitlements Update Report Message

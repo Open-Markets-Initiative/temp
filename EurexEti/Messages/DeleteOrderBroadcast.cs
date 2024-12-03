@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Delete Order Broadcast
         /// </summary>
-        public const string Identifier = "Delete Order Broadcast";
+        public const string Identifier = "10112";
 
         /// <summary>
         ///  Encode Delete Order Broadcast Message

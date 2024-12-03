@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Delete All Quote Broadcast
         /// </summary>
-        public const string Identifier = "Delete All Quote Broadcast";
+        public const string Identifier = "10410";
 
         /// <summary>
         ///  Encode Delete All Quote Broadcast Message

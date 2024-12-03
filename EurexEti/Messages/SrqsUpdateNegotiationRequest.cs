@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Srqs Update Negotiation Request
         /// </summary>
-        public const string Identifier = "Srqs Update Negotiation Request";
+        public const string Identifier = "10701";
 
         /// <summary>
         ///  Encode Srqs Update Negotiation Request Message

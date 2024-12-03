@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Unsubscribe Response
         /// </summary>
-        public const string Identifier = "Unsubscribe Response";
+        public const string Identifier = "10007";
 
         /// <summary>
         ///  Encode Unsubscribe Response Message

@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Delete All Quote Request
         /// </summary>
-        public const string Identifier = "Delete All Quote Request";
+        public const string Identifier = "10408";
 
         /// <summary>
         ///  Encode Delete All Quote Request Message

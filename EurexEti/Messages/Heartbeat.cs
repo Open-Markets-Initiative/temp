@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Heartbeat
         /// </summary>
-        public const string Identifier = "Heartbeat";
+        public const string Identifier = "10011";
 
         /// <summary>
         ///  Encode Heartbeat Message

@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Srqs Deal Notification
         /// </summary>
-        public const string Identifier = "Srqs Deal Notification";
+        public const string Identifier = "10709";
 
         /// <summary>
         ///  Encode Srqs Deal Notification Message

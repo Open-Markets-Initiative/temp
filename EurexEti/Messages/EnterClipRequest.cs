@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Enter Clip Request
         /// </summary>
-        public const string Identifier = "Enter Clip Request";
+        public const string Identifier = "10131";
 
         /// <summary>
         ///  Encode Enter Clip Request Message

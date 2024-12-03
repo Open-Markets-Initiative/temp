@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Update Remaining Risk Allowance Base Request
         /// </summary>
-        public const string Identifier = "Update Remaining Risk Allowance Base Request";
+        public const string Identifier = "10325";
 
         /// <summary>
         ///  Encode Update Remaining Risk Allowance Base Request Message

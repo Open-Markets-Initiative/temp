@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Delete Basket Trade Request
         /// </summary>
-        public const string Identifier = "Delete Basket Trade Request";
+        public const string Identifier = "10622";
 
         /// <summary>
         ///  Encode Delete Basket Trade Request Message

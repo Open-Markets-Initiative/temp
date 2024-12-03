@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Upload Tes Trade Request
         /// </summary>
-        public const string Identifier = "Upload Tes Trade Request";
+        public const string Identifier = "10612";
 
         /// <summary>
         ///  Encode Upload Tes Trade Request Message

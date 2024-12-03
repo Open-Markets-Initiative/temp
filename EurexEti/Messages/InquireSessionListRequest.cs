@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Inquire Session List Request
         /// </summary>
-        public const string Identifier = "Inquire Session List Request";
+        public const string Identifier = "10035";
 
         /// <summary>
         ///  Encode Inquire Session List Request Message

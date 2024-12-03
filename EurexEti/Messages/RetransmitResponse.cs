@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Retransmit Response
         /// </summary>
-        public const string Identifier = "Retransmit Response";
+        public const string Identifier = "10009";
 
         /// <summary>
         ///  Encode Retransmit Response Message

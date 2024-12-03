@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Basket Approve Broadcast
         /// </summary>
-        public const string Identifier = "Basket Approve Broadcast";
+        public const string Identifier = "10627";
 
         /// <summary>
         ///  Encode Basket Approve Broadcast Message

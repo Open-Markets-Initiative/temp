@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Inquire User Response
         /// </summary>
-        public const string Identifier = "Inquire User Response";
+        public const string Identifier = "10039";
 
         /// <summary>
         ///  Encode Inquire User Response Message

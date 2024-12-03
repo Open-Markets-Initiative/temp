@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Add Flexible Instrument Request
         /// </summary>
-        public const string Identifier = "Add Flexible Instrument Request";
+        public const string Identifier = "10309";
 
         /// <summary>
         ///  Encode Add Flexible Instrument Request Message

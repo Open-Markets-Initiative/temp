@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Srqs Quote Snapshot Notification
         /// </summary>
-        public const string Identifier = "Srqs Quote Snapshot Notification";
+        public const string Identifier = "10723";
 
         /// <summary>
         ///  Encode Srqs Quote Snapshot Notification Message

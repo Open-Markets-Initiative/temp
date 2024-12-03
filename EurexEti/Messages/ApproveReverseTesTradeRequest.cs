@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Approve Reverse Tes Trade Request
         /// </summary>
-        public const string Identifier = "Approve Reverse Tes Trade Request";
+        public const string Identifier = "10631";
 
         /// <summary>
         ///  Encode Approve Reverse Tes Trade Request Message

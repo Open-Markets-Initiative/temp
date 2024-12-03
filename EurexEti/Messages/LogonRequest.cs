@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Logon Request
         /// </summary>
-        public const string Identifier = "Logon Request";
+        public const string Identifier = "10000";
 
         /// <summary>
         ///  Encode Logon Request Message

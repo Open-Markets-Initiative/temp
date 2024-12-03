@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Order Exec Response
         /// </summary>
-        public const string Identifier = "Order Exec Response";
+        public const string Identifier = "10103";
 
         /// <summary>
         ///  Encode Order Exec Response Message

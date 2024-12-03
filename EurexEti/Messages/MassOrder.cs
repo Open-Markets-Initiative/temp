@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Mass Order
         /// </summary>
-        public const string Identifier = "Mass Order";
+        public const string Identifier = "10115";
 
         /// <summary>
         ///  Encode Mass Order Message

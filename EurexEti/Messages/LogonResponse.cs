@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Logon Response
         /// </summary>
-        public const string Identifier = "Logon Response";
+        public const string Identifier = "10001";
 
         /// <summary>
         ///  Encode Logon Response Message

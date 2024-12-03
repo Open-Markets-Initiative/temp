@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Basket Response
         /// </summary>
-        public const string Identifier = "Basket Response";
+        public const string Identifier = "10624";
 
         /// <summary>
         ///  Encode Basket Response Message

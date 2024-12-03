@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Legal Notification Broadcast
         /// </summary>
-        public const string Identifier = "Legal Notification Broadcast";
+        public const string Identifier = "10037";
 
         /// <summary>
         ///  Encode Legal Notification Broadcast Message

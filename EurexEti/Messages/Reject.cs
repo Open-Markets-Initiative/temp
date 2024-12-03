@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Reject
         /// </summary>
-        public const string Identifier = "Reject";
+        public const string Identifier = "10010";
 
         /// <summary>
         ///  Encode Reject Message

@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Mass Quote Response
         /// </summary>
-        public const string Identifier = "Mass Quote Response";
+        public const string Identifier = "10406";
 
         /// <summary>
         ///  Encode Mass Quote Response Message

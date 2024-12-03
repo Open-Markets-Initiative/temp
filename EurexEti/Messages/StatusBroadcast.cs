@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Status Broadcast
         /// </summary>
-        public const string Identifier = "Status Broadcast";
+        public const string Identifier = "10045";
 
         /// <summary>
         ///  Encode Status Broadcast Message

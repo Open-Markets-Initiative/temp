@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Quote Activation Notification
         /// </summary>
-        public const string Identifier = "Quote Activation Notification";
+        public const string Identifier = "10411";
 
         /// <summary>
         ///  Encode Quote Activation Notification Message

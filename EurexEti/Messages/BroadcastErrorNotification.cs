@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Broadcast Error Notification
         /// </summary>
-        public const string Identifier = "Broadcast Error Notification";
+        public const string Identifier = "10032";
 
         /// <summary>
         ///  Encode Broadcast Error Notification Message

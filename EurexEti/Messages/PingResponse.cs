@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Ping Response
         /// </summary>
-        public const string Identifier = "Ping Response";
+        public const string Identifier = "10321";
 
         /// <summary>
         ///  Encode Ping Response Message

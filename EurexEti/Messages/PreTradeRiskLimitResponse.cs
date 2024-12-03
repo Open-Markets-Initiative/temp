@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Pre Trade Risk Limit Response
         /// </summary>
-        public const string Identifier = "Pre Trade Risk Limit Response";
+        public const string Identifier = "10313";
 
         /// <summary>
         ///  Encode Pre Trade Risk Limit Response Message

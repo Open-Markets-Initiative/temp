@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Cross Request Response
         /// </summary>
-        public const string Identifier = "Cross Request Response";
+        public const string Identifier = "10119";
 
         /// <summary>
         ///  Encode Cross Request Response Message

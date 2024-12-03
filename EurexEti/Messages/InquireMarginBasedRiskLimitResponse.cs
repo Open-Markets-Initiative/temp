@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Inquire Margin Based Risk Limit Response
         /// </summary>
-        public const string Identifier = "Inquire Margin Based Risk Limit Response";
+        public const string Identifier = "10324";
 
         /// <summary>
         ///  Encode Inquire Margin Based Risk Limit Response Message

@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Delete Order Nr Response
         /// </summary>
-        public const string Identifier = "Delete Order Nr Response";
+        public const string Identifier = "10111";
 
         /// <summary>
         ///  Encode Delete Order Nr Response Message

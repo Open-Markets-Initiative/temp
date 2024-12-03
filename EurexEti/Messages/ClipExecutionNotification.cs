@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Clip Execution Notification
         /// </summary>
-        public const string Identifier = "Clip Execution Notification";
+        public const string Identifier = "10135";
 
         /// <summary>
         ///  Encode Clip Execution Notification Message

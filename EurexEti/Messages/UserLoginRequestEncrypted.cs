@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for User Login Request Encrypted
         /// </summary>
-        public const string Identifier = "User Login Request Encrypted";
+        public const string Identifier = "19018";
 
         /// <summary>
         ///  Encode User Login Request Encrypted Message

@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Basket Execution Broadcast
         /// </summary>
-        public const string Identifier = "Basket Execution Broadcast";
+        public const string Identifier = "10628";
 
         /// <summary>
         ///  Encode Basket Execution Broadcast Message

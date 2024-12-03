@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for New Order Response
         /// </summary>
-        public const string Identifier = "New Order Response";
+        public const string Identifier = "10101";
 
         /// <summary>
         ///  Encode New Order Response Message

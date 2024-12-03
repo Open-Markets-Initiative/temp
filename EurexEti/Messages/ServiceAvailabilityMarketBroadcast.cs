@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Service Availability Market Broadcast
         /// </summary>
-        public const string Identifier = "Service Availability Market Broadcast";
+        public const string Identifier = "10044";
 
         /// <summary>
         ///  Encode Service Availability Market Broadcast Message

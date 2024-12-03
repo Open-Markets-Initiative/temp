@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Tes Delete Broadcast
         /// </summary>
-        public const string Identifier = "Tes Delete Broadcast";
+        public const string Identifier = "10606";
 
         /// <summary>
         ///  Encode Tes Delete Broadcast Message

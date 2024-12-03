@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Rfq Response
         /// </summary>
-        public const string Identifier = "Rfq Response";
+        public const string Identifier = "10402";
 
         /// <summary>
         ///  Encode Rfq Response Message

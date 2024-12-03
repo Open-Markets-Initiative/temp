@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for News Broadcast
         /// </summary>
-        public const string Identifier = "News Broadcast";
+        public const string Identifier = "10031";
 
         /// <summary>
         ///  Encode News Broadcast Message

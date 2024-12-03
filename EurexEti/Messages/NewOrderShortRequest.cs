@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for New Order Short Request
         /// </summary>
-        public const string Identifier = "New Order Short Request";
+        public const string Identifier = "10139";
 
         /// <summary>
         ///  Encode New Order Short Request Message

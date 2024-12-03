@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Srqs Enter Quote Request
         /// </summary>
-        public const string Identifier = "Srqs Enter Quote Request";
+        public const string Identifier = "10702";
 
         /// <summary>
         ///  Encode Srqs Enter Quote Request Message

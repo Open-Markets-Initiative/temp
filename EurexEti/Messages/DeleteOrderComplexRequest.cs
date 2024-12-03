@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Delete Order Complex Request
         /// </summary>
-        public const string Identifier = "Delete Order Complex Request";
+        public const string Identifier = "10123";
 
         /// <summary>
         ///  Encode Delete Order Complex Request Message

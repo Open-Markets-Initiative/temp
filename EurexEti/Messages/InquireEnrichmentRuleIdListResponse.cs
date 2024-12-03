@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Inquire Enrichment Rule Id List Response
         /// </summary>
-        public const string Identifier = "Inquire Enrichment Rule Id List Response";
+        public const string Identifier = "10041";
 
         /// <summary>
         ///  Encode Inquire Enrichment Rule Id List Response Message

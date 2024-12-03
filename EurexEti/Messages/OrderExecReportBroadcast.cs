@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Order Exec Report Broadcast
         /// </summary>
-        public const string Identifier = "Order Exec Report Broadcast";
+        public const string Identifier = "10117";
 
         /// <summary>
         ///  Encode Order Exec Report Broadcast Message

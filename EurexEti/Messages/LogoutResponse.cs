@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Logout Response
         /// </summary>
-        public const string Identifier = "Logout Response";
+        public const string Identifier = "10003";
 
         /// <summary>
         ///  Encode Logout Response Message

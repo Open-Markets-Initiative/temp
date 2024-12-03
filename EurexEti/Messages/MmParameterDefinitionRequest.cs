@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Mm Parameter Definition Request
         /// </summary>
-        public const string Identifier = "Mm Parameter Definition Request";
+        public const string Identifier = "10303";
 
         /// <summary>
         ///  Encode Mm Parameter Definition Request Message

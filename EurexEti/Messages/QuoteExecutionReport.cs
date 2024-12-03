@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Quote Execution Report
         /// </summary>
-        public const string Identifier = "Quote Execution Report";
+        public const string Identifier = "10407";
 
         /// <summary>
         ///  Encode Quote Execution Report Message

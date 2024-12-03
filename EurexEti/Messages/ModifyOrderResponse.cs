@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Modify Order Response
         /// </summary>
-        public const string Identifier = "Modify Order Response";
+        public const string Identifier = "10107";
 
         /// <summary>
         ///  Encode Modify Order Response Message

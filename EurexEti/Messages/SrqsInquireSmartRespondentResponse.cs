@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Srqs Inquire Smart Respondent Response
         /// </summary>
-        public const string Identifier = "Srqs Inquire Smart Respondent Response";
+        public const string Identifier = "10719";
 
         /// <summary>
         ///  Encode Srqs Inquire Smart Respondent Response Message

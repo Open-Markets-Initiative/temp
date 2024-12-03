@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Risk Notification Broadcast
         /// </summary>
-        public const string Identifier = "Risk Notification Broadcast";
+        public const string Identifier = "10033";
 
         /// <summary>
         ///  Encode Risk Notification Broadcast Message

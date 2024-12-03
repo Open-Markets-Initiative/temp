@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Clip Deletion Notification
         /// </summary>
-        public const string Identifier = "Clip Deletion Notification";
+        public const string Identifier = "10134";
 
         /// <summary>
         ///  Encode Clip Deletion Notification Message

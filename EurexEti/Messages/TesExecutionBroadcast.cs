@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Tes Execution Broadcast
         /// </summary>
-        public const string Identifier = "Tes Execution Broadcast";
+        public const string Identifier = "10610";
 
         /// <summary>
         ///  Encode Tes Execution Broadcast Message

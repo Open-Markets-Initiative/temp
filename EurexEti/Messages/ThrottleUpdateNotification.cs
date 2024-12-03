@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Eti Identifier for Throttle Update Notification
         /// </summary>
-        public const string Identifier = "Throttle Update Notification";
+        public const string Identifier = "10028";
 
         /// <summary>
         ///  Encode Throttle Update Notification Message

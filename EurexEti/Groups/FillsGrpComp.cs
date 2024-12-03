@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class FillsGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Fills Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39109;
+
+        /// <summary>
         ///  Length of Fills Grp Comp in bytes
         /// </summary>
         public const int Length = 32;

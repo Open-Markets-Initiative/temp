@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class InstrumentEventGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Instrument Event Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39114;
+
+        /// <summary>
         ///  Length of Instrument Event Grp Comp in bytes
         /// </summary>
         public const int Length = 8;

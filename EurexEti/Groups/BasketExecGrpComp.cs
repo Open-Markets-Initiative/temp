@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class BasketExecGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Basket Exec Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39101;
+
+        /// <summary>
         ///  Length of Basket Exec Grp Comp in bytes
         /// </summary>
         public const int Length = 16;

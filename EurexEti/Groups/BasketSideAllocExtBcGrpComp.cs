@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class BasketSideAllocExtBcGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Basket Side Alloc Ext Bc Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39103;
+
+        /// <summary>
         ///  Length of Basket Side Alloc Ext Bc Grp Comp in bytes
         /// </summary>
         public const int Length = 192;

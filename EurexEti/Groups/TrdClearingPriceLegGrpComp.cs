@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class TrdClearingPriceLegGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Trd Clearing Price Leg Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39143;
+
+        /// <summary>
         ///  Length of Trd Clearing Price Leg Grp Comp in bytes
         /// </summary>
         public const int Length = 16;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class NotAffectedSecuritiesGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Not Affected Securities Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39118;
+
+        /// <summary>
         ///  Length of Not Affected Securities Grp Comp in bytes
         /// </summary>
         public const int Length = 8;

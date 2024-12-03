@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class TrdInstrmntLegGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Trd Instrmnt Leg Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39144;
+
+        /// <summary>
         ///  Length of Trd Instrmnt Leg Grp Comp in bytes
         /// </summary>
         public const int Length = 24;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class InstrumentAttributeGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Instrument Attribute Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39113;
+
+        /// <summary>
         ///  Length of Instrument Attribute Grp Comp in bytes
         /// </summary>
         public const int Length = 40;

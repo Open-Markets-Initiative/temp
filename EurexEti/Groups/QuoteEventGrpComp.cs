@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class QuoteEventGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Quote Event Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39126;
+
+        /// <summary>
         ///  Length of Quote Event Grp Comp in bytes
         /// </summary>
         public const int Length = 48;

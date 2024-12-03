@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class SessionsGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Sessions Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39132;
+
+        /// <summary>
         ///  Length of Sessions Grp Comp in bytes
         /// </summary>
         public const int Length = 8;

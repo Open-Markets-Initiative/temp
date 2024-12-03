@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class AffectedOrderRequestsGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Affected Order Requests Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39100;
+
+        /// <summary>
         ///  Length of Affected Order Requests Grp Comp in bytes
         /// </summary>
         public const int Length = 8;

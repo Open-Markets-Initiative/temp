@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class OrderEntryGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Order Entry Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39120;
+
+        /// <summary>
         ///  Length of Order Entry Grp Comp in bytes
         /// </summary>
         public const int Length = 40;

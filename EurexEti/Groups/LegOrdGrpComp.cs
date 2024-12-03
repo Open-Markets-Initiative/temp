@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class LegOrdGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Leg Ord Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39115;
+
+        /// <summary>
         ///  Length of Leg Ord Grp Comp in bytes
         /// </summary>
         public const int Length = 8;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class SideAllocExtGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Side Alloc Ext Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39133;
+
+        /// <summary>
         ///  Length of Side Alloc Ext Grp Comp in bytes
         /// </summary>
         public const int Length = 200;

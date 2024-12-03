@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class CrossRequestSideGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Cross Request Side Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39107;
+
+        /// <summary>
         ///  Length of Cross Request Side Grp Comp in bytes
         /// </summary>
         public const int Length = 184;

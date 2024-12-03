@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class MmParameterGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Mm Parameter Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39116;
+
+        /// <summary>
         ///  Length of Mm Parameter Grp Comp in bytes
         /// </summary>
         public const int Length = 40;

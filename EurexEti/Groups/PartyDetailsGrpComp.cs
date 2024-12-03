@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class PartyDetailsGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Party Details Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39122;
+
+        /// <summary>
         ///  Length of Party Details Grp Comp in bytes
         /// </summary>
         public const int Length = 16;

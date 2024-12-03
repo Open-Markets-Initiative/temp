@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class RraUpdateBasePartyGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Rra Update Base Party Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39131;
+
+        /// <summary>
         ///  Length of Rra Update Base Party Grp Comp in bytes
         /// </summary>
         public const int Length = 32;

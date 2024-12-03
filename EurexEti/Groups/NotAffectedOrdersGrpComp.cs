@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class NotAffectedOrdersGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Not Affected Orders Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39117;
+
+        /// <summary>
         ///  Length of Not Affected Orders Grp Comp in bytes
         /// </summary>
         public const int Length = 16;

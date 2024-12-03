@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class QuotReqLegsGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Quot Req Legs Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39123;
+
+        /// <summary>
         ///  Length of Quot Req Legs Grp Comp in bytes
         /// </summary>
         public const int Length = 24;

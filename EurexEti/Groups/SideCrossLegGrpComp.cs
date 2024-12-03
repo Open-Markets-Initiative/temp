@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class SideCrossLegGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Side Cross Leg Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39136;
+
+        /// <summary>
         ///  Length of Side Cross Leg Grp Comp in bytes
         /// </summary>
         public const int Length = 8;

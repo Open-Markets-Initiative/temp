@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class RiskLimitQtyGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Risk Limit Qty Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39128;
+
+        /// <summary>
         ///  Length of Risk Limit Qty Grp Comp in bytes
         /// </summary>
         public const int Length = 16;

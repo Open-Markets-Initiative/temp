@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class TargetPartiesComp
     {
         /// <summary>
+        ///  Fix Tag for Target Parties Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39142;
+
+        /// <summary>
         ///  Length of Target Parties Comp in bytes
         /// </summary>
         public const int Length = 32;

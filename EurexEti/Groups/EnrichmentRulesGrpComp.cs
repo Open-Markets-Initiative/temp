@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class EnrichmentRulesGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Enrichment Rules Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39108;
+
+        /// <summary>
         ///  Length of Enrichment Rules Grp Comp in bytes
         /// </summary>
         public const int Length = 64;

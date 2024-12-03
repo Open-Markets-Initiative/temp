@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class InstrmtMatchSideGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Instrmt Match Side Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39112;
+
+        /// <summary>
         ///  Length of Instrmt Match Side Grp Comp in bytes
         /// </summary>
         public const int Length = 80;

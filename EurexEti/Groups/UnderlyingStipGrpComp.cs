@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public partial class UnderlyingStipGrpComp
     {
         /// <summary>
+        ///  Fix Tag for Underlying Stip Grp Comp (Generated)
+        /// </summary>
+        public const ushort FixTag = 39145;
+
+        /// <summary>
         ///  Length of Underlying Stip Grp Comp in bytes
         /// </summary>
         public const int Length = 40;

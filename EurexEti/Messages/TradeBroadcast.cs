@@ -350,7 +350,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- complete header ---
 
-            BodyLen.Encode(pointer, block, (ushort)(current - start));
+            BodyLen.Encode(pointer, offset, (ushort)(current - start));
         }
 
         /// <summary>

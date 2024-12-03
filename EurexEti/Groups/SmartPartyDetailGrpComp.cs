@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, SmartPartyDetailGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode smart party detail grp comp ---
 
             if (!message.TryGetGroup(SmartPartyDetailGrpComp.FixTag, out var groups))
@@ -67,33 +59,20 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode smart party detail grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
-
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
-
-            if (numInGroup == 0) { return; }
-
-            // --- decode smart party detail grp comp group ---
-
-            message.AppendInt(SmartPartyDetailGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
             {
-                if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
-                {
-                    message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
-                }
-
-                if (PartyDetailExecutingTrader.TryDecode(pointer, current, out var partyDetailExecutingTrader, out current))
-                {
-                    message.AppendString(PartyDetailExecutingTrader.FixTag, partyDetailExecutingTrader);
-                }
-
-                current += Pad5.Length;
-
+                message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
             }
+
+            if (PartyDetailExecutingTrader.TryDecode(pointer, current, out var partyDetailExecutingTrader, out current))
+            {
+                message.AppendString(PartyDetailExecutingTrader.FixTag, partyDetailExecutingTrader);
+            }
+
+            current += Pad5.Length;
+
         }
     }
 }

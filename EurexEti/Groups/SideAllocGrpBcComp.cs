@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, SideAllocGrpBcComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode side alloc grp bc comp ---
 
             if (!message.TryGetGroup(SideAllocGrpBcComp.FixTag, out var groups))
@@ -85,51 +77,38 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode side alloc grp bc comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var allocQty = AllocQty.Decode(pointer, current, out current);
+            message.AppendDouble(AllocQty.FixTag, allocQty);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var reversalApprovalTime = ReversalApprovalTime.Decode(pointer, current, out current);
+            message.AppendULong(ReversalApprovalTime.FixTag, reversalApprovalTime);
 
-            if (numInGroup == 0) { return; }
+            var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
+            message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
 
-            // --- decode side alloc grp bc comp group ---
+            var tesEnrichmentRuleId = (int)TesEnrichmentRuleId.Decode(pointer, current, out current);
+            message.AppendInt(TesEnrichmentRuleId.FixTag, tesEnrichmentRuleId);
 
-            message.AppendInt(SideAllocGrpBcComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
             {
-                var allocQty = AllocQty.Decode(pointer, current, out current);
-                message.AppendDouble(AllocQty.FixTag, allocQty);
-
-                var reversalApprovalTime = ReversalApprovalTime.Decode(pointer, current, out current);
-                message.AppendULong(ReversalApprovalTime.FixTag, reversalApprovalTime);
-
-                var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
-                message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
-
-                var tesEnrichmentRuleId = (int)TesEnrichmentRuleId.Decode(pointer, current, out current);
-                message.AppendInt(TesEnrichmentRuleId.FixTag, tesEnrichmentRuleId);
-
-                if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
-                {
-                    message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
-                }
-
-                if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
-                {
-                    message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
-                }
-
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
-
-                var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
-                message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
-
-                current += Pad3.Length;
-
+                message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
             }
+
+            if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
+            {
+                message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
+            }
+
+            var side = Side.Decode(pointer, current, out current);
+            message.AppendInt(Side.FixTag, side);
+
+            var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
+            message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
+
+            current += Pad3.Length;
+
         }
     }
 }

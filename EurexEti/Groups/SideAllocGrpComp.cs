@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, SideAllocGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode side alloc grp comp ---
 
             if (!message.TryGetGroup(SideAllocGrpComp.FixTag, out var groups))
@@ -79,45 +71,32 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode side alloc grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var allocQty = AllocQty.Decode(pointer, current, out current);
+            message.AppendDouble(AllocQty.FixTag, allocQty);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
+            message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
 
-            if (numInGroup == 0) { return; }
+            var tesEnrichmentRuleId = (int)TesEnrichmentRuleId.Decode(pointer, current, out current);
+            message.AppendInt(TesEnrichmentRuleId.FixTag, tesEnrichmentRuleId);
 
-            // --- decode side alloc grp comp group ---
+            var side = Side.Decode(pointer, current, out current);
+            message.AppendInt(Side.FixTag, side);
 
-            message.AppendInt(SideAllocGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
             {
-                var allocQty = AllocQty.Decode(pointer, current, out current);
-                message.AppendDouble(AllocQty.FixTag, allocQty);
-
-                var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
-                message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
-
-                var tesEnrichmentRuleId = (int)TesEnrichmentRuleId.Decode(pointer, current, out current);
-                message.AppendInt(TesEnrichmentRuleId.FixTag, tesEnrichmentRuleId);
-
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
-
-                if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
-                {
-                    message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
-                }
-
-                if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
-                {
-                    message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
-                }
-
-                current += Pad4.Length;
-
+                message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
             }
+
+            if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
+            {
+                message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
+            }
+
+            current += Pad4.Length;
+
         }
     }
 }

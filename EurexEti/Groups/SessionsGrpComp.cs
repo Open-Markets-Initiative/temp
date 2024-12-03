@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, SessionsGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode sessions grp comp ---
 
             if (!message.TryGetGroup(SessionsGrpComp.FixTag, out var groups))
@@ -58,32 +50,19 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode sessions grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var partyIdSessionId = (int)PartyIdSessionId.Decode(pointer, current, out current);
+            message.AppendInt(PartyIdSessionId.FixTag, partyIdSessionId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var sessionMode = SessionMode.Decode(pointer, current, out current);
+            message.AppendInt(SessionMode.FixTag, sessionMode);
 
-            if (numInGroup == 0) { return; }
+            var sessionSubMode = SessionSubMode.Decode(pointer, current, out current);
+            message.AppendInt(SessionSubMode.FixTag, sessionSubMode);
 
-            // --- decode sessions grp comp group ---
+            current += Pad2.Length;
 
-            message.AppendInt(SessionsGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var partyIdSessionId = (int)PartyIdSessionId.Decode(pointer, current, out current);
-                message.AppendInt(PartyIdSessionId.FixTag, partyIdSessionId);
-
-                var sessionMode = SessionMode.Decode(pointer, current, out current);
-                message.AppendInt(SessionMode.FixTag, sessionMode);
-
-                var sessionSubMode = SessionSubMode.Decode(pointer, current, out current);
-                message.AppendInt(SessionSubMode.FixTag, sessionSubMode);
-
-                current += Pad2.Length;
-
-            }
         }
     }
 }

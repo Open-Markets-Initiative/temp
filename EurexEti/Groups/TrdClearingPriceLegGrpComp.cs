@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, TrdClearingPriceLegGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode trd clearing price leg grp comp ---
 
             if (!message.TryGetGroup(TrdClearingPriceLegGrpComp.FixTag, out var groups))
@@ -53,27 +45,14 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode trd clearing price leg grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
+            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var legClearingTradePrice = LegClearingTradePrice.Decode(pointer, current, out current);
+            message.AppendDouble(LegClearingTradePrice.FixTag, legClearingTradePrice);
 
-            if (numInGroup == 0) { return; }
-
-            // --- decode trd clearing price leg grp comp group ---
-
-            message.AppendInt(TrdClearingPriceLegGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-                message.AppendLong(LegSecurityId.FixTag, legSecurityId);
-
-                var legClearingTradePrice = LegClearingTradePrice.Decode(pointer, current, out current);
-                message.AppendDouble(LegClearingTradePrice.FixTag, legClearingTradePrice);
-
-            }
         }
     }
 }

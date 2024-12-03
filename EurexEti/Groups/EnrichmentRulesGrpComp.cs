@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, EnrichmentRulesGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode enrichment rules grp comp ---
 
             if (!message.TryGetGroup(EnrichmentRulesGrpComp.FixTag, out var groups))
@@ -121,67 +113,54 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode enrichment rules grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var enrichmentRuleId = (short)EnrichmentRuleId.Decode(pointer, current, out current);
+            message.AppendInt(EnrichmentRuleId.FixTag, enrichmentRuleId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var partyIdOriginationMarket = PartyIdOriginationMarket.Decode(pointer, current, out current);
+            message.AppendInt(PartyIdOriginationMarket.FixTag, partyIdOriginationMarket);
 
-            if (numInGroup == 0) { return; }
-
-            // --- decode enrichment rules grp comp group ---
-
-            message.AppendInt(EnrichmentRulesGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (Account.TryDecode(pointer, current, out var account, out current))
             {
-                var enrichmentRuleId = (short)EnrichmentRuleId.Decode(pointer, current, out current);
-                message.AppendInt(EnrichmentRuleId.FixTag, enrichmentRuleId);
-
-                var partyIdOriginationMarket = PartyIdOriginationMarket.Decode(pointer, current, out current);
-                message.AppendInt(PartyIdOriginationMarket.FixTag, partyIdOriginationMarket);
-
-                if (Account.TryDecode(pointer, current, out var account, out current))
-                {
-                    message.AppendString(Account.FixTag, account);
-                }
-
-                var positionEffect = PositionEffect.Decode(pointer, current, out current);
-                message.AppendToken(PositionEffect.FixTag, positionEffect);
-
-                if (PartyIdTakeUpTradingFirm.TryDecode(pointer, current, out var partyIdTakeUpTradingFirm, out current))
-                {
-                    message.AppendString(PartyIdTakeUpTradingFirm.FixTag, partyIdTakeUpTradingFirm);
-                }
-
-                if (PartyIdOrderOriginationFirm.TryDecode(pointer, current, out var partyIdOrderOriginationFirm, out current))
-                {
-                    message.AppendString(PartyIdOrderOriginationFirm.FixTag, partyIdOrderOriginationFirm);
-                }
-
-                if (PartyIdBeneficiary.TryDecode(pointer, current, out var partyIdBeneficiary, out current))
-                {
-                    message.AppendString(PartyIdBeneficiary.FixTag, partyIdBeneficiary);
-                }
-
-                if (FreeText1.TryDecode(pointer, current, out var freeText1, out current))
-                {
-                    message.AppendString(FreeText1.FixTag, freeText1);
-                }
-
-                if (FreeText2.TryDecode(pointer, current, out var freeText2, out current))
-                {
-                    message.AppendString(FreeText2.FixTag, freeText2);
-                }
-
-                if (FreeText3.TryDecode(pointer, current, out var freeText3, out current))
-                {
-                    message.AppendString(FreeText3.FixTag, freeText3);
-                }
-
-                current += Pad1.Length;
-
+                message.AppendString(Account.FixTag, account);
             }
+
+            var positionEffect = PositionEffect.Decode(pointer, current, out current);
+            message.AppendToken(PositionEffect.FixTag, positionEffect);
+
+            if (PartyIdTakeUpTradingFirm.TryDecode(pointer, current, out var partyIdTakeUpTradingFirm, out current))
+            {
+                message.AppendString(PartyIdTakeUpTradingFirm.FixTag, partyIdTakeUpTradingFirm);
+            }
+
+            if (PartyIdOrderOriginationFirm.TryDecode(pointer, current, out var partyIdOrderOriginationFirm, out current))
+            {
+                message.AppendString(PartyIdOrderOriginationFirm.FixTag, partyIdOrderOriginationFirm);
+            }
+
+            if (PartyIdBeneficiary.TryDecode(pointer, current, out var partyIdBeneficiary, out current))
+            {
+                message.AppendString(PartyIdBeneficiary.FixTag, partyIdBeneficiary);
+            }
+
+            if (FreeText1.TryDecode(pointer, current, out var freeText1, out current))
+            {
+                message.AppendString(FreeText1.FixTag, freeText1);
+            }
+
+            if (FreeText2.TryDecode(pointer, current, out var freeText2, out current))
+            {
+                message.AppendString(FreeText2.FixTag, freeText2);
+            }
+
+            if (FreeText3.TryDecode(pointer, current, out var freeText3, out current))
+            {
+                message.AppendString(FreeText3.FixTag, freeText3);
+            }
+
+            current += Pad1.Length;
+
         }
     }
 }

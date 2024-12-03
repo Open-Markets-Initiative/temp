@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, LegOrdGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode leg ord grp comp ---
 
             if (!message.TryGetGroup(LegOrdGrpComp.FixTag, out var groups))
@@ -61,31 +53,18 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode leg ord grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
-
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
-
-            if (numInGroup == 0) { return; }
-
-            // --- decode leg ord grp comp group ---
-
-            message.AppendInt(LegOrdGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (LegAccount.TryDecode(pointer, current, out var legAccount, out current))
             {
-                if (LegAccount.TryDecode(pointer, current, out var legAccount, out current))
-                {
-                    message.AppendString(LegAccount.FixTag, legAccount);
-                }
-
-                var legPositionEffect = LegPositionEffect.Decode(pointer, current, out current);
-                message.AppendToken(LegPositionEffect.FixTag, legPositionEffect);
-
-                current += Pad5.Length;
-
+                message.AppendString(LegAccount.FixTag, legAccount);
             }
+
+            var legPositionEffect = LegPositionEffect.Decode(pointer, current, out current);
+            message.AppendToken(LegPositionEffect.FixTag, legPositionEffect);
+
+            current += Pad5.Length;
+
         }
     }
 }

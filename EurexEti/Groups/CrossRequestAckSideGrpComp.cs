@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, CrossRequestAckSideGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode cross request ack side grp comp ---
 
             if (!message.TryGetGroup(CrossRequestAckSideGrpComp.FixTag, out var groups))
@@ -58,32 +50,19 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode cross request ack side grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var orderId = OrderId.Decode(pointer, current, out current);
+            message.AppendULong(OrderId.FixTag, orderId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var inputSource = InputSource.Decode(pointer, current, out current);
+            message.AppendInt(InputSource.FixTag, inputSource);
 
-            if (numInGroup == 0) { return; }
+            var side = Side.Decode(pointer, current, out current);
+            message.AppendInt(Side.FixTag, side);
 
-            // --- decode cross request ack side grp comp group ---
+            current += Pad6.Length;
 
-            message.AppendInt(CrossRequestAckSideGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var orderId = OrderId.Decode(pointer, current, out current);
-                message.AppendULong(OrderId.FixTag, orderId);
-
-                var inputSource = InputSource.Decode(pointer, current, out current);
-                message.AppendInt(InputSource.FixTag, inputSource);
-
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
-
-                current += Pad6.Length;
-
-            }
         }
     }
 }

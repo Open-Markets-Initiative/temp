@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, RiskLimitQtyGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode risk limit qty grp comp ---
 
             if (!message.TryGetGroup(RiskLimitQtyGrpComp.FixTag, out var groups))
@@ -55,29 +47,16 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode risk limit qty grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var riskLimitQty = RiskLimitQty.Decode(pointer, current, out current);
+            message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var riskLimitType = RiskLimitType.Decode(pointer, current, out current);
+            message.AppendInt(RiskLimitType.FixTag, riskLimitType);
 
-            if (numInGroup == 0) { return; }
+            current += Pad7.Length;
 
-            // --- decode risk limit qty grp comp group ---
-
-            message.AppendInt(RiskLimitQtyGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var riskLimitQty = RiskLimitQty.Decode(pointer, current, out current);
-                message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);
-
-                var riskLimitType = RiskLimitType.Decode(pointer, current, out current);
-                message.AppendInt(RiskLimitType.FixTag, riskLimitType);
-
-                current += Pad7.Length;
-
-            }
         }
     }
 }

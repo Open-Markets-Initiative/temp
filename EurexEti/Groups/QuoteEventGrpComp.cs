@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, QuoteEventGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode quote event grp comp ---
 
             if (!message.TryGetGroup(QuoteEventGrpComp.FixTag, out var groups))
@@ -79,53 +71,40 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode quote event grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var securityId = SecurityId.Decode(pointer, current, out current);
+            message.AppendLong(SecurityId.FixTag, securityId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var quoteEventPx = QuoteEventPx.Decode(pointer, current, out current);
+            message.AppendDouble(QuoteEventPx.FixTag, quoteEventPx);
 
-            if (numInGroup == 0) { return; }
+            var quoteEventQty = QuoteEventQty.Decode(pointer, current, out current);
+            message.AppendDouble(QuoteEventQty.FixTag, quoteEventQty);
 
-            // --- decode quote event grp comp group ---
+            var quoteMsgId = QuoteMsgId.Decode(pointer, current, out current);
+            message.AppendULong(QuoteMsgId.FixTag, quoteMsgId);
 
-            message.AppendInt(QuoteEventGrpComp.FixTag, numInGroup);
+            var quoteEventMatchId = (int)QuoteEventMatchId.Decode(pointer, current, out current);
+            message.AppendInt(QuoteEventMatchId.FixTag, quoteEventMatchId);
 
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var securityId = SecurityId.Decode(pointer, current, out current);
-                message.AppendLong(SecurityId.FixTag, securityId);
+            var quoteEventExecId = QuoteEventExecId.Decode(pointer, current, out current);
+            message.AppendInt(QuoteEventExecId.FixTag, quoteEventExecId);
 
-                var quoteEventPx = QuoteEventPx.Decode(pointer, current, out current);
-                message.AppendDouble(QuoteEventPx.FixTag, quoteEventPx);
+            var quoteEventType = QuoteEventType.Decode(pointer, current, out current);
+            message.AppendInt(QuoteEventType.FixTag, quoteEventType);
 
-                var quoteEventQty = QuoteEventQty.Decode(pointer, current, out current);
-                message.AppendDouble(QuoteEventQty.FixTag, quoteEventQty);
+            var quoteEventSide = QuoteEventSide.Decode(pointer, current, out current);
+            message.AppendInt(QuoteEventSide.FixTag, quoteEventSide);
 
-                var quoteMsgId = QuoteMsgId.Decode(pointer, current, out current);
-                message.AppendULong(QuoteMsgId.FixTag, quoteMsgId);
+            var quoteEventLiquidityInd = QuoteEventLiquidityInd.Decode(pointer, current, out current);
+            message.AppendInt(QuoteEventLiquidityInd.FixTag, quoteEventLiquidityInd);
 
-                var quoteEventMatchId = (int)QuoteEventMatchId.Decode(pointer, current, out current);
-                message.AppendInt(QuoteEventMatchId.FixTag, quoteEventMatchId);
+            var quoteEventReason = QuoteEventReason.Decode(pointer, current, out current);
+            message.AppendInt(QuoteEventReason.FixTag, quoteEventReason);
 
-                var quoteEventExecId = QuoteEventExecId.Decode(pointer, current, out current);
-                message.AppendInt(QuoteEventExecId.FixTag, quoteEventExecId);
+            current += Pad4.Length;
 
-                var quoteEventType = QuoteEventType.Decode(pointer, current, out current);
-                message.AppendInt(QuoteEventType.FixTag, quoteEventType);
-
-                var quoteEventSide = QuoteEventSide.Decode(pointer, current, out current);
-                message.AppendInt(QuoteEventSide.FixTag, quoteEventSide);
-
-                var quoteEventLiquidityInd = QuoteEventLiquidityInd.Decode(pointer, current, out current);
-                message.AppendInt(QuoteEventLiquidityInd.FixTag, quoteEventLiquidityInd);
-
-                var quoteEventReason = QuoteEventReason.Decode(pointer, current, out current);
-                message.AppendInt(QuoteEventReason.FixTag, quoteEventReason);
-
-                current += Pad4.Length;
-
-            }
         }
     }
 }

@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, RraUpdateBasePartyGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode rra update base party grp comp ---
 
             if (!message.TryGetGroup(RraUpdateBasePartyGrpComp.FixTag, out var groups))
@@ -67,37 +59,24 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode rra update base party grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var remainingRiskAllowanceBaseLong = RemainingRiskAllowanceBaseLong.Decode(pointer, current, out current);
+            message.AppendDouble(RemainingRiskAllowanceBaseLong.FixTag, remainingRiskAllowanceBaseLong);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var remainingRiskAllowanceBaseShort = RemainingRiskAllowanceBaseShort.Decode(pointer, current, out current);
+            message.AppendDouble(RemainingRiskAllowanceBaseShort.FixTag, remainingRiskAllowanceBaseShort);
 
-            if (numInGroup == 0) { return; }
+            var riskLimitId = (int)RiskLimitId.Decode(pointer, current, out current);
+            message.AppendInt(RiskLimitId.FixTag, riskLimitId);
 
-            // --- decode rra update base party grp comp group ---
-
-            message.AppendInt(RraUpdateBasePartyGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
             {
-                var remainingRiskAllowanceBaseLong = RemainingRiskAllowanceBaseLong.Decode(pointer, current, out current);
-                message.AppendDouble(RemainingRiskAllowanceBaseLong.FixTag, remainingRiskAllowanceBaseLong);
-
-                var remainingRiskAllowanceBaseShort = RemainingRiskAllowanceBaseShort.Decode(pointer, current, out current);
-                message.AppendDouble(RemainingRiskAllowanceBaseShort.FixTag, remainingRiskAllowanceBaseShort);
-
-                var riskLimitId = (int)RiskLimitId.Decode(pointer, current, out current);
-                message.AppendInt(RiskLimitId.FixTag, riskLimitId);
-
-                if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
-                {
-                    message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
-                }
-
-                current += Pad7.Length;
-
+                message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
             }
+
+            current += Pad7.Length;
+
         }
     }
 }

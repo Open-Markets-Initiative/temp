@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, OrderEntryGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode order entry grp comp ---
 
             if (!message.TryGetGroup(OrderEntryGrpComp.FixTag, out var groups))
@@ -69,43 +61,30 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode order entry grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var price = Price.Decode(pointer, current, out current);
+            message.AppendDouble(Price.FixTag, price);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var orderQty = OrderQty.Decode(pointer, current, out current);
+            message.AppendDouble(OrderQty.FixTag, orderQty);
 
-            if (numInGroup == 0) { return; }
+            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
+            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
 
-            // --- decode order entry grp comp group ---
+            current += Pad4.Length;
 
-            message.AppendInt(OrderEntryGrpComp.FixTag, numInGroup);
+            var securityId = SecurityId.Decode(pointer, current, out current);
+            message.AppendLong(SecurityId.FixTag, securityId);
 
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var price = Price.Decode(pointer, current, out current);
-                message.AppendDouble(Price.FixTag, price);
+            var side = Side.Decode(pointer, current, out current);
+            message.AppendInt(Side.FixTag, side);
 
-                var orderQty = OrderQty.Decode(pointer, current, out current);
-                message.AppendDouble(OrderQty.FixTag, orderQty);
+            var productComplex = ProductComplex.Decode(pointer, current, out current);
+            message.AppendInt(ProductComplex.FixTag, productComplex);
 
-                var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            current += Pad6.Length;
 
-                current += Pad4.Length;
-
-                var securityId = SecurityId.Decode(pointer, current, out current);
-                message.AppendLong(SecurityId.FixTag, securityId);
-
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
-
-                var productComplex = ProductComplex.Decode(pointer, current, out current);
-                message.AppendInt(ProductComplex.FixTag, productComplex);
-
-                current += Pad6.Length;
-
-            }
         }
     }
 }

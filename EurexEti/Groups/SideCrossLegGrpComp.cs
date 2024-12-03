@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, SideCrossLegGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode side cross leg grp comp ---
 
             if (!message.TryGetGroup(SideCrossLegGrpComp.FixTag, out var groups))
@@ -64,34 +56,21 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode side cross leg grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var legInputSource = LegInputSource.Decode(pointer, current, out current);
+            message.AppendInt(LegInputSource.FixTag, legInputSource);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var legPositionEffect = LegPositionEffect.Decode(pointer, current, out current);
+            message.AppendToken(LegPositionEffect.FixTag, legPositionEffect);
 
-            if (numInGroup == 0) { return; }
-
-            // --- decode side cross leg grp comp group ---
-
-            message.AppendInt(SideCrossLegGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (LegAccount.TryDecode(pointer, current, out var legAccount, out current))
             {
-                var legInputSource = LegInputSource.Decode(pointer, current, out current);
-                message.AppendInt(LegInputSource.FixTag, legInputSource);
-
-                var legPositionEffect = LegPositionEffect.Decode(pointer, current, out current);
-                message.AppendToken(LegPositionEffect.FixTag, legPositionEffect);
-
-                if (LegAccount.TryDecode(pointer, current, out var legAccount, out current))
-                {
-                    message.AppendString(LegAccount.FixTag, legAccount);
-                }
-
-                current += Pad4.Length;
-
+                message.AppendString(LegAccount.FixTag, legAccount);
             }
+
+            current += Pad4.Length;
+
         }
     }
 }

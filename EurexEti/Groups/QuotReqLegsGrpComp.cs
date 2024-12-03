@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, QuotReqLegsGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode quot req legs grp comp ---
 
             if (!message.TryGetGroup(QuotReqLegsGrpComp.FixTag, out var groups))
@@ -64,38 +56,25 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode quot req legs grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
+            message.AppendLong(LegSecurityId.FixTag, legSecurityId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var legRatioQty = (int)LegRatioQty.Decode(pointer, current, out current);
+            message.AppendInt(LegRatioQty.FixTag, legRatioQty);
 
-            if (numInGroup == 0) { return; }
+            var legSymbol = LegSymbol.Decode(pointer, current, out current);
+            message.AppendInt(LegSymbol.FixTag, legSymbol);
 
-            // --- decode quot req legs grp comp group ---
+            var legSecurityType = LegSecurityType.Decode(pointer, current, out current);
+            message.AppendInt(LegSecurityType.FixTag, legSecurityType);
 
-            message.AppendInt(QuotReqLegsGrpComp.FixTag, numInGroup);
+            var legSide = LegSide.Decode(pointer, current, out current);
+            message.AppendInt(LegSide.FixTag, legSide);
 
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-                message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+            current += Pad6.Length;
 
-                var legRatioQty = (int)LegRatioQty.Decode(pointer, current, out current);
-                message.AppendInt(LegRatioQty.FixTag, legRatioQty);
-
-                var legSymbol = LegSymbol.Decode(pointer, current, out current);
-                message.AppendInt(LegSymbol.FixTag, legSymbol);
-
-                var legSecurityType = LegSecurityType.Decode(pointer, current, out current);
-                message.AppendInt(LegSecurityType.FixTag, legSecurityType);
-
-                var legSide = LegSide.Decode(pointer, current, out current);
-                message.AppendInt(LegSide.FixTag, legSide);
-
-                current += Pad6.Length;
-
-            }
         }
     }
 }

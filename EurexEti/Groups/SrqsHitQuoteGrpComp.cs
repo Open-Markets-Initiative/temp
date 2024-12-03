@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, SrqsHitQuoteGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode srqs hit quote grp comp ---
 
             if (!message.TryGetGroup(SrqsHitQuoteGrpComp.FixTag, out var groups))
@@ -58,32 +50,19 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode srqs hit quote grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var orderQty = OrderQty.Decode(pointer, current, out current);
+            message.AppendDouble(OrderQty.FixTag, orderQty);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var quoteId = QuoteId.Decode(pointer, current, out current);
+            message.AppendULong(QuoteId.FixTag, quoteId);
 
-            if (numInGroup == 0) { return; }
+            var side = Side.Decode(pointer, current, out current);
+            message.AppendInt(Side.FixTag, side);
 
-            // --- decode srqs hit quote grp comp group ---
+            current += Pad7.Length;
 
-            message.AppendInt(SrqsHitQuoteGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var orderQty = OrderQty.Decode(pointer, current, out current);
-                message.AppendDouble(OrderQty.FixTag, orderQty);
-
-                var quoteId = QuoteId.Decode(pointer, current, out current);
-                message.AppendULong(QuoteId.FixTag, quoteId);
-
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
-
-                current += Pad7.Length;
-
-            }
         }
     }
 }

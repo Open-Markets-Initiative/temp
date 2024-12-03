@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, SrqsQuoteEntryGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode srqs quote entry grp comp ---
 
             if (!message.TryGetGroup(SrqsQuoteEntryGrpComp.FixTag, out var groups))
@@ -127,85 +119,72 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode srqs quote entry grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var transactTime = TransactTime.Decode(pointer, current, out current);
+            message.AppendULong(TransactTime.FixTag, transactTime);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var expireTime = ExpireTime.Decode(pointer, current, out current);
+            message.AppendULong(ExpireTime.FixTag, expireTime);
 
-            if (numInGroup == 0) { return; }
+            var quoteId = QuoteId.Decode(pointer, current, out current);
+            message.AppendULong(QuoteId.FixTag, quoteId);
 
-            // --- decode srqs quote entry grp comp group ---
+            var secondaryQuoteId = SecondaryQuoteId.Decode(pointer, current, out current);
+            message.AppendULong(SecondaryQuoteId.FixTag, secondaryQuoteId);
 
-            message.AppendInt(SrqsQuoteEntryGrpComp.FixTag, numInGroup);
+            var bidPx = BidPx.Decode(pointer, current, out current);
+            message.AppendDouble(BidPx.FixTag, bidPx);
 
-            for (var i = 0; i < numInGroup; i++)
+            var bidSize = BidSize.Decode(pointer, current, out current);
+            message.AppendDouble(BidSize.FixTag, bidSize);
+
+            var offerPx = OfferPx.Decode(pointer, current, out current);
+            message.AppendDouble(OfferPx.FixTag, offerPx);
+
+            var offerSize = OfferSize.Decode(pointer, current, out current);
+            message.AppendDouble(OfferSize.FixTag, offerSize);
+
+            var underlyingPx = UnderlyingPx.Decode(pointer, current, out current);
+            message.AppendDouble(UnderlyingPx.FixTag, underlyingPx);
+
+            var underlyingDeltaPercentage = UnderlyingDeltaPercentage.Decode(pointer, current, out current);
+            message.AppendDouble(UnderlyingDeltaPercentage.FixTag, underlyingDeltaPercentage);
+
+            var quoteRefPrice = QuoteRefPrice.Decode(pointer, current, out current);
+            message.AppendDouble(QuoteRefPrice.FixTag, quoteRefPrice);
+
+            var partyIdExecutingTrader = (int)PartyIdExecutingTrader.Decode(pointer, current, out current);
+            message.AppendInt(PartyIdExecutingTrader.FixTag, partyIdExecutingTrader);
+
+            var negotiationId = (int)NegotiationId.Decode(pointer, current, out current);
+            message.AppendInt(NegotiationId.FixTag, negotiationId);
+
+            var quotingStatus = QuotingStatus.Decode(pointer, current, out current);
+            message.AppendInt(QuotingStatus.FixTag, quotingStatus);
+
+            if (FirmNegotiationId.TryDecode(pointer, current, out var firmNegotiationId, out current))
             {
-                var transactTime = TransactTime.Decode(pointer, current, out current);
-                message.AppendULong(TransactTime.FixTag, transactTime);
-
-                var expireTime = ExpireTime.Decode(pointer, current, out current);
-                message.AppendULong(ExpireTime.FixTag, expireTime);
-
-                var quoteId = QuoteId.Decode(pointer, current, out current);
-                message.AppendULong(QuoteId.FixTag, quoteId);
-
-                var secondaryQuoteId = SecondaryQuoteId.Decode(pointer, current, out current);
-                message.AppendULong(SecondaryQuoteId.FixTag, secondaryQuoteId);
-
-                var bidPx = BidPx.Decode(pointer, current, out current);
-                message.AppendDouble(BidPx.FixTag, bidPx);
-
-                var bidSize = BidSize.Decode(pointer, current, out current);
-                message.AppendDouble(BidSize.FixTag, bidSize);
-
-                var offerPx = OfferPx.Decode(pointer, current, out current);
-                message.AppendDouble(OfferPx.FixTag, offerPx);
-
-                var offerSize = OfferSize.Decode(pointer, current, out current);
-                message.AppendDouble(OfferSize.FixTag, offerSize);
-
-                var underlyingPx = UnderlyingPx.Decode(pointer, current, out current);
-                message.AppendDouble(UnderlyingPx.FixTag, underlyingPx);
-
-                var underlyingDeltaPercentage = UnderlyingDeltaPercentage.Decode(pointer, current, out current);
-                message.AppendDouble(UnderlyingDeltaPercentage.FixTag, underlyingDeltaPercentage);
-
-                var quoteRefPrice = QuoteRefPrice.Decode(pointer, current, out current);
-                message.AppendDouble(QuoteRefPrice.FixTag, quoteRefPrice);
-
-                var partyIdExecutingTrader = (int)PartyIdExecutingTrader.Decode(pointer, current, out current);
-                message.AppendInt(PartyIdExecutingTrader.FixTag, partyIdExecutingTrader);
-
-                var negotiationId = (int)NegotiationId.Decode(pointer, current, out current);
-                message.AppendInt(NegotiationId.FixTag, negotiationId);
-
-                var quotingStatus = QuotingStatus.Decode(pointer, current, out current);
-                message.AppendInt(QuotingStatus.FixTag, quotingStatus);
-
-                if (FirmNegotiationId.TryDecode(pointer, current, out var firmNegotiationId, out current))
-                {
-                    message.AppendString(FirmNegotiationId.FixTag, firmNegotiationId);
-                }
-
-                if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
-                {
-                    message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
-                }
-
-                if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
-                {
-                    message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
-                }
-
-                if (PartyEnteringTrader.TryDecode(pointer, current, out var partyEnteringTrader, out current))
-                {
-                    message.AppendString(PartyEnteringTrader.FixTag, partyEnteringTrader);
-                }
-
-                current += Pad2.Length;
-
+                message.AppendString(FirmNegotiationId.FixTag, firmNegotiationId);
             }
+
+            if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
+            {
+                message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
+            }
+
+            if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
+            {
+                message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
+            }
+
+            if (PartyEnteringTrader.TryDecode(pointer, current, out var partyEnteringTrader, out current))
+            {
+                message.AppendString(PartyEnteringTrader.FixTag, partyEnteringTrader);
+            }
+
+            current += Pad2.Length;
+
         }
     }
 }

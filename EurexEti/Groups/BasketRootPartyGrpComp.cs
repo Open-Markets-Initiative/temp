@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, BasketRootPartyGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode basket root party grp comp ---
 
             if (!message.TryGetGroup(BasketRootPartyGrpComp.FixTag, out var groups))
@@ -79,41 +71,28 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode basket root party grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var rootPartySubIdType = (short)RootPartySubIdType.Decode(pointer, current, out current);
+            message.AppendInt(RootPartySubIdType.FixTag, rootPartySubIdType);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
-
-            if (numInGroup == 0) { return; }
-
-            // --- decode basket root party grp comp group ---
-
-            message.AppendInt(BasketRootPartyGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (RootPartyContraFirm.TryDecode(pointer, current, out var rootPartyContraFirm, out current))
             {
-                var rootPartySubIdType = (short)RootPartySubIdType.Decode(pointer, current, out current);
-                message.AppendInt(RootPartySubIdType.FixTag, rootPartySubIdType);
-
-                if (RootPartyContraFirm.TryDecode(pointer, current, out var rootPartyContraFirm, out current))
-                {
-                    message.AppendString(RootPartyContraFirm.FixTag, rootPartyContraFirm);
-                }
-
-                if (RootPartyContraTrader.TryDecode(pointer, current, out var rootPartyContraTrader, out current))
-                {
-                    message.AppendString(RootPartyContraTrader.FixTag, rootPartyContraTrader);
-                }
-
-                if (BasketSideTradeReportId.TryDecode(pointer, current, out var basketSideTradeReportId, out current))
-                {
-                    message.AppendString(BasketSideTradeReportId.FixTag, basketSideTradeReportId);
-                }
-
-                current += Pad7.Length;
-
+                message.AppendString(RootPartyContraFirm.FixTag, rootPartyContraFirm);
             }
+
+            if (RootPartyContraTrader.TryDecode(pointer, current, out var rootPartyContraTrader, out current))
+            {
+                message.AppendString(RootPartyContraTrader.FixTag, rootPartyContraTrader);
+            }
+
+            if (BasketSideTradeReportId.TryDecode(pointer, current, out var basketSideTradeReportId, out current))
+            {
+                message.AppendString(BasketSideTradeReportId.FixTag, basketSideTradeReportId);
+            }
+
+            current += Pad7.Length;
+
         }
     }
 }

@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, InstrumentAttributeGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode instrument attribute grp comp ---
 
             if (!message.TryGetGroup(InstrumentAttributeGrpComp.FixTag, out var groups))
@@ -61,31 +53,18 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode instrument attribute grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var instrAttribType = InstrAttribType.Decode(pointer, current, out current);
+            message.AppendInt(InstrAttribType.FixTag, instrAttribType);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
-
-            if (numInGroup == 0) { return; }
-
-            // --- decode instrument attribute grp comp group ---
-
-            message.AppendInt(InstrumentAttributeGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (InstrAttribValue.TryDecode(pointer, current, out var instrAttribValue, out current))
             {
-                var instrAttribType = InstrAttribType.Decode(pointer, current, out current);
-                message.AppendInt(InstrAttribType.FixTag, instrAttribType);
-
-                if (InstrAttribValue.TryDecode(pointer, current, out var instrAttribValue, out current))
-                {
-                    message.AppendString(InstrAttribValue.FixTag, instrAttribValue);
-                }
-
-                current += Pad7.Length;
-
+                message.AppendString(InstrAttribValue.FixTag, instrAttribValue);
             }
+
+            current += Pad7.Length;
+
         }
     }
 }

@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, InstrumentEventGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode instrument event grp comp ---
 
             if (!message.TryGetGroup(InstrumentEventGrpComp.FixTag, out var groups))
@@ -55,29 +47,16 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode instrument event grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var eventDate = (int)EventDate.Decode(pointer, current, out current);
+            message.AppendInt(EventDate.FixTag, eventDate);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var eventType = EventType.Decode(pointer, current, out current);
+            message.AppendInt(EventType.FixTag, eventType);
 
-            if (numInGroup == 0) { return; }
+            current += Pad3.Length;
 
-            // --- decode instrument event grp comp group ---
-
-            message.AppendInt(InstrumentEventGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var eventDate = (int)EventDate.Decode(pointer, current, out current);
-                message.AppendInt(EventDate.FixTag, eventDate);
-
-                var eventType = EventType.Decode(pointer, current, out current);
-                message.AppendInt(EventType.FixTag, eventType);
-
-                current += Pad3.Length;
-
-            }
         }
     }
 }

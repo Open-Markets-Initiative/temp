@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, NotAffectedSecuritiesGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode not affected securities grp comp ---
 
             if (!message.TryGetGroup(NotAffectedSecuritiesGrpComp.FixTag, out var groups))
@@ -50,24 +42,11 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode not affected securities grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var notAffectedSecurityId = NotAffectedSecurityId.Decode(pointer, current, out current);
+            message.AppendULong(NotAffectedSecurityId.FixTag, notAffectedSecurityId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
-
-            if (numInGroup == 0) { return; }
-
-            // --- decode not affected securities grp comp group ---
-
-            message.AppendInt(NotAffectedSecuritiesGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var notAffectedSecurityId = NotAffectedSecurityId.Decode(pointer, current, out current);
-                message.AppendULong(NotAffectedSecurityId.FixTag, notAffectedSecurityId);
-
-            }
         }
     }
 }

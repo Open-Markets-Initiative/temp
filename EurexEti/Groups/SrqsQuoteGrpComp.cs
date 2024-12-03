@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, SrqsQuoteGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode srqs quote grp comp ---
 
             if (!message.TryGetGroup(SrqsQuoteGrpComp.FixTag, out var groups))
@@ -50,24 +42,11 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode srqs quote grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var quoteId = QuoteId.Decode(pointer, current, out current);
+            message.AppendULong(QuoteId.FixTag, quoteId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
-
-            if (numInGroup == 0) { return; }
-
-            // --- decode srqs quote grp comp group ---
-
-            message.AppendInt(SrqsQuoteGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var quoteId = QuoteId.Decode(pointer, current, out current);
-                message.AppendULong(QuoteId.FixTag, quoteId);
-
-            }
         }
     }
 }

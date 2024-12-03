@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, FillsGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode fills grp comp ---
 
             if (!message.TryGetGroup(FillsGrpComp.FixTag, out var groups))
@@ -64,38 +56,25 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode fills grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var fillPx = FillPx.Decode(pointer, current, out current);
+            message.AppendDouble(FillPx.FixTag, fillPx);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var fillQty = FillQty.Decode(pointer, current, out current);
+            message.AppendDouble(FillQty.FixTag, fillQty);
 
-            if (numInGroup == 0) { return; }
+            var fillMatchId = (int)FillMatchId.Decode(pointer, current, out current);
+            message.AppendInt(FillMatchId.FixTag, fillMatchId);
 
-            // --- decode fills grp comp group ---
+            var fillExecId = FillExecId.Decode(pointer, current, out current);
+            message.AppendInt(FillExecId.FixTag, fillExecId);
 
-            message.AppendInt(FillsGrpComp.FixTag, numInGroup);
+            var fillLiquidityInd = FillLiquidityInd.Decode(pointer, current, out current);
+            message.AppendInt(FillLiquidityInd.FixTag, fillLiquidityInd);
 
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var fillPx = FillPx.Decode(pointer, current, out current);
-                message.AppendDouble(FillPx.FixTag, fillPx);
+            current += Pad7.Length;
 
-                var fillQty = FillQty.Decode(pointer, current, out current);
-                message.AppendDouble(FillQty.FixTag, fillQty);
-
-                var fillMatchId = (int)FillMatchId.Decode(pointer, current, out current);
-                message.AppendInt(FillMatchId.FixTag, fillMatchId);
-
-                var fillExecId = FillExecId.Decode(pointer, current, out current);
-                message.AppendInt(FillExecId.FixTag, fillExecId);
-
-                var fillLiquidityInd = FillLiquidityInd.Decode(pointer, current, out current);
-                message.AppendInt(FillLiquidityInd.FixTag, fillLiquidityInd);
-
-                current += Pad7.Length;
-
-            }
         }
     }
 }

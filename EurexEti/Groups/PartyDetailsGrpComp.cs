@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, PartyDetailsGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode party details grp comp ---
 
             if (!message.TryGetGroup(PartyDetailsGrpComp.FixTag, out var groups))
@@ -76,42 +68,29 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode party details grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var partyDetailIdExecutingTrader = (int)PartyDetailIdExecutingTrader.Decode(pointer, current, out current);
+            message.AppendInt(PartyDetailIdExecutingTrader.FixTag, partyDetailIdExecutingTrader);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
-
-            if (numInGroup == 0) { return; }
-
-            // --- decode party details grp comp group ---
-
-            message.AppendInt(PartyDetailsGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (PartyDetailExecutingTrader.TryDecode(pointer, current, out var partyDetailExecutingTrader, out current))
             {
-                var partyDetailIdExecutingTrader = (int)PartyDetailIdExecutingTrader.Decode(pointer, current, out current);
-                message.AppendInt(PartyDetailIdExecutingTrader.FixTag, partyDetailIdExecutingTrader);
-
-                if (PartyDetailExecutingTrader.TryDecode(pointer, current, out var partyDetailExecutingTrader, out current))
-                {
-                    message.AppendString(PartyDetailExecutingTrader.FixTag, partyDetailExecutingTrader);
-                }
-
-                var partyDetailRoleQualifier = PartyDetailRoleQualifier.Decode(pointer, current, out current);
-                message.AppendInt(PartyDetailRoleQualifier.FixTag, partyDetailRoleQualifier);
-
-                var partyDetailStatus = PartyDetailStatus.Decode(pointer, current, out current);
-                message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
-
-                if (PartyDetailDeskId.TryDecode(pointer, current, out var partyDetailDeskId, out current))
-                {
-                    message.AppendString(PartyDetailDeskId.FixTag, partyDetailDeskId);
-                }
-
-                current += Pad1.Length;
-
+                message.AppendString(PartyDetailExecutingTrader.FixTag, partyDetailExecutingTrader);
             }
+
+            var partyDetailRoleQualifier = PartyDetailRoleQualifier.Decode(pointer, current, out current);
+            message.AppendInt(PartyDetailRoleQualifier.FixTag, partyDetailRoleQualifier);
+
+            var partyDetailStatus = PartyDetailStatus.Decode(pointer, current, out current);
+            message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
+
+            if (PartyDetailDeskId.TryDecode(pointer, current, out var partyDetailDeskId, out current))
+            {
+                message.AppendString(PartyDetailDeskId.FixTag, partyDetailDeskId);
+            }
+
+            current += Pad1.Length;
+
         }
     }
 }

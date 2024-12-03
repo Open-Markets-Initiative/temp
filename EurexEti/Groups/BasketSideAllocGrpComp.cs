@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, BasketSideAllocGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode basket side alloc grp comp ---
 
             if (!message.TryGetGroup(BasketSideAllocGrpComp.FixTag, out var groups))
@@ -85,51 +77,38 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode basket side alloc grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var allocQty = AllocQty.Decode(pointer, current, out current);
+            message.AppendDouble(AllocQty.FixTag, allocQty);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
+            message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
 
-            if (numInGroup == 0) { return; }
+            var partySubIdType = (short)PartySubIdType.Decode(pointer, current, out current);
+            message.AppendInt(PartySubIdType.FixTag, partySubIdType);
 
-            // --- decode basket side alloc grp comp group ---
+            var side = Side.Decode(pointer, current, out current);
+            message.AppendInt(Side.FixTag, side);
 
-            message.AppendInt(BasketSideAllocGrpComp.FixTag, numInGroup);
+            var instrmtMatchSideId = InstrmtMatchSideId.Decode(pointer, current, out current);
+            message.AppendInt(InstrmtMatchSideId.FixTag, instrmtMatchSideId);
 
-            for (var i = 0; i < numInGroup; i++)
+            var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
+            message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
+
+            if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
             {
-                var allocQty = AllocQty.Decode(pointer, current, out current);
-                message.AppendDouble(AllocQty.FixTag, allocQty);
-
-                var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
-                message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
-
-                var partySubIdType = (short)PartySubIdType.Decode(pointer, current, out current);
-                message.AppendInt(PartySubIdType.FixTag, partySubIdType);
-
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
-
-                var instrmtMatchSideId = InstrmtMatchSideId.Decode(pointer, current, out current);
-                message.AppendInt(InstrmtMatchSideId.FixTag, instrmtMatchSideId);
-
-                var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
-                message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
-
-                if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
-                {
-                    message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
-                }
-
-                if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
-                {
-                    message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
-                }
-
-                current += Pad4.Length;
-
+                message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
             }
+
+            if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
+            {
+                message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
+            }
+
+            current += Pad4.Length;
+
         }
     }
 }

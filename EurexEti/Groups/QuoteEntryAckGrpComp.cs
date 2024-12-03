@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, QuoteEntryAckGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode quote entry ack grp comp ---
 
             if (!message.TryGetGroup(QuoteEntryAckGrpComp.FixTag, out var groups))
@@ -64,38 +56,25 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode quote entry ack grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var securityId = SecurityId.Decode(pointer, current, out current);
+            message.AppendLong(SecurityId.FixTag, securityId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var cxlSize = CxlSize.Decode(pointer, current, out current);
+            message.AppendDouble(CxlSize.FixTag, cxlSize);
 
-            if (numInGroup == 0) { return; }
+            var quoteEntryRejectReason = (int)QuoteEntryRejectReason.Decode(pointer, current, out current);
+            message.AppendInt(QuoteEntryRejectReason.FixTag, quoteEntryRejectReason);
 
-            // --- decode quote entry ack grp comp group ---
+            var quoteEntryStatus = QuoteEntryStatus.Decode(pointer, current, out current);
+            message.AppendInt(QuoteEntryStatus.FixTag, quoteEntryStatus);
 
-            message.AppendInt(QuoteEntryAckGrpComp.FixTag, numInGroup);
+            var side = Side.Decode(pointer, current, out current);
+            message.AppendInt(Side.FixTag, side);
 
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var securityId = SecurityId.Decode(pointer, current, out current);
-                message.AppendLong(SecurityId.FixTag, securityId);
+            current += Pad2.Length;
 
-                var cxlSize = CxlSize.Decode(pointer, current, out current);
-                message.AppendDouble(CxlSize.FixTag, cxlSize);
-
-                var quoteEntryRejectReason = (int)QuoteEntryRejectReason.Decode(pointer, current, out current);
-                message.AppendInt(QuoteEntryRejectReason.FixTag, quoteEntryRejectReason);
-
-                var quoteEntryStatus = QuoteEntryStatus.Decode(pointer, current, out current);
-                message.AppendInt(QuoteEntryStatus.FixTag, quoteEntryStatus);
-
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
-
-                current += Pad2.Length;
-
-            }
         }
     }
 }

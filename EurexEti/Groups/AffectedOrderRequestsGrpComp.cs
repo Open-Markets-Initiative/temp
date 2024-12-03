@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, AffectedOrderRequestsGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode affected order requests grp comp ---
 
             if (!message.TryGetGroup(AffectedOrderRequestsGrpComp.FixTag, out var groups))
@@ -52,26 +44,13 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode affected order requests grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var affectedOrderRequestId = (int)AffectedOrderRequestId.Decode(pointer, current, out current);
+            message.AppendInt(AffectedOrderRequestId.FixTag, affectedOrderRequestId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            current += Pad4.Length;
 
-            if (numInGroup == 0) { return; }
-
-            // --- decode affected order requests grp comp group ---
-
-            message.AppendInt(AffectedOrderRequestsGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var affectedOrderRequestId = (int)AffectedOrderRequestId.Decode(pointer, current, out current);
-                message.AppendInt(AffectedOrderRequestId.FixTag, affectedOrderRequestId);
-
-                current += Pad4.Length;
-
-            }
         }
     }
 }

@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, OrderBookItemGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode order book item grp comp ---
 
             if (!message.TryGetGroup(OrderBookItemGrpComp.FixTag, out var groups))
@@ -70,44 +62,31 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode order book item grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var securityId = SecurityId.Decode(pointer, current, out current);
+            message.AppendLong(SecurityId.FixTag, securityId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var bestBidPx = BestBidPx.Decode(pointer, current, out current);
+            message.AppendDouble(BestBidPx.FixTag, bestBidPx);
 
-            if (numInGroup == 0) { return; }
+            var bestBidSize = BestBidSize.Decode(pointer, current, out current);
+            message.AppendDouble(BestBidSize.FixTag, bestBidSize);
 
-            // --- decode order book item grp comp group ---
+            var bestOfferPx = BestOfferPx.Decode(pointer, current, out current);
+            message.AppendDouble(BestOfferPx.FixTag, bestOfferPx);
 
-            message.AppendInt(OrderBookItemGrpComp.FixTag, numInGroup);
+            var bestOfferSize = BestOfferSize.Decode(pointer, current, out current);
+            message.AppendDouble(BestOfferSize.FixTag, bestOfferSize);
 
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var securityId = SecurityId.Decode(pointer, current, out current);
-                message.AppendLong(SecurityId.FixTag, securityId);
+            var mdBookType = MdBookType.Decode(pointer, current, out current);
+            message.AppendInt(MdBookType.FixTag, mdBookType);
 
-                var bestBidPx = BestBidPx.Decode(pointer, current, out current);
-                message.AppendDouble(BestBidPx.FixTag, bestBidPx);
+            var mdSubBookType = MdSubBookType.Decode(pointer, current, out current);
+            message.AppendInt(MdSubBookType.FixTag, mdSubBookType);
 
-                var bestBidSize = BestBidSize.Decode(pointer, current, out current);
-                message.AppendDouble(BestBidSize.FixTag, bestBidSize);
+            current += Pad6.Length;
 
-                var bestOfferPx = BestOfferPx.Decode(pointer, current, out current);
-                message.AppendDouble(BestOfferPx.FixTag, bestOfferPx);
-
-                var bestOfferSize = BestOfferSize.Decode(pointer, current, out current);
-                message.AppendDouble(BestOfferSize.FixTag, bestOfferSize);
-
-                var mdBookType = MdBookType.Decode(pointer, current, out current);
-                message.AppendInt(MdBookType.FixTag, mdBookType);
-
-                var mdSubBookType = MdSubBookType.Decode(pointer, current, out current);
-                message.AppendInt(MdSubBookType.FixTag, mdSubBookType);
-
-                current += Pad6.Length;
-
-            }
         }
     }
 }

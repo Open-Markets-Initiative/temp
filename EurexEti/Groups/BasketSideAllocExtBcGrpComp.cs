@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, BasketSideAllocExtBcGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode basket side alloc ext bc grp comp ---
 
             if (!message.TryGetGroup(BasketSideAllocExtBcGrpComp.FixTag, out var groups))
@@ -211,137 +203,124 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode basket side alloc ext bc grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var allocQty = AllocQty.Decode(pointer, current, out current);
+            message.AppendDouble(AllocQty.FixTag, allocQty);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var securityId = SecurityId.Decode(pointer, current, out current);
+            message.AppendLong(SecurityId.FixTag, securityId);
 
-            if (numInGroup == 0) { return; }
+            var lastPx = LastPx.Decode(pointer, current, out current);
+            message.AppendDouble(LastPx.FixTag, lastPx);
 
-            // --- decode basket side alloc ext bc grp comp group ---
+            var transBkdTime = TransBkdTime.Decode(pointer, current, out current);
+            message.AppendULong(TransBkdTime.FixTag, transBkdTime);
 
-            message.AppendInt(BasketSideAllocExtBcGrpComp.FixTag, numInGroup);
+            var relatedClosePrice = RelatedClosePrice.Decode(pointer, current, out current);
+            message.AppendDouble(RelatedClosePrice.FixTag, relatedClosePrice);
 
-            for (var i = 0; i < numInGroup; i++)
+            var packageId = (int)PackageId.Decode(pointer, current, out current);
+            message.AppendInt(PackageId.FixTag, packageId);
+
+            var sideMarketSegmentId = SideMarketSegmentId.Decode(pointer, current, out current);
+            message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
+
+            var allocId = (int)AllocId.Decode(pointer, current, out current);
+            message.AppendInt(AllocId.FixTag, allocId);
+
+            var sideTrdSubTyp = (short)SideTrdSubTyp.Decode(pointer, current, out current);
+            message.AppendInt(SideTrdSubTyp.FixTag, sideTrdSubTyp);
+
+            var partySubIdType = (short)PartySubIdType.Decode(pointer, current, out current);
+            message.AppendInt(PartySubIdType.FixTag, partySubIdType);
+
+            var side = Side.Decode(pointer, current, out current);
+            message.AppendInt(Side.FixTag, side);
+
+            var positionEffect = PositionEffect.Decode(pointer, current, out current);
+            message.AppendToken(PositionEffect.FixTag, positionEffect);
+
+            var effectOnBasket = EffectOnBasket.Decode(pointer, current, out current);
+            message.AppendInt(EffectOnBasket.FixTag, effectOnBasket);
+
+            var tradingCapacity = TradingCapacity.Decode(pointer, current, out current);
+            message.AppendInt(TradingCapacity.FixTag, tradingCapacity);
+
+            var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
+            message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
+
+            var productComplex = ProductComplex.Decode(pointer, current, out current);
+            message.AppendInt(ProductComplex.FixTag, productComplex);
+
+            var tradePublishIndicator = TradePublishIndicator.Decode(pointer, current, out current);
+            message.AppendInt(TradePublishIndicator.FixTag, tradePublishIndicator);
+
+            if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
             {
-                var allocQty = AllocQty.Decode(pointer, current, out current);
-                message.AppendDouble(AllocQty.FixTag, allocQty);
-
-                var securityId = SecurityId.Decode(pointer, current, out current);
-                message.AppendLong(SecurityId.FixTag, securityId);
-
-                var lastPx = LastPx.Decode(pointer, current, out current);
-                message.AppendDouble(LastPx.FixTag, lastPx);
-
-                var transBkdTime = TransBkdTime.Decode(pointer, current, out current);
-                message.AppendULong(TransBkdTime.FixTag, transBkdTime);
-
-                var relatedClosePrice = RelatedClosePrice.Decode(pointer, current, out current);
-                message.AppendDouble(RelatedClosePrice.FixTag, relatedClosePrice);
-
-                var packageId = (int)PackageId.Decode(pointer, current, out current);
-                message.AppendInt(PackageId.FixTag, packageId);
-
-                var sideMarketSegmentId = SideMarketSegmentId.Decode(pointer, current, out current);
-                message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
-
-                var allocId = (int)AllocId.Decode(pointer, current, out current);
-                message.AppendInt(AllocId.FixTag, allocId);
-
-                var sideTrdSubTyp = (short)SideTrdSubTyp.Decode(pointer, current, out current);
-                message.AppendInt(SideTrdSubTyp.FixTag, sideTrdSubTyp);
-
-                var partySubIdType = (short)PartySubIdType.Decode(pointer, current, out current);
-                message.AppendInt(PartySubIdType.FixTag, partySubIdType);
-
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
-
-                var positionEffect = PositionEffect.Decode(pointer, current, out current);
-                message.AppendToken(PositionEffect.FixTag, positionEffect);
-
-                var effectOnBasket = EffectOnBasket.Decode(pointer, current, out current);
-                message.AppendInt(EffectOnBasket.FixTag, effectOnBasket);
-
-                var tradingCapacity = TradingCapacity.Decode(pointer, current, out current);
-                message.AppendInt(TradingCapacity.FixTag, tradingCapacity);
-
-                var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
-                message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
-
-                var productComplex = ProductComplex.Decode(pointer, current, out current);
-                message.AppendInt(ProductComplex.FixTag, productComplex);
-
-                var tradePublishIndicator = TradePublishIndicator.Decode(pointer, current, out current);
-                message.AppendInt(TradePublishIndicator.FixTag, tradePublishIndicator);
-
-                if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
-                {
-                    message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
-                }
-
-                if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
-                {
-                    message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
-                }
-
-                if (Account.TryDecode(pointer, current, out var account, out current))
-                {
-                    message.AppendString(Account.FixTag, account);
-                }
-
-                if (FreeText1.TryDecode(pointer, current, out var freeText1, out current))
-                {
-                    message.AppendString(FreeText1.FixTag, freeText1);
-                }
-
-                if (FreeText2.TryDecode(pointer, current, out var freeText2, out current))
-                {
-                    message.AppendString(FreeText2.FixTag, freeText2);
-                }
-
-                if (FreeText3.TryDecode(pointer, current, out var freeText3, out current))
-                {
-                    message.AppendString(FreeText3.FixTag, freeText3);
-                }
-
-                if (PartyIdTakeUpTradingFirm.TryDecode(pointer, current, out var partyIdTakeUpTradingFirm, out current))
-                {
-                    message.AppendString(PartyIdTakeUpTradingFirm.FixTag, partyIdTakeUpTradingFirm);
-                }
-
-                if (PartyIdOrderOriginationFirm.TryDecode(pointer, current, out var partyIdOrderOriginationFirm, out current))
-                {
-                    message.AppendString(PartyIdOrderOriginationFirm.FixTag, partyIdOrderOriginationFirm);
-                }
-
-                if (PartyIdBeneficiary.TryDecode(pointer, current, out var partyIdBeneficiary, out current))
-                {
-                    message.AppendString(PartyIdBeneficiary.FixTag, partyIdBeneficiary);
-                }
-
-                if (PartyIdPositionAccount.TryDecode(pointer, current, out var partyIdPositionAccount, out current))
-                {
-                    message.AppendString(PartyIdPositionAccount.FixTag, partyIdPositionAccount);
-                }
-
-                if (PartyIdLocationId.TryDecode(pointer, current, out var partyIdLocationId, out current))
-                {
-                    message.AppendString(PartyIdLocationId.FixTag, partyIdLocationId);
-                }
-
-                var custOrderHandlingInst = CustOrderHandlingInst.Decode(pointer, current, out current);
-                message.AppendToken(CustOrderHandlingInst.FixTag, custOrderHandlingInst);
-
-                if (ComplianceText.TryDecode(pointer, current, out var complianceText, out current))
-                {
-                    message.AppendString(ComplianceText.FixTag, complianceText);
-                }
-
-                current += Pad4.Length;
-
+                message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
             }
+
+            if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
+            {
+                message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
+            }
+
+            if (Account.TryDecode(pointer, current, out var account, out current))
+            {
+                message.AppendString(Account.FixTag, account);
+            }
+
+            if (FreeText1.TryDecode(pointer, current, out var freeText1, out current))
+            {
+                message.AppendString(FreeText1.FixTag, freeText1);
+            }
+
+            if (FreeText2.TryDecode(pointer, current, out var freeText2, out current))
+            {
+                message.AppendString(FreeText2.FixTag, freeText2);
+            }
+
+            if (FreeText3.TryDecode(pointer, current, out var freeText3, out current))
+            {
+                message.AppendString(FreeText3.FixTag, freeText3);
+            }
+
+            if (PartyIdTakeUpTradingFirm.TryDecode(pointer, current, out var partyIdTakeUpTradingFirm, out current))
+            {
+                message.AppendString(PartyIdTakeUpTradingFirm.FixTag, partyIdTakeUpTradingFirm);
+            }
+
+            if (PartyIdOrderOriginationFirm.TryDecode(pointer, current, out var partyIdOrderOriginationFirm, out current))
+            {
+                message.AppendString(PartyIdOrderOriginationFirm.FixTag, partyIdOrderOriginationFirm);
+            }
+
+            if (PartyIdBeneficiary.TryDecode(pointer, current, out var partyIdBeneficiary, out current))
+            {
+                message.AppendString(PartyIdBeneficiary.FixTag, partyIdBeneficiary);
+            }
+
+            if (PartyIdPositionAccount.TryDecode(pointer, current, out var partyIdPositionAccount, out current))
+            {
+                message.AppendString(PartyIdPositionAccount.FixTag, partyIdPositionAccount);
+            }
+
+            if (PartyIdLocationId.TryDecode(pointer, current, out var partyIdLocationId, out current))
+            {
+                message.AppendString(PartyIdLocationId.FixTag, partyIdLocationId);
+            }
+
+            var custOrderHandlingInst = CustOrderHandlingInst.Decode(pointer, current, out current);
+            message.AppendToken(CustOrderHandlingInst.FixTag, custOrderHandlingInst);
+
+            if (ComplianceText.TryDecode(pointer, current, out var complianceText, out current))
+            {
+                message.AppendString(ComplianceText.FixTag, complianceText);
+            }
+
+            current += Pad4.Length;
+
         }
     }
 }

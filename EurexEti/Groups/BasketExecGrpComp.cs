@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, BasketExecGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode basket exec grp comp ---
 
             if (!message.TryGetGroup(BasketExecGrpComp.FixTag, out var groups))
@@ -61,35 +53,22 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode basket exec grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var packageId = (int)PackageId.Decode(pointer, current, out current);
+            message.AppendInt(PackageId.FixTag, packageId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var sideMarketSegmentId = SideMarketSegmentId.Decode(pointer, current, out current);
+            message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
 
-            if (numInGroup == 0) { return; }
+            var allocId = (int)AllocId.Decode(pointer, current, out current);
+            message.AppendInt(AllocId.FixTag, allocId);
 
-            // --- decode basket exec grp comp group ---
+            var sideTrdSubTyp = (short)SideTrdSubTyp.Decode(pointer, current, out current);
+            message.AppendInt(SideTrdSubTyp.FixTag, sideTrdSubTyp);
 
-            message.AppendInt(BasketExecGrpComp.FixTag, numInGroup);
+            current += Pad2.Length;
 
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var packageId = (int)PackageId.Decode(pointer, current, out current);
-                message.AppendInt(PackageId.FixTag, packageId);
-
-                var sideMarketSegmentId = SideMarketSegmentId.Decode(pointer, current, out current);
-                message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
-
-                var allocId = (int)AllocId.Decode(pointer, current, out current);
-                message.AppendInt(AllocId.FixTag, allocId);
-
-                var sideTrdSubTyp = (short)SideTrdSubTyp.Decode(pointer, current, out current);
-                message.AppendInt(SideTrdSubTyp.FixTag, sideTrdSubTyp);
-
-                current += Pad2.Length;
-
-            }
         }
     }
 }

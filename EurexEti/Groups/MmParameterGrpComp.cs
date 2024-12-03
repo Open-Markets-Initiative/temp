@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, MmParameterGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode mm parameter grp comp ---
 
             if (!message.TryGetGroup(MmParameterGrpComp.FixTag, out var groups))
@@ -65,39 +57,26 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode mm parameter grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var exposureDuration = ExposureDuration.Decode(pointer, current, out current);
+            message.AppendLong(ExposureDuration.FixTag, exposureDuration);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var cumQty = CumQty.Decode(pointer, current, out current);
+            message.AppendDouble(CumQty.FixTag, cumQty);
 
-            if (numInGroup == 0) { return; }
+            var delta = Delta.Decode(pointer, current, out current);
+            message.AppendDouble(Delta.FixTag, delta);
 
-            // --- decode mm parameter grp comp group ---
+            var vega = Vega.Decode(pointer, current, out current);
+            message.AppendDouble(Vega.FixTag, vega);
 
-            message.AppendInt(MmParameterGrpComp.FixTag, numInGroup);
+            var pctCount = PctCount.Decode(pointer, current, out current);
+            message.AppendInt(PctCount.FixTag, pctCount);
 
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var exposureDuration = ExposureDuration.Decode(pointer, current, out current);
-                message.AppendLong(ExposureDuration.FixTag, exposureDuration);
+            var targetPartyIdSessionId = (int)TargetPartyIdSessionId.Decode(pointer, current, out current);
+            message.AppendInt(TargetPartyIdSessionId.FixTag, targetPartyIdSessionId);
 
-                var cumQty = CumQty.Decode(pointer, current, out current);
-                message.AppendDouble(CumQty.FixTag, cumQty);
-
-                var delta = Delta.Decode(pointer, current, out current);
-                message.AppendDouble(Delta.FixTag, delta);
-
-                var vega = Vega.Decode(pointer, current, out current);
-                message.AppendDouble(Vega.FixTag, vega);
-
-                var pctCount = PctCount.Decode(pointer, current, out current);
-                message.AppendInt(PctCount.FixTag, pctCount);
-
-                var targetPartyIdSessionId = (int)TargetPartyIdSessionId.Decode(pointer, current, out current);
-                message.AppendInt(TargetPartyIdSessionId.FixTag, targetPartyIdSessionId);
-
-            }
         }
     }
 }

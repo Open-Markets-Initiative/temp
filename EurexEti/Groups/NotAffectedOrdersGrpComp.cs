@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, NotAffectedOrdersGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode not affected orders grp comp ---
 
             if (!message.TryGetGroup(NotAffectedOrdersGrpComp.FixTag, out var groups))
@@ -53,27 +45,14 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode not affected orders grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
+            var notAffectedOrderId = NotAffectedOrderId.Decode(pointer, current, out current);
+            message.AppendULong(NotAffectedOrderId.FixTag, notAffectedOrderId);
 
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
+            var notAffOrigClOrdId = NotAffOrigClOrdId.Decode(pointer, current, out current);
+            message.AppendULong(NotAffOrigClOrdId.FixTag, notAffOrigClOrdId);
 
-            if (numInGroup == 0) { return; }
-
-            // --- decode not affected orders grp comp group ---
-
-            message.AppendInt(NotAffectedOrdersGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
-            {
-                var notAffectedOrderId = NotAffectedOrderId.Decode(pointer, current, out current);
-                message.AppendULong(NotAffectedOrderId.FixTag, notAffectedOrderId);
-
-                var notAffOrigClOrdId = NotAffOrigClOrdId.Decode(pointer, current, out current);
-                message.AppendULong(NotAffOrigClOrdId.FixTag, notAffOrigClOrdId);
-
-            }
         }
     }
 }

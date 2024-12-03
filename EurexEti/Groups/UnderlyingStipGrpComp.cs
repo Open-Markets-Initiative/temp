@@ -20,14 +20,6 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- encode group header ---
-
-            BlockLength.Encode(pointer, current, UnderlyingStipGrpComp.Length, out current);
-
-            NumInGroup.Encode(pointer, current, numInGroup, out current);
-
-            if (numInGroup == 0) { return; }
-
             // --- encode underlying stip grp comp ---
 
             if (!message.TryGetGroup(UnderlyingStipGrpComp.FixTag, out var groups))
@@ -67,33 +59,20 @@ namespace Eurex.EtiDerivatives.v121
         {
             current = offset;
 
-            // --- decode underlying stip grp comp ---
+            // --- TODO ---
 
-            var blockLength = BlockLength.Decode(pointer, current, out current);
-
-            var numInGroup = (int)NumInGroup.Decode(pointer, current, out current);
-
-            if (numInGroup == 0) { return; }
-
-            // --- decode underlying stip grp comp group ---
-
-            message.AppendInt(UnderlyingStipGrpComp.FixTag, numInGroup);
-
-            for (var i = 0; i < numInGroup; i++)
+            if (UnderlyingStipValue.TryDecode(pointer, current, out var underlyingStipValue, out current))
             {
-                if (UnderlyingStipValue.TryDecode(pointer, current, out var underlyingStipValue, out current))
-                {
-                    message.AppendString(UnderlyingStipValue.FixTag, underlyingStipValue);
-                }
-
-                if (UnderlyingStipType.TryDecode(pointer, current, out var underlyingStipType, out current))
-                {
-                    message.AppendToken(UnderlyingStipType.FixTag, underlyingStipType);
-                }
-
-                current += Pad1.Length;
-
+                message.AppendString(UnderlyingStipValue.FixTag, underlyingStipValue);
             }
+
+            if (UnderlyingStipType.TryDecode(pointer, current, out var underlyingStipType, out current))
+            {
+                message.AppendToken(UnderlyingStipType.FixTag, underlyingStipType);
+            }
+
+            current += Pad1.Length;
+
         }
     }
 }

@@ -28,8 +28,6 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- encode srqs quoting status request message ---
 
-            var start = current;
-
             if (message.TryGetString(NetworkMsgId.FixTag, out var networkMsgId))
             {
                 NetworkMsgId.Encode(pointer, current, networkMsgId, out current);
@@ -85,7 +83,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- complete header ---
 
-            BodyLen.Encode(pointer, offset, (ushort)(current - start));
+            BodyLen.Encode(pointer, offset, current - offset);
         }
 
         /// <summary>

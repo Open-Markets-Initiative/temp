@@ -28,8 +28,6 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- encode trading session status broadcast message ---
 
-            var start = current;
-
             Pad2.Encode(pointer, current, out current);
 
             var trdRegTsTimeOut = message.GetULong(TrdRegTsTimeOut.FixTag);
@@ -77,7 +75,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- complete header ---
 
-            BodyLen.Encode(pointer, offset, (ushort)(current - start));
+            BodyLen.Encode(pointer, offset, current - offset);
         }
 
         /// <summary>

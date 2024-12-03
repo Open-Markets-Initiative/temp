@@ -28,8 +28,6 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- encode tes delete broadcast message ---
 
-            var start = current;
-
             Pad2.Encode(pointer, current, out current);
 
             var sendingTime = message.GetULong(SendingTime.FixTag);
@@ -95,7 +93,7 @@ namespace Eurex.EtiDerivatives.v121
 
             // --- complete header ---
 
-            BodyLen.Encode(pointer, offset, (ushort)(current - start));
+            BodyLen.Encode(pointer, offset, current - offset);
         }
 
         /// <summary>

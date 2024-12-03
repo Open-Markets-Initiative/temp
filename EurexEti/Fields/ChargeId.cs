@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ChargeId
     {
         /// <summary>
+        ///  Fix Tag for Charge Id
+        /// </summary>
+        public const ushort FixTag = 25225;
+
+        /// <summary>
         ///  Length of Charge Id in bytes
         /// </summary>
         public const int Length = 132;

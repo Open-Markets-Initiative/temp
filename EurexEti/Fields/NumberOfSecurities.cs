@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NumberOfSecurities
     {
         /// <summary>
+        ///  Fix Tag for Number Of Securities
+        /// </summary>
+        public const ushort FixTag = 28614;
+
+        /// <summary>
         ///  Length of Number Of Securities in bytes
         /// </summary>
         public const int Length = 4;

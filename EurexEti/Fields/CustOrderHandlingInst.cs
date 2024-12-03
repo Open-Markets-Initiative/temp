@@ -39,6 +39,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char D = 'D';
 
         /// <summary>
+        ///  Fix Tag for Cust Order Handling Inst
+        /// </summary>
+        public const ushort FixTag = 1031;
+
+        /// <summary>
         ///  Length of Cust Order Handling Inst in bytes
         /// </summary>
         public const int Length = 1;

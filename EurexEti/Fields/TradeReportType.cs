@@ -54,14 +54,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte AllegedNoWas = 13;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trade Report Type
         /// </summary>
-        public const byte TradeReportTypeMaximumValue = 13;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradeReportTypeMinimumValue = 0;
+        public const ushort FixTag = 856;
 
         /// <summary>
         ///  Length of Trade Report Type in bytes

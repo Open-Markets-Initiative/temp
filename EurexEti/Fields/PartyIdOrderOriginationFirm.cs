@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PartyIdOrderOriginationFirm
     {
         /// <summary>
+        ///  Fix Tag for Party Id Order Origination Firm
+        /// </summary>
+        public const ushort FixTag = 20013;
+
+        /// <summary>
         ///  Length of Party Id Order Origination Firm in bytes
         /// </summary>
         public const int Length = 7;

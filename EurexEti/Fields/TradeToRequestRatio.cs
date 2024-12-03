@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TradeToRequestRatio
     {
         /// <summary>
+        ///  Fix Tag for Trade To Request Ratio
+        /// </summary>
+        public const ushort FixTag = 25184;
+
+        /// <summary>
         ///  Length of Trade To Request Ratio in bytes
         /// </summary>
         public const int Length = 8;

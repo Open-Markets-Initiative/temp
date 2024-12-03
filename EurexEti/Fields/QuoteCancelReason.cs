@@ -14,14 +14,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Expired = 5;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quote Cancel Reason
         /// </summary>
-        public const byte QuoteCancelReasonMaximumValue = 5;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte QuoteCancelReasonMinimumValue = 5;
+        public const ushort FixTag = 28747;
 
         /// <summary>
         ///  Length of Quote Cancel Reason in bytes

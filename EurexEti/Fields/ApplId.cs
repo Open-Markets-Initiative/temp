@@ -59,14 +59,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte ServiceAvailabilityMarket = 10;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Appl Id
         /// </summary>
-        public const byte ApplIDMaximumValue = 11;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ApplIDMinimumValue = 0;
+        public const ushort FixTag = 1180;
 
         /// <summary>
         ///  Length of Appl Id in bytes

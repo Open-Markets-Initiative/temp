@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte TriggeredOco = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Triggered
         /// </summary>
-        public const byte TriggeredMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TriggeredMinimumValue = 0;
+        public const ushort FixTag = 1823;
 
         /// <summary>
         ///  Length of Triggered in bytes

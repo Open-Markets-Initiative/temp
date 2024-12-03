@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte UserDefined = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Multileg Price Model
         /// </summary>
-        public const byte MultilegPriceModelMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte MultilegPriceModelMinimumValue = 0;
+        public const ushort FixTag = 28750;
 
         /// <summary>
         ///  Length of Multileg Price Model in bytes

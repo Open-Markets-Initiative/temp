@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class OrigClOrdId
     {
         /// <summary>
+        ///  Fix Tag for Orig Cl Ord Id
+        /// </summary>
+        public const ushort FixTag = 41;
+
+        /// <summary>
         ///  Length of Orig Cl Ord Id in bytes
         /// </summary>
         public const int Length = 8;

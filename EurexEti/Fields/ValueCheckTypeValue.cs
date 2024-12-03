@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Check = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Value Check Type Value
         /// </summary>
-        public const byte ValueCheckTypeValueMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ValueCheckTypeValueMinimumValue = 0;
+        public const ushort FixTag = 25126;
 
         /// <summary>
         ///  Length of Value Check Type Value in bytes

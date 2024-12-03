@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte VolumeWeightedAverage = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Md Sub Book Type
         /// </summary>
-        public const byte MdSubBookTypeMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte MdSubBookTypeMinimumValue = 1;
+        public const ushort FixTag = 1173;
 
         /// <summary>
         ///  Length of Md Sub Book Type in bytes

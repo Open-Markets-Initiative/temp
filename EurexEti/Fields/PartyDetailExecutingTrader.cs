@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PartyDetailExecutingTrader
     {
         /// <summary>
+        ///  Fix Tag for Party Detail Executing Trader
+        /// </summary>
+        public const ushort FixTag = 22212;
+
+        /// <summary>
         ///  Length of Party Detail Executing Trader in bytes
         /// </summary>
         public const int Length = 6;

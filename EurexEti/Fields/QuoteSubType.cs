@@ -39,14 +39,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte VolaStrategyNegotiateUnderlying = 6;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quote Sub Type
         /// </summary>
-        public const byte QuoteSubTypeMaximumValue = 6;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte QuoteSubTypeMinimumValue = 1;
+        public const ushort FixTag = 28786;
 
         /// <summary>
         ///  Length of Quote Sub Type in bytes

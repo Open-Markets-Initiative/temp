@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyIdPositionAccount
     {
         /// <summary>
+        ///  Fix Tag for Root Party Id Position Account
+        /// </summary>
+        public const ushort FixTag = 20438;
+
+        /// <summary>
         ///  Length of Root Party Id Position Account in bytes
         /// </summary>
         public const int Length = 32;

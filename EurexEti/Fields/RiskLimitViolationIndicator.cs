@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Risk Limit Violation Indicator
         /// </summary>
-        public const byte RiskLimitViolationIndicatorMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte RiskLimitViolationIndicatorMinimumValue = 0;
+        public const ushort FixTag = 28778;
 
         /// <summary>
         ///  Length of Risk Limit Violation Indicator in bytes

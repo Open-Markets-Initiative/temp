@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RiskLimitId
     {
         /// <summary>
+        ///  Fix Tag for Risk Limit Id
+        /// </summary>
+        public const ushort FixTag = 1670;
+
+        /// <summary>
         ///  Length of Risk Limit Id in bytes
         /// </summary>
         public const int Length = 4;

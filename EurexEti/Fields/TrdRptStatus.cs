@@ -44,14 +44,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte DeemedVerified = 9;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trd Rpt Status
         /// </summary>
-        public const byte TrdRptStatusMaximumValue = 9;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TrdRptStatusMinimumValue = 0;
+        public const ushort FixTag = 939;
 
         /// <summary>
         ///  Length of Trd Rpt Status in bytes

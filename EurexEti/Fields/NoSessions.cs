@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoSessions
     {
         /// <summary>
+        ///  Fix Tag for No Sessions
+        /// </summary>
+        public const ushort FixTag = 28734;
+
+        /// <summary>
         ///  Length of No Sessions in bytes
         /// </summary>
         public const int Length = 2;

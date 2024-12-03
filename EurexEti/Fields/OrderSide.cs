@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Sell = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Order Side
         /// </summary>
-        public const byte OrderSideMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte OrderSideMinimumValue = 1;
+        public const ushort FixTag = 28586;
 
         /// <summary>
         ///  Length of Order Side in bytes

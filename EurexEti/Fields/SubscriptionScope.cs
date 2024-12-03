@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SubscriptionScope
     {
         /// <summary>
+        ///  Fix Tag for Subscription Scope
+        /// </summary>
+        public const ushort FixTag = 25001;
+
+        /// <summary>
         ///  Length of Subscription Scope in bytes
         /// </summary>
         public const int Length = 4;

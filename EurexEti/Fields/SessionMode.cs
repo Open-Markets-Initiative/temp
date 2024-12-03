@@ -29,14 +29,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Fixlf = 4;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Session Mode
         /// </summary>
-        public const byte SessionModeMaximumValue = 4;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte SessionModeMinimumValue = 1;
+        public const ushort FixTag = 28730;
 
         /// <summary>
         ///  Length of Session Mode in bytes

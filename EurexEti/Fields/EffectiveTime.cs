@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class EffectiveTime
     {
         /// <summary>
+        ///  Fix Tag for Effective Time
+        /// </summary>
+        public const ushort FixTag = 168;
+
+        /// <summary>
         ///  Length of Effective Time in bytes
         /// </summary>
         public const int Length = 8;

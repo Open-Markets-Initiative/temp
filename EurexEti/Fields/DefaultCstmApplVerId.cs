@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class DefaultCstmApplVerId
     {
         /// <summary>
+        ///  Fix Tag for Default Cstm Appl Ver Id
+        /// </summary>
+        public const ushort FixTag = 1408;
+
+        /// <summary>
         ///  Length of Default Cstm Appl Ver Id in bytes
         /// </summary>
         public const int Length = 30;

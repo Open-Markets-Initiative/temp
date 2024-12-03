@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class OrigTradeId
     {
         /// <summary>
+        ///  Fix Tag for Orig Trade Id
+        /// </summary>
+        public const ushort FixTag = 1126;
+
+        /// <summary>
         ///  Length of Orig Trade Id in bytes
         /// </summary>
         public const int Length = 4;

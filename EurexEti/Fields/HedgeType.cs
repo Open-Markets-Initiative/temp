@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte PriceFactorHedge = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Hedge Type
         /// </summary>
-        public const byte HedgeTypeMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte HedgeTypeMinimumValue = 0;
+        public const ushort FixTag = 29008;
 
         /// <summary>
         ///  Length of Hedge Type in bytes

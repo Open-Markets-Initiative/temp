@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NumberOfRespondents
     {
         /// <summary>
+        ///  Fix Tag for Number Of Respondents
+        /// </summary>
+        public const ushort FixTag = 25150;
+
+        /// <summary>
         ///  Length of Number Of Respondents in bytes
         /// </summary>
         public const int Length = 4;

@@ -49,6 +49,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char Trade = 'F';
 
         /// <summary>
+        ///  Fix Tag for Exec Type
+        /// </summary>
+        public const ushort FixTag = 150;
+
+        /// <summary>
         ///  Length of Exec Type in bytes
         /// </summary>
         public const int Length = 1;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoMmParameters
     {
         /// <summary>
+        ///  Fix Tag for No Mm Parameters
+        /// </summary>
+        public const ushort FixTag = 28705;
+
+        /// <summary>
         ///  Length of No Mm Parameters in bytes
         /// </summary>
         public const int Length = 1;

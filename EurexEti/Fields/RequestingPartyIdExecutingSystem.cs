@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const uint T7 = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Requesting Party Id Executing System
         /// </summary>
-        public const uint RequestingPartyIdExecutingSystemMaximumValue = 4294967294;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const uint RequestingPartyIdExecutingSystemMinimumValue = 0;
+        public const ushort FixTag = 20816;
 
         /// <summary>
         ///  Length of Requesting Party Id Executing System in bytes

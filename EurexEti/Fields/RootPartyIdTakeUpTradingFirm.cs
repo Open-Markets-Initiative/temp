@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyIdTakeUpTradingFirm
     {
         /// <summary>
+        ///  Fix Tag for Root Party Id Take Up Trading Firm
+        /// </summary>
+        public const ushort FixTag = 20496;
+
+        /// <summary>
         ///  Length of Root Party Id Take Up Trading Firm in bytes
         /// </summary>
         public const int Length = 5;

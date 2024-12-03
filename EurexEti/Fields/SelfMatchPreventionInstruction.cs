@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte CrossrejectedMarket = 101;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Self Match Prevention Instruction
         /// </summary>
-        public const byte SelfMatchPreventionInstructionMaximumValue = 101;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte SelfMatchPreventionInstructionMinimumValue = 100;
+        public const ushort FixTag = 2964;
 
         /// <summary>
         ///  Length of Self Match Prevention Instruction in bytes

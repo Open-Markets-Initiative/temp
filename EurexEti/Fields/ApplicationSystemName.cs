@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ApplicationSystemName
     {
         /// <summary>
+        ///  Fix Tag for Application System Name
+        /// </summary>
+        public const ushort FixTag = 1603;
+
+        /// <summary>
         ///  Length of Application System Name in bytes
         /// </summary>
         public const int Length = 30;

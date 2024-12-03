@@ -39,6 +39,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char Suspended = '9';
 
         /// <summary>
+        ///  Fix Tag for Ord Status
+        /// </summary>
+        public const ushort FixTag = 39;
+
+        /// <summary>
         ///  Length of Ord Status in bytes
         /// </summary>
         public const int Length = 1;

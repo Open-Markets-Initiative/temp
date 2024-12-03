@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Reversal Indicator
         /// </summary>
-        public const byte ReversalIndicatorMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ReversalIndicatorMinimumValue = 0;
+        public const ushort FixTag = 700;
 
         /// <summary>
         ///  Length of Reversal Indicator in bytes

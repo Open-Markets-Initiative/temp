@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoEvents
     {
         /// <summary>
+        ///  Fix Tag for No Events
+        /// </summary>
+        public const ushort FixTag = 864;
+
+        /// <summary>
         ///  Length of No Events in bytes
         /// </summary>
         public const int Length = 1;

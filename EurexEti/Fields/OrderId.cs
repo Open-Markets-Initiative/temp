@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class OrderId
     {
         /// <summary>
+        ///  Fix Tag for Order Id
+        /// </summary>
+        public const ushort FixTag = 37;
+
+        /// <summary>
         ///  Length of Order Id in bytes
         /// </summary>
         public const int Length = 8;

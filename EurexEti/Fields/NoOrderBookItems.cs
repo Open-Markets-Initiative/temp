@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoOrderBookItems
     {
         /// <summary>
+        ///  Fix Tag for No Order Book Items
+        /// </summary>
+        public const ushort FixTag = 28769;
+
+        /// <summary>
         ///  Length of No Order Book Items in bytes
         /// </summary>
         public const int Length = 1;

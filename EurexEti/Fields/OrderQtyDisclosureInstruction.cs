@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Order Qty Disclosure Instruction
         /// </summary>
-        public const byte OrderQtyDisclosureInstructionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte OrderQtyDisclosureInstructionMinimumValue = 0;
+        public const ushort FixTag = 25136;
 
         /// <summary>
         ///  Length of Order Qty Disclosure Instruction in bytes

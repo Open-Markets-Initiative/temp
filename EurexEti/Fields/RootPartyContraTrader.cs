@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyContraTrader
     {
         /// <summary>
+        ///  Fix Tag for Root Party Contra Trader
+        /// </summary>
+        public const ushort FixTag = 22437;
+
+        /// <summary>
         ///  Length of Root Party Contra Trader in bytes
         /// </summary>
         public const int Length = 6;

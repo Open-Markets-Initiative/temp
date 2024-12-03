@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ReversalApprovalTime
     {
         /// <summary>
+        ///  Fix Tag for Reversal Approval Time
+        /// </summary>
+        public const ushort FixTag = 25198;
+
+        /// <summary>
         ///  Length of Reversal Approval Time in bytes
         /// </summary>
         public const int Length = 8;

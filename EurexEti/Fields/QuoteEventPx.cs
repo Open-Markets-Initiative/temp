@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class QuoteEventPx
     {
         /// <summary>
+        ///  Fix Tag for Quote Event Px
+        /// </summary>
+        public const ushort FixTag = 28553;
+
+        /// <summary>
         ///  Length of Quote Event Px in bytes
         /// </summary>
         public const int Length = 8;

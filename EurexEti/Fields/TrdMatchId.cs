@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TrdMatchId
     {
         /// <summary>
+        ///  Fix Tag for Trd Match Id
+        /// </summary>
+        public const ushort FixTag = 880;
+
+        /// <summary>
         ///  Length of Trd Match Id in bytes
         /// </summary>
         public const int Length = 4;

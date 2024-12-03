@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Auction = 4;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Side Liquidity Ind
         /// </summary>
-        public const byte SideLiquidityIndMaximumValue = 4;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte SideLiquidityIndMinimumValue = 1;
+        public const ushort FixTag = 1444;
 
         /// <summary>
         ///  Length of Side Liquidity Ind in bytes

@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte OnBook = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trade Platform
         /// </summary>
-        public const byte TradePlatformMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradePlatformMinimumValue = 0;
+        public const ushort FixTag = 25160;
 
         /// <summary>
         ///  Length of Trade Platform in bytes

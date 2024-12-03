@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const ushort TradeatMarket = 2004;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Side Trd Sub Typ
         /// </summary>
-        public const ushort SideTrdSubTypMaximumValue = 2004;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const ushort SideTrdSubTypMinimumValue = 2001;
+        public const ushort FixTag = 1008;
 
         /// <summary>
         ///  Length of Side Trd Sub Typ in bytes

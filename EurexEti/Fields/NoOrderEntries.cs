@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoOrderEntries
     {
         /// <summary>
+        ///  Fix Tag for No Order Entries
+        /// </summary>
+        public const ushort FixTag = 2428;
+
+        /// <summary>
         ///  Length of No Order Entries in bytes
         /// </summary>
         public const int Length = 1;

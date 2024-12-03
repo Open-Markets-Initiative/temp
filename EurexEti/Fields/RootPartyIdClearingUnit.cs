@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyIdClearingUnit
     {
         /// <summary>
+        ///  Fix Tag for Root Party Id Clearing Unit
+        /// </summary>
+        public const ushort FixTag = 25026;
+
+        /// <summary>
         ///  Length of Root Party Id Clearing Unit in bytes
         /// </summary>
         public const int Length = 4;

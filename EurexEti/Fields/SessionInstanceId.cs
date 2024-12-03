@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SessionInstanceId
     {
         /// <summary>
+        ///  Fix Tag for Session Instance Id
+        /// </summary>
+        public const ushort FixTag = 25004;
+
+        /// <summary>
         ///  Length of Session Instance Id in bytes
         /// </summary>
         public const int Length = 4;

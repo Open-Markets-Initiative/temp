@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Available = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Appl Seq Status
         /// </summary>
-        public const byte ApplSeqStatusMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ApplSeqStatusMinimumValue = 0;
+        public const ushort FixTag = 28732;
 
         /// <summary>
         ///  Length of Appl Seq Status in bytes

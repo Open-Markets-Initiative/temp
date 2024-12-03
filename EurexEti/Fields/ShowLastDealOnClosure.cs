@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Show Last Deal On Closure
         /// </summary>
-        public const byte ShowLastDealOnClosureMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ShowLastDealOnClosureMinimumValue = 0;
+        public const ushort FixTag = 25194;
 
         /// <summary>
         ///  Length of Show Last Deal On Closure in bytes

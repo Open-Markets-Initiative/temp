@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class BestBidSize
     {
         /// <summary>
+        ///  Fix Tag for Best Bid Size
+        /// </summary>
+        public const ushort FixTag = 25134;
+
+        /// <summary>
         ///  Length of Best Bid Size in bytes
         /// </summary>
         public const int Length = 8;

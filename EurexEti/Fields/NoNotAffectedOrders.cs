@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoNotAffectedOrders
     {
         /// <summary>
+        ///  Fix Tag for No Not Affected Orders
+        /// </summary>
+        public const ushort FixTag = 1370;
+
+        /// <summary>
         ///  Length of No Not Affected Orders in bytes
         /// </summary>
         public const int Length = 2;

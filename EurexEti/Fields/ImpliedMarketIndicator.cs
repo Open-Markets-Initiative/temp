@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Impliedinout = 3;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Implied Market Indicator
         /// </summary>
-        public const byte ImpliedMarketIndicatorMaximumValue = 3;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ImpliedMarketIndicatorMinimumValue = 0;
+        public const ushort FixTag = 1144;
 
         /// <summary>
         ///  Length of Implied Market Indicator in bytes

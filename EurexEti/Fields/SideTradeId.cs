@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SideTradeId
     {
         /// <summary>
+        ///  Fix Tag for Side Trade Id
+        /// </summary>
+        public const ushort FixTag = 1506;
+
+        /// <summary>
         ///  Length of Side Trade Id in bytes
         /// </summary>
         public const int Length = 4;

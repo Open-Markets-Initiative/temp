@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LastEntityProcessed
     {
         /// <summary>
+        ///  Fix Tag for Last Entity Processed
+        /// </summary>
+        public const ushort FixTag = 25035;
+
+        /// <summary>
         ///  Length of Last Entity Processed in bytes
         /// </summary>
         public const int Length = 16;

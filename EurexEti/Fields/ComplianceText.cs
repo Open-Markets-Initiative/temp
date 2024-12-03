@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ComplianceText
     {
         /// <summary>
+        ///  Fix Tag for Compliance Text
+        /// </summary>
+        public const ushort FixTag = 2404;
+
+        /// <summary>
         ///  Length of Compliance Text in bytes
         /// </summary>
         public const int Length = 20;

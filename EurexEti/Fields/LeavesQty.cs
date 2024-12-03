@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LeavesQty
     {
         /// <summary>
+        ///  Fix Tag for Leaves Qty
+        /// </summary>
+        public const ushort FixTag = 151;
+
+        /// <summary>
         ///  Length of Leaves Qty in bytes
         /// </summary>
         public const int Length = 8;

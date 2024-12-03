@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class Delta
     {
         /// <summary>
+        ///  Fix Tag for Delta
+        /// </summary>
+        public const ushort FixTag = 7966;
+
+        /// <summary>
         ///  Length of Delta in bytes
         /// </summary>
         public const int Length = 8;

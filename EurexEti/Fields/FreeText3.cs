@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class FreeText3
     {
         /// <summary>
+        ///  Fix Tag for Free Text 3
+        /// </summary>
+        public const ushort FixTag = 25009;
+
+        /// <summary>
         ///  Length of Free Text 3 in bytes
         /// </summary>
         public const int Length = 12;

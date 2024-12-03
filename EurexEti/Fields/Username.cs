@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class Username
     {
         /// <summary>
+        ///  Fix Tag for Username
+        /// </summary>
+        public const ushort FixTag = 553;
+
+        /// <summary>
         ///  Length of Username in bytes
         /// </summary>
         public const int Length = 4;

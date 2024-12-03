@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyIdInvestmentDecisionMaker
     {
         /// <summary>
+        ///  Fix Tag for Root Party Id Investment Decision Maker
+        /// </summary>
+        public const ushort FixTag = 20522;
+
+        /// <summary>
         ///  Length of Root Party Id Investment Decision Maker in bytes
         /// </summary>
         public const int Length = 8;

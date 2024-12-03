@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class BasketPartyContraFirm
     {
         /// <summary>
+        ///  Fix Tag for Basket Party Contra Firm
+        /// </summary>
+        public const ushort FixTag = 25182;
+
+        /// <summary>
         ///  Length of Basket Party Contra Firm in bytes
         /// </summary>
         public const int Length = 5;

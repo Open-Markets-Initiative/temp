@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TransactTime
     {
         /// <summary>
+        ///  Fix Tag for Transact Time
+        /// </summary>
+        public const ushort FixTag = 60;
+
+        /// <summary>
         ///  Length of Transact Time in bytes
         /// </summary>
         public const int Length = 8;

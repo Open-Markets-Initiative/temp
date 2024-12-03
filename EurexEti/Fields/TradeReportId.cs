@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TradeReportId
     {
         /// <summary>
+        ///  Fix Tag for Trade Report Id
+        /// </summary>
+        public const ushort FixTag = 571;
+
+        /// <summary>
         ///  Length of Trade Report Id in bytes
         /// </summary>
         public const int Length = 20;

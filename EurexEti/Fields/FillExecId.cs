@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class FillExecId
     {
         /// <summary>
+        ///  Fix Tag for Fill Exec Id
+        /// </summary>
+        public const ushort FixTag = 1363;
+
+        /// <summary>
         ///  Length of Fill Exec Id in bytes
         /// </summary>
         public const int Length = 4;

@@ -34,14 +34,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Q6 = 6;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Exec Inst
         /// </summary>
-        public const byte ExecInstMaximumValue = 6;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ExecInstMinimumValue = 1;
+        public const ushort FixTag = 18;
 
         /// <summary>
         ///  Length of Exec Inst in bytes

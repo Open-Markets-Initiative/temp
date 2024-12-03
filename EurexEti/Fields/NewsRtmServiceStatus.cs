@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Available = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for News Rtm Service Status
         /// </summary>
-        public const byte NewsRtmServiceStatusMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte NewsRtmServiceStatusMinimumValue = 0;
+        public const ushort FixTag = 25237;
 
         /// <summary>
         ///  Length of News Rtm Service Status in bytes

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PctCount
     {
         /// <summary>
+        ///  Fix Tag for Pct Count
+        /// </summary>
+        public const ushort FixTag = 28615;
+
+        /// <summary>
         ///  Length of Pct Count in bytes
         /// </summary>
         public const int Length = 4;

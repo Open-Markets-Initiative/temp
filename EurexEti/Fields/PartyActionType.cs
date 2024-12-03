@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Reinstate = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Party Action Type
         /// </summary>
-        public const byte PartyActionTypeMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PartyActionTypeMinimumValue = 1;
+        public const ushort FixTag = 2329;
 
         /// <summary>
         ///  Length of Party Action Type in bytes

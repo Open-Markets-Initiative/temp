@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class MaximumPrice
     {
         /// <summary>
+        ///  Fix Tag for Maximum Price
+        /// </summary>
+        public const ushort FixTag = 28773;
+
+        /// <summary>
         ///  Length of Maximum Price in bytes
         /// </summary>
         public const int Length = 8;

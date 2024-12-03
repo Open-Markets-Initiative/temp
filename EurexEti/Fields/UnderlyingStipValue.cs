@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class UnderlyingStipValue
     {
         /// <summary>
+        ///  Fix Tag for Underlying Stip Value
+        /// </summary>
+        public const ushort FixTag = 889;
+
+        /// <summary>
         ///  Length of Underlying Stip Value in bytes
         /// </summary>
         public const int Length = 32;

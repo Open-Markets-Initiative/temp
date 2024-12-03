@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Charge Id Disclosure Instruction
         /// </summary>
-        public const byte ChargeIdDisclosureInstructionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ChargeIdDisclosureInstructionMinimumValue = 0;
+        public const ushort FixTag = 25226;
 
         /// <summary>
         ///  Length of Charge Id Disclosure Instruction in bytes

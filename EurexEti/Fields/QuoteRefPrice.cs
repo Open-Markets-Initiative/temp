@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class QuoteRefPrice
     {
         /// <summary>
+        ///  Fix Tag for Quote Ref Price
+        /// </summary>
+        public const ushort FixTag = 28759;
+
+        /// <summary>
         ///  Length of Quote Ref Price in bytes
         /// </summary>
         public const int Length = 8;

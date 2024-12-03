@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TradeToQuoteRatioPosition
     {
         /// <summary>
+        ///  Fix Tag for Trade To Quote Ratio Position
+        /// </summary>
+        public const ushort FixTag = 25202;
+
+        /// <summary>
         ///  Length of Trade To Quote Ratio Position in bytes
         /// </summary>
         public const int Length = 2;

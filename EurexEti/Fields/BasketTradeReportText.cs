@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class BasketTradeReportText
     {
         /// <summary>
+        ///  Fix Tag for Basket Trade Report Text
+        /// </summary>
+        public const ushort FixTag = 25168;
+
+        /// <summary>
         ///  Length of Basket Trade Report Text in bytes
         /// </summary>
         public const int Length = 20;

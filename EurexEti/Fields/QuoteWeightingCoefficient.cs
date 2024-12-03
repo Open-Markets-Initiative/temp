@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class QuoteWeightingCoefficient
     {
         /// <summary>
+        ///  Fix Tag for Quote Weighting Coefficient
+        /// </summary>
+        public const ushort FixTag = 25210;
+
+        /// <summary>
         ///  Length of Quote Weighting Coefficient in bytes
         /// </summary>
         public const int Length = 8;

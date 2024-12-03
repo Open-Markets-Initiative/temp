@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class OfferSize
     {
         /// <summary>
+        ///  Fix Tag for Offer Size
+        /// </summary>
+        public const ushort FixTag = 135;
+
+        /// <summary>
         ///  Length of Offer Size in bytes
         /// </summary>
         public const int Length = 8;

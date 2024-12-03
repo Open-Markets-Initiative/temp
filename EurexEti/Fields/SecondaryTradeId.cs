@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SecondaryTradeId
     {
         /// <summary>
+        ///  Fix Tag for Secondary Trade Id
+        /// </summary>
+        public const ushort FixTag = 1040;
+
+        /// <summary>
         ///  Length of Secondary Trade Id in bytes
         /// </summary>
         public const int Length = 4;

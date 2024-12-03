@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class MassOrderRequestId
     {
         /// <summary>
+        ///  Fix Tag for Mass Order Request Id
+        /// </summary>
+        public const ushort FixTag = 2423;
+
+        /// <summary>
         ///  Length of Mass Order Request Id in bytes
         /// </summary>
         public const int Length = 8;

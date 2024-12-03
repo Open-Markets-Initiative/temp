@@ -179,14 +179,9 @@ namespace Eurex.EtiDerivatives.v121
         public const uint NoClearingProductAssignment = 169;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quote Entry Reject Reason
         /// </summary>
-        public const uint QuoteEntryRejectReasonMaximumValue = 65535;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const uint QuoteEntryRejectReasonMinimumValue = 0;
+        public const ushort FixTag = 368;
 
         /// <summary>
         ///  Length of Quote Entry Reject Reason in bytes

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class AutoApprovalRuleId
     {
         /// <summary>
+        ///  Fix Tag for Auto Approval Rule Id
+        /// </summary>
+        public const ushort FixTag = 25181;
+
+        /// <summary>
         ///  Length of Auto Approval Rule Id in bytes
         /// </summary>
         public const int Length = 4;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RelatedTradeId
     {
         /// <summary>
+        ///  Fix Tag for Related Trade Id
+        /// </summary>
+        public const ushort FixTag = 1856;
+
+        /// <summary>
         ///  Length of Related Trade Id in bytes
         /// </summary>
         public const int Length = 4;

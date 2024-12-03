@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class FillPx
     {
         /// <summary>
+        ///  Fix Tag for Fill Px
+        /// </summary>
+        public const ushort FixTag = 1364;
+
+        /// <summary>
         ///  Length of Fill Px in bytes
         /// </summary>
         public const int Length = 8;

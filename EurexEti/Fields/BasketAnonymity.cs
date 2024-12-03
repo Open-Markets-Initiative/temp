@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Basket Anonymity
         /// </summary>
-        public const byte BasketAnonymityMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte BasketAnonymityMinimumValue = 0;
+        public const ushort FixTag = 31091;
 
         /// <summary>
         ///  Length of Basket Anonymity in bytes

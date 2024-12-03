@@ -19,6 +19,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char Delete = 'D';
 
         /// <summary>
+        ///  Fix Tag for List Update Action
+        /// </summary>
+        public const ushort FixTag = 1324;
+
+        /// <summary>
         ///  Length of List Update Action in bytes
         /// </summary>
         public const int Length = 1;

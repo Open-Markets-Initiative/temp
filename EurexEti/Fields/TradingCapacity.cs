@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte MarketMaker = 6;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trading Capacity
         /// </summary>
-        public const byte TradingCapacityMaximumValue = 11;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradingCapacityMinimumValue = 1;
+        public const ushort FixTag = 1815;
 
         /// <summary>
         ///  Length of Trading Capacity in bytes

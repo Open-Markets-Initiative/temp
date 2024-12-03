@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RequestingPartyClearingFirm
     {
         /// <summary>
+        ///  Fix Tag for Requesting Party Clearing Firm
+        /// </summary>
+        public const ushort FixTag = 22804;
+
+        /// <summary>
         ///  Length of Requesting Party Clearing Firm in bytes
         /// </summary>
         public const int Length = 9;

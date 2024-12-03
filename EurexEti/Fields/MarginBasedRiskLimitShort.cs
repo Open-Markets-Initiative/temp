@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class MarginBasedRiskLimitShort
     {
         /// <summary>
+        ///  Fix Tag for Margin Based Risk Limit Short
+        /// </summary>
+        public const ushort FixTag = 37531;
+
+        /// <summary>
         ///  Length of Margin Based Risk Limit Short in bytes
         /// </summary>
         public const int Length = 8;

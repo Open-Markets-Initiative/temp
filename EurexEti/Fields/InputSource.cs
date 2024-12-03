@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte ProprietaryBroker = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Input Source
         /// </summary>
-        public const byte InputSourceMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte InputSourceMinimumValue = 1;
+        public const ushort FixTag = 979;
 
         /// <summary>
         ///  Length of Input Source in bytes

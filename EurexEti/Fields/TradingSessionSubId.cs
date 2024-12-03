@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte AnyAuction = 8;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trading Session Sub Id
         /// </summary>
-        public const byte TradingSessionSubIDMaximumValue = 105;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradingSessionSubIDMinimumValue = 1;
+        public const ushort FixTag = 625;
 
         /// <summary>
         ///  Length of Trading Session Sub Id in bytes

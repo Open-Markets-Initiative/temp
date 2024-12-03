@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ThrottleTimeInterval
     {
         /// <summary>
+        ///  Fix Tag for Throttle Time Interval
+        /// </summary>
+        public const ushort FixTag = 1614;
+
+        /// <summary>
         ///  Length of Throttle Time Interval in bytes
         /// </summary>
         public const int Length = 8;

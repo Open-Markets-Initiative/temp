@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoPartyDetails
     {
         /// <summary>
+        ///  Fix Tag for No Party Details
+        /// </summary>
+        public const ushort FixTag = 1671;
+
+        /// <summary>
         ///  Length of No Party Details in bytes
         /// </summary>
         public const int Length = 2;

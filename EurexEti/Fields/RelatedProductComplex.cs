@@ -64,14 +64,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Nonstandardvolatilitystrategy = 13;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Related Product Complex
         /// </summary>
-        public const byte RelatedProductComplexMaximumValue = 13;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte RelatedProductComplexMinimumValue = 1;
+        public const ushort FixTag = 28587;
 
         /// <summary>
         ///  Length of Related Product Complex in bytes

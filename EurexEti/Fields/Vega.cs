@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class Vega
     {
         /// <summary>
+        ///  Fix Tag for Vega
+        /// </summary>
+        public const ushort FixTag = 7968;
+
+        /// <summary>
         ///  Length of Vega in bytes
         /// </summary>
         public const int Length = 8;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class MassActionReportId
     {
         /// <summary>
+        ///  Fix Tag for Mass Action Report Id
+        /// </summary>
+        public const ushort FixTag = 1369;
+
+        /// <summary>
         ///  Length of Mass Action Report Id in bytes
         /// </summary>
         public const int Length = 8;

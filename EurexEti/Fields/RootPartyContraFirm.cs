@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyContraFirm
     {
         /// <summary>
+        ///  Fix Tag for Root Party Contra Firm
+        /// </summary>
+        public const ushort FixTag = 22417;
+
+        /// <summary>
         ///  Length of Root Party Contra Firm in bytes
         /// </summary>
         public const int Length = 5;

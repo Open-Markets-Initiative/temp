@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoSrqsTargetPartyTrdGrps
     {
         /// <summary>
+        ///  Fix Tag for No Srqs Target Party Trd Grps
+        /// </summary>
+        public const ushort FixTag = 25219;
+
+        /// <summary>
         ///  Length of No Srqs Target Party Trd Grps in bytes
         /// </summary>
         public const int Length = 1;

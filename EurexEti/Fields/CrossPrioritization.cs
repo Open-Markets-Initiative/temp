@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Sellside = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Cross Prioritization
         /// </summary>
-        public const byte CrossPrioritizationMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte CrossPrioritizationMinimumValue = 1;
+        public const ushort FixTag = 550;
 
         /// <summary>
         ///  Length of Cross Prioritization in bytes

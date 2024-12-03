@@ -14,14 +14,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Xkfe = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Party Id Origination Market
         /// </summary>
-        public const byte PartyIdOriginationMarketMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PartyIdOriginationMarketMinimumValue = 1;
+        public const ushort FixTag = 20099;
 
         /// <summary>
         ///  Length of Party Id Origination Market in bytes

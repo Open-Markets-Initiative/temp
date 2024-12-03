@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RiskLimitGroup
     {
         /// <summary>
+        ///  Fix Tag for Risk Limit Group
+        /// </summary>
+        public const ushort FixTag = 28775;
+
+        /// <summary>
         ///  Length of Risk Limit Group in bytes
         /// </summary>
         public const int Length = 3;

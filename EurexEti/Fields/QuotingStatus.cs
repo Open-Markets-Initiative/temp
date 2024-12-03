@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte ClosedInactive = 3;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quoting Status
         /// </summary>
-        public const byte QuotingStatusMaximumValue = 5;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte QuotingStatusMinimumValue = 0;
+        public const ushort FixTag = 28787;
 
         /// <summary>
         ///  Length of Quoting Status in bytes

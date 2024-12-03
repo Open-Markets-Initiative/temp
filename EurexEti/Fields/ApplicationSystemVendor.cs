@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ApplicationSystemVendor
     {
         /// <summary>
+        ///  Fix Tag for Application System Vendor
+        /// </summary>
+        public const ushort FixTag = 1605;
+
+        /// <summary>
         ///  Length of Application System Vendor in bytes
         /// </summary>
         public const int Length = 30;

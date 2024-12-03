@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Implied Check Price Indicator
         /// </summary>
-        public const byte ImpliedCheckPriceIndicatorMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ImpliedCheckPriceIndicatorMinimumValue = 0;
+        public const ushort FixTag = 25244;
 
         /// <summary>
         ///  Length of Implied Check Price Indicator in bytes

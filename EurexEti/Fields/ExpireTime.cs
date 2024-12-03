@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ExpireTime
     {
         /// <summary>
+        ///  Fix Tag for Expire Time
+        /// </summary>
+        public const ushort FixTag = 126;
+
+        /// <summary>
         ///  Length of Expire Time in bytes
         /// </summary>
         public const int Length = 8;

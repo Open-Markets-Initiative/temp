@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LegExecId
     {
         /// <summary>
+        ///  Fix Tag for Leg Exec Id
+        /// </summary>
+        public const ushort FixTag = 1893;
+
+        /// <summary>
         ///  Length of Leg Exec Id in bytes
         /// </summary>
         public const int Length = 4;

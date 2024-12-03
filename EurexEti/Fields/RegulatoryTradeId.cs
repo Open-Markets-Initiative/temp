@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RegulatoryTradeId
     {
         /// <summary>
+        ///  Fix Tag for Regulatory Trade Id
+        /// </summary>
+        public const ushort FixTag = 1903;
+
+        /// <summary>
         ///  Length of Regulatory Trade Id in bytes
         /// </summary>
         public const int Length = 52;

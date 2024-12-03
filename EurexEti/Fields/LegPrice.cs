@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LegPrice
     {
         /// <summary>
+        ///  Fix Tag for Leg Price
+        /// </summary>
+        public const ushort FixTag = 566;
+
+        /// <summary>
         ///  Length of Leg Price in bytes
         /// </summary>
         public const int Length = 8;

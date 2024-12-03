@@ -29,14 +29,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Published = 3;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trade Publish Indicator
         /// </summary>
-        public const byte TradePublishIndicatorMaximumValue = 3;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradePublishIndicatorMinimumValue = 0;
+        public const ushort FixTag = 1390;
 
         /// <summary>
         ///  Length of Trade Publish Indicator in bytes

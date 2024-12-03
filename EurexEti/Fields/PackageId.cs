@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PackageId
     {
         /// <summary>
+        ///  Fix Tag for Package Id
+        /// </summary>
+        public const ushort FixTag = 2489;
+
+        /// <summary>
         ///  Length of Package Id in bytes
         /// </summary>
         public const int Length = 4;

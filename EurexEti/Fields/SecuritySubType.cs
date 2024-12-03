@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SecuritySubType
     {
         /// <summary>
+        ///  Fix Tag for Security Sub Type
+        /// </summary>
+        public const ushort FixTag = 762;
+
+        /// <summary>
         ///  Length of Security Sub Type in bytes
         /// </summary>
         public const int Length = 4;

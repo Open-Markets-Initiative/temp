@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Shortlimit = 5;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Risk Limit Type
         /// </summary>
-        public const byte RiskLimitTypeMaximumValue = 5;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte RiskLimitTypeMinimumValue = 4;
+        public const ushort FixTag = 1530;
 
         /// <summary>
         ///  Length of Risk Limit Type in bytes

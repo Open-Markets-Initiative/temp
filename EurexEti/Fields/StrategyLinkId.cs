@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class StrategyLinkId
     {
         /// <summary>
+        ///  Fix Tag for Strategy Link Id
+        /// </summary>
+        public const ushort FixTag = 1851;
+
+        /// <summary>
         ///  Length of Strategy Link Id in bytes
         /// </summary>
         public const int Length = 4;

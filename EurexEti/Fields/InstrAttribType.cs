@@ -39,14 +39,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte CashBasketReference = 104;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Instr Attrib Type
         /// </summary>
-        public const byte InstrAttribTypeMaximumValue = 104;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte InstrAttribTypeMinimumValue = 5;
+        public const ushort FixTag = 871;
 
         /// <summary>
         ///  Length of Instr Attrib Type in bytes

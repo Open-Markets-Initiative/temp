@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoRiskLimits
     {
         /// <summary>
+        ///  Fix Tag for No Risk Limits
+        /// </summary>
+        public const ushort FixTag = 1669;
+
+        /// <summary>
         ///  Length of No Risk Limits in bytes
         /// </summary>
         public const int Length = 1;

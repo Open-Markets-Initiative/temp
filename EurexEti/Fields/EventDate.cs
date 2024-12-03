@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class EventDate
     {
         /// <summary>
+        ///  Fix Tag for Event Date
+        /// </summary>
+        public const ushort FixTag = 866;
+
+        /// <summary>
         ///  Length of Event Date in bytes
         /// </summary>
         public const int Length = 4;

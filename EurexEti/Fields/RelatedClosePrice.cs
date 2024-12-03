@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RelatedClosePrice
     {
         /// <summary>
+        ///  Fix Tag for Related Close Price
+        /// </summary>
+        public const ushort FixTag = 2589;
+
+        /// <summary>
         ///  Length of Related Close Price in bytes
         /// </summary>
         public const int Length = 8;

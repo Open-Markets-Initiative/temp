@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyClearingOrganization
     {
         /// <summary>
+        ///  Fix Tag for Root Party Clearing Organization
+        /// </summary>
+        public const ushort FixTag = 22421;
+
+        /// <summary>
         ///  Length of Root Party Clearing Organization in bytes
         /// </summary>
         public const int Length = 4;

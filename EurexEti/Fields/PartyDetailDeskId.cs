@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PartyDetailDeskId
     {
         /// <summary>
+        ///  Fix Tag for Party Detail Desk Id
+        /// </summary>
+        public const ushort FixTag = 22276;
+
+        /// <summary>
         ///  Length of Party Detail Desk Id in bytes
         /// </summary>
         public const int Length = 3;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TrdRegTsEntryTime
     {
         /// <summary>
+        ///  Fix Tag for Trd Reg Ts Entry Time
+        /// </summary>
+        public const ushort FixTag = 21009;
+
+        /// <summary>
         ///  Length of Trd Reg Ts Entry Time in bytes
         /// </summary>
         public const int Length = 8;

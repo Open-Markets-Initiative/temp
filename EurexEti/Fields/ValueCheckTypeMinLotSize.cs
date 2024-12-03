@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Check = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Value Check Type Min Lot Size
         /// </summary>
-        public const byte ValueCheckTypeMinLotSizeMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ValueCheckTypeMinLotSizeMinimumValue = 0;
+        public const ushort FixTag = 25175;
 
         /// <summary>
         ///  Length of Value Check Type Min Lot Size in bytes

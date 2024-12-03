@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Nonecag = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Swap Clearer
         /// </summary>
-        public const byte SwapClearerMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte SwapClearerMinimumValue = 0;
+        public const ushort FixTag = 25199;
 
         /// <summary>
         ///  Length of Swap Clearer in bytes

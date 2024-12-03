@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ExecId
     {
         /// <summary>
+        ///  Fix Tag for Exec Id
+        /// </summary>
+        public const ushort FixTag = 17;
+
+        /// <summary>
         ///  Length of Exec Id in bytes
         /// </summary>
         public const int Length = 8;

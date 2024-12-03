@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class BasketExecId
     {
         /// <summary>
+        ///  Fix Tag for Basket Exec Id
+        /// </summary>
+        public const ushort FixTag = 25167;
+
+        /// <summary>
         ///  Length of Basket Exec Id in bytes
         /// </summary>
         public const int Length = 4;

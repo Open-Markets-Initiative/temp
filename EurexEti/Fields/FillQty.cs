@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class FillQty
     {
         /// <summary>
+        ///  Fix Tag for Fill Qty
+        /// </summary>
+        public const ushort FixTag = 1365;
+
+        /// <summary>
         ///  Length of Fill Qty in bytes
         /// </summary>
         public const int Length = 8;

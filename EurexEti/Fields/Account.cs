@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class Account
     {
         /// <summary>
+        ///  Fix Tag for Account
+        /// </summary>
+        public const ushort FixTag = 1;
+
+        /// <summary>
         ///  Length of Account in bytes
         /// </summary>
         public const int Length = 2;

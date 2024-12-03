@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyIdBeneficiary
     {
         /// <summary>
+        ///  Fix Tag for Root Party Id Beneficiary
+        /// </summary>
+        public const ushort FixTag = 20432;
+
+        /// <summary>
         ///  Length of Root Party Id Beneficiary in bytes
         /// </summary>
         public const int Length = 9;

@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Bid Px Is Locked
         /// </summary>
-        public const byte BidPxIsLockedMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte BidPxIsLockedMinimumValue = 0;
+        public const ushort FixTag = 25206;
 
         /// <summary>
         ///  Length of Bid Px Is Locked in bytes

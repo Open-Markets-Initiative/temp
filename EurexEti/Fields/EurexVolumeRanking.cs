@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte High = 3;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Eurex Volume Ranking
         /// </summary>
-        public const byte EurexVolumeRankingMaximumValue = 3;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte EurexVolumeRankingMinimumValue = 1;
+        public const ushort FixTag = 25176;
 
         /// <summary>
         ///  Length of Eurex Volume Ranking in bytes

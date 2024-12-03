@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Human = 24;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Executing Trader Qualifier
         /// </summary>
-        public const byte ExecutingTraderQualifierMaximumValue = 24;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ExecutingTraderQualifierMinimumValue = 22;
+        public const ushort FixTag = 25124;
 
         /// <summary>
         ///  Length of Executing Trader Qualifier in bytes

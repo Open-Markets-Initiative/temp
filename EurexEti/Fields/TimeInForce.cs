@@ -34,14 +34,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Gtd = 6;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Time In Force
         /// </summary>
-        public const byte TimeInForceMaximumValue = 6;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TimeInForceMinimumValue = 0;
+        public const ushort FixTag = 59;
 
         /// <summary>
         ///  Length of Time In Force in bytes

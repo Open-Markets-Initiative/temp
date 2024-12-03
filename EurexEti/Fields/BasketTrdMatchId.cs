@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class BasketTrdMatchId
     {
         /// <summary>
+        ///  Fix Tag for Basket Trd Match Id
+        /// </summary>
+        public const ushort FixTag = 25161;
+
+        /// <summary>
         ///  Length of Basket Trd Match Id in bytes
         /// </summary>
         public const int Length = 8;

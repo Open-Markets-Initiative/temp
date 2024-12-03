@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Order Qty Is Locked
         /// </summary>
-        public const byte OrderQtyIsLockedMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte OrderQtyIsLockedMinimumValue = 0;
+        public const ushort FixTag = 25209;
 
         /// <summary>
         ///  Length of Order Qty Is Locked in bytes

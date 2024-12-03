@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ThrottleDisconnectLimit
     {
         /// <summary>
+        ///  Fix Tag for Throttle Disconnect Limit
+        /// </summary>
+        public const ushort FixTag = 25002;
+
+        /// <summary>
         ///  Length of Throttle Disconnect Limit in bytes
         /// </summary>
         public const int Length = 4;

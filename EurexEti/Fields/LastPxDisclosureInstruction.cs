@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Last Px Disclosure Instruction
         /// </summary>
-        public const byte LastPxDisclosureInstructionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte LastPxDisclosureInstructionMinimumValue = 0;
+        public const ushort FixTag = 25146;
 
         /// <summary>
         ///  Length of Last Px Disclosure Instruction in bytes

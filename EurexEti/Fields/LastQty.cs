@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LastQty
     {
         /// <summary>
+        ///  Fix Tag for Last Qty
+        /// </summary>
+        public const ushort FixTag = 32;
+
+        /// <summary>
         ///  Length of Last Qty in bytes
         /// </summary>
         public const int Length = 8;

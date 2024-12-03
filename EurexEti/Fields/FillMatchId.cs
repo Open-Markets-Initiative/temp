@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class FillMatchId
     {
         /// <summary>
+        ///  Fix Tag for Fill Match Id
+        /// </summary>
+        public const ushort FixTag = 28708;
+
+        /// <summary>
         ///  Length of Fill Match Id in bytes
         /// </summary>
         public const int Length = 4;

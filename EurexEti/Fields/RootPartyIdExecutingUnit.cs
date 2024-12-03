@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyIdExecutingUnit
     {
         /// <summary>
+        ///  Fix Tag for Root Party Id Executing Unit
+        /// </summary>
+        public const ushort FixTag = 20459;
+
+        /// <summary>
         ///  Length of Root Party Id Executing Unit in bytes
         /// </summary>
         public const int Length = 4;

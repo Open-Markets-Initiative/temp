@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PublicKeyLen
     {
         /// <summary>
+        ///  Fix Tag for Public Key Len
+        /// </summary>
+        public const ushort FixTag = 25242;
+
+        /// <summary>
         ///  Length of Public Key Len in bytes
         /// </summary>
         public const int Length = 2;

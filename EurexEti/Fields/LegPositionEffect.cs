@@ -19,6 +19,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char Open = 'O';
 
         /// <summary>
+        ///  Fix Tag for Leg Position Effect
+        /// </summary>
+        public const ushort FixTag = 564;
+
+        /// <summary>
         ///  Length of Leg Position Effect in bytes
         /// </summary>
         public const int Length = 1;

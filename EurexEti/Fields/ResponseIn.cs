@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ResponseIn
     {
         /// <summary>
+        ///  Fix Tag for Response In
+        /// </summary>
+        public const ushort FixTag = 7765;
+
+        /// <summary>
         ///  Length of Response In in bytes
         /// </summary>
         public const int Length = 8;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TradeManagerTradeDate
     {
         /// <summary>
+        ///  Fix Tag for Trade Manager Trade Date
+        /// </summary>
+        public const ushort FixTag = 25031;
+
+        /// <summary>
         ///  Length of Trade Manager Trade Date in bytes
         /// </summary>
         public const int Length = 4;

@@ -29,14 +29,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Euroclear = 4;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Party Id Settlement Location
         /// </summary>
-        public const byte PartyIdSettlementLocationMaximumValue = 4;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PartyIdSettlementLocationMinimumValue = 1;
+        public const ushort FixTag = 20010;
 
         /// <summary>
         ///  Length of Party Id Settlement Location in bytes

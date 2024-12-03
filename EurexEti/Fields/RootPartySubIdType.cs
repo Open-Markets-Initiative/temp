@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const ushort Broker = 4003;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Root Party Sub Id Type
         /// </summary>
-        public const ushort RootPartySubIdTypeMaximumValue = 4003;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const ushort RootPartySubIdTypeMinimumValue = 4001;
+        public const ushort FixTag = 1122;
 
         /// <summary>
         ///  Length of Root Party Sub Id Type in bytes

@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Available = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Risk Control Rtm Service Status
         /// </summary>
-        public const byte RiskControlRtmServiceStatusMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte RiskControlRtmServiceStatusMinimumValue = 0;
+        public const ushort FixTag = 25238;
 
         /// <summary>
         ///  Length of Risk Control Rtm Service Status in bytes

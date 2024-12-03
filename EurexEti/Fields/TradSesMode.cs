@@ -34,14 +34,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte DisasterRecovery = 5;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trad Ses Mode
         /// </summary>
-        public const byte TradSesModeMaximumValue = 5;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradSesModeMinimumValue = 1;
+        public const ushort FixTag = 339;
 
         /// <summary>
         ///  Length of Trad Ses Mode in bytes

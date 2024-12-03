@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class UnderlyingEffectiveDeltaPercentage
     {
         /// <summary>
+        ///  Fix Tag for Underlying Effective Delta Percentage
+        /// </summary>
+        public const ushort FixTag = 25151;
+
+        /// <summary>
         ///  Length of Underlying Effective Delta Percentage in bytes
         /// </summary>
         public const int Length = 8;

@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte RegularBackOfficesession = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Session Sub Mode
         /// </summary>
-        public const byte SessionSubModeMaximumValue = 3;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte SessionSubModeMinimumValue = 0;
+        public const ushort FixTag = 28735;
 
         /// <summary>
         ///  Length of Session Sub Mode in bytes

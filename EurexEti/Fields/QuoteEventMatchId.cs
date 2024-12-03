@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class QuoteEventMatchId
     {
         /// <summary>
+        ///  Fix Tag for Quote Event Match Id
+        /// </summary>
+        public const ushort FixTag = 28714;
+
+        /// <summary>
         ///  Length of Quote Event Match Id in bytes
         /// </summary>
         public const int Length = 4;

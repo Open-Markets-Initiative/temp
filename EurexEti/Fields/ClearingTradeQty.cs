@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ClearingTradeQty
     {
         /// <summary>
+        ///  Fix Tag for Clearing Trade Qty
+        /// </summary>
+        public const ushort FixTag = 28736;
+
+        /// <summary>
         ///  Length of Clearing Trade Qty in bytes
         /// </summary>
         public const int Length = 8;

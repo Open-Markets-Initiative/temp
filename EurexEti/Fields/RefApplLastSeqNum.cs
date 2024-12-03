@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RefApplLastSeqNum
     {
         /// <summary>
+        ///  Fix Tag for Ref Appl Last Seq Num
+        /// </summary>
+        public const ushort FixTag = 1357;
+
+        /// <summary>
         ///  Length of Ref Appl Last Seq Num in bytes
         /// </summary>
         public const int Length = 8;

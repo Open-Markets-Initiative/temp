@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class FixClOrdId
     {
         /// <summary>
+        ///  Fix Tag for Fix Cl Ord Id
+        /// </summary>
+        public const ushort FixTag = 30011;
+
+        /// <summary>
         ///  Length of Fix Cl Ord Id in bytes
         /// </summary>
         public const int Length = 20;

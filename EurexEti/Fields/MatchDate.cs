@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class MatchDate
     {
         /// <summary>
+        ///  Fix Tag for Match Date
+        /// </summary>
+        public const ushort FixTag = 28582;
+
+        /// <summary>
         ///  Length of Match Date in bytes
         /// </summary>
         public const int Length = 4;

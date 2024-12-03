@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TemplateId
     {
         /// <summary>
+        ///  Fix Tag for Template Id
+        /// </summary>
+        public const ushort FixTag = 28500;
+
+        /// <summary>
         ///  Length of Template Id in bytes
         /// </summary>
         public const int Length = 2;

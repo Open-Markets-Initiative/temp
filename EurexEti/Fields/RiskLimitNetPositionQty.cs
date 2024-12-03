@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RiskLimitNetPositionQty
     {
         /// <summary>
+        ///  Fix Tag for Risk Limit Net Position Qty
+        /// </summary>
+        public const ushort FixTag = 28780;
+
+        /// <summary>
         ///  Length of Risk Limit Net Position Qty in bytes
         /// </summary>
         public const int Length = 8;

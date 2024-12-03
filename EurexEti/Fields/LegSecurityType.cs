@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte UnderlyingLeg = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Leg Security Type
         /// </summary>
-        public const byte LegSecurityTypeMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte LegSecurityTypeMinimumValue = 1;
+        public const ushort FixTag = 609;
 
         /// <summary>
         ///  Length of Leg Security Type in bytes

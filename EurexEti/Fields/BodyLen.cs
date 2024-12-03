@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class BodyLen
     {
         /// <summary>
+        ///  Fix Tag for Body Len
+        /// </summary>
+        public const ushort FixTag = 9;
+
+        /// <summary>
         ///  Length of Body Len in bytes
         /// </summary>
         public const int Length = 4;

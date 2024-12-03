@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Individuallegofamultilegsecurity = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Multi Leg Reporting Type
         /// </summary>
-        public const byte MultiLegReportingTypeMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte MultiLegReportingTypeMinimumValue = 1;
+        public const ushort FixTag = 442;
 
         /// <summary>
         ///  Length of Multi Leg Reporting Type in bytes

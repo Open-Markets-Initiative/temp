@@ -174,14 +174,9 @@ namespace Eurex.EtiDerivatives.v121
         public const uint RequiredMinLotSizeNotReached = 10013;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Session Reject Reason
         /// </summary>
-        public const uint SessionRejectReasonMaximumValue = 4294967294;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const uint SessionRejectReasonMinimumValue = 0;
+        public const ushort FixTag = 373;
 
         /// <summary>
         ///  Length of Session Reject Reason in bytes

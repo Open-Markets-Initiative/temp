@@ -159,14 +159,9 @@ namespace Eurex.EtiDerivatives.v121
         public const ushort CrossOrderCancelled = 347;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Exec Restatement Reason
         /// </summary>
-        public const ushort ExecRestatementReasonMaximumValue = 347;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const ushort ExecRestatementReasonMinimumValue = 0;
+        public const ushort FixTag = 378;
 
         /// <summary>
         ///  Length of Exec Restatement Reason in bytes

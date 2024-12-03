@@ -59,14 +59,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte AmendmentUserCancelled = 109;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Delete Reason
         /// </summary>
-        public const byte DeleteReasonMaximumValue = 111;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte DeleteReasonMinimumValue = 100;
+        public const ushort FixTag = 285;
 
         /// <summary>
         ///  Length of Delete Reason in bytes

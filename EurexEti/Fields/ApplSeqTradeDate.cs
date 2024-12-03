@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ApplSeqTradeDate
     {
         /// <summary>
+        ///  Fix Tag for Appl Seq Trade Date
+        /// </summary>
+        public const ushort FixTag = 25032;
+
+        /// <summary>
         ///  Length of Appl Seq Trade Date in bytes
         /// </summary>
         public const int Length = 4;

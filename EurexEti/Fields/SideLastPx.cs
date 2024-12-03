@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SideLastPx
     {
         /// <summary>
+        ///  Fix Tag for Side Last Px
+        /// </summary>
+        public const ushort FixTag = 28585;
+
+        /// <summary>
         ///  Length of Side Last Px in bytes
         /// </summary>
         public const int Length = 8;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ExposureDuration
     {
         /// <summary>
+        ///  Fix Tag for Exposure Duration
+        /// </summary>
+        public const ushort FixTag = 1629;
+
+        /// <summary>
         ///  Length of Exposure Duration in bytes
         /// </summary>
         public const int Length = 8;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TradeDate
     {
         /// <summary>
+        ///  Fix Tag for Trade Date
+        /// </summary>
+        public const ushort FixTag = 75;
+
+        /// <summary>
         ///  Length of Trade Date in bytes
         /// </summary>
         public const int Length = 4;

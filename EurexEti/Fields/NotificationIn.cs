@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NotificationIn
     {
         /// <summary>
+        ///  Fix Tag for Notification In
+        /// </summary>
+        public const ushort FixTag = 25043;
+
+        /// <summary>
         ///  Length of Notification In in bytes
         /// </summary>
         public const int Length = 8;

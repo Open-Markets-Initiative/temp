@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LegAccount
     {
         /// <summary>
+        ///  Fix Tag for Leg Account
+        /// </summary>
+        public const ushort FixTag = 2680;
+
+        /// <summary>
         ///  Length of Leg Account in bytes
         /// </summary>
         public const int Length = 2;

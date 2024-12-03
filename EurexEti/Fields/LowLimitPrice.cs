@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LowLimitPrice
     {
         /// <summary>
+        ///  Fix Tag for Low Limit Price
+        /// </summary>
+        public const ushort FixTag = 1148;
+
+        /// <summary>
         ///  Length of Low Limit Price in bytes
         /// </summary>
         public const int Length = 8;

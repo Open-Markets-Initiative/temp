@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class UnderlyingMaturityDate
     {
         /// <summary>
+        ///  Fix Tag for Underlying Maturity Date
+        /// </summary>
+        public const ushort FixTag = 542;
+
+        /// <summary>
         ///  Length of Underlying Maturity Date in bytes
         /// </summary>
         public const int Length = 4;

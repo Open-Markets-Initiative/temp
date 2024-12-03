@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class OrderQty
     {
         /// <summary>
+        ///  Fix Tag for Order Qty
+        /// </summary>
+        public const ushort FixTag = 38;
+
+        /// <summary>
         ///  Length of Order Qty in bytes
         /// </summary>
         public const int Length = 8;

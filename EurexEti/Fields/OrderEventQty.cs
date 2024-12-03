@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class OrderEventQty
     {
         /// <summary>
+        ///  Fix Tag for Order Event Qty
+        /// </summary>
+        public const ushort FixTag = 1800;
+
+        /// <summary>
         ///  Length of Order Event Qty in bytes
         /// </summary>
         public const int Length = 8;

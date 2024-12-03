@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Suspenddeletequotes = 3;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Mass Action Type
         /// </summary>
-        public const byte MassActionTypeMaximumValue = 3;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte MassActionTypeMinimumValue = 1;
+        public const ushort FixTag = 1373;
 
         /// <summary>
         ///  Length of Mass Action Type in bytes

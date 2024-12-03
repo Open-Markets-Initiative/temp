@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte OpenSize = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quote Size Type
         /// </summary>
-        public const byte QuoteSizeTypeMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte QuoteSizeTypeMinimumValue = 1;
+        public const ushort FixTag = 28723;
 
         /// <summary>
         ///  Length of Quote Size Type in bytes

@@ -34,14 +34,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte RemovedQuantity = 6;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quote Event Type
         /// </summary>
-        public const byte QuoteEventTypeMaximumValue = 6;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte QuoteEventTypeMinimumValue = 0;
+        public const ushort FixTag = 28539;
 
         /// <summary>
         ///  Length of Quote Event Type in bytes

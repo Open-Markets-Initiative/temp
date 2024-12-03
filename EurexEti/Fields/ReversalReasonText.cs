@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ReversalReasonText
     {
         /// <summary>
+        ///  Fix Tag for Reversal Reason Text
+        /// </summary>
+        public const ushort FixTag = 25196;
+
+        /// <summary>
         ///  Length of Reversal Reason Text in bytes
         /// </summary>
         public const int Length = 132;

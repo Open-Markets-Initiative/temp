@@ -19,6 +19,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char Quote = '2';
 
         /// <summary>
+        ///  Fix Tag for Order Category
+        /// </summary>
+        public const ushort FixTag = 1115;
+
+        /// <summary>
         ///  Length of Order Category in bytes
         /// </summary>
         public const int Length = 1;

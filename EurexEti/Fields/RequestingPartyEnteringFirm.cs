@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RequestingPartyEnteringFirm
     {
         /// <summary>
+        ///  Fix Tag for Requesting Party Entering Firm
+        /// </summary>
+        public const ushort FixTag = 22807;
+
+        /// <summary>
         ///  Length of Requesting Party Entering Firm in bytes
         /// </summary>
         public const int Length = 9;

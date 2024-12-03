@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SecurityId
     {
         /// <summary>
+        ///  Fix Tag for Security Id
+        /// </summary>
+        public const ushort FixTag = 48;
+
+        /// <summary>
         ///  Length of Security Id in bytes
         /// </summary>
         public const int Length = 8;

@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Sell = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Leg Side
         /// </summary>
-        public const byte LegSideMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte LegSideMinimumValue = 1;
+        public const ushort FixTag = 624;
 
         /// <summary>
         ///  Length of Leg Side in bytes

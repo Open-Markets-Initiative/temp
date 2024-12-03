@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RelatedPx
     {
         /// <summary>
+        ///  Fix Tag for Related Px
+        /// </summary>
+        public const ushort FixTag = 28908;
+
+        /// <summary>
         ///  Length of Related Px in bytes
         /// </summary>
         public const int Length = 8;

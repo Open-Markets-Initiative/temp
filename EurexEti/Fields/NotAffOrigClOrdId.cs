@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NotAffOrigClOrdId
     {
         /// <summary>
+        ///  Fix Tag for Not Aff Orig Cl Ord Id
+        /// </summary>
+        public const ushort FixTag = 1372;
+
+        /// <summary>
         ///  Length of Not Aff Orig Cl Ord Id in bytes
         /// </summary>
         public const int Length = 8;

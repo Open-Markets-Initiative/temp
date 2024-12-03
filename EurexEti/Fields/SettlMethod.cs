@@ -19,6 +19,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char PhysicalSettlement = 'P';
 
         /// <summary>
+        ///  Fix Tag for Settl Method
+        /// </summary>
+        public const ushort FixTag = 1193;
+
+        /// <summary>
         ///  Length of Settl Method in bytes
         /// </summary>
         public const int Length = 1;

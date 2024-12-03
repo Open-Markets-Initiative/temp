@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TransBkdTime
     {
         /// <summary>
+        ///  Fix Tag for Trans Bkd Time
+        /// </summary>
+        public const ushort FixTag = 483;
+
+        /// <summary>
         ///  Length of Trans Bkd Time in bytes
         /// </summary>
         public const int Length = 8;

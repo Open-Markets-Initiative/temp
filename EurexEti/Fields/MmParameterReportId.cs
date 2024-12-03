@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class MmParameterReportId
     {
         /// <summary>
+        ///  Fix Tag for Mm Parameter Report Id
+        /// </summary>
+        public const ushort FixTag = 28717;
+
+        /// <summary>
         ///  Length of Mm Parameter Report Id in bytes
         /// </summary>
         public const int Length = 8;

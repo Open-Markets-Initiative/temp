@@ -64,14 +64,9 @@ namespace Eurex.EtiDerivatives.v121
         public const ushort DeltaNeutralTradeatMarket = 1017;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trd Type
         /// </summary>
-        public const ushort TrdTypeMaximumValue = 1017;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const ushort TrdTypeMinimumValue = 1;
+        public const ushort FixTag = 828;
 
         /// <summary>
         ///  Length of Trd Type in bytes

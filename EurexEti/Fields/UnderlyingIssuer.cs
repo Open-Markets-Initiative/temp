@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class UnderlyingIssuer
     {
         /// <summary>
+        ///  Fix Tag for Underlying Issuer
+        /// </summary>
+        public const ushort FixTag = 306;
+
+        /// <summary>
         ///  Length of Underlying Issuer in bytes
         /// </summary>
         public const int Length = 30;

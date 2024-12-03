@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Crossrejected = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Crossed Indicator
         /// </summary>
-        public const byte CrossedIndicatorMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte CrossedIndicatorMinimumValue = 0;
+        public const ushort FixTag = 2523;
 
         /// <summary>
         ///  Length of Crossed Indicator in bytes

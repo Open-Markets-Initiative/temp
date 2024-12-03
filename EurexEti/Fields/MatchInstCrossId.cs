@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class MatchInstCrossId
     {
         /// <summary>
+        ///  Fix Tag for Match Inst Cross Id
+        /// </summary>
+        public const ushort FixTag = 28744;
+
+        /// <summary>
         ///  Length of Match Inst Cross Id in bytes
         /// </summary>
         public const int Length = 4;

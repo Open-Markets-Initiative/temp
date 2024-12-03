@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class InstrAttribValue
     {
         /// <summary>
+        ///  Fix Tag for Instr Attrib Value
+        /// </summary>
+        public const ushort FixTag = 872;
+
+        /// <summary>
         ///  Length of Instr Attrib Value in bytes
         /// </summary>
         public const int Length = 32;

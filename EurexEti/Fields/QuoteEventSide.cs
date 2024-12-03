@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Sell = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quote Event Side
         /// </summary>
-        public const byte QuoteEventSideMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte QuoteEventSideMinimumValue = 1;
+        public const ushort FixTag = 28581;
 
         /// <summary>
         ///  Length of Quote Event Side in bytes

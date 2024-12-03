@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const ushort Seller = 14002;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Party Sub Id Type
         /// </summary>
-        public const ushort PartySubIdTypeMaximumValue = 14002;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const ushort PartySubIdTypeMinimumValue = 14001;
+        public const ushort FixTag = 803;
 
         /// <summary>
         ///  Length of Party Sub Id Type in bytes

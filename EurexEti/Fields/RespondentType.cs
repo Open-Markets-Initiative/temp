@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Anonymous = 102;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Respondent Type
         /// </summary>
-        public const byte RespondentTypeMaximumValue = 102;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte RespondentTypeMinimumValue = 1;
+        public const ushort FixTag = 1172;
 
         /// <summary>
         ///  Length of Respondent Type in bytes

@@ -29,14 +29,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte InstrumentSuspension = 4;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Reversal Cancellation Reason
         /// </summary>
-        public const byte ReversalCancellationReasonMaximumValue = 4;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ReversalCancellationReasonMinimumValue = 1;
+        public const ushort FixTag = 25195;
 
         /// <summary>
         ///  Length of Reversal Cancellation Reason in bytes

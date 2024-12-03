@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoSrqsQuoteGrps
     {
         /// <summary>
+        ///  Fix Tag for No Srqs Quote Grps
+        /// </summary>
+        public const ushort FixTag = 25218;
+
+        /// <summary>
         ///  Length of No Srqs Quote Grps in bytes
         /// </summary>
         public const int Length = 1;

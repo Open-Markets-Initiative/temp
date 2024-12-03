@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class Price
     {
         /// <summary>
+        ///  Fix Tag for Price
+        /// </summary>
+        public const ushort FixTag = 44;
+
+        /// <summary>
         ///  Length of Price in bytes
         /// </summary>
         public const int Length = 8;

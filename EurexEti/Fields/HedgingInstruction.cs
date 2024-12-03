@@ -14,14 +14,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte OnClose = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Hedging Instruction
         /// </summary>
-        public const byte HedgingInstructionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte HedgingInstructionMinimumValue = 1;
+        public const ushort FixTag = 30059;
 
         /// <summary>
         ///  Length of Hedging Instruction in bytes

@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte MarketSupervision = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Party Id Entering Firm
         /// </summary>
-        public const byte PartyIdEnteringFirmMaximumValue = 3;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PartyIdEnteringFirmMinimumValue = 1;
+        public const ushort FixTag = 20007;
 
         /// <summary>
         ///  Length of Party Id Entering Firm in bytes

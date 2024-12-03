@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte High = 3;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trade To Quote Ratio Ranking
         /// </summary>
-        public const byte TradeToQuoteRatioRankingMaximumValue = 3;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradeToQuoteRatioRankingMinimumValue = 1;
+        public const ushort FixTag = 25179;
 
         /// <summary>
         ///  Length of Trade To Quote Ratio Ranking in bytes

@@ -14,14 +14,9 @@ namespace Eurex.EtiDerivatives.v121
         public const uint Outboundconversionerror = 105;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Appl Id Status
         /// </summary>
-        public const uint ApplIdStatusMaximumValue = 4294967294;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const uint ApplIdStatusMinimumValue = 0;
+        public const ushort FixTag = 28724;
 
         /// <summary>
         ///  Length of Appl Id Status in bytes

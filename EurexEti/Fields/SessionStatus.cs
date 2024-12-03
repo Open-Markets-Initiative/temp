@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Logout = 4;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Session Status
         /// </summary>
-        public const byte SessionStatusMaximumValue = 4;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte SessionStatusMinimumValue = 0;
+        public const ushort FixTag = 1409;
 
         /// <summary>
         ///  Length of Session Status in bytes

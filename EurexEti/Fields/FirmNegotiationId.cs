@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class FirmNegotiationId
     {
         /// <summary>
+        ///  Fix Tag for Firm Negotiation Id
+        /// </summary>
+        public const ushort FixTag = 28762;
+
+        /// <summary>
         ///  Length of Firm Negotiation Id in bytes
         /// </summary>
         public const int Length = 20;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PartyIdExecutingUnit
     {
         /// <summary>
+        ///  Fix Tag for Party Id Executing Unit
+        /// </summary>
+        public const ushort FixTag = 20059;
+
+        /// <summary>
         ///  Length of Party Id Executing Unit in bytes
         /// </summary>
         public const int Length = 4;

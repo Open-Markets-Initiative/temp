@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Available = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Matching Engine Status
         /// </summary>
-        public const byte MatchingEngineStatusMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte MatchingEngineStatusMinimumValue = 0;
+        public const ushort FixTag = 25005;
 
         /// <summary>
         ///  Length of Matching Engine Status in bytes

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class T7EntryServiceRtmTradeDate
     {
         /// <summary>
+        ///  Fix Tag for T 7 Entry Service Rtm Trade Date
+        /// </summary>
+        public const ushort FixTag = 25049;
+
+        /// <summary>
         ///  Length of T 7 Entry Service Rtm Trade Date in bytes
         /// </summary>
         public const int Length = 4;

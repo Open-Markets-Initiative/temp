@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class FirmTradeId
     {
         /// <summary>
+        ///  Fix Tag for Firm Trade Id
+        /// </summary>
+        public const ushort FixTag = 1041;
+
+        /// <summary>
         ///  Length of Firm Trade Id in bytes
         /// </summary>
         public const int Length = 20;

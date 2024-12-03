@@ -34,14 +34,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte OutsideBbo = 6;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Match Sub Type
         /// </summary>
-        public const byte MatchSubTypeMaximumValue = 6;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte MatchSubTypeMinimumValue = 1;
+        public const ushort FixTag = 28610;
 
         /// <summary>
         ///  Length of Match Sub Type in bytes

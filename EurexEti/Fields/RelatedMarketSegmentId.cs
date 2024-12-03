@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RelatedMarketSegmentId
     {
         /// <summary>
+        ///  Fix Tag for Related Market Segment Id
+        /// </summary>
+        public const ushort FixTag = 2546;
+
+        /// <summary>
         ///  Length of Related Market Segment Id in bytes
         /// </summary>
         public const int Length = 4;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RefApplSubId
     {
         /// <summary>
+        ///  Fix Tag for Ref Appl Sub Id
+        /// </summary>
+        public const ushort FixTag = 28728;
+
+        /// <summary>
         ///  Length of Ref Appl Sub Id in bytes
         /// </summary>
         public const int Length = 4;

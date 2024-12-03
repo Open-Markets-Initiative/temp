@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SendingTime
     {
         /// <summary>
+        ///  Fix Tag for Sending Time
+        /// </summary>
+        public const ushort FixTag = 52;
+
+        /// <summary>
         ///  Length of Sending Time in bytes
         /// </summary>
         public const int Length = 8;

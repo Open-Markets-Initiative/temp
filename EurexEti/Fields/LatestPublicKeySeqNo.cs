@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LatestPublicKeySeqNo
     {
         /// <summary>
+        ///  Fix Tag for Latest Public Key Seq No
+        /// </summary>
+        public const ushort FixTag = 25243;
+
+        /// <summary>
         ///  Length of Latest Public Key Seq No in bytes
         /// </summary>
         public const int Length = 4;

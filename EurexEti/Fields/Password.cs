@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class Password
     {
         /// <summary>
+        ///  Fix Tag for Password
+        /// </summary>
+        public const ushort FixTag = 554;
+
+        /// <summary>
         ///  Length of Password in bytes
         /// </summary>
         public const int Length = 32;

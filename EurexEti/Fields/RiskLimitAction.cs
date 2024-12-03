@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Warning = 4;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Risk Limit Action
         /// </summary>
-        public const byte RiskLimitActionMaximumValue = 4;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte RiskLimitActionMinimumValue = 0;
+        public const ushort FixTag = 1767;
 
         /// <summary>
         ///  Length of Risk Limit Action in bytes

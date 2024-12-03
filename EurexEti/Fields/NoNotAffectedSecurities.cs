@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoNotAffectedSecurities
     {
         /// <summary>
+        ///  Fix Tag for No Not Affected Securities
+        /// </summary>
+        public const ushort FixTag = 28707;
+
+        /// <summary>
         ///  Length of No Not Affected Securities in bytes
         /// </summary>
         public const int Length = 2;

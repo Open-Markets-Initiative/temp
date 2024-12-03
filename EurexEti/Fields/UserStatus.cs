@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Userreleased = 11;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for User Status
         /// </summary>
-        public const byte UserStatusMaximumValue = 11;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte UserStatusMinimumValue = 7;
+        public const ushort FixTag = 926;
 
         /// <summary>
         ///  Length of User Status in bytes

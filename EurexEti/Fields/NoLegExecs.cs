@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoLegExecs
     {
         /// <summary>
+        ///  Fix Tag for No Leg Execs
+        /// </summary>
+        public const ushort FixTag = 30555;
+
+        /// <summary>
         ///  Length of No Leg Execs in bytes
         /// </summary>
         public const int Length = 2;

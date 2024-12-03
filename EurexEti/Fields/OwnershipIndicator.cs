@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte ChangetoExecutingTrader = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Ownership Indicator
         /// </summary>
-        public const byte OwnershipIndicatorMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte OwnershipIndicatorMinimumValue = 0;
+        public const ushort FixTag = 28743;
 
         /// <summary>
         ///  Length of Ownership Indicator in bytes

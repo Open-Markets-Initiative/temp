@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class FixEngineName
     {
         /// <summary>
+        ///  Fix Tag for Fix Engine Name
+        /// </summary>
+        public const ushort FixTag = 1600;
+
+        /// <summary>
         ///  Length of Fix Engine Name in bytes
         /// </summary>
         public const int Length = 30;

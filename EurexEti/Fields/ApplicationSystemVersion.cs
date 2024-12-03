@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ApplicationSystemVersion
     {
         /// <summary>
+        ///  Fix Tag for Application System Version
+        /// </summary>
+        public const ushort FixTag = 1604;
+
+        /// <summary>
         ///  Length of Application System Version in bytes
         /// </summary>
         public const int Length = 30;

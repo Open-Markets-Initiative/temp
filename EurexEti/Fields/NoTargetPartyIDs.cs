@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoTargetPartyIDs
     {
         /// <summary>
+        ///  Fix Tag for No Target Party I Ds
+        /// </summary>
+        public const ushort FixTag = 1461;
+
+        /// <summary>
         ///  Length of No Target Party I Ds in bytes
         /// </summary>
         public const int Length = 1;

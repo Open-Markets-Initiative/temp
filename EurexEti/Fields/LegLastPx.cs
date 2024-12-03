@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LegLastPx
     {
         /// <summary>
+        ///  Fix Tag for Leg Last Px
+        /// </summary>
+        public const ushort FixTag = 637;
+
+        /// <summary>
         ///  Length of Leg Last Px in bytes
         /// </summary>
         public const int Length = 8;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoLegClearingPrices
     {
         /// <summary>
+        ///  Fix Tag for No Leg Clearing Prices
+        /// </summary>
+        public const ushort FixTag = 31555;
+
+        /// <summary>
         ///  Length of No Leg Clearing Prices in bytes
         /// </summary>
         public const int Length = 1;

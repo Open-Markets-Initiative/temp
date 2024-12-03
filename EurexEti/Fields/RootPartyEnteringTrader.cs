@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyEnteringTrader
     {
         /// <summary>
+        ///  Fix Tag for Root Party Entering Trader
+        /// </summary>
+        public const ushort FixTag = 22436;
+
+        /// <summary>
         ///  Length of Root Party Entering Trader in bytes
         /// </summary>
         public const int Length = 6;

@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte TradeableBoc = 100;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quote Type
         /// </summary>
-        public const byte QuoteTypeMaximumValue = 104;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte QuoteTypeMinimumValue = 0;
+        public const ushort FixTag = 537;
 
         /// <summary>
         ///  Length of Quote Type in bytes

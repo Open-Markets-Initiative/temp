@@ -34,14 +34,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Plp = 18;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quote Event Reason
         /// </summary>
-        public const byte QuoteEventReasonMaximumValue = 21;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte QuoteEventReasonMinimumValue = 14;
+        public const ushort FixTag = 28733;
 
         /// <summary>
         ///  Length of Quote Event Reason in bytes

@@ -29,14 +29,9 @@ namespace Eurex.EtiDerivatives.v121
         public const ushort System = 5003;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Requesting Party Sub Id Type
         /// </summary>
-        public const ushort RequestingPartySubIdTypeMaximumValue = 5003;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const ushort RequestingPartySubIdTypeMinimumValue = 5000;
+        public const ushort FixTag = 1663;
 
         /// <summary>
         ///  Length of Requesting Party Sub Id Type in bytes

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class BidPx
     {
         /// <summary>
+        ///  Fix Tag for Bid Px
+        /// </summary>
+        public const ushort FixTag = 132;
+
+        /// <summary>
         ///  Length of Bid Px in bytes
         /// </summary>
         public const int Length = 8;

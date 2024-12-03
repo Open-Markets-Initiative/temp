@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte American = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Exercise Style
         /// </summary>
-        public const byte ExerciseStyleMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ExerciseStyleMinimumValue = 0;
+        public const ushort FixTag = 1194;
 
         /// <summary>
         ///  Length of Exercise Style in bytes

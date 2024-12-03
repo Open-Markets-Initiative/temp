@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ApplMsgId
     {
         /// <summary>
+        ///  Fix Tag for Appl Msg Id
+        /// </summary>
+        public const ushort FixTag = 28704;
+
+        /// <summary>
         ///  Length of Appl Msg Id in bytes
         /// </summary>
         public const int Length = 16;

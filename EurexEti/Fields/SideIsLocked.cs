@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Side Is Locked
         /// </summary>
-        public const byte SideIsLockedMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte SideIsLockedMinimumValue = 0;
+        public const ushort FixTag = 25208;
 
         /// <summary>
         ///  Length of Side Is Locked in bytes

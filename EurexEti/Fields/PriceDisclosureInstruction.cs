@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Price Disclosure Instruction
         /// </summary>
-        public const byte PriceDisclosureInstructionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PriceDisclosureInstructionMinimumValue = 0;
+        public const ushort FixTag = 25131;
 
         /// <summary>
         ///  Length of Price Disclosure Instruction in bytes

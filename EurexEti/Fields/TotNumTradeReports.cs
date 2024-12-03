@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class TotNumTradeReports
     {
         /// <summary>
+        ///  Fix Tag for Tot Num Trade Reports
+        /// </summary>
+        public const ushort FixTag = 748;
+
+        /// <summary>
         ///  Length of Tot Num Trade Reports in bytes
         /// </summary>
         public const int Length = 4;

@@ -89,14 +89,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte ScaledSimpleInstrumentDeletion = 121;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Mass Action Reason
         /// </summary>
-        public const byte MassActionReasonMaximumValue = 200;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte MassActionReasonMinimumValue = 0;
+        public const ushort FixTag = 28721;
 
         /// <summary>
         ///  Length of Mass Action Reason in bytes

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PartitionId
     {
         /// <summary>
+        ///  Fix Tag for Partition Id
+        /// </summary>
+        public const ushort FixTag = 5948;
+
+        /// <summary>
         ///  Length of Partition Id in bytes
         /// </summary>
         public const int Length = 2;

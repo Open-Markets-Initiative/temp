@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class StopPx
     {
         /// <summary>
+        ///  Fix Tag for Stop Px
+        /// </summary>
+        public const ushort FixTag = 99;
+
+        /// <summary>
         ///  Length of Stop Px in bytes
         /// </summary>
         public const int Length = 8;

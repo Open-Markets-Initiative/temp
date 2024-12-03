@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Side Disclosure Instruction
         /// </summary>
-        public const byte SideDisclosureInstructionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte SideDisclosureInstructionMinimumValue = 0;
+        public const ushort FixTag = 25130;
 
         /// <summary>
         ///  Length of Side Disclosure Instruction in bytes

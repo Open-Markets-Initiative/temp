@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Human = 24;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Party Id Investment Decision Maker Qualifier
         /// </summary>
-        public const byte PartyIdInvestmentDecisionMakerQualifierMaximumValue = 24;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PartyIdInvestmentDecisionMakerQualifierMinimumValue = 22;
+        public const ushort FixTag = 21222;
 
         /// <summary>
         ///  Length of Party Id Investment Decision Maker Qualifier in bytes

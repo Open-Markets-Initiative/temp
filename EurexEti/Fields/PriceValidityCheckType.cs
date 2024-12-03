@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Mandatory = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Price Validity Check Type
         /// </summary>
-        public const byte PriceValidityCheckTypeMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PriceValidityCheckTypeMinimumValue = 0;
+        public const ushort FixTag = 28710;
 
         /// <summary>
         ///  Length of Price Validity Check Type in bytes

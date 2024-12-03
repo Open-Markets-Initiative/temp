@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const ushort Nodx = 12;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Market Id
         /// </summary>
-        public const ushort MarketIDMaximumValue = 255;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const ushort MarketIDMinimumValue = 1;
+        public const ushort FixTag = 1301;
 
         /// <summary>
         ///  Length of Market Id in bytes

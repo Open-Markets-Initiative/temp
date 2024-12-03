@@ -14,14 +14,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte New = 0;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trade Aggregation Trans Type
         /// </summary>
-        public const byte TradeAggregationTransTypeMaximumValue = 0;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradeAggregationTransTypeMinimumValue = 0;
+        public const ushort FixTag = 2788;
 
         /// <summary>
         ///  Length of Trade Aggregation Trans Type in bytes

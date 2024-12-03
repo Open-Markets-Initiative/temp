@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class MaturityMonthYear
     {
         /// <summary>
+        ///  Fix Tag for Maturity Month Year
+        /// </summary>
+        public const ushort FixTag = 200;
+
+        /// <summary>
         ///  Length of Maturity Month Year in bytes
         /// </summary>
         public const int Length = 4;

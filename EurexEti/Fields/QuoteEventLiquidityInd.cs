@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Auction = 4;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quote Event Liquidity Ind
         /// </summary>
-        public const byte QuoteEventLiquidityIndMaximumValue = 4;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte QuoteEventLiquidityIndMinimumValue = 1;
+        public const ushort FixTag = 28641;
 
         /// <summary>
         ///  Length of Quote Event Liquidity Ind in bytes

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class AffectedOrderRequestId
     {
         /// <summary>
+        ///  Fix Tag for Affected Order Request Id
+        /// </summary>
+        public const ushort FixTag = 28783;
+
+        /// <summary>
         ///  Length of Affected Order Request Id in bytes
         /// </summary>
         public const int Length = 4;

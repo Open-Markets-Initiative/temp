@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte RecoveryRequired = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Appl Seq Indicator
         /// </summary>
-        public const byte ApplSeqIndicatorMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ApplSeqIndicatorMinimumValue = 0;
+        public const ushort FixTag = 28703;
 
         /// <summary>
         ///  Length of Appl Seq Indicator in bytes

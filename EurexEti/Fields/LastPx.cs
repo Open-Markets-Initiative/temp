@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LastPx
     {
         /// <summary>
+        ///  Fix Tag for Last Px
+        /// </summary>
+        public const ushort FixTag = 31;
+
+        /// <summary>
         ///  Length of Last Px in bytes
         /// </summary>
         public const int Length = 8;

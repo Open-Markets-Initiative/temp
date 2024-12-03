@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PartyIdPositionAccount
     {
         /// <summary>
+        ///  Fix Tag for Party Id Position Account
+        /// </summary>
+        public const ushort FixTag = 20038;
+
+        /// <summary>
         ///  Length of Party Id Position Account in bytes
         /// </summary>
         public const int Length = 32;

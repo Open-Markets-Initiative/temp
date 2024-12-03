@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class CrossRequestId
     {
         /// <summary>
+        ///  Fix Tag for Cross Request Id
+        /// </summary>
+        public const ushort FixTag = 2672;
+
+        /// <summary>
         ///  Length of Cross Request Id in bytes
         /// </summary>
         public const int Length = 4;

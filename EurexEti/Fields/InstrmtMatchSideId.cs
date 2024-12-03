@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class InstrmtMatchSideId
     {
         /// <summary>
+        ///  Fix Tag for Instrmt Match Side Id
+        /// </summary>
+        public const ushort FixTag = 25166;
+
+        /// <summary>
         ///  Length of Instrmt Match Side Id in bytes
         /// </summary>
         public const int Length = 1;

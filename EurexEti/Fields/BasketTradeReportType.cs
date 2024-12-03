@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte NoWasSubstitue = 5;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Basket Trade Report Type
         /// </summary>
-        public const byte BasketTradeReportTypeMaximumValue = 5;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte BasketTradeReportTypeMinimumValue = 0;
+        public const ushort FixTag = 25173;
 
         /// <summary>
         ///  Length of Basket Trade Report Type in bytes

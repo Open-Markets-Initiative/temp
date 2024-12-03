@@ -29,14 +29,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte SellSide = 4;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Leg Input Source
         /// </summary>
-        public const byte LegInputSourceMaximumValue = 4;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte LegInputSourceMinimumValue = 1;
+        public const ushort FixTag = 25153;
 
         /// <summary>
         ///  Length of Leg Input Source in bytes

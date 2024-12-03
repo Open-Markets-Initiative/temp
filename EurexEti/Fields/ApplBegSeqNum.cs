@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ApplBegSeqNum
     {
         /// <summary>
+        ///  Fix Tag for Appl Beg Seq Num
+        /// </summary>
+        public const ushort FixTag = 1182;
+
+        /// <summary>
         ///  Length of Appl Beg Seq Num in bytes
         /// </summary>
         public const int Length = 8;

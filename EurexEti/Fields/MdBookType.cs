@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte PriceDepth = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Md Book Type
         /// </summary>
-        public const byte MdBookTypeMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte MdBookTypeMinimumValue = 1;
+        public const ushort FixTag = 1024;
 
         /// <summary>
         ///  Length of Md Book Type in bytes

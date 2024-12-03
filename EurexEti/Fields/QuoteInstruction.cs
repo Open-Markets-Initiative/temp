@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Quote = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Quote Instruction
         /// </summary>
-        public const byte QuoteInstructionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte QuoteInstructionMinimumValue = 0;
+        public const ushort FixTag = 25138;
 
         /// <summary>
         ///  Length of Quote Instruction in bytes

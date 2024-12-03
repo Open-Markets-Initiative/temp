@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Executingunit = 59;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Risk Limit Requesting Party Role
         /// </summary>
-        public const byte RiskLimitRequestingPartyRoleMaximumValue = 59;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte RiskLimitRequestingPartyRoleMinimumValue = 4;
+        public const ushort FixTag = 28776;
 
         /// <summary>
         ///  Length of Risk Limit Requesting Party Role in bytes

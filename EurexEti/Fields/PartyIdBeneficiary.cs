@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PartyIdBeneficiary
     {
         /// <summary>
+        ///  Fix Tag for Party Id Beneficiary
+        /// </summary>
+        public const ushort FixTag = 20032;
+
+        /// <summary>
         ///  Length of Party Id Beneficiary in bytes
         /// </summary>
         public const int Length = 9;

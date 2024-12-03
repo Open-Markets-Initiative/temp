@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class UnderlyingSettlementDate
     {
         /// <summary>
+        ///  Fix Tag for Underlying Settlement Date
+        /// </summary>
+        public const ushort FixTag = 987;
+
+        /// <summary>
         ///  Length of Underlying Settlement Date in bytes
         /// </summary>
         public const int Length = 4;

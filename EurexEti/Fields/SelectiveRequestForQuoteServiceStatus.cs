@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Available = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Selective Request For Quote Service Status
         /// </summary>
-        public const byte SelectiveRequestForQuoteServiceStatusMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte SelectiveRequestForQuoteServiceStatusMinimumValue = 0;
+        public const ushort FixTag = 25051;
 
         /// <summary>
         ///  Length of Selective Request For Quote Service Status in bytes

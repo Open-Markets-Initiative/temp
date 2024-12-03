@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Number Of Resp Disclosure Instruction
         /// </summary>
-        public const byte NumberOfRespDisclosureInstructionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte NumberOfRespDisclosureInstructionMinimumValue = 0;
+        public const ushort FixTag = 25145;
 
         /// <summary>
         ///  Length of Number Of Resp Disclosure Instruction in bytes

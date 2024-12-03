@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RelatedSymbol
     {
         /// <summary>
+        ///  Fix Tag for Related Symbol
+        /// </summary>
+        public const ushort FixTag = 1649;
+
+        /// <summary>
         ///  Length of Related Symbol in bytes
         /// </summary>
         public const int Length = 4;

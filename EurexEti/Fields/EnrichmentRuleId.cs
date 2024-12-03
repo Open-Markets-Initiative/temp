@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class EnrichmentRuleId
     {
         /// <summary>
+        ///  Fix Tag for Enrichment Rule Id
+        /// </summary>
+        public const ushort FixTag = 25033;
+
+        /// <summary>
         ///  Length of Enrichment Rule Id in bytes
         /// </summary>
         public const int Length = 2;

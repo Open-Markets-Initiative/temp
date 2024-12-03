@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ActivationDate
     {
         /// <summary>
+        ///  Fix Tag for Activation Date
+        /// </summary>
+        public const ushort FixTag = 28905;
+
+        /// <summary>
         ///  Length of Activation Date in bytes
         /// </summary>
         public const int Length = 4;

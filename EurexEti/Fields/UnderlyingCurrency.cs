@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class UnderlyingCurrency
     {
         /// <summary>
+        ///  Fix Tag for Underlying Currency
+        /// </summary>
+        public const ushort FixTag = 318;
+
+        /// <summary>
         ///  Length of Underlying Currency in bytes
         /// </summary>
         public const int Length = 3;

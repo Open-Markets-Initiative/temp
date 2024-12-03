@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class HeartBtInt
     {
         /// <summary>
+        ///  Fix Tag for Heart Bt Int
+        /// </summary>
+        public const ushort FixTag = 108;
+
+        /// <summary>
         ///  Length of Heart Bt Int in bytes
         /// </summary>
         public const int Length = 4;

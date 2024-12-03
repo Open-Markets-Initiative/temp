@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class CumQty
     {
         /// <summary>
+        ///  Fix Tag for Cum Qty
+        /// </summary>
+        public const ushort FixTag = 14;
+
+        /// <summary>
         ///  Length of Cum Qty in bytes
         /// </summary>
         public const int Length = 8;

@@ -29,6 +29,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char Expired = '8';
 
         /// <summary>
+        ///  Fix Tag for Quote Condition
+        /// </summary>
+        public const ushort FixTag = 276;
+
+        /// <summary>
         ///  Length of Quote Condition in bytes
         /// </summary>
         public const int Length = 1;

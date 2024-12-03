@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte True = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Skip Validations
         /// </summary>
-        public const byte SkipValidationsMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte SkipValidationsMinimumValue = 0;
+        public const ushort FixTag = 25034;
 
         /// <summary>
         ///  Length of Skip Validations in bytes

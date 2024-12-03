@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class QuoteId
     {
         /// <summary>
+        ///  Fix Tag for Quote Id
+        /// </summary>
+        public const ushort FixTag = 117;
+
+        /// <summary>
         ///  Length of Quote Id in bytes
         /// </summary>
         public const int Length = 8;

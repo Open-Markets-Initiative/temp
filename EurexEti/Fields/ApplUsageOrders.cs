@@ -29,6 +29,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char None = 'N';
 
         /// <summary>
+        ///  Fix Tag for Appl Usage Orders
+        /// </summary>
+        public const ushort FixTag = 25012;
+
+        /// <summary>
         ///  Length of Appl Usage Orders in bytes
         /// </summary>
         public const int Length = 1;

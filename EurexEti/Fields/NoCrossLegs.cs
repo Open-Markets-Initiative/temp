@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoCrossLegs
     {
         /// <summary>
+        ///  Fix Tag for No Cross Legs
+        /// </summary>
+        public const ushort FixTag = 1829;
+
+        /// <summary>
         ///  Length of No Cross Legs in bytes
         /// </summary>
         public const int Length = 1;

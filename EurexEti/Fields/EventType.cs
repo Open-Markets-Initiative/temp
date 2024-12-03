@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte SwapEndDate = 9;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Event Type
         /// </summary>
-        public const byte EventTypeMaximumValue = 114;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte EventTypeMinimumValue = 8;
+        public const ushort FixTag = 865;
 
         /// <summary>
         ///  Length of Event Type in bytes

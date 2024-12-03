@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ExpireDate
     {
         /// <summary>
+        ///  Fix Tag for Expire Date
+        /// </summary>
+        public const ushort FixTag = 432;
+
+        /// <summary>
         ///  Length of Expire Date in bytes
         /// </summary>
         public const int Length = 4;

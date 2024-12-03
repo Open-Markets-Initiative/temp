@@ -34,14 +34,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte ServiceResumed = 105;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trad Ses Event
         /// </summary>
-        public const byte TradSesEventMaximumValue = 105;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradSesEventMinimumValue = 100;
+        public const ushort FixTag = 1368;
 
         /// <summary>
         ///  Length of Trad Ses Event in bytes

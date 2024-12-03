@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoInstrAttrib
     {
         /// <summary>
+        ///  Fix Tag for No Instr Attrib
+        /// </summary>
+        public const ushort FixTag = 870;
+
+        /// <summary>
         ///  Length of No Instr Attrib in bytes
         /// </summary>
         public const int Length = 1;

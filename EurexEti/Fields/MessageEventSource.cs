@@ -29,6 +29,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char BroadcasttoQuoteSubmitter = 'Q';
 
         /// <summary>
+        ///  Fix Tag for Message Event Source
+        /// </summary>
+        public const ushort FixTag = 1011;
+
+        /// <summary>
         ///  Length of Message Event Source in bytes
         /// </summary>
         public const int Length = 1;

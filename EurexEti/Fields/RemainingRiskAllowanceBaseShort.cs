@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RemainingRiskAllowanceBaseShort
     {
         /// <summary>
+        ///  Fix Tag for Remaining Risk Allowance Base Short
+        /// </summary>
+        public const ushort FixTag = 35531;
+
+        /// <summary>
         ///  Length of Remaining Risk Allowance Base Short in bytes
         /// </summary>
         public const int Length = 8;

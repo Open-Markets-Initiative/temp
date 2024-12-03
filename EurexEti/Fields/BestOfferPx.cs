@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class BestOfferPx
     {
         /// <summary>
+        ///  Fix Tag for Best Offer Px
+        /// </summary>
+        public const ushort FixTag = 25133;
+
+        /// <summary>
         ///  Length of Best Offer Px in bytes
         /// </summary>
         public const int Length = 8;

@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class VarText
     {
         /// <summary>
+        ///  Fix Tag for Var Text
+        /// </summary>
+        public const ushort FixTag = 30355;
+
+        /// <summary>
         ///  Length of Var Text in bytes
         /// </summary>
         public const int Length = 2000;

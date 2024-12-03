@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class CheckSumCorrection
     {
         /// <summary>
+        ///  Fix Tag for Check Sum Correction
+        /// </summary>
+        public const ushort FixTag = 30010;
+
+        /// <summary>
         ///  Length of Check Sum Correction in bytes
         /// </summary>
         public const int Length = 2;

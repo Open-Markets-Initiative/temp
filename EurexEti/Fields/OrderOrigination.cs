@@ -14,14 +14,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Directaccessorsponsoredaccesscustomer = 5;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Order Origination
         /// </summary>
-        public const byte OrderOriginationMaximumValue = 5;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte OrderOriginationMinimumValue = 5;
+        public const ushort FixTag = 1724;
 
         /// <summary>
         ///  Length of Order Origination in bytes

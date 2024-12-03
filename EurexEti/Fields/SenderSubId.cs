@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SenderSubId
     {
         /// <summary>
+        ///  Fix Tag for Sender Sub Id
+        /// </summary>
+        public const ushort FixTag = 50;
+
+        /// <summary>
         ///  Length of Sender Sub Id in bytes
         /// </summary>
         public const int Length = 4;

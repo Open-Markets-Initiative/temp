@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Clip = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Cross Request Type
         /// </summary>
-        public const byte CrossRequestTypeMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte CrossRequestTypeMinimumValue = 1;
+        public const ushort FixTag = 28771;
 
         /// <summary>
         ///  Length of Cross Request Type in bytes

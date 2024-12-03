@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class IndividualAllocId
     {
         /// <summary>
+        ///  Fix Tag for Individual Alloc Id
+        /// </summary>
+        public const ushort FixTag = 467;
+
+        /// <summary>
         ///  Length of Individual Alloc Id in bytes
         /// </summary>
         public const int Length = 4;

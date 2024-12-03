@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Clearer = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Transfer Reason
         /// </summary>
-        public const byte TransferReasonMaximumValue = 5;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TransferReasonMinimumValue = 1;
+        public const ushort FixTag = 830;
 
         /// <summary>
         ///  Length of Transfer Reason in bytes

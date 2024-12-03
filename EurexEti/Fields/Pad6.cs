@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class Pad6
     {
         /// <summary>
+        ///  Fix Tag for Pad 6
+        /// </summary>
+        public const ushort FixTag = 39060;
+
+        /// <summary>
         ///  Length of Pad 6 in bytes
         /// </summary>
         public const int Length = 6;
@@ -21,7 +26,7 @@ namespace Eurex.EtiDerivatives.v121
         {
             var position = pointer + offset;
 
-            for (var i = 0; i < {Declaration}.Length; i++)
+            for (var i = 0; i < Pad6.Length; i++)
             {
                 *(position++) = 0;
             }

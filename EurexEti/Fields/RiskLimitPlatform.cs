@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte OffBook = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Risk Limit Platform
         /// </summary>
-        public const byte RiskLimitPlatformMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte RiskLimitPlatformMinimumValue = 0;
+        public const ushort FixTag = 1533;
 
         /// <summary>
         ///  Length of Risk Limit Platform in bytes

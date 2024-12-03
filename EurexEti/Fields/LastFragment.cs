@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte LastMessage = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Last Fragment
         /// </summary>
-        public const byte LastFragmentMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte LastFragmentMinimumValue = 0;
+        public const ushort FixTag = 893;
 
         /// <summary>
         ///  Length of Last Fragment in bytes

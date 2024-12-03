@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LegSymbol
     {
         /// <summary>
+        ///  Fix Tag for Leg Symbol
+        /// </summary>
+        public const ushort FixTag = 600;
+
+        /// <summary>
         ///  Length of Leg Symbol in bytes
         /// </summary>
         public const int Length = 4;

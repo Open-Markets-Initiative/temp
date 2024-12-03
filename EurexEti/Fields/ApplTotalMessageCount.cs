@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ApplTotalMessageCount
     {
         /// <summary>
+        ///  Fix Tag for Appl Total Message Count
+        /// </summary>
+        public const ushort FixTag = 1349;
+
+        /// <summary>
         ///  Length of Appl Total Message Count in bytes
         /// </summary>
         public const int Length = 2;

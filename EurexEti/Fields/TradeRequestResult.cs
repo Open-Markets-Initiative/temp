@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Cancelapproved = 102;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trade Request Result
         /// </summary>
-        public const byte TradeRequestResultMaximumValue = 102;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradeRequestResultMinimumValue = 100;
+        public const ushort FixTag = 749;
 
         /// <summary>
         ///  Length of Trade Request Result in bytes

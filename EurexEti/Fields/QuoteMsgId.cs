@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class QuoteMsgId
     {
         /// <summary>
+        ///  Fix Tag for Quote Msg Id
+        /// </summary>
+        public const ushort FixTag = 1166;
+
+        /// <summary>
         ///  Length of Quote Msg Id in bytes
         /// </summary>
         public const int Length = 8;

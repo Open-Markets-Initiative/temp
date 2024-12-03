@@ -29,14 +29,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte StopLimit = 4;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Ord Type
         /// </summary>
-        public const byte OrdTypeMaximumValue = 4;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte OrdTypeMinimumValue = 1;
+        public const ushort FixTag = 40;
 
         /// <summary>
         ///  Length of Ord Type in bytes

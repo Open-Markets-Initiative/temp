@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Last Qty Disclosure Instruction
         /// </summary>
-        public const byte LastQtyDisclosureInstructionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte LastQtyDisclosureInstructionMinimumValue = 0;
+        public const ushort FixTag = 25147;
 
         /// <summary>
         ///  Length of Last Qty Disclosure Instruction in bytes

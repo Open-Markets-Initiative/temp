@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoBasketRootPartyGrpsBc
     {
         /// <summary>
+        ///  Fix Tag for No Basket Root Party Grps Bc
+        /// </summary>
+        public const ushort FixTag = 25171;
+
+        /// <summary>
         ///  Length of No Basket Root Party Grps Bc in bytes
         /// </summary>
         public const int Length = 1;

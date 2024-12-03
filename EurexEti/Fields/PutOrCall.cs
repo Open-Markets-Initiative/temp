@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Call = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Put Or Call
         /// </summary>
-        public const byte PutOrCallMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PutOrCallMinimumValue = 0;
+        public const ushort FixTag = 201;
 
         /// <summary>
         ///  Length of Put Or Call in bytes

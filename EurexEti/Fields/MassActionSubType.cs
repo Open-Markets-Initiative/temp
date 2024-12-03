@@ -14,14 +14,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte BookorCancel = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Mass Action Sub Type
         /// </summary>
-        public const byte MassActionSubTypeMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte MassActionSubTypeMinimumValue = 1;
+        public const ushort FixTag = 28768;
 
         /// <summary>
         ///  Length of Mass Action Sub Type in bytes

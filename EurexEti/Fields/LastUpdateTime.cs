@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LastUpdateTime
     {
         /// <summary>
+        ///  Fix Tag for Last Update Time
+        /// </summary>
+        public const ushort FixTag = 779;
+
+        /// <summary>
         ///  Length of Last Update Time in bytes
         /// </summary>
         public const int Length = 8;

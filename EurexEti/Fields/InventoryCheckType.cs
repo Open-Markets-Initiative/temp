@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Check = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Inventory Check Type
         /// </summary>
-        public const byte InventoryCheckTypeMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte InventoryCheckTypeMinimumValue = 0;
+        public const ushort FixTag = 25240;
 
         /// <summary>
         ///  Length of Inventory Check Type in bytes

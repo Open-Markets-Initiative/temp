@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ReversalInitiationTime
     {
         /// <summary>
+        ///  Fix Tag for Reversal Initiation Time
+        /// </summary>
+        public const ushort FixTag = 25197;
+
+        /// <summary>
         ///  Length of Reversal Initiation Time in bytes
         /// </summary>
         public const int Length = 8;

@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NetworkMsgId
     {
         /// <summary>
+        ///  Fix Tag for Network Msg Id
+        /// </summary>
+        public const ushort FixTag = 25028;
+
+        /// <summary>
         ///  Length of Network Msg Id in bytes
         /// </summary>
         public const int Length = 8;

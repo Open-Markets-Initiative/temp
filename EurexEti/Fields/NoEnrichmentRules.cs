@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoEnrichmentRules
     {
         /// <summary>
+        ///  Fix Tag for No Enrichment Rules
+        /// </summary>
+        public const ushort FixTag = 28738;
+
+        /// <summary>
         ///  Length of No Enrichment Rules in bytes
         /// </summary>
         public const int Length = 2;

@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class RootPartyIdSessionId
     {
         /// <summary>
+        ///  Fix Tag for Root Party Id Session Id
+        /// </summary>
+        public const ushort FixTag = 20455;
+
+        /// <summary>
         ///  Length of Root Party Id Session Id in bytes
         /// </summary>
         public const int Length = 4;

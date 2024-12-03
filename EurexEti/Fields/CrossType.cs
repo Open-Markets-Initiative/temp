@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Crossoneside = 3;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Cross Type
         /// </summary>
-        public const byte CrossTypeMaximumValue = 3;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte CrossTypeMinimumValue = 2;
+        public const ushort FixTag = 549;
 
         /// <summary>
         ///  Length of Cross Type in bytes

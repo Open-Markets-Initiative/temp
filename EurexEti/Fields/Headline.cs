@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class Headline
     {
         /// <summary>
+        ///  Fix Tag for Headline
+        /// </summary>
+        public const ushort FixTag = 148;
+
+        /// <summary>
         ///  Length of Headline in bytes
         /// </summary>
         public const int Length = 256;

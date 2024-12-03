@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SrqsRelatedTradeId
     {
         /// <summary>
+        ///  Fix Tag for Srqs Related Trade Id
+        /// </summary>
+        public const ushort FixTag = 25152;
+
+        /// <summary>
         ///  Length of Srqs Related Trade Id in bytes
         /// </summary>
         public const int Length = 4;

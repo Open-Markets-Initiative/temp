@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoFills
     {
         /// <summary>
+        ///  Fix Tag for No Fills
+        /// </summary>
+        public const ushort FixTag = 1362;
+
+        /// <summary>
         ///  Length of No Fills in bytes
         /// </summary>
         public const int Length = 1;

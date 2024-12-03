@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoSideAllocs
     {
         /// <summary>
+        ///  Fix Tag for No Side Allocs
+        /// </summary>
+        public const ushort FixTag = 28709;
+
+        /// <summary>
         ///  Length of No Side Allocs in bytes
         /// </summary>
         public const int Length = 1;

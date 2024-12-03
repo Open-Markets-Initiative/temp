@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class MatchingEngineTradeDate
     {
         /// <summary>
+        ///  Fix Tag for Matching Engine Trade Date
+        /// </summary>
+        public const ushort FixTag = 25030;
+
+        /// <summary>
         ///  Length of Matching Engine Trade Date in bytes
         /// </summary>
         public const int Length = 4;

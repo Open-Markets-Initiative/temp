@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoUnderlyingStips
     {
         /// <summary>
+        ///  Fix Tag for No Underlying Stips
+        /// </summary>
+        public const ushort FixTag = 887;
+
+        /// <summary>
         ///  Length of No Underlying Stips in bytes
         /// </summary>
         public const int Length = 1;

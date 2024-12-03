@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NettingCoefficient
     {
         /// <summary>
+        ///  Fix Tag for Netting Coefficient
+        /// </summary>
+        public const ushort FixTag = 25205;
+
+        /// <summary>
         ///  Length of Netting Coefficient in bytes
         /// </summary>
         public const int Length = 8;

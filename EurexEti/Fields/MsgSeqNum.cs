@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class MsgSeqNum
     {
         /// <summary>
+        ///  Fix Tag for Msg Seq Num
+        /// </summary>
+        public const ushort FixTag = 34;
+
+        /// <summary>
         ///  Length of Msg Seq Num in bytes
         /// </summary>
         public const int Length = 4;

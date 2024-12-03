@@ -19,6 +19,11 @@ namespace Eurex.EtiDerivatives.v121
         public const char No = 'N';
 
         /// <summary>
+        ///  Fix Tag for Order Routing Indicator
+        /// </summary>
+        public const ushort FixTag = 25014;
+
+        /// <summary>
         ///  Length of Order Routing Indicator in bytes
         /// </summary>
         public const int Length = 1;

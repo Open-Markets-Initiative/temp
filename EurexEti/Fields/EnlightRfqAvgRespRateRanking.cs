@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte High = 3;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Enlight Rfq Avg Resp Rate Ranking
         /// </summary>
-        public const byte EnlightRfqAvgRespRateRankingMaximumValue = 3;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte EnlightRfqAvgRespRateRankingMinimumValue = 1;
+        public const ushort FixTag = 25178;
 
         /// <summary>
         ///  Length of Enlight Rfq Avg Resp Rate Ranking in bytes

@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte RemoveVolume = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Effect On Basket
         /// </summary>
-        public const byte EffectOnBasketMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte EffectOnBasketMinimumValue = 1;
+        public const ushort FixTag = 25163;
 
         /// <summary>
         ///  Length of Effect On Basket in bytes

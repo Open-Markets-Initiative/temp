@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Available = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Trade Manager Status
         /// </summary>
-        public const byte TradeManagerStatusMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TradeManagerStatusMinimumValue = 0;
+        public const ushort FixTag = 25006;
 
         /// <summary>
         ///  Length of Trade Manager Status in bytes

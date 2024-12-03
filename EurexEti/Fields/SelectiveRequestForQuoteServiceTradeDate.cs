@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SelectiveRequestForQuoteServiceTradeDate
     {
         /// <summary>
+        ///  Fix Tag for Selective Request For Quote Service Trade Date
+        /// </summary>
+        public const ushort FixTag = 25052;
+
+        /// <summary>
         ///  Length of Selective Request For Quote Service Trade Date in bytes
         /// </summary>
         public const int Length = 4;

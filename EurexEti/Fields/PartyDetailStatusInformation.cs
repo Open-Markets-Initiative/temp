@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Blockallanonymous = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Party Detail Status Information
         /// </summary>
-        public const byte PartyDetailStatusInformationMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PartyDetailStatusInformationMinimumValue = 1;
+        public const ushort FixTag = 25185;
 
         /// <summary>
         ///  Length of Party Detail Status Information in bytes

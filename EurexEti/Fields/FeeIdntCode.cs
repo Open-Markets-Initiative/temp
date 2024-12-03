@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class FeeIdntCode
     {
         /// <summary>
+        ///  Fix Tag for Fee Idnt Code
+        /// </summary>
+        public const ushort FixTag = 32999;
+
+        /// <summary>
         ///  Length of Fee Idnt Code in bytes
         /// </summary>
         public const int Length = 15;

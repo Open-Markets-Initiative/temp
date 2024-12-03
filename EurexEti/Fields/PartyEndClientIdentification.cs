@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class PartyEndClientIdentification
     {
         /// <summary>
+        ///  Fix Tag for Party End Client Identification
+        /// </summary>
+        public const ushort FixTag = 25241;
+
+        /// <summary>
         ///  Length of Party End Client Identification in bytes
         /// </summary>
         public const int Length = 20;

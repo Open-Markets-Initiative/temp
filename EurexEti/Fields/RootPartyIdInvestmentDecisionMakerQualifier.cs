@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Human = 24;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Root Party Id Investment Decision Maker Qualifier
         /// </summary>
-        public const byte RootPartyIdInvestmentDecisionMakerQualifierMaximumValue = 24;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte RootPartyIdInvestmentDecisionMakerQualifierMinimumValue = 22;
+        public const ushort FixTag = 21622;
 
         /// <summary>
         ///  Length of Root Party Id Investment Decision Maker Qualifier in bytes

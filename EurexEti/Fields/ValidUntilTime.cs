@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ValidUntilTime
     {
         /// <summary>
+        ///  Fix Tag for Valid Until Time
+        /// </summary>
+        public const ushort FixTag = 62;
+
+        /// <summary>
         ///  Length of Valid Until Time in bytes
         /// </summary>
         public const int Length = 8;

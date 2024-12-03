@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoInstrmtMatchSides
     {
         /// <summary>
+        ///  Fix Tag for No Instrmt Match Sides
+        /// </summary>
+        public const ushort FixTag = 1889;
+
+        /// <summary>
         ///  Length of No Instrmt Match Sides in bytes
         /// </summary>
         public const int Length = 1;

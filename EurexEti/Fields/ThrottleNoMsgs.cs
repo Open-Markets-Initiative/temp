@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ThrottleNoMsgs
     {
         /// <summary>
+        ///  Fix Tag for Throttle No Msgs
+        /// </summary>
+        public const ushort FixTag = 1613;
+
+        /// <summary>
         ///  Length of Throttle No Msgs in bytes
         /// </summary>
         public const int Length = 4;

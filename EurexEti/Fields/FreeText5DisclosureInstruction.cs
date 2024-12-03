@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Free Text 5 Disclosure Instruction
         /// </summary>
-        public const byte FreeText5DisclosureInstructionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte FreeText5DisclosureInstructionMinimumValue = 0;
+        public const ushort FixTag = 31814;
 
         /// <summary>
         ///  Length of Free Text 5 Disclosure Instruction in bytes

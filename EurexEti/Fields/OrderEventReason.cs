@@ -14,14 +14,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Smp = 100;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Order Event Reason
         /// </summary>
-        public const byte OrderEventReasonMaximumValue = 100;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte OrderEventReasonMinimumValue = 100;
+        public const ushort FixTag = 1798;
 
         /// <summary>
         ///  Length of Order Event Reason in bytes

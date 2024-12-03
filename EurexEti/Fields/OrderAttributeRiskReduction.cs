@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte N = 0;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Order Attribute Risk Reduction
         /// </summary>
-        public const byte OrderAttributeRiskReductionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte OrderAttributeRiskReductionMinimumValue = 0;
+        public const ushort FixTag = 23003;
 
         /// <summary>
         ///  Length of Order Attribute Risk Reduction in bytes

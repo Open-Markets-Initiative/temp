@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Available = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for T 7 Entry Service Rtm Status
         /// </summary>
-        public const byte T7EntryServiceRtmStatusMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte T7EntryServiceRtmStatusMinimumValue = 0;
+        public const ushort FixTag = 25050;
 
         /// <summary>
         ///  Length of T 7 Entry Service Rtm Status in bytes

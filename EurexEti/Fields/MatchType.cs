@@ -39,14 +39,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte LiquidityImprovementCross = 13;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Match Type
         /// </summary>
-        public const byte MatchTypeMaximumValue = 15;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte MatchTypeMinimumValue = 0;
+        public const ushort FixTag = 574;
 
         /// <summary>
         ///  Length of Match Type in bytes

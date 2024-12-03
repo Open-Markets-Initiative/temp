@@ -39,14 +39,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte TriggeredMarketOrder = 7;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Fill Liquidity Ind
         /// </summary>
-        public const byte FillLiquidityIndMaximumValue = 7;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte FillLiquidityIndMinimumValue = 1;
+        public const ushort FixTag = 1443;
 
         /// <summary>
         ///  Length of Fill Liquidity Ind in bytes

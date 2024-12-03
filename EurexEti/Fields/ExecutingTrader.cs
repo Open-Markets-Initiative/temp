@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ExecutingTrader
     {
         /// <summary>
+        ///  Fix Tag for Executing Trader
+        /// </summary>
+        public const ushort FixTag = 25123;
+
+        /// <summary>
         ///  Length of Executing Trader in bytes
         /// </summary>
         public const int Length = 8;

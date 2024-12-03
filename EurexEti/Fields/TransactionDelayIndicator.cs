@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Delayed = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Transaction Delay Indicator
         /// </summary>
-        public const byte TransactionDelayIndicatorMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte TransactionDelayIndicatorMinimumValue = 0;
+        public const ushort FixTag = 25159;
 
         /// <summary>
         ///  Length of Transaction Delay Indicator in bytes

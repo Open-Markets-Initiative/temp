@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Rejected = 2;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Party Detail Status
         /// </summary>
-        public const byte PartyDetailStatusMaximumValue = 2;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PartyDetailStatusMinimumValue = 0;
+        public const ushort FixTag = 1672;
 
         /// <summary>
         ///  Length of Party Detail Status in bytes

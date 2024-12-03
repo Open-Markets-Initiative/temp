@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const ushort HighRraEventId = 10582;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Risk Limit Result
         /// </summary>
-        public const ushort RiskLimitResultMaximumValue = 10582;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const ushort RiskLimitResultMinimumValue = 10580;
+        public const ushort FixTag = 1764;
 
         /// <summary>
         ///  Length of Risk Limit Result in bytes

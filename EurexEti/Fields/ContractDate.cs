@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class ContractDate
     {
         /// <summary>
+        ///  Fix Tag for Contract Date
+        /// </summary>
+        public const ushort FixTag = 30866;
+
+        /// <summary>
         ///  Length of Contract Date in bytes
         /// </summary>
         public const int Length = 4;

@@ -10,6 +10,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class SideComplianceText
     {
         /// <summary>
+        ///  Fix Tag for Side Compliance Text
+        /// </summary>
+        public const ushort FixTag = 28774;
+
+        /// <summary>
         ///  Length of Side Compliance Text in bytes
         /// </summary>
         public const int Length = 20;

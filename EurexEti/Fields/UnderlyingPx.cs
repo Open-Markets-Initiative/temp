@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class UnderlyingPx
     {
         /// <summary>
+        ///  Fix Tag for Underlying Px
+        /// </summary>
+        public const ushort FixTag = 810;
+
+        /// <summary>
         ///  Length of Underlying Px in bytes
         /// </summary>
         public const int Length = 8;

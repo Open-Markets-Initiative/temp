@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Yes = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Offer Px Is Locked
         /// </summary>
-        public const byte OfferPxIsLockedMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte OfferPxIsLockedMinimumValue = 0;
+        public const ushort FixTag = 25207;
 
         /// <summary>
         ///  Length of Offer Px Is Locked in bytes

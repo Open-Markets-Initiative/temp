@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte N = 0;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Order Attribute Liquidity Provision
         /// </summary>
-        public const byte OrderAttributeLiquidityProvisionMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte OrderAttributeLiquidityProvisionMinimumValue = 0;
+        public const ushort FixTag = 23002;
 
         /// <summary>
         ///  Length of Order Attribute Liquidity Provision in bytes

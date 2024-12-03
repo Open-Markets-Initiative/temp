@@ -24,14 +24,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte Supervisor = 12;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Party Detail Role Qualifier
         /// </summary>
-        public const byte PartyDetailRoleQualifierMaximumValue = 12;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte PartyDetailRoleQualifierMinimumValue = 10;
+        public const ushort FixTag = 1674;
 
         /// <summary>
         ///  Length of Party Detail Role Qualifier in bytes

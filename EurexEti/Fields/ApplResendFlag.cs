@@ -19,14 +19,9 @@ namespace Eurex.EtiDerivatives.v121
         public const byte True = 1;
 
         /// <summary>
-        ///  
+        ///  Fix Tag for Appl Resend Flag
         /// </summary>
-        public const byte ApplResendFlagMaximumValue = 1;
-
-        /// <summary>
-        ///  
-        /// </summary>
-        public const byte ApplResendFlagMinimumValue = 0;
+        public const ushort FixTag = 1352;
 
         /// <summary>
         ///  Length of Appl Resend Flag in bytes

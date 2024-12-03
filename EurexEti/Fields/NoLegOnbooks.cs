@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class NoLegOnbooks
     {
         /// <summary>
+        ///  Fix Tag for No Leg Onbooks
+        /// </summary>
+        public const ushort FixTag = 28555;
+
+        /// <summary>
         ///  Length of No Leg Onbooks in bytes
         /// </summary>
         public const int Length = 1;

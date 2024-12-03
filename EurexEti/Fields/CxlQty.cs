@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class CxlQty
     {
         /// <summary>
+        ///  Fix Tag for Cxl Qty
+        /// </summary>
+        public const ushort FixTag = 84;
+
+        /// <summary>
         ///  Length of Cxl Qty in bytes
         /// </summary>
         public const int Length = 8;

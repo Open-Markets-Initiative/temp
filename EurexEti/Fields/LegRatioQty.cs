@@ -9,6 +9,11 @@ namespace Eurex.EtiDerivatives.v121
     public sealed class LegRatioQty
     {
         /// <summary>
+        ///  Fix Tag for Leg Ratio Qty
+        /// </summary>
+        public const ushort FixTag = 623;
+
+        /// <summary>
         ///  Length of Leg Ratio Qty in bytes
         /// </summary>
         public const int Length = 4;

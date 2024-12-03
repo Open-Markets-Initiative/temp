@@ -49,8 +49,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad6.Encode(pointer, current, out current);
 
-            var enrichmentRulesGrpComp = message.GetString(EnrichmentRulesGrpComp.FixTag);
-            EnrichmentRulesGrpComp.Encode(pointer, current, enrichmentRulesGrpComp, out current);
+            var enrichmentRulesGrpComp = (byte)message.GetInt(EnrichmentRulesGrpComp.FixTag);
+            EnrichmentRulesGrpComp.Encode(message, pointer, current, enrichmentRulesGrpComp, out current);
 
             // --- complete header ---
 

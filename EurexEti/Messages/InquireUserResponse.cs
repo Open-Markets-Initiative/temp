@@ -49,8 +49,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad6.Encode(pointer, current, out current);
 
-            var partyDetailsGrpComp = message.GetString(PartyDetailsGrpComp.FixTag);
-            PartyDetailsGrpComp.Encode(pointer, current, partyDetailsGrpComp, out current);
+            var partyDetailsGrpComp = (byte)message.GetInt(PartyDetailsGrpComp.FixTag);
+            PartyDetailsGrpComp.Encode(message, pointer, current, partyDetailsGrpComp, out current);
 
             // --- complete header ---
 

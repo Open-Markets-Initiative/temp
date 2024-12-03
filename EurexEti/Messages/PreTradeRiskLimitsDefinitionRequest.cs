@@ -83,8 +83,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad1.Encode(pointer, current, out current);
 
-            var riskLimitQtyGrpComp = message.GetString(RiskLimitQtyGrpComp.FixTag);
-            RiskLimitQtyGrpComp.Encode(pointer, current, riskLimitQtyGrpComp, out current);
+            var riskLimitQtyGrpComp = (byte)message.GetInt(RiskLimitQtyGrpComp.FixTag);
+            RiskLimitQtyGrpComp.Encode(message, pointer, current, riskLimitQtyGrpComp, out current);
 
             // --- complete header ---
 

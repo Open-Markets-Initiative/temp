@@ -106,11 +106,11 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad2.Encode(pointer, current, out current);
 
-            var fillsGrpComp = message.GetString(FillsGrpComp.FixTag);
-            FillsGrpComp.Encode(pointer, current, fillsGrpComp, out current);
+            var fillsGrpComp = (byte)message.GetInt(FillsGrpComp.FixTag);
+            FillsGrpComp.Encode(message, pointer, current, fillsGrpComp, out current);
 
-            var instrmntLegExecGrpComp = message.GetString(InstrmntLegExecGrpComp.FixTag);
-            InstrmntLegExecGrpComp.Encode(pointer, current, instrmntLegExecGrpComp, out current);
+            var instrmntLegExecGrpComp = (byte)message.GetInt(InstrmntLegExecGrpComp.FixTag);
+            InstrmntLegExecGrpComp.Encode(message, pointer, current, instrmntLegExecGrpComp, out current);
 
             // --- complete header ---
 

@@ -64,8 +64,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad3.Encode(pointer, current, out current);
 
-            var mmParameterGrpComp = message.GetString(MmParameterGrpComp.FixTag);
-            MmParameterGrpComp.Encode(pointer, current, mmParameterGrpComp, out current);
+            var mmParameterGrpComp = (byte)message.GetInt(MmParameterGrpComp.FixTag);
+            MmParameterGrpComp.Encode(message, pointer, current, mmParameterGrpComp, out current);
 
             // --- complete header ---
 

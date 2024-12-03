@@ -61,8 +61,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad6.Encode(pointer, current, out current);
 
-            var srqsQuoteEntryGrpComp = message.GetString(SrqsQuoteEntryGrpComp.FixTag);
-            SrqsQuoteEntryGrpComp.Encode(pointer, current, srqsQuoteEntryGrpComp, out current);
+            var srqsQuoteEntryGrpComp = (byte)message.GetInt(SrqsQuoteEntryGrpComp.FixTag);
+            SrqsQuoteEntryGrpComp.Encode(message, pointer, current, srqsQuoteEntryGrpComp, out current);
 
             // --- complete header ---
 

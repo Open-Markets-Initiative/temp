@@ -58,8 +58,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad6.Encode(pointer, current, out current);
 
-            var rraUpdateBasePartyAckGrpComp = message.GetString(RraUpdateBasePartyAckGrpComp.FixTag);
-            RraUpdateBasePartyAckGrpComp.Encode(pointer, current, rraUpdateBasePartyAckGrpComp, out current);
+            var rraUpdateBasePartyAckGrpComp = (byte)message.GetInt(RraUpdateBasePartyAckGrpComp.FixTag);
+            RraUpdateBasePartyAckGrpComp.Encode(message, pointer, current, rraUpdateBasePartyAckGrpComp, out current);
 
             // --- complete header ---
 

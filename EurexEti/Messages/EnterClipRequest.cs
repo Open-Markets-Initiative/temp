@@ -113,11 +113,11 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad7.Encode(pointer, current, out current);
 
-            var crossRequestSideGrpComp = message.GetString(CrossRequestSideGrpComp.FixTag);
-            CrossRequestSideGrpComp.Encode(pointer, current, crossRequestSideGrpComp, out current);
+            var crossRequestSideGrpComp = (byte)message.GetInt(CrossRequestSideGrpComp.FixTag);
+            CrossRequestSideGrpComp.Encode(message, pointer, current, crossRequestSideGrpComp, out current);
 
-            var sideCrossLegGrpComp = message.GetString(SideCrossLegGrpComp.FixTag);
-            SideCrossLegGrpComp.Encode(pointer, current, sideCrossLegGrpComp, out current);
+            var sideCrossLegGrpComp = (byte)message.GetInt(SideCrossLegGrpComp.FixTag);
+            SideCrossLegGrpComp.Encode(message, pointer, current, sideCrossLegGrpComp, out current);
 
             // --- complete header ---
 

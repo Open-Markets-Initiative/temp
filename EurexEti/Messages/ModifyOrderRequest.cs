@@ -263,8 +263,8 @@ namespace Eurex.EtiDerivatives.v121
 
             Pad23.Encode(pointer, current, out current);
 
-            var legOrdGrpComp = message.GetString(LegOrdGrpComp.FixTag);
-            LegOrdGrpComp.Encode(pointer, current, legOrdGrpComp, out current);
+            var legOrdGrpComp = (byte)message.GetInt(LegOrdGrpComp.FixTag);
+            LegOrdGrpComp.Encode(message, pointer, current, legOrdGrpComp, out current);
 
             // --- complete header ---
 

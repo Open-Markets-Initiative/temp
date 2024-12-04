@@ -1,11 +1,11 @@
 namespace SRFixBase.CustomMacros
 {
-    public static partial class EurexDerivativesEtiT7V121
+    public static partial class EurexDerivativesEtiT7V130
     {
         /// <summary>
-        ///  Eurex Derivatives Eti T7 v12 1 street fix template for Inventory Check Type ype
+        ///  Eurex Derivatives Eti T7 v13 0 street fix template for Inventory Check Type ype
         /// </summary>
-        [RegisteredTemplate("Eurex Derivatives Eti T7 v12 1 Inventory Check Type [35=ype]")]
+        [RegisteredTemplate("Eurex Derivatives Eti T7 v13 0 Inventory Check Type [35=ype]")]
         public static void InventoryCheckType(IFixFields to, IFixFields from)
         {
             throw new System.NotImplementedException();

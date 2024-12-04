@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Modify Basket Trade Request Message Methods
@@ -75,6 +75,9 @@ namespace Eurex.EtiDerivatives.v121
             var noInstrmtMatchSides = (byte)message.GetInt(NoInstrmtMatchSides.FixTag);
             NoInstrmtMatchSides.Encode(pointer, current, noInstrmtMatchSides, out current);
 
+            var optionalEarlyTerminationIndicator = (byte)message.GetInt(OptionalEarlyTerminationIndicator.FixTag);
+            OptionalEarlyTerminationIndicator.Encode(pointer, current, optionalEarlyTerminationIndicator, out current);
+
             if (message.TryGetString(BasketTradeReportText.FixTag, out var basketTradeReportText))
             {
                 BasketTradeReportText.Encode(pointer, current, basketTradeReportText, out current);
@@ -92,8 +95,6 @@ namespace Eurex.EtiDerivatives.v121
             {
                 TradeReportId.SetNull(pointer, current, out current);
             }
-
-            Pad1.Encode(pointer, current, out current);
 
             var basketRootPartyGrpComp = (byte)message.GetInt(BasketRootPartyGrpComp.FixTag);
             BasketRootPartyGrpComp.Encode(message, pointer, current, basketRootPartyGrpComp, out current);
@@ -165,6 +166,9 @@ namespace Eurex.EtiDerivatives.v121
             var noInstrmtMatchSides = NoInstrmtMatchSides.Decode(pointer, current, out current);
             message.AppendInt(NoInstrmtMatchSides.FixTag, noInstrmtMatchSides);
 
+            var optionalEarlyTerminationIndicator = OptionalEarlyTerminationIndicator.Decode(pointer, current, out current);
+            message.AppendInt(OptionalEarlyTerminationIndicator.FixTag, optionalEarlyTerminationIndicator);
+
             if (BasketTradeReportText.TryDecode(pointer, current, out var basketTradeReportText, out current))
             {
                 message.AppendString(BasketTradeReportText.FixTag, basketTradeReportText);
@@ -174,8 +178,6 @@ namespace Eurex.EtiDerivatives.v121
             {
                 message.AppendString(TradeReportId.FixTag, tradeReportId);
             }
-
-            current += Pad1.Length;
 
             BasketRootPartyGrpComp.Decode(ref message, pointer, current, out current);
 

@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Risk Limits Rpt Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Risk Limits Rpt Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39129;
+        public const ushort FixTag = 39133;
 
         /// <summary>
         ///  Length of Risk Limits Rpt Grp Comp in bytes

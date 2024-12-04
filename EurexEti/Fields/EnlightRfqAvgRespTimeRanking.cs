@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Enlight Rfq Avg Resp Time Ranking: Enum

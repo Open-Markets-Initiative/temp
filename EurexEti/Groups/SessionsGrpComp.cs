@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Sessions Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Sessions Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39132;
+        public const ushort FixTag = 39136;
 
         /// <summary>
         ///  Length of Sessions Grp Comp in bytes

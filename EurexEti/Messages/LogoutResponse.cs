@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Logout Response Message Methods
@@ -65,7 +65,7 @@ namespace Eurex.EtiDerivatives.v121
             message.AppendULong(RequestTime.FixTag, requestTime);
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.AppendULong(SendingTime.FixTag, sendingTime);
+            message.sendingTime = new DateTime((long)sendingTime);
 
             var msgSeqNum = (int)MsgSeqNum.Decode(pointer, current, out current);
             message.AppendInt(MsgSeqNum.FixTag, msgSeqNum);

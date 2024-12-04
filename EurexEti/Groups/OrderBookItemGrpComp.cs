@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Order Book Item Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Order Book Item Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39119;
+        public const ushort FixTag = 39123;
 
         /// <summary>
         ///  Length of Order Book Item Grp Comp in bytes

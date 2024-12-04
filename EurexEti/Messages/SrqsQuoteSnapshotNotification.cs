@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Srqs Quote Snapshot Notification Message Methods
@@ -85,7 +85,7 @@ namespace Eurex.EtiDerivatives.v121
             current += Pad2.Length;
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.AppendULong(SendingTime.FixTag, sendingTime);
+            message.sendingTime = new DateTime((long)sendingTime);
 
             var applSeqNum = ApplSeqNum.Decode(pointer, current, out current);
             message.AppendULong(ApplSeqNum.FixTag, applSeqNum);

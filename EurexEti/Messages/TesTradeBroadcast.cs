@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Tes Trade Broadcast Message Methods
@@ -86,6 +86,9 @@ namespace Eurex.EtiDerivatives.v121
             var basketTrdMatchId = message.GetULong(BasketTrdMatchId.FixTag);
             BasketTrdMatchId.Encode(pointer, current, basketTrdMatchId, out current);
 
+            var origBasketTrdMatchId = message.GetULong(OrigBasketTrdMatchId.FixTag);
+            OrigBasketTrdMatchId.Encode(pointer, current, origBasketTrdMatchId, out current);
+
             var sideLastPx = message.GetDouble(SideLastPx.FixTag);
             SideLastPx.Encode(pointer, current, sideLastPx, out current);
 
@@ -94,6 +97,9 @@ namespace Eurex.EtiDerivatives.v121
 
             var relatedClosePrice = message.GetDouble(RelatedClosePrice.FixTag);
             RelatedClosePrice.Encode(pointer, current, relatedClosePrice, out current);
+
+            var tesExecId = (uint)message.GetInt(TesExecId.FixTag);
+            TesExecId.Encode(pointer, current, tesExecId, out current);
 
             var packageId = (uint)message.GetInt(PackageId.FixTag);
             PackageId.Encode(pointer, current, packageId, out current);
@@ -169,6 +175,9 @@ namespace Eurex.EtiDerivatives.v121
 
             var tradePublishIndicator = (byte)message.GetInt(TradePublishIndicator.FixTag);
             TradePublishIndicator.Encode(pointer, current, tradePublishIndicator, out current);
+
+            var optionalEarlyTerminationIndicator = (byte)message.GetInt(OptionalEarlyTerminationIndicator.FixTag);
+            OptionalEarlyTerminationIndicator.Encode(pointer, current, optionalEarlyTerminationIndicator, out current);
 
             var multiLegReportingType = (byte)message.GetInt(MultiLegReportingType.FixTag);
             MultiLegReportingType.Encode(pointer, current, multiLegReportingType, out current);
@@ -356,7 +365,7 @@ namespace Eurex.EtiDerivatives.v121
                 FeeIdntCode.SetNull(pointer, current, out current);
             }
 
-            Pad1.Encode(pointer, current, out current);
+            Pad4.Encode(pointer, current, out current);
 
             // --- complete header ---
 
@@ -379,7 +388,7 @@ namespace Eurex.EtiDerivatives.v121
             current += Pad2.Length;
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.AppendULong(SendingTime.FixTag, sendingTime);
+            message.sendingTime = new DateTime((long)sendingTime);
 
             var applSeqNum = ApplSeqNum.Decode(pointer, current, out current);
             message.AppendULong(ApplSeqNum.FixTag, applSeqNum);
@@ -434,6 +443,9 @@ namespace Eurex.EtiDerivatives.v121
             var basketTrdMatchId = BasketTrdMatchId.Decode(pointer, current, out current);
             message.AppendULong(BasketTrdMatchId.FixTag, basketTrdMatchId);
 
+            var origBasketTrdMatchId = OrigBasketTrdMatchId.Decode(pointer, current, out current);
+            message.AppendULong(OrigBasketTrdMatchId.FixTag, origBasketTrdMatchId);
+
             var sideLastPx = SideLastPx.Decode(pointer, current, out current);
             message.AppendDouble(SideLastPx.FixTag, sideLastPx);
 
@@ -442,6 +454,9 @@ namespace Eurex.EtiDerivatives.v121
 
             var relatedClosePrice = RelatedClosePrice.Decode(pointer, current, out current);
             message.AppendDouble(RelatedClosePrice.FixTag, relatedClosePrice);
+
+            var tesExecId = (int)TesExecId.Decode(pointer, current, out current);
+            message.AppendInt(TesExecId.FixTag, tesExecId);
 
             var packageId = (int)PackageId.Decode(pointer, current, out current);
             message.AppendInt(PackageId.FixTag, packageId);
@@ -517,6 +532,9 @@ namespace Eurex.EtiDerivatives.v121
 
             var tradePublishIndicator = TradePublishIndicator.Decode(pointer, current, out current);
             message.AppendInt(TradePublishIndicator.FixTag, tradePublishIndicator);
+
+            var optionalEarlyTerminationIndicator = OptionalEarlyTerminationIndicator.Decode(pointer, current, out current);
+            message.AppendInt(OptionalEarlyTerminationIndicator.FixTag, optionalEarlyTerminationIndicator);
 
             var multiLegReportingType = MultiLegReportingType.Decode(pointer, current, out current);
             message.AppendInt(MultiLegReportingType.FixTag, multiLegReportingType);
@@ -636,7 +654,7 @@ namespace Eurex.EtiDerivatives.v121
                 message.AppendString(FeeIdntCode.FixTag, feeIdntCode);
             }
 
-            current += Pad1.Length;
+            current += Pad4.Length;
 
             return FixErrorCode.None;
         }

@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Not Affected Securities Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Not Affected Securities Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39118;
+        public const ushort FixTag = 39120;
 
         /// <summary>
         ///  Length of Not Affected Securities Grp Comp in bytes

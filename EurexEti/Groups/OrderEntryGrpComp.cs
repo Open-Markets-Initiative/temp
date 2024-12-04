@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Order Entry Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Order Entry Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39120;
+        public const ushort FixTag = 39124;
 
         /// <summary>
         ///  Length of Order Entry Grp Comp in bytes

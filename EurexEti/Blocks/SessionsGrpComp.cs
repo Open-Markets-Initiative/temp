@@ -3,18 +3,18 @@ namespace SRFixBase
     public static partial class FixComponentBlocks
     {
         /// <summary>
-        ///  Eurex Derivatives Eti T7 v12 1 Sessions Grp Comp
+        ///  Eurex Derivatives Eti T7 v13 0 Sessions Grp Comp
         /// </summary>
         public static readonly FixComponentBlock SessionsGrpComp = new FixComponentBlock
         {
-            Tag = Eurex.EtiDerivatives.v121.SessionsGrpComp.FixTag,
+            Tag = Eurex.EtiDerivatives.v130.SessionsGrpComp.FixTag,
 
             Tags = new ushort []
             {
-                Eurex.EtiDerivatives.v121.PartyIdSessionId.FixTag,
-                Eurex.EtiDerivatives.v121.SessionMode.FixTag,
-                Eurex.EtiDerivatives.v121.SessionSubMode.FixTag,
-                Eurex.EtiDerivatives.v121.Pad2.FixTag,
+                Eurex.EtiDerivatives.v130.PartyIdSessionId.FixTag,
+                Eurex.EtiDerivatives.v130.SessionMode.FixTag,
+                Eurex.EtiDerivatives.v130.SessionSubMode.FixTag,
+                Eurex.EtiDerivatives.v130.Pad2.FixTag,
             }
         };
     }

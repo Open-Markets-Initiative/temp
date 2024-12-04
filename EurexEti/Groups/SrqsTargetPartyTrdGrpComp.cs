@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Srqs Target Party Trd Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Srqs Target Party Trd Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39141;
+        public const ushort FixTag = 39145;
 
         /// <summary>
         ///  Length of Srqs Target Party Trd Grp Comp in bytes

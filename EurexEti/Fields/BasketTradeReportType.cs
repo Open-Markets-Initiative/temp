@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Basket Trade Report Type: Enum
@@ -22,6 +22,11 @@ namespace Eurex.EtiDerivatives.v121
         ///  No/Was (Substitute)
         /// </summary>
         public const byte NoWasSubstitue = 5;
+
+        /// <summary>
+        ///  Terminate
+        /// </summary>
+        public const byte Terminate = 19;
 
         /// <summary>
         ///  Fix Tag for Basket Trade Report Type

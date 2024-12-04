@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Mm Parameter Grp Comp Message Methods
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Length of Mm Parameter Grp Comp in bytes
         /// </summary>
-        public const int Length = 40;
+        public const int Length = 48;
 
         /// <summary>
         ///  Encode Mm Parameter Grp Comp
@@ -51,6 +51,11 @@ namespace Eurex.EtiDerivatives.v121
 
                 var targetPartyIdSessionId = (uint)group.GetInt(TargetPartyIdSessionId.FixTag);
                 TargetPartyIdSessionId.Encode(pointer, current, targetPartyIdSessionId, out current);
+
+                var mmRiskLimitActionType = (byte)group.GetInt(MmRiskLimitActionType.FixTag);
+                MmRiskLimitActionType.Encode(pointer, current, mmRiskLimitActionType, out current);
+
+                Pad7.Encode(pointer, current, out current);
 
             }
         }

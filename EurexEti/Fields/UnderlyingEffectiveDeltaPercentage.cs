@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Underlying Effective Delta Percentage: 8 Byte Fixed Width Integer with 4 Decimal Place Precision

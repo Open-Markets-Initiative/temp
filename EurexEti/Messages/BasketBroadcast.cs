@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Basket Broadcast Message Methods
@@ -95,6 +95,9 @@ namespace Eurex.EtiDerivatives.v121
             var basketAnonymity = (byte)message.GetInt(BasketAnonymity.FixTag);
             BasketAnonymity.Encode(pointer, current, basketAnonymity, out current);
 
+            var optionalEarlyTerminationIndicator = (byte)message.GetInt(OptionalEarlyTerminationIndicator.FixTag);
+            OptionalEarlyTerminationIndicator.Encode(pointer, current, optionalEarlyTerminationIndicator, out current);
+
             if (message.TryGetString(BasketTradeReportText.FixTag, out var basketTradeReportText))
             {
                 BasketTradeReportText.Encode(pointer, current, basketTradeReportText, out current);
@@ -113,7 +116,7 @@ namespace Eurex.EtiDerivatives.v121
                 TradeReportId.SetNull(pointer, current, out current);
             }
 
-            Pad6.Encode(pointer, current, out current);
+            Pad5.Encode(pointer, current, out current);
 
             var basketRootPartyGrpComp = (byte)message.GetInt(BasketRootPartyGrpComp.FixTag);
             BasketRootPartyGrpComp.Encode(message, pointer, current, basketRootPartyGrpComp, out current);
@@ -145,7 +148,7 @@ namespace Eurex.EtiDerivatives.v121
             current += Pad2.Length;
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.AppendULong(SendingTime.FixTag, sendingTime);
+            message.sendingTime = new DateTime((long)sendingTime);
 
             var applSeqNum = ApplSeqNum.Decode(pointer, current, out current);
             message.AppendULong(ApplSeqNum.FixTag, applSeqNum);
@@ -209,6 +212,9 @@ namespace Eurex.EtiDerivatives.v121
             var basketAnonymity = BasketAnonymity.Decode(pointer, current, out current);
             message.AppendInt(BasketAnonymity.FixTag, basketAnonymity);
 
+            var optionalEarlyTerminationIndicator = OptionalEarlyTerminationIndicator.Decode(pointer, current, out current);
+            message.AppendInt(OptionalEarlyTerminationIndicator.FixTag, optionalEarlyTerminationIndicator);
+
             if (BasketTradeReportText.TryDecode(pointer, current, out var basketTradeReportText, out current))
             {
                 message.AppendString(BasketTradeReportText.FixTag, basketTradeReportText);
@@ -219,7 +225,7 @@ namespace Eurex.EtiDerivatives.v121
                 message.AppendString(TradeReportId.FixTag, tradeReportId);
             }
 
-            current += Pad6.Length;
+            current += Pad5.Length;
 
             BasketRootPartyGrpComp.Decode(ref message, pointer, current, out current);
 

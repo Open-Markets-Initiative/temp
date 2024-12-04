@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Mm Parameter Definition Request Message Methods
@@ -57,6 +57,11 @@ namespace Eurex.EtiDerivatives.v121
             var vega = message.GetDouble(Vega.FixTag);
             Vega.Encode(pointer, current, vega, out current);
 
+            var mmRiskLimitActionType = (byte)message.GetInt(MmRiskLimitActionType.FixTag);
+            MmRiskLimitActionType.Encode(pointer, current, mmRiskLimitActionType, out current);
+
+            Pad3.Encode(pointer, current, out current);
+
             var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
             MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
 
@@ -65,8 +70,6 @@ namespace Eurex.EtiDerivatives.v121
 
             var pctCount = message.GetInt(PctCount.FixTag);
             PctCount.Encode(pointer, current, pctCount, out current);
-
-            Pad4.Encode(pointer, current, out current);
 
             // --- complete header ---
 
@@ -111,6 +114,11 @@ namespace Eurex.EtiDerivatives.v121
             var vega = Vega.Decode(pointer, current, out current);
             message.AppendDouble(Vega.FixTag, vega);
 
+            var mmRiskLimitActionType = MmRiskLimitActionType.Decode(pointer, current, out current);
+            message.AppendInt(MmRiskLimitActionType.FixTag, mmRiskLimitActionType);
+
+            current += Pad3.Length;
+
             var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
             message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
 
@@ -119,8 +127,6 @@ namespace Eurex.EtiDerivatives.v121
 
             var pctCount = PctCount.Decode(pointer, current, out current);
             message.AppendInt(PctCount.FixTag, pctCount);
-
-            current += Pad4.Length;
 
             return FixErrorCode.None;
         }

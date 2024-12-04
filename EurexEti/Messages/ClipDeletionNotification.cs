@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Clip Deletion Notification Message Methods
@@ -118,7 +118,7 @@ namespace Eurex.EtiDerivatives.v121
             message.AppendULong(NotificationIn.FixTag, notificationIn);
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.AppendULong(SendingTime.FixTag, sendingTime);
+            message.sendingTime = new DateTime((long)sendingTime);
 
             var applSubId = (int)ApplSubId.Decode(pointer, current, out current);
             message.AppendInt(ApplSubId.FixTag, applSubId);

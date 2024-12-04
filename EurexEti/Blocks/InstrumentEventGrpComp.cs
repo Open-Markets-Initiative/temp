@@ -3,17 +3,17 @@ namespace SRFixBase
     public static partial class FixComponentBlocks
     {
         /// <summary>
-        ///  Eurex Derivatives Eti T7 v12 1 Instrument Event Grp Comp
+        ///  Eurex Derivatives Eti T7 v13 0 Instrument Event Grp Comp
         /// </summary>
         public static readonly FixComponentBlock InstrumentEventGrpComp = new FixComponentBlock
         {
-            Tag = Eurex.EtiDerivatives.v121.InstrumentEventGrpComp.FixTag,
+            Tag = Eurex.EtiDerivatives.v130.InstrumentEventGrpComp.FixTag,
 
             Tags = new ushort []
             {
-                Eurex.EtiDerivatives.v121.EventDate.FixTag,
-                Eurex.EtiDerivatives.v121.EventType.FixTag,
-                Eurex.EtiDerivatives.v121.Pad3.FixTag,
+                Eurex.EtiDerivatives.v130.EventDate.FixTag,
+                Eurex.EtiDerivatives.v130.EventType.FixTag,
+                Eurex.EtiDerivatives.v130.Pad3.FixTag,
             }
         };
     }

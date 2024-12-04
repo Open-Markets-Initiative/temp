@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  New Order Short Request Message Methods
@@ -87,7 +87,7 @@ namespace Eurex.EtiDerivatives.v121
                 ComplianceText.SetNull(pointer, current, out current);
             }
 
-            Pad12.Encode(pointer, current, out current);
+            Pad1.Encode(pointer, current, out current);
 
             var partyIdInvestmentDecisionMaker = message.GetULong(PartyIdInvestmentDecisionMaker.FixTag);
             PartyIdInvestmentDecisionMaker.Encode(pointer, current, partyIdInvestmentDecisionMaker, out current);
@@ -205,7 +205,7 @@ namespace Eurex.EtiDerivatives.v121
                 message.AppendString(ComplianceText.FixTag, complianceText);
             }
 
-            current += Pad12.Length;
+            current += Pad1.Length;
 
             var partyIdInvestmentDecisionMaker = PartyIdInvestmentDecisionMaker.Decode(pointer, current, out current);
             message.AppendULong(PartyIdInvestmentDecisionMaker.FixTag, partyIdInvestmentDecisionMaker);

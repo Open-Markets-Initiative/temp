@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Rra Update Base Party Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Rra Update Base Party Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39131;
+        public const ushort FixTag = 39135;
 
         /// <summary>
         ///  Length of Rra Update Base Party Grp Comp in bytes

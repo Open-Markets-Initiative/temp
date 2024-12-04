@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Quot Req Legs Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Quot Req Legs Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39123;
+        public const ushort FixTag = 39127;
 
         /// <summary>
         ///  Length of Quot Req Legs Grp Comp in bytes

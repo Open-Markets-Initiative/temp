@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Trd Clearing Price Leg Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Trd Clearing Price Leg Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39143;
+        public const ushort FixTag = 39147;
 
         /// <summary>
         ///  Length of Trd Clearing Price Leg Grp Comp in bytes

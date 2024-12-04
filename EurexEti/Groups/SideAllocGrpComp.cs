@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Side Alloc Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Side Alloc Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39135;
+        public const ushort FixTag = 39139;
 
         /// <summary>
         ///  Length of Side Alloc Grp Comp in bytes

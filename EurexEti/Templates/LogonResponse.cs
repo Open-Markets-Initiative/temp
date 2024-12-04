@@ -1,11 +1,11 @@
 namespace SRFixBase.CustomMacros
 {
-    public static partial class EurexDerivativesEtiT7V121
+    public static partial class EurexDerivativesEtiT7V130
     {
         /// <summary>
-        ///  Eurex Derivatives Eti T7 v12 1 street fix template for Logon Response nse
+        ///  Eurex Derivatives Eti T7 v13 0 street fix template for Logon Response nse
         /// </summary>
-        [RegisteredTemplate("Eurex Derivatives Eti T7 v12 1 Logon Response [35=nse]")]
+        [RegisteredTemplate("Eurex Derivatives Eti T7 v13 0 Logon Response [35=nse]")]
         public static void LogonResponse(IFixFields to, IFixFields from)
         {
             throw new System.NotImplementedException();

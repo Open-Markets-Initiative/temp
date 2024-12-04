@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Throttle Update Notification Message Methods
@@ -63,7 +63,7 @@ namespace Eurex.EtiDerivatives.v121
             current += Pad2.Length;
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.AppendULong(SendingTime.FixTag, sendingTime);
+            message.sendingTime = new DateTime((long)sendingTime);
 
             var throttleTimeInterval = ThrottleTimeInterval.Decode(pointer, current, out current);
             message.AppendLong(ThrottleTimeInterval.FixTag, throttleTimeInterval);

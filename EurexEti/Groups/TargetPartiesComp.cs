@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Target Parties Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Target Parties Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39142;
+        public const ushort FixTag = 39146;
 
         /// <summary>
         ///  Length of Target Parties Comp in bytes

@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Basket Execution Broadcast Message Methods
@@ -56,6 +56,9 @@ namespace Eurex.EtiDerivatives.v121
             var basketTrdMatchId = message.GetULong(BasketTrdMatchId.FixTag);
             BasketTrdMatchId.Encode(pointer, current, basketTrdMatchId, out current);
 
+            var origBasketTrdMatchId = message.GetULong(OrigBasketTrdMatchId.FixTag);
+            OrigBasketTrdMatchId.Encode(pointer, current, origBasketTrdMatchId, out current);
+
             var transactTime = message.GetULong(TransactTime.FixTag);
             TransactTime.Encode(pointer, current, transactTime, out current);
 
@@ -74,6 +77,9 @@ namespace Eurex.EtiDerivatives.v121
             var tradeReportType = (byte)message.GetInt(TradeReportType.FixTag);
             TradeReportType.Encode(pointer, current, tradeReportType, out current);
 
+            var optionalEarlyTerminationIndicator = (byte)message.GetInt(OptionalEarlyTerminationIndicator.FixTag);
+            OptionalEarlyTerminationIndicator.Encode(pointer, current, optionalEarlyTerminationIndicator, out current);
+
             var noInstrmtMatchSides = (byte)message.GetInt(NoInstrmtMatchSides.FixTag);
             NoInstrmtMatchSides.Encode(pointer, current, noInstrmtMatchSides, out current);
 
@@ -89,7 +95,7 @@ namespace Eurex.EtiDerivatives.v121
                 BasketSideTradeReportId.SetNull(pointer, current, out current);
             }
 
-            Pad3.Encode(pointer, current, out current);
+            Pad2.Encode(pointer, current, out current);
 
             var basketExecGrpComp = (byte)message.GetInt(BasketExecGrpComp.FixTag);
             BasketExecGrpComp.Encode(message, pointer, current, basketExecGrpComp, out current);
@@ -115,7 +121,7 @@ namespace Eurex.EtiDerivatives.v121
             current += Pad2.Length;
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.AppendULong(SendingTime.FixTag, sendingTime);
+            message.sendingTime = new DateTime((long)sendingTime);
 
             var applSeqNum = ApplSeqNum.Decode(pointer, current, out current);
             message.AppendULong(ApplSeqNum.FixTag, applSeqNum);
@@ -140,6 +146,9 @@ namespace Eurex.EtiDerivatives.v121
             var basketTrdMatchId = BasketTrdMatchId.Decode(pointer, current, out current);
             message.AppendULong(BasketTrdMatchId.FixTag, basketTrdMatchId);
 
+            var origBasketTrdMatchId = OrigBasketTrdMatchId.Decode(pointer, current, out current);
+            message.AppendULong(OrigBasketTrdMatchId.FixTag, origBasketTrdMatchId);
+
             var transactTime = TransactTime.Decode(pointer, current, out current);
             message.AppendULong(TransactTime.FixTag, transactTime);
 
@@ -158,6 +167,9 @@ namespace Eurex.EtiDerivatives.v121
             var tradeReportType = TradeReportType.Decode(pointer, current, out current);
             message.AppendInt(TradeReportType.FixTag, tradeReportType);
 
+            var optionalEarlyTerminationIndicator = OptionalEarlyTerminationIndicator.Decode(pointer, current, out current);
+            message.AppendInt(OptionalEarlyTerminationIndicator.FixTag, optionalEarlyTerminationIndicator);
+
             var noInstrmtMatchSides = NoInstrmtMatchSides.Decode(pointer, current, out current);
             message.AppendInt(NoInstrmtMatchSides.FixTag, noInstrmtMatchSides);
 
@@ -169,7 +181,7 @@ namespace Eurex.EtiDerivatives.v121
                 message.AppendString(BasketSideTradeReportId.FixTag, basketSideTradeReportId);
             }
 
-            current += Pad3.Length;
+            current += Pad2.Length;
 
             BasketExecGrpComp.Decode(ref message, pointer, current, out current);
 

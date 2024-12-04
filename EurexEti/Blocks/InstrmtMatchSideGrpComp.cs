@@ -3,28 +3,28 @@ namespace SRFixBase
     public static partial class FixComponentBlocks
     {
         /// <summary>
-        ///  Eurex Derivatives Eti T7 v12 1 Instrmt Match Side Grp Comp
+        ///  Eurex Derivatives Eti T7 v13 0 Instrmt Match Side Grp Comp
         /// </summary>
         public static readonly FixComponentBlock InstrmtMatchSideGrpComp = new FixComponentBlock
         {
-            Tag = Eurex.EtiDerivatives.v121.InstrmtMatchSideGrpComp.FixTag,
+            Tag = Eurex.EtiDerivatives.v130.InstrmtMatchSideGrpComp.FixTag,
 
             Tags = new ushort []
             {
-                Eurex.EtiDerivatives.v121.SecurityId.FixTag,
-                Eurex.EtiDerivatives.v121.LastPx.FixTag,
-                Eurex.EtiDerivatives.v121.TransBkdTime.FixTag,
-                Eurex.EtiDerivatives.v121.RelatedClosePrice.FixTag,
-                Eurex.EtiDerivatives.v121.ClearingTradePrice.FixTag,
-                Eurex.EtiDerivatives.v121.PackageId.FixTag,
-                Eurex.EtiDerivatives.v121.SideMarketSegmentId.FixTag,
-                Eurex.EtiDerivatives.v121.SideTrdSubTyp.FixTag,
-                Eurex.EtiDerivatives.v121.ProductComplex.FixTag,
-                Eurex.EtiDerivatives.v121.TradePublishIndicator.FixTag,
-                Eurex.EtiDerivatives.v121.InstrmtMatchSideId.FixTag,
-                Eurex.EtiDerivatives.v121.EffectOnBasket.FixTag,
-                Eurex.EtiDerivatives.v121.TradeReportText.FixTag,
-                Eurex.EtiDerivatives.v121.Pad6.FixTag,
+                Eurex.EtiDerivatives.v130.SecurityId.FixTag,
+                Eurex.EtiDerivatives.v130.LastPx.FixTag,
+                Eurex.EtiDerivatives.v130.TransBkdTime.FixTag,
+                Eurex.EtiDerivatives.v130.RelatedClosePrice.FixTag,
+                Eurex.EtiDerivatives.v130.ClearingTradePrice.FixTag,
+                Eurex.EtiDerivatives.v130.PackageId.FixTag,
+                Eurex.EtiDerivatives.v130.SideMarketSegmentId.FixTag,
+                Eurex.EtiDerivatives.v130.SideTrdSubTyp.FixTag,
+                Eurex.EtiDerivatives.v130.ProductComplex.FixTag,
+                Eurex.EtiDerivatives.v130.TradePublishIndicator.FixTag,
+                Eurex.EtiDerivatives.v130.InstrmtMatchSideId.FixTag,
+                Eurex.EtiDerivatives.v130.EffectOnBasket.FixTag,
+                Eurex.EtiDerivatives.v130.TradeReportText.FixTag,
+                Eurex.EtiDerivatives.v130.Pad6.FixTag,
             }
         };
     }

@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Side Cross Leg Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Side Cross Leg Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39136;
+        public const ushort FixTag = 39140;
 
         /// <summary>
         ///  Length of Side Cross Leg Grp Comp in bytes

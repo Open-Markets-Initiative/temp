@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Party Details Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Party Details Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39122;
+        public const ushort FixTag = 39126;
 
         /// <summary>
         ///  Length of Party Details Grp Comp in bytes

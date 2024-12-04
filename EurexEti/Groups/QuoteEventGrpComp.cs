@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Quote Event Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Quote Event Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39126;
+        public const ushort FixTag = 39130;
 
         /// <summary>
         ///  Length of Quote Event Grp Comp in bytes

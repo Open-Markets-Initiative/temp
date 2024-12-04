@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Trd Instrmnt Leg Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Trd Instrmnt Leg Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39144;
+        public const ushort FixTag = 39148;
 
         /// <summary>
         ///  Length of Trd Instrmnt Leg Grp Comp in bytes

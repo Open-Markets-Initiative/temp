@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Order Event Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Order Event Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39121;
+        public const ushort FixTag = 39125;
 
         /// <summary>
         ///  Length of Order Event Grp Comp in bytes

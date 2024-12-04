@@ -3,21 +3,21 @@ namespace SRFixBase
     public static partial class FixComponentBlocks
     {
         /// <summary>
-        ///  Eurex Derivatives Eti T7 v12 1 Srqs Target Party Trd Grp Comp
+        ///  Eurex Derivatives Eti T7 v13 0 Srqs Target Party Trd Grp Comp
         /// </summary>
         public static readonly FixComponentBlock SrqsTargetPartyTrdGrpComp = new FixComponentBlock
         {
-            Tag = Eurex.EtiDerivatives.v121.SrqsTargetPartyTrdGrpComp.FixTag,
+            Tag = Eurex.EtiDerivatives.v130.SrqsTargetPartyTrdGrpComp.FixTag,
 
             Tags = new ushort []
             {
-                Eurex.EtiDerivatives.v121.SideLastQty.FixTag,
-                Eurex.EtiDerivatives.v121.QuoteId.FixTag,
-                Eurex.EtiDerivatives.v121.TargetPartyIdExecutingTrader.FixTag,
-                Eurex.EtiDerivatives.v121.TargetPartyExecutingFirm.FixTag,
-                Eurex.EtiDerivatives.v121.TargetPartyExecutingTrader.FixTag,
-                Eurex.EtiDerivatives.v121.TargetPartyEnteringTrader.FixTag,
-                Eurex.EtiDerivatives.v121.Pad3.FixTag,
+                Eurex.EtiDerivatives.v130.SideLastQty.FixTag,
+                Eurex.EtiDerivatives.v130.QuoteId.FixTag,
+                Eurex.EtiDerivatives.v130.TargetPartyIdExecutingTrader.FixTag,
+                Eurex.EtiDerivatives.v130.TargetPartyExecutingFirm.FixTag,
+                Eurex.EtiDerivatives.v130.TargetPartyExecutingTrader.FixTag,
+                Eurex.EtiDerivatives.v130.TargetPartyEnteringTrader.FixTag,
+                Eurex.EtiDerivatives.v130.Pad3.FixTag,
             }
         };
     }

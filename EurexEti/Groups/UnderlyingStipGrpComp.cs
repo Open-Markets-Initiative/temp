@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Underlying Stip Grp Comp Message Methods
@@ -11,7 +11,7 @@ namespace Eurex.EtiDerivatives.v121
         /// <summary>
         ///  Fix Tag for Underlying Stip Grp Comp (Generated)
         /// </summary>
-        public const ushort FixTag = 39145;
+        public const ushort FixTag = 39149;
 
         /// <summary>
         ///  Length of Underlying Stip Grp Comp in bytes

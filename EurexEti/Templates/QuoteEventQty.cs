@@ -1,11 +1,11 @@
 namespace SRFixBase.CustomMacros
 {
-    public static partial class EurexDerivativesEtiT7V121
+    public static partial class EurexDerivativesEtiT7V130
     {
         /// <summary>
-        ///  Eurex Derivatives Eti T7 v12 1 street fix template for Quote Event Qty Qty
+        ///  Eurex Derivatives Eti T7 v13 0 street fix template for Quote Event Qty Qty
         /// </summary>
-        [RegisteredTemplate("Eurex Derivatives Eti T7 v12 1 Quote Event Qty [35=Qty]")]
+        [RegisteredTemplate("Eurex Derivatives Eti T7 v13 0 Quote Event Qty [35=Qty]")]
         public static void QuoteEventQty(IFixFields to, IFixFields from)
         {
             throw new System.NotImplementedException();

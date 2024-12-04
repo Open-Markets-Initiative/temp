@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Template Id: Enum
@@ -82,6 +82,16 @@ namespace Eurex.EtiDerivatives.v121
         ///  Basket Response TemplateId
         /// </summary>
         public const ushort BasketResponse = 10624;
+
+        /// <summary>
+        ///  Basket Roll Broadcast TemplateId
+        /// </summary>
+        public const ushort BasketRollBroadcast = 10634;
+
+        /// <summary>
+        ///  Basket Roll Request TemplateId
+        /// </summary>
+        public const ushort BasketRollRequest = 10633;
 
         /// <summary>
         ///  Broadcast Error Notification TemplateId

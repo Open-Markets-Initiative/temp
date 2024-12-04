@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Eurex.EtiDerivatives.v121
+namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
     ///  Remaining Risk Allowance Base Long: 8 Byte Fixed Width Integer with 8 Decimal Place Precision

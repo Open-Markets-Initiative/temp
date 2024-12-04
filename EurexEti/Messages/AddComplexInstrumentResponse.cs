@@ -42,10 +42,10 @@ namespace Eurex.EtiDerivatives.v130
             var responseIn = message.GetULong(ResponseIn.FixTag);
             ResponseIn.Encode(pointer, current, responseIn, out current);
 
-            var sendingTime = message.GetULong(SendingTime.FixTag);
+            var sendingTime = message.sendTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
-            var msgSeqNum = (uint)message.GetInt(MsgSeqNum.FixTag);
+            var msgSeqNum = (uint)message.msgSeqNum;
             MsgSeqNum.Encode(pointer, current, msgSeqNum, out current);
 
             var lastFragment = (byte)message.GetInt(LastFragment.FixTag);
@@ -132,8 +132,8 @@ namespace Eurex.EtiDerivatives.v130
             var sendingTime = SendingTime.Decode(pointer, current, out current);
             message.sendingTime = new DateTime((long)sendingTime);
 
-            var msgSeqNum = (int)MsgSeqNum.Decode(pointer, current, out current);
-            message.AppendInt(MsgSeqNum.FixTag, msgSeqNum);
+            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
+            message.msgSeqNum = (int)msgSeqNum;
 
             var lastFragment = LastFragment.Decode(pointer, current, out current);
             message.AppendInt(LastFragment.FixTag, lastFragment);

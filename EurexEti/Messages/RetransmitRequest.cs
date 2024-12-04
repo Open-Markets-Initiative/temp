@@ -39,10 +39,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var msgSeqNum = (uint)message.GetInt(MsgSeqNum.FixTag);
+            var msgSeqNum = (uint)message.msgSeqNum;
             MsgSeqNum.Encode(pointer, current, msgSeqNum, out current);
 
-            var senderSubId = (uint)message.GetInt(SenderSubId.FixTag);
+            var senderSubId = uint.Parse(message.sendersubid);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
             var applBegSeqNum = message.GetULong(ApplBegSeqNum.FixTag);
@@ -84,11 +84,11 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = (int)MsgSeqNum.Decode(pointer, current, out current);
-            message.AppendInt(MsgSeqNum.FixTag, msgSeqNum);
+            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
+            message.msgSeqNum = (int)msgSeqNum;
 
-            var senderSubId = (int)SenderSubId.Decode(pointer, current, out current);
-            message.AppendInt(SenderSubId.FixTag, senderSubId);
+            var senderSubId = SenderSubId.Decode(pointer, current, out current);
+            message.senderSubId = senderSubId.ToString();
 
             var applBegSeqNum = ApplBegSeqNum.Decode(pointer, current, out current);
             message.AppendULong(ApplBegSeqNum.FixTag, applBegSeqNum);

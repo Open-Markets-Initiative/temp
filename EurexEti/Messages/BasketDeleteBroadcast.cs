@@ -30,7 +30,7 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var sendingTime = message.GetULong(SendingTime.FixTag);
+            var sendingTime = message.sendTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var applSeqNum = message.GetULong(ApplSeqNum.FixTag);

@@ -110,8 +110,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad7.Encode(pointer, current, out current);
 
-            var orderEventGrpComp = (byte)message.GetInt(OrderEventGrpComp.FixTag);
-            OrderEventGrpComp.Encode(message, pointer, current, orderEventGrpComp, out current);
+            if (isOrderEventGrpComp)
+            {
+                message.Encode(pointer, current, orderEventGrpComp, out current);
+            }
 
             // --- complete header ---
 

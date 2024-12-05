@@ -92,8 +92,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad5.Encode(pointer, current, out current);
 
-            var quoteEntryGrpComp = (byte)message.GetInt(QuoteEntryGrpComp.FixTag);
-            QuoteEntryGrpComp.Encode(message, pointer, current, quoteEntryGrpComp, out current);
+            if (isQuoteEntryGrpComp)
+            {
+                message.Encode(pointer, current, quoteEntryGrpComp, out current);
+            }
 
             // --- complete header ---
 

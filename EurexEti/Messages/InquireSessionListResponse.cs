@@ -46,8 +46,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad6.Encode(pointer, current, out current);
 
-            var sessionsGrpComp = (byte)message.GetInt(SessionsGrpComp.FixTag);
-            SessionsGrpComp.Encode(message, pointer, current, sessionsGrpComp, out current);
+            if (isSessionsGrpComp)
+            {
+                message.Encode(pointer, current, sessionsGrpComp, out current);
+            }
 
             // --- complete header ---
 

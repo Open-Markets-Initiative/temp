@@ -94,8 +94,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad6.Encode(pointer, current, out current);
 
-            var instrmtLegGrpComp = (byte)message.GetInt(InstrmtLegGrpComp.FixTag);
-            InstrmtLegGrpComp.Encode(message, pointer, current, instrmtLegGrpComp, out current);
+            if (isInstrmtLegGrpComp)
+            {
+                message.Encode(pointer, current, instrmtLegGrpComp, out current);
+            }
 
             // --- complete header ---
 

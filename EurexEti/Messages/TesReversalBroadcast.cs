@@ -100,8 +100,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad3.Encode(pointer, current, out current);
 
-            var sideAllocGrpBcComp = (byte)message.GetInt(SideAllocGrpBcComp.FixTag);
-            SideAllocGrpBcComp.Encode(message, pointer, current, sideAllocGrpBcComp, out current);
+            if (isSideAllocGrpBcComp)
+            {
+                message.Encode(pointer, current, sideAllocGrpBcComp, out current);
+            }
 
             // --- complete header ---
 

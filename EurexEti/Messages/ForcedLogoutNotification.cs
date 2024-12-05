@@ -33,16 +33,20 @@ namespace Eurex.EtiDerivatives.v130
             var sendingTime = message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
-            var varTextLen = (ushort)message.GetInt(VarTextLen.FixTag);
-            VarTextLen.Encode(pointer, current, varTextLen, out current);
-
-            if (message.TryGetString(VarText.FixTag, out var varText))
+            var isVarText = message.TryGetString(VarText.FixTag, out var varText);
+            if (isVarText)
             {
-                VarText.Encode(pointer, current, varText, out current);
+                var varTextLen = (ushort)varText.Length;
+                VarTextLen.Encode(pointer, current, varTextLen, out current);
             }
             else
             {
-                VarText.SetNull(pointer, current, out current);
+                VarTextLen.SetNull(pointer, current, out current);
+            }
+
+            if (isVarText)
+            {
+                message.Encode(pointer, current, varText, out current);
             }
 
             // --- complete header ---

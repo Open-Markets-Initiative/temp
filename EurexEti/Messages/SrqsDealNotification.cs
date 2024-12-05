@@ -244,8 +244,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad1.Encode(pointer, current, out current);
 
-            var srqsTargetPartyTrdGrpComp = (byte)message.GetInt(SrqsTargetPartyTrdGrpComp.FixTag);
-            SrqsTargetPartyTrdGrpComp.Encode(message, pointer, current, srqsTargetPartyTrdGrpComp, out current);
+            if (isSrqsTargetPartyTrdGrpComp)
+            {
+                message.Encode(pointer, current, srqsTargetPartyTrdGrpComp, out current);
+            }
 
             // --- complete header ---
 

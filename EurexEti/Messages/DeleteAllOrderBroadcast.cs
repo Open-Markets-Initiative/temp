@@ -98,11 +98,15 @@ namespace Eurex.EtiDerivatives.v130
             var side = (byte)message.GetInt(Side.FixTag);
             Side.Encode(pointer, current, side, out current);
 
-            var notAffectedOrdersGrpComp = (byte)message.GetInt(NotAffectedOrdersGrpComp.FixTag);
-            NotAffectedOrdersGrpComp.Encode(message, pointer, current, notAffectedOrdersGrpComp, out current);
+            if (isNotAffectedOrdersGrpComp)
+            {
+                message.Encode(pointer, current, notAffectedOrdersGrpComp, out current);
+            }
 
-            var affectedOrderRequestsGrpComp = (byte)message.GetInt(AffectedOrderRequestsGrpComp.FixTag);
-            AffectedOrderRequestsGrpComp.Encode(message, pointer, current, affectedOrderRequestsGrpComp, out current);
+            if (isAffectedOrderRequestsGrpComp)
+            {
+                message.Encode(pointer, current, affectedOrderRequestsGrpComp, out current);
+            }
 
             // --- complete header ---
 

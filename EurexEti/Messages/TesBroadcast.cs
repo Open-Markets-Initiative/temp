@@ -110,8 +110,16 @@ namespace Eurex.EtiDerivatives.v130
             var trdType = (ushort)message.GetInt(TrdType.FixTag);
             TrdType.Encode(pointer, current, trdType, out current);
 
-            var varTextLen = (ushort)message.GetInt(VarTextLen.FixTag);
-            VarTextLen.Encode(pointer, current, varTextLen, out current);
+            var isVarText = message.TryGetString(VarText.FixTag, out var varText);
+            if (isVarText)
+            {
+                var varTextLen = (ushort)varText.Length;
+                VarTextLen.Encode(pointer, current, varTextLen, out current);
+            }
+            else
+            {
+                VarTextLen.SetNull(pointer, current, out current);
+            }
 
             var tradeReportType = (byte)message.GetInt(TradeReportType.FixTag);
             TradeReportType.Encode(pointer, current, tradeReportType, out current);
@@ -227,31 +235,39 @@ namespace Eurex.EtiDerivatives.v130
                 UnderlyingIssuer.SetNull(pointer, current, out current);
             }
 
-            var sideAllocGrpBcComp = (byte)message.GetInt(SideAllocGrpBcComp.FixTag);
-            SideAllocGrpBcComp.Encode(message, pointer, current, sideAllocGrpBcComp, out current);
-
-            var trdInstrmntLegGrpComp = (byte)message.GetInt(TrdInstrmntLegGrpComp.FixTag);
-            TrdInstrmntLegGrpComp.Encode(message, pointer, current, trdInstrmntLegGrpComp, out current);
-
-            var instrumentEventGrpComp = (byte)message.GetInt(InstrumentEventGrpComp.FixTag);
-            InstrumentEventGrpComp.Encode(message, pointer, current, instrumentEventGrpComp, out current);
-
-            var trdClearingPriceLegGrpComp = (byte)message.GetInt(TrdClearingPriceLegGrpComp.FixTag);
-            TrdClearingPriceLegGrpComp.Encode(message, pointer, current, trdClearingPriceLegGrpComp, out current);
-
-            var instrumentAttributeGrpComp = (byte)message.GetInt(InstrumentAttributeGrpComp.FixTag);
-            InstrumentAttributeGrpComp.Encode(message, pointer, current, instrumentAttributeGrpComp, out current);
-
-            var underlyingStipGrpComp = (byte)message.GetInt(UnderlyingStipGrpComp.FixTag);
-            UnderlyingStipGrpComp.Encode(message, pointer, current, underlyingStipGrpComp, out current);
-
-            if (message.TryGetString(VarText.FixTag, out var varText))
+            if (isSideAllocGrpBcComp)
             {
-                VarText.Encode(pointer, current, varText, out current);
+                message.Encode(pointer, current, sideAllocGrpBcComp, out current);
             }
-            else
+
+            if (isTrdInstrmntLegGrpComp)
             {
-                VarText.SetNull(pointer, current, out current);
+                message.Encode(pointer, current, trdInstrmntLegGrpComp, out current);
+            }
+
+            if (isInstrumentEventGrpComp)
+            {
+                message.Encode(pointer, current, instrumentEventGrpComp, out current);
+            }
+
+            if (isTrdClearingPriceLegGrpComp)
+            {
+                message.Encode(pointer, current, trdClearingPriceLegGrpComp, out current);
+            }
+
+            if (isInstrumentAttributeGrpComp)
+            {
+                message.Encode(pointer, current, instrumentAttributeGrpComp, out current);
+            }
+
+            if (isUnderlyingStipGrpComp)
+            {
+                message.Encode(pointer, current, underlyingStipGrpComp, out current);
+            }
+
+            if (isVarText)
+            {
+                message.Encode(pointer, current, varText, out current);
             }
 
             // --- complete header ---

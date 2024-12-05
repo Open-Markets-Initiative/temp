@@ -286,17 +286,25 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad4.Encode(pointer, current, out current);
 
-            var legOrdGrpComp = (byte)message.GetInt(LegOrdGrpComp.FixTag);
-            LegOrdGrpComp.Encode(message, pointer, current, legOrdGrpComp, out current);
+            if (isLegOrdGrpComp)
+            {
+                message.Encode(pointer, current, legOrdGrpComp, out current);
+            }
 
-            var fillsGrpComp = (byte)message.GetInt(FillsGrpComp.FixTag);
-            FillsGrpComp.Encode(message, pointer, current, fillsGrpComp, out current);
+            if (isFillsGrpComp)
+            {
+                message.Encode(pointer, current, fillsGrpComp, out current);
+            }
 
-            var instrmntLegExecGrpComp = (byte)message.GetInt(InstrmntLegExecGrpComp.FixTag);
-            InstrmntLegExecGrpComp.Encode(message, pointer, current, instrmntLegExecGrpComp, out current);
+            if (isInstrmntLegExecGrpComp)
+            {
+                message.Encode(pointer, current, instrmntLegExecGrpComp, out current);
+            }
 
-            var orderEventGrpComp = (byte)message.GetInt(OrderEventGrpComp.FixTag);
-            OrderEventGrpComp.Encode(message, pointer, current, orderEventGrpComp, out current);
+            if (isOrderEventGrpComp)
+            {
+                message.Encode(pointer, current, orderEventGrpComp, out current);
+            }
 
             // --- complete header ---
 

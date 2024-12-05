@@ -61,8 +61,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad6.Encode(pointer, current, out current);
 
-            var notAffectedSecuritiesGrpComp = (byte)message.GetInt(NotAffectedSecuritiesGrpComp.FixTag);
-            NotAffectedSecuritiesGrpComp.Encode(message, pointer, current, notAffectedSecuritiesGrpComp, out current);
+            if (isNotAffectedSecuritiesGrpComp)
+            {
+                message.Encode(pointer, current, notAffectedSecuritiesGrpComp, out current);
+            }
 
             // --- complete header ---
 

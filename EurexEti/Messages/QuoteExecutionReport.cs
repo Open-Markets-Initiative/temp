@@ -73,11 +73,15 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad1.Encode(pointer, current, out current);
 
-            var quoteEventGrpComp = (byte)message.GetInt(QuoteEventGrpComp.FixTag);
-            QuoteEventGrpComp.Encode(message, pointer, current, quoteEventGrpComp, out current);
+            if (isQuoteEventGrpComp)
+            {
+                message.Encode(pointer, current, quoteEventGrpComp, out current);
+            }
 
-            var quoteLegExecGrpComp = (byte)message.GetInt(QuoteLegExecGrpComp.FixTag);
-            QuoteLegExecGrpComp.Encode(message, pointer, current, quoteLegExecGrpComp, out current);
+            if (isQuoteLegExecGrpComp)
+            {
+                message.Encode(pointer, current, quoteLegExecGrpComp, out current);
+            }
 
             // --- complete header ---
 

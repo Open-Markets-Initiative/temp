@@ -214,8 +214,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var quotReqLegsGrpComp = (byte)message.GetInt(QuotReqLegsGrpComp.FixTag);
-            QuotReqLegsGrpComp.Encode(message, pointer, current, quotReqLegsGrpComp, out current);
+            if (isQuotReqLegsGrpComp)
+            {
+                message.Encode(pointer, current, quotReqLegsGrpComp, out current);
+            }
 
             // --- complete header ---
 

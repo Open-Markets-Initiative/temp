@@ -97,8 +97,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var basketExecGrpComp = (byte)message.GetInt(BasketExecGrpComp.FixTag);
-            BasketExecGrpComp.Encode(message, pointer, current, basketExecGrpComp, out current);
+            if (isBasketExecGrpComp)
+            {
+                message.Encode(pointer, current, basketExecGrpComp, out current);
+            }
 
             // --- complete header ---
 

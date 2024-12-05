@@ -211,20 +211,30 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var sideAllocExtGrpComp = (byte)message.GetInt(SideAllocExtGrpComp.FixTag);
-            SideAllocExtGrpComp.Encode(message, pointer, current, sideAllocExtGrpComp, out current);
+            if (isSideAllocExtGrpComp)
+            {
+                message.Encode(pointer, current, sideAllocExtGrpComp, out current);
+            }
 
-            var trdInstrmntLegGrpComp = (byte)message.GetInt(TrdInstrmntLegGrpComp.FixTag);
-            TrdInstrmntLegGrpComp.Encode(message, pointer, current, trdInstrmntLegGrpComp, out current);
+            if (isTrdInstrmntLegGrpComp)
+            {
+                message.Encode(pointer, current, trdInstrmntLegGrpComp, out current);
+            }
 
-            var instrumentEventGrpComp = (byte)message.GetInt(InstrumentEventGrpComp.FixTag);
-            InstrumentEventGrpComp.Encode(message, pointer, current, instrumentEventGrpComp, out current);
+            if (isInstrumentEventGrpComp)
+            {
+                message.Encode(pointer, current, instrumentEventGrpComp, out current);
+            }
 
-            var instrumentAttributeGrpComp = (byte)message.GetInt(InstrumentAttributeGrpComp.FixTag);
-            InstrumentAttributeGrpComp.Encode(message, pointer, current, instrumentAttributeGrpComp, out current);
+            if (isInstrumentAttributeGrpComp)
+            {
+                message.Encode(pointer, current, instrumentAttributeGrpComp, out current);
+            }
 
-            var underlyingStipGrpComp = (byte)message.GetInt(UnderlyingStipGrpComp.FixTag);
-            UnderlyingStipGrpComp.Encode(message, pointer, current, underlyingStipGrpComp, out current);
+            if (isUnderlyingStipGrpComp)
+            {
+                message.Encode(pointer, current, underlyingStipGrpComp, out current);
+            }
 
             // --- complete header ---
 

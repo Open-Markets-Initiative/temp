@@ -59,8 +59,16 @@ namespace Eurex.EtiDerivatives.v130
             var latestPublicKeySeqNo = (uint)message.GetInt(LatestPublicKeySeqNo.FixTag);
             LatestPublicKeySeqNo.Encode(pointer, current, latestPublicKeySeqNo, out current);
 
-            var publicKeyLen = (ushort)message.GetInt(PublicKeyLen.FixTag);
-            PublicKeyLen.Encode(pointer, current, publicKeyLen, out current);
+            var isPublicKey = message.TryGetString(PublicKey.FixTag, out var publicKey);
+            if (isPublicKey)
+            {
+                var publicKeyLen = (ushort)publicKey.Length;
+                PublicKeyLen.Encode(pointer, current, publicKeyLen, out current);
+            }
+            else
+            {
+                PublicKeyLen.SetNull(pointer, current, out current);
+            }
 
             var marketId = (ushort)message.GetInt(MarketId.FixTag);
             MarketId.Encode(pointer, current, marketId, out current);
@@ -86,13 +94,9 @@ namespace Eurex.EtiDerivatives.v130
                 DefaultCstmApplVerSubId.SetNull(pointer, current, out current);
             }
 
-            if (message.TryGetString(PublicKey.FixTag, out var publicKey))
+            if (isPublicKey)
             {
-                PublicKey.Encode(pointer, current, publicKey, out current);
-            }
-            else
-            {
-                PublicKey.SetNull(pointer, current, out current);
+                message.Encode(pointer, current, publicKey, out current);
             }
 
             // --- complete header ---

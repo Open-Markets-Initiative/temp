@@ -73,8 +73,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad6.Encode(pointer, current, out current);
 
-            var crossRequestAckSideGrpComp = (byte)message.GetInt(CrossRequestAckSideGrpComp.FixTag);
-            CrossRequestAckSideGrpComp.Encode(message, pointer, current, crossRequestAckSideGrpComp, out current);
+            if (isCrossRequestAckSideGrpComp)
+            {
+                message.Encode(pointer, current, crossRequestAckSideGrpComp, out current);
+            }
 
             // --- complete header ---
 

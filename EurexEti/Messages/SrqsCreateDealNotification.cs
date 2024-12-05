@@ -271,11 +271,15 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad3.Encode(pointer, current, out current);
 
-            var orderBookItemGrpComp = (byte)message.GetInt(OrderBookItemGrpComp.FixTag);
-            OrderBookItemGrpComp.Encode(message, pointer, current, orderBookItemGrpComp, out current);
+            if (isOrderBookItemGrpComp)
+            {
+                message.Encode(pointer, current, orderBookItemGrpComp, out current);
+            }
 
-            var srqsTargetPartyTrdGrpComp = (byte)message.GetInt(SrqsTargetPartyTrdGrpComp.FixTag);
-            SrqsTargetPartyTrdGrpComp.Encode(message, pointer, current, srqsTargetPartyTrdGrpComp, out current);
+            if (isSrqsTargetPartyTrdGrpComp)
+            {
+                message.Encode(pointer, current, srqsTargetPartyTrdGrpComp, out current);
+            }
 
             // --- complete header ---
 

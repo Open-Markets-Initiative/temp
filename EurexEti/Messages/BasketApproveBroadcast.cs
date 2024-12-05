@@ -124,11 +124,15 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad4.Encode(pointer, current, out current);
 
-            var basketRootPartyGrpComp = (byte)message.GetInt(BasketRootPartyGrpComp.FixTag);
-            BasketRootPartyGrpComp.Encode(message, pointer, current, basketRootPartyGrpComp, out current);
+            if (isBasketRootPartyGrpComp)
+            {
+                message.Encode(pointer, current, basketRootPartyGrpComp, out current);
+            }
 
-            var basketSideAllocExtBcGrpComp = (byte)message.GetInt(BasketSideAllocExtBcGrpComp.FixTag);
-            BasketSideAllocExtBcGrpComp.Encode(message, pointer, current, basketSideAllocExtBcGrpComp, out current);
+            if (isBasketSideAllocExtBcGrpComp)
+            {
+                message.Encode(pointer, current, basketSideAllocExtBcGrpComp, out current);
+            }
 
             // --- complete header ---
 

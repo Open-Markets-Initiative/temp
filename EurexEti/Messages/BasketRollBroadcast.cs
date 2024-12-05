@@ -111,8 +111,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad7.Encode(pointer, current, out current);
 
-            var basketRootPartyGrpComp = (byte)message.GetInt(BasketRootPartyGrpComp.FixTag);
-            BasketRootPartyGrpComp.Encode(message, pointer, current, basketRootPartyGrpComp, out current);
+            if (isBasketRootPartyGrpComp)
+            {
+                message.Encode(pointer, current, basketRootPartyGrpComp, out current);
+            }
 
             var transactTime = message.GetULong(TransactTime.FixTag);
             TransactTime.Encode(pointer, current, transactTime, out current);
@@ -190,17 +192,25 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var oldBasketInstrmtMatchSideGrpComp = (byte)message.GetInt(OldBasketInstrmtMatchSideGrpComp.FixTag);
-            OldBasketInstrmtMatchSideGrpComp.Encode(message, pointer, current, oldBasketInstrmtMatchSideGrpComp, out current);
+            if (isOldBasketInstrmtMatchSideGrpComp)
+            {
+                message.Encode(pointer, current, oldBasketInstrmtMatchSideGrpComp, out current);
+            }
 
-            var newBasketInstrmtMatchSideGrpComp = (byte)message.GetInt(NewBasketInstrmtMatchSideGrpComp.FixTag);
-            NewBasketInstrmtMatchSideGrpComp.Encode(message, pointer, current, newBasketInstrmtMatchSideGrpComp, out current);
+            if (isNewBasketInstrmtMatchSideGrpComp)
+            {
+                message.Encode(pointer, current, newBasketInstrmtMatchSideGrpComp, out current);
+            }
 
-            var oldBasketSideAllocGrpComp = (byte)message.GetInt(OldBasketSideAllocGrpComp.FixTag);
-            OldBasketSideAllocGrpComp.Encode(message, pointer, current, oldBasketSideAllocGrpComp, out current);
+            if (isOldBasketSideAllocGrpComp)
+            {
+                message.Encode(pointer, current, oldBasketSideAllocGrpComp, out current);
+            }
 
-            var newBasketSideAllocGrpComp = (byte)message.GetInt(NewBasketSideAllocGrpComp.FixTag);
-            NewBasketSideAllocGrpComp.Encode(message, pointer, current, newBasketSideAllocGrpComp, out current);
+            if (isNewBasketSideAllocGrpComp)
+            {
+                message.Encode(pointer, current, newBasketSideAllocGrpComp, out current);
+            }
 
             // --- complete header ---
 

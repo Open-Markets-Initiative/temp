@@ -30,7 +30,7 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var sendingTime = message.sendTime.Ticks;
+            var sendingTime = message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var applSubId = (uint)message.GetInt(ApplSubId.FixTag);

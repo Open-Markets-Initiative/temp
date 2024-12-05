@@ -42,7 +42,7 @@ namespace Eurex.EtiDerivatives.v130
             var responseIn = message.GetULong(ResponseIn.FixTag);
             ResponseIn.Encode(pointer, current, responseIn, out current);
 
-            var sendingTime = message.sendTime.Ticks;
+            var sendingTime = message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var msgSeqNum = (uint)message.msgSeqNum;

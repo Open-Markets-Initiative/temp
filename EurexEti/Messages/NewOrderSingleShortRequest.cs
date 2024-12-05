@@ -42,7 +42,7 @@ namespace Eurex.EtiDerivatives.v130
             var msgSeqNum = (uint)message.msgSeqNum;
             MsgSeqNum.Encode(pointer, current, msgSeqNum, out current);
 
-            var senderSubId = uint.Parse(message.sendersubid);
+            var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
             var price = message.GetDouble(Price.FixTag);
@@ -148,7 +148,7 @@ namespace Eurex.EtiDerivatives.v130
             message.msgSeqNum = (int)msgSeqNum;
 
             var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubId = senderSubId.ToString();
+            message.senderSubID = senderSubId.ToString();
 
             var price = Price.Decode(pointer, current, out current);
             message.AppendDouble(Price.FixTag, price);

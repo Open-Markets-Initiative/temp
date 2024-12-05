@@ -33,7 +33,7 @@ namespace Eurex.EtiDerivatives.v130
             var requestTime = message.GetULong(RequestTime.FixTag);
             RequestTime.Encode(pointer, current, requestTime, out current);
 
-            var sendingTime = message.sendTime.Ticks;
+            var sendingTime = message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var msgSeqNum = (uint)message.msgSeqNum;

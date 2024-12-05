@@ -42,7 +42,7 @@ namespace Eurex.EtiDerivatives.v130
             var msgSeqNum = (uint)message.msgSeqNum;
             MsgSeqNum.Encode(pointer, current, msgSeqNum, out current);
 
-            var senderSubId = uint.Parse(message.sendersubid);
+            var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
             var partitionId = (ushort)message.GetInt(PartitionId.FixTag);
@@ -85,7 +85,7 @@ namespace Eurex.EtiDerivatives.v130
             message.msgSeqNum = (int)msgSeqNum;
 
             var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubId = senderSubId.ToString();
+            message.senderSubID = senderSubId.ToString();
 
             var partitionId = (short)PartitionId.Decode(pointer, current, out current);
             message.AppendInt(PartitionId.FixTag, partitionId);

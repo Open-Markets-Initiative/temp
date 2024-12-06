@@ -36,7 +36,7 @@ namespace Eurex.EtiDerivatives.v130
             var notificationIn = message.GetULong(NotificationIn.FixTag);
             NotificationIn.Encode(pointer, current, notificationIn, out current);
 
-            var sendingTime = message.sendingTime.Ticks;
+            var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var applSubId = (uint)message.GetInt(ApplSubId.FixTag);
@@ -103,7 +103,7 @@ namespace Eurex.EtiDerivatives.v130
             message.AppendULong(NotificationIn.FixTag, notificationIn);
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new DateTime((long)sendingTime);
+            message.sendingTime = new System.DateTime((long)sendingTime);
 
             var applSubId = (int)ApplSubId.Decode(pointer, current, out current);
             message.AppendInt(ApplSubId.FixTag, applSubId);

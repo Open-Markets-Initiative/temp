@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Var Text Len: 2 Byte Fixed Width Integer
+    ///  Var Text Len: Fixed Width Integer For Runtime Sized Field
     /// </summary>
 
-    public sealed class VarTextLen
+    public static class VarTextLen
     {
         /// <summary>
         ///  Fix Tag for Var Text Len
@@ -52,15 +52,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Var Text Len to 0
+        /// </summary>
+        public unsafe static void Zero(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + VarTextLen.Length)
+            {
+                throw new System.Exception("Invalid Length for Var Text Len");
+            }
+
+            Zero(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Var Text Len to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zero(byte* pointer, int offset, out int current)
+        {
+            Zero(pointer, offset);
+
+            current = offset + VarTextLen.Length;
+        }
+
+        /// <summary>
+        ///  Set Var Text Len to 0
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zero(byte* pointer, int offset)
+        {
+            *(ushort*) (pointer + offset) = 0;
+        }
+
+        /// <summary>
         ///  TryDecode Var Text Len
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out ushort value, out int current)
         {
             if (length > offset + VarTextLen.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +99,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Var Text Len
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out ushort value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value > 0;
         }
 
         /// <summary>

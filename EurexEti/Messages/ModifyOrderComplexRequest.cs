@@ -234,10 +234,8 @@ namespace Eurex.EtiDerivatives.v130
             var noLegOnbooks = (byte)message.GetInt(NoLegOnbooks.FixTag);
             NoLegOnbooks.Encode(pointer, current, noLegOnbooks, out current);
 
-            if (isLegOrdGrpComp)
-            {
-                message.Encode(pointer, current, legOrdGrpComp, out current);
-            }
+            var legOrdGrpComp = (byte)message.GetInt(LegOrdGrpComp.FixTag);
+            LegOrdGrpComp.Encode(message, pointer, current, legOrdGrpComp, out current);
 
             // --- complete header ---
 

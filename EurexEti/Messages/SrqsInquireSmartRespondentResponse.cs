@@ -33,7 +33,7 @@ namespace Eurex.EtiDerivatives.v130
             var requestTime = message.GetULong(RequestTime.FixTag);
             RequestTime.Encode(pointer, current, requestTime, out current);
 
-            var sendingTime = message.sendingTime.Ticks;
+            var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var msgSeqNum = (uint)message.msgSeqNum;
@@ -49,10 +49,8 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            if (isSmartPartyDetailGrpComp)
-            {
-                message.Encode(pointer, current, smartPartyDetailGrpComp, out current);
-            }
+            var smartPartyDetailGrpComp = (byte)message.GetInt(SmartPartyDetailGrpComp.FixTag);
+            SmartPartyDetailGrpComp.Encode(message, pointer, current, smartPartyDetailGrpComp, out current);
 
             // --- complete header ---
 
@@ -78,7 +76,7 @@ namespace Eurex.EtiDerivatives.v130
             message.AppendULong(RequestTime.FixTag, requestTime);
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new DateTime((long)sendingTime);
+            message.sendingTime = new System.DateTime((long)sendingTime);
 
             var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
             message.msgSeqNum = (int)msgSeqNum;

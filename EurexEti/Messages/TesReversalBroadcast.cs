@@ -30,7 +30,7 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var sendingTime = message.sendingTime.Ticks;
+            var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var applSeqNum = message.GetULong(ApplSeqNum.FixTag);
@@ -100,10 +100,8 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad3.Encode(pointer, current, out current);
 
-            if (isSideAllocGrpBcComp)
-            {
-                message.Encode(pointer, current, sideAllocGrpBcComp, out current);
-            }
+            var sideAllocGrpBcComp = (byte)message.GetInt(SideAllocGrpBcComp.FixTag);
+            SideAllocGrpBcComp.Encode(message, pointer, current, sideAllocGrpBcComp, out current);
 
             // --- complete header ---
 
@@ -126,7 +124,7 @@ namespace Eurex.EtiDerivatives.v130
             current += Pad2.Length;
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new DateTime((long)sendingTime);
+            message.sendingTime = new System.DateTime((long)sendingTime);
 
             var applSeqNum = ApplSeqNum.Decode(pointer, current, out current);
             message.AppendULong(ApplSeqNum.FixTag, applSeqNum);

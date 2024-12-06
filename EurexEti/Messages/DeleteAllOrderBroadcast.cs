@@ -36,7 +36,7 @@ namespace Eurex.EtiDerivatives.v130
             var notificationIn = message.GetULong(NotificationIn.FixTag);
             NotificationIn.Encode(pointer, current, notificationIn, out current);
 
-            var sendingTime = message.sendingTime.Ticks;
+            var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var applSubId = (uint)message.GetInt(ApplSubId.FixTag);
@@ -98,15 +98,11 @@ namespace Eurex.EtiDerivatives.v130
             var side = (byte)message.GetInt(Side.FixTag);
             Side.Encode(pointer, current, side, out current);
 
-            if (isNotAffectedOrdersGrpComp)
-            {
-                message.Encode(pointer, current, notAffectedOrdersGrpComp, out current);
-            }
+            var notAffectedOrdersGrpComp = (byte)message.GetInt(NotAffectedOrdersGrpComp.FixTag);
+            NotAffectedOrdersGrpComp.Encode(message, pointer, current, notAffectedOrdersGrpComp, out current);
 
-            if (isAffectedOrderRequestsGrpComp)
-            {
-                message.Encode(pointer, current, affectedOrderRequestsGrpComp, out current);
-            }
+            var affectedOrderRequestsGrpComp = (byte)message.GetInt(AffectedOrderRequestsGrpComp.FixTag);
+            AffectedOrderRequestsGrpComp.Encode(message, pointer, current, affectedOrderRequestsGrpComp, out current);
 
             // --- complete header ---
 
@@ -135,7 +131,7 @@ namespace Eurex.EtiDerivatives.v130
             message.AppendULong(NotificationIn.FixTag, notificationIn);
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new DateTime((long)sendingTime);
+            message.sendingTime = new System.DateTime((long)sendingTime);
 
             var applSubId = (int)ApplSubId.Decode(pointer, current, out current);
             message.AppendInt(ApplSubId.FixTag, applSubId);

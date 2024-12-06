@@ -30,7 +30,7 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var sendingTime = message.sendingTime.Ticks;
+            var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var username = (uint)message.GetInt(Username.FixTag);
@@ -44,7 +44,7 @@ namespace Eurex.EtiDerivatives.v130
             }
             else
             {
-                VarTextLen.SetNull(pointer, current, out current);
+                VarTextLen.Zero(pointer, current, out current);
             }
 
             var userStatus = (byte)message.GetInt(UserStatus.FixTag);
@@ -52,7 +52,7 @@ namespace Eurex.EtiDerivatives.v130
 
             if (isVarText)
             {
-                message.Encode(pointer, current, varText, out current);
+                VarText.Encode(pointer, current, varText, out current);
             }
 
             // --- complete header ---
@@ -76,18 +76,17 @@ namespace Eurex.EtiDerivatives.v130
             current += Pad2.Length;
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new DateTime((long)sendingTime);
+            message.sendingTime = new System.DateTime((long)sendingTime);
 
             var username = (int)Username.Decode(pointer, current, out current);
             message.AppendInt(Username.FixTag, username);
 
-            var varTextLen = (short)VarTextLen.Decode(pointer, current, out current);
-            message.AppendInt(VarTextLen.FixTag, varTextLen);
+            var varTextLen = VarTextLen.Decode(pointer, current, out current);
 
             var userStatus = UserStatus.Decode(pointer, current, out current);
             message.AppendInt(UserStatus.FixTag, userStatus);
 
-            if (VarText.TryDecode(pointer, current, out var varText, out current))
+            if (VarText.TryDecode(pointer, current, varTextLen, out var varText, out current))
             {
                 message.AppendString(VarText.FixTag, varText);
             }

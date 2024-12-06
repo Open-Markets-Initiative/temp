@@ -95,10 +95,8 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad5.Encode(pointer, current, out current);
 
-            if (isBasketSideAllocExtGrpComp)
-            {
-                message.Encode(pointer, current, basketSideAllocExtGrpComp, out current);
-            }
+            var basketSideAllocExtGrpComp = (byte)message.GetInt(BasketSideAllocExtGrpComp.FixTag);
+            BasketSideAllocExtGrpComp.Encode(message, pointer, current, basketSideAllocExtGrpComp, out current);
 
             // --- complete header ---
 

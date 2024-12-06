@@ -33,7 +33,7 @@ namespace Eurex.EtiDerivatives.v130
             var requestTime = message.GetULong(RequestTime.FixTag);
             RequestTime.Encode(pointer, current, requestTime, out current);
 
-            var sendingTime = message.sendingTime.Ticks;
+            var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var msgSeqNum = (uint)message.msgSeqNum;
@@ -67,7 +67,7 @@ namespace Eurex.EtiDerivatives.v130
             }
             else
             {
-                PublicKeyLen.SetNull(pointer, current, out current);
+                PublicKeyLen.Zero(pointer, current, out current);
             }
 
             var marketId = (ushort)message.GetInt(MarketId.FixTag);
@@ -96,7 +96,7 @@ namespace Eurex.EtiDerivatives.v130
 
             if (isPublicKey)
             {
-                message.Encode(pointer, current, publicKey, out current);
+                PublicKey.Encode(pointer, current, publicKey, out current);
             }
 
             // --- complete header ---
@@ -123,7 +123,7 @@ namespace Eurex.EtiDerivatives.v130
             message.AppendULong(RequestTime.FixTag, requestTime);
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new DateTime((long)sendingTime);
+            message.sendingTime = new System.DateTime((long)sendingTime);
 
             var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
             message.msgSeqNum = (int)msgSeqNum;
@@ -148,8 +148,7 @@ namespace Eurex.EtiDerivatives.v130
             var latestPublicKeySeqNo = (int)LatestPublicKeySeqNo.Decode(pointer, current, out current);
             message.AppendInt(LatestPublicKeySeqNo.FixTag, latestPublicKeySeqNo);
 
-            var publicKeyLen = (short)PublicKeyLen.Decode(pointer, current, out current);
-            message.AppendInt(PublicKeyLen.FixTag, publicKeyLen);
+            var publicKeyLen = PublicKeyLen.Decode(pointer, current, out current);
 
             var marketId = (short)MarketId.Decode(pointer, current, out current);
             message.AppendInt(MarketId.FixTag, marketId);
@@ -167,7 +166,7 @@ namespace Eurex.EtiDerivatives.v130
                 message.AppendToken(DefaultCstmApplVerSubId.FixTag, defaultCstmApplVerSubId);
             }
 
-            if (PublicKey.TryDecode(pointer, current, out var publicKey, out current))
+            if (PublicKey.TryDecode(pointer, current, publicKeyLen, out var publicKey, out current))
             {
                 message.AppendString(PublicKey.FixTag, publicKey);
             }

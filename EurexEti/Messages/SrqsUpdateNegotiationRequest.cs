@@ -138,10 +138,8 @@ namespace Eurex.EtiDerivatives.v130
                 ChargeId.SetNull(pointer, current, out current);
             }
 
-            if (isTargetPartiesComp)
-            {
-                message.Encode(pointer, current, targetPartiesComp, out current);
-            }
+            var targetPartiesComp = (byte)message.GetInt(TargetPartiesComp.FixTag);
+            TargetPartiesComp.Encode(message, pointer, current, targetPartiesComp, out current);
 
             // --- complete header ---
 

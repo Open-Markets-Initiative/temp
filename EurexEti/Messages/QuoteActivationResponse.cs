@@ -42,7 +42,7 @@ namespace Eurex.EtiDerivatives.v130
             var responseIn = message.GetULong(ResponseIn.FixTag);
             ResponseIn.Encode(pointer, current, responseIn, out current);
 
-            var sendingTime = message.sendingTime.Ticks;
+            var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var msgSeqNum = (uint)message.msgSeqNum;
@@ -61,10 +61,8 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad6.Encode(pointer, current, out current);
 
-            if (isNotAffectedSecuritiesGrpComp)
-            {
-                message.Encode(pointer, current, notAffectedSecuritiesGrpComp, out current);
-            }
+            var notAffectedSecuritiesGrpComp = (byte)message.GetInt(NotAffectedSecuritiesGrpComp.FixTag);
+            NotAffectedSecuritiesGrpComp.Encode(message, pointer, current, notAffectedSecuritiesGrpComp, out current);
 
             // --- complete header ---
 
@@ -99,7 +97,7 @@ namespace Eurex.EtiDerivatives.v130
             message.AppendULong(ResponseIn.FixTag, responseIn);
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new DateTime((long)sendingTime);
+            message.sendingTime = new System.DateTime((long)sendingTime);
 
             var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
             message.msgSeqNum = (int)msgSeqNum;

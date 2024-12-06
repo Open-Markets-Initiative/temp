@@ -252,10 +252,8 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad22.Encode(pointer, current, out current);
 
-            if (isLegOrdGrpComp)
-            {
-                message.Encode(pointer, current, legOrdGrpComp, out current);
-            }
+            var legOrdGrpComp = (byte)message.GetInt(LegOrdGrpComp.FixTag);
+            LegOrdGrpComp.Encode(message, pointer, current, legOrdGrpComp, out current);
 
             // --- complete header ---
 

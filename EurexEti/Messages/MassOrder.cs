@@ -194,10 +194,8 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad7.Encode(pointer, current, out current);
 
-            if (isOrderEntryGrpComp)
-            {
-                message.Encode(pointer, current, orderEntryGrpComp, out current);
-            }
+            var orderEntryGrpComp = (byte)message.GetInt(OrderEntryGrpComp.FixTag);
+            OrderEntryGrpComp.Encode(message, pointer, current, orderEntryGrpComp, out current);
 
             // --- complete header ---
 

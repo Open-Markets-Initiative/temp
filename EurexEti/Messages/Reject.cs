@@ -42,7 +42,7 @@ namespace Eurex.EtiDerivatives.v130
             var responseIn = message.GetULong(ResponseIn.FixTag);
             ResponseIn.Encode(pointer, current, responseIn, out current);
 
-            var sendingTime = message.sendingTime.Ticks;
+            var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var msgSeqNum = (uint)message.msgSeqNum;
@@ -64,7 +64,7 @@ namespace Eurex.EtiDerivatives.v130
             }
             else
             {
-                VarTextLen.SetNull(pointer, current, out current);
+                VarTextLen.Zero(pointer, current, out current);
             }
 
             var sessionStatus = (byte)message.GetInt(SessionStatus.FixTag);
@@ -72,7 +72,7 @@ namespace Eurex.EtiDerivatives.v130
 
             if (isVarText)
             {
-                message.Encode(pointer, current, varText, out current);
+                VarText.Encode(pointer, current, varText, out current);
             }
 
             // --- complete header ---
@@ -108,7 +108,7 @@ namespace Eurex.EtiDerivatives.v130
             message.AppendULong(ResponseIn.FixTag, responseIn);
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new DateTime((long)sendingTime);
+            message.sendingTime = new System.DateTime((long)sendingTime);
 
             var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
             message.msgSeqNum = (int)msgSeqNum;
@@ -121,13 +121,12 @@ namespace Eurex.EtiDerivatives.v130
             var sessionRejectReason = (int)SessionRejectReason.Decode(pointer, current, out current);
             message.AppendInt(SessionRejectReason.FixTag, sessionRejectReason);
 
-            var varTextLen = (short)VarTextLen.Decode(pointer, current, out current);
-            message.AppendInt(VarTextLen.FixTag, varTextLen);
+            var varTextLen = VarTextLen.Decode(pointer, current, out current);
 
             var sessionStatus = SessionStatus.Decode(pointer, current, out current);
             message.AppendInt(SessionStatus.FixTag, sessionStatus);
 
-            if (VarText.TryDecode(pointer, current, out var varText, out current))
+            if (VarText.TryDecode(pointer, current, varTextLen, out var varText, out current))
             {
                 message.AppendString(VarText.FixTag, varText);
             }

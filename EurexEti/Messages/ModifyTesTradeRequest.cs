@@ -107,15 +107,11 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad1.Encode(pointer, current, out current);
 
-            if (isSideAllocGrpComp)
-            {
-                message.Encode(pointer, current, sideAllocGrpComp, out current);
-            }
+            var sideAllocGrpComp = (byte)message.GetInt(SideAllocGrpComp.FixTag);
+            SideAllocGrpComp.Encode(message, pointer, current, sideAllocGrpComp, out current);
 
-            if (isTrdInstrmntLegGrpComp)
-            {
-                message.Encode(pointer, current, trdInstrmntLegGrpComp, out current);
-            }
+            var trdInstrmntLegGrpComp = (byte)message.GetInt(TrdInstrmntLegGrpComp.FixTag);
+            TrdInstrmntLegGrpComp.Encode(message, pointer, current, trdInstrmntLegGrpComp, out current);
 
             // --- complete header ---
 

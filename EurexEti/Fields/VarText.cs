@@ -32,11 +32,9 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, string value, out int current)
         {
-            DataLength.Encode(pointer, offset, (ushort)value.Length, out current);
-
             for (var i = 0; i < value.Length; i++)
             {
-                *(position++) = value[i];
+                *(position++) = (byte)value[i];
             }
 
             current = offset + value.Length;
@@ -59,6 +57,34 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Var Text
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, int size, out string value, out int current)
+        {
+            value = Decode(pointer, offset, size, out current);
+
+            return !string.IsNullOrEmpty(value);
+        }
+
+        /// <summary>
+        ///  Decode Var Text
+        /// </summary>
+        public unsafe static string Decode(byte* pointer, int offset, int size, out int current)
+        {
+            current = offset + size;
+
+            return Decode(pointer, offset, size);
+        }
+
+        /// <summary>
+        ///  Decode Var Text
+        /// </summary>
+        public unsafe static string Decode(byte* pointer, int offset, int size)
+        {
+            return new string ((sbyte*)pointer, offset, size)
         }
     }
 }

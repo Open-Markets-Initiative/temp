@@ -30,7 +30,7 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var sendingTime = message.sendingTime.Ticks;
+            var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
             var applSeqNum = message.GetULong(ApplSeqNum.FixTag);
@@ -130,7 +130,7 @@ namespace Eurex.EtiDerivatives.v130
             }
             else
             {
-                VarTextLen.SetNull(pointer, current, out current);
+                VarTextLen.Zero(pointer, current, out current);
             }
 
             var side = (byte)message.GetInt(Side.FixTag);
@@ -366,29 +366,21 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad3.Encode(pointer, current, out current);
 
-            if (isTrdInstrmntLegGrpComp)
-            {
-                message.Encode(pointer, current, trdInstrmntLegGrpComp, out current);
-            }
+            var trdInstrmntLegGrpComp = (byte)message.GetInt(TrdInstrmntLegGrpComp.FixTag);
+            TrdInstrmntLegGrpComp.Encode(message, pointer, current, trdInstrmntLegGrpComp, out current);
 
-            if (isInstrumentEventGrpComp)
-            {
-                message.Encode(pointer, current, instrumentEventGrpComp, out current);
-            }
+            var instrumentEventGrpComp = (byte)message.GetInt(InstrumentEventGrpComp.FixTag);
+            InstrumentEventGrpComp.Encode(message, pointer, current, instrumentEventGrpComp, out current);
 
-            if (isInstrumentAttributeGrpComp)
-            {
-                message.Encode(pointer, current, instrumentAttributeGrpComp, out current);
-            }
+            var instrumentAttributeGrpComp = (byte)message.GetInt(InstrumentAttributeGrpComp.FixTag);
+            InstrumentAttributeGrpComp.Encode(message, pointer, current, instrumentAttributeGrpComp, out current);
 
-            if (isUnderlyingStipGrpComp)
-            {
-                message.Encode(pointer, current, underlyingStipGrpComp, out current);
-            }
+            var underlyingStipGrpComp = (byte)message.GetInt(UnderlyingStipGrpComp.FixTag);
+            UnderlyingStipGrpComp.Encode(message, pointer, current, underlyingStipGrpComp, out current);
 
             if (isVarText)
             {
-                message.Encode(pointer, current, varText, out current);
+                VarText.Encode(pointer, current, varText, out current);
             }
 
             // --- complete header ---
@@ -412,7 +404,7 @@ namespace Eurex.EtiDerivatives.v130
             current += Pad2.Length;
 
             var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new DateTime((long)sendingTime);
+            message.sendingTime = new System.DateTime((long)sendingTime);
 
             var applSeqNum = ApplSeqNum.Decode(pointer, current, out current);
             message.AppendULong(ApplSeqNum.FixTag, applSeqNum);
@@ -503,8 +495,7 @@ namespace Eurex.EtiDerivatives.v130
             var trdType = (short)TrdType.Decode(pointer, current, out current);
             message.AppendInt(TrdType.FixTag, trdType);
 
-            var varTextLen = (short)VarTextLen.Decode(pointer, current, out current);
-            message.AppendInt(VarTextLen.FixTag, varTextLen);
+            var varTextLen = VarTextLen.Decode(pointer, current, out current);
 
             var side = Side.Decode(pointer, current, out current);
             message.AppendInt(Side.FixTag, side);
@@ -667,7 +658,7 @@ namespace Eurex.EtiDerivatives.v130
 
             UnderlyingStipGrpComp.Decode(ref message, pointer, current, out current);
 
-            if (VarText.TryDecode(pointer, current, out var varText, out current))
+            if (VarText.TryDecode(pointer, current, varTextLen, out var varText, out current))
             {
                 message.AppendString(VarText.FixTag, varText);
             }

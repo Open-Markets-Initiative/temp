@@ -17,7 +17,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Public Key
         /// </summary>
-        public unsafe static void Encode(byte* pointer, int offset, string value, out int current)
+        public unsafe static void Encode(byte* pointer, int offset, int length, string value, out int current)
         {
             if (length > offset + value.Length)
             {
@@ -32,6 +32,8 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, string value, out int current)
         {
+            var position = pointer + offset;
+
             for (var i = 0; i < value.Length; i++)
             {
                 *(position++) = (byte)value[i];
@@ -45,11 +47,9 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, int size, out string value, out int current)
         {
-            if (size > 0 && length > offset + size)
+            if (length > offset + PublicKey.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, size, out value, out current);
             }
 
             value = string.Empty;
@@ -62,11 +62,20 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  TryDecode Public Key
         /// </summary>
-        public unsafe static bool TryDecode(byte* pointer, int offset, int size, out string value, out int current)
+        public unsafe static bool TryDecode(byte* pointer, int offset, int length, int size, out string value, out int current)
         {
-            value = Decode(pointer, offset, size, out current);
+            if (size > 0)
+            {
+                value = Decode(pointer, offset, size, out value, out current);
 
-            return !string.IsNullOrEmpty(value);
+                return !string.IsNullOrEmpty(value);
+            }
+
+            value = string.Empty;
+
+            current = offset;
+
+            return false;
         }
 
         /// <summary>
@@ -84,7 +93,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static string Decode(byte* pointer, int offset, int size)
         {
-            return new string ((sbyte*)pointer, offset, size)
+            return new string ((sbyte*)pointer, offset, size);
         }
     }
 }

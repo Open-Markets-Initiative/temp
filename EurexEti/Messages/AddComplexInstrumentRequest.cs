@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Add Complex Instrument Request Message Methods
     /// </summary>
 
-    public partial class AddComplexInstrumentRequest
+    public static partial class AddComplexInstrumentRequest
     {
         /// <summary>
         ///  Eti Identifier for Add Complex Instrument Request

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Approve Tes Trade Request Message Methods
     /// </summary>
 
-    public partial class ApproveTesTradeRequest
+    public static partial class ApproveTesTradeRequest
     {
         /// <summary>
         ///  Eti Identifier for Approve Tes Trade Request

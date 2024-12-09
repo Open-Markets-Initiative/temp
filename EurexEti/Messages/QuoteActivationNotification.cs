@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Quote Activation Notification Message Methods
     /// </summary>
 
-    public partial class QuoteActivationNotification
+    public static partial class QuoteActivationNotification
     {
         /// <summary>
         ///  Eti Identifier for Quote Activation Notification

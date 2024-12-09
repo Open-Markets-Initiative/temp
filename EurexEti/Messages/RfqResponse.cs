@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Rfq Response Message Methods
     /// </summary>
 
-    public partial class RfqResponse
+    public static partial class RfqResponse
     {
         /// <summary>
         ///  Eti Identifier for Rfq Response

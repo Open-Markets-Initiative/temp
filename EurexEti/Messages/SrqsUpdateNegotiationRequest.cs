@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Update Negotiation Request Message Methods
     /// </summary>
 
-    public partial class SrqsUpdateNegotiationRequest
+    public static partial class SrqsUpdateNegotiationRequest
     {
         /// <summary>
         ///  Eti Identifier for Srqs Update Negotiation Request

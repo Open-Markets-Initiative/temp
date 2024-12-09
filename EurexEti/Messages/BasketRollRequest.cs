@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Basket Roll Request Message Methods
     /// </summary>
 
-    public partial class BasketRollRequest
+    public static partial class BasketRollRequest
     {
         /// <summary>
         ///  Eti Identifier for Basket Roll Request

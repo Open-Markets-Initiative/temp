@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Target Parties Comp Message Methods
     /// </summary>
 
-    public partial static class TargetPartiesComp
+    public static partial class TargetPartiesComp
     {
         /// <summary>
         ///  Fix Tag for Target Parties Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Target Parties Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int targetPartiesComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup targetPartiesComp, out int current)
         {
             current = offset;
 

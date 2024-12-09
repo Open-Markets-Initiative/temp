@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Throttle Update Notification Message Methods
     /// </summary>
 
-    public partial class ThrottleUpdateNotification
+    public static partial class ThrottleUpdateNotification
     {
         /// <summary>
         ///  Eti Identifier for Throttle Update Notification

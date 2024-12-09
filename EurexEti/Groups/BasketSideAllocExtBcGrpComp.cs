@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Basket Side Alloc Ext Bc Grp Comp Message Methods
     /// </summary>
 
-    public partial static class BasketSideAllocExtBcGrpComp
+    public static partial class BasketSideAllocExtBcGrpComp
     {
         /// <summary>
         ///  Fix Tag for Basket Side Alloc Ext Bc Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Basket Side Alloc Ext Bc Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int basketSideAllocExtBcGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup basketSideAllocExtBcGrpComp, out int current)
         {
             current = offset;
 

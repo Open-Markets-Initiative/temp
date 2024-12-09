@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete All Quote Broadcast Message Methods
     /// </summary>
 
-    public partial class DeleteAllQuoteBroadcast
+    public static partial class DeleteAllQuoteBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Delete All Quote Broadcast

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Quot Req Legs Grp Comp Message Methods
     /// </summary>
 
-    public partial static class QuotReqLegsGrpComp
+    public static partial class QuotReqLegsGrpComp
     {
         /// <summary>
         ///  Fix Tag for Quot Req Legs Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Quot Req Legs Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int quotReqLegsGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup quotReqLegsGrpComp, out int current)
         {
             current = offset;
 

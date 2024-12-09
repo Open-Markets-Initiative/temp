@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Legal Notification Broadcast Message Methods
     /// </summary>
 
-    public partial class LegalNotificationBroadcast
+    public static partial class LegalNotificationBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Legal Notification Broadcast

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete All Order Request Message Methods
     /// </summary>
 
-    public partial class DeleteAllOrderRequest
+    public static partial class DeleteAllOrderRequest
     {
         /// <summary>
         ///  Eti Identifier for Delete All Order Request

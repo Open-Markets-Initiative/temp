@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Order Exec Report Broadcast Message Methods
     /// </summary>
 
-    public partial class OrderExecReportBroadcast
+    public static partial class OrderExecReportBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Order Exec Report Broadcast

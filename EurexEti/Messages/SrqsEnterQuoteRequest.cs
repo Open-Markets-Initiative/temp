@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Enter Quote Request Message Methods
     /// </summary>
 
-    public partial class SrqsEnterQuoteRequest
+    public static partial class SrqsEnterQuoteRequest
     {
         /// <summary>
         ///  Eti Identifier for Srqs Enter Quote Request

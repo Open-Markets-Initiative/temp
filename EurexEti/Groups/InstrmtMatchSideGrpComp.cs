@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Instrmt Match Side Grp Comp Message Methods
     /// </summary>
 
-    public partial static class InstrmtMatchSideGrpComp
+    public static partial class InstrmtMatchSideGrpComp
     {
         /// <summary>
         ///  Fix Tag for Instrmt Match Side Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Instrmt Match Side Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int instrmtMatchSideGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup instrmtMatchSideGrpComp, out int current)
         {
             current = offset;
 

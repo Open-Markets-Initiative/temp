@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Party Details Grp Comp Message Methods
     /// </summary>
 
-    public partial static class PartyDetailsGrpComp
+    public static partial class PartyDetailsGrpComp
     {
         /// <summary>
         ///  Fix Tag for Party Details Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Party Details Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int partyDetailsGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup partyDetailsGrpComp, out int current)
         {
             current = offset;
 

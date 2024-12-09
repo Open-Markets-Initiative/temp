@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Status Broadcast Message Methods
     /// </summary>
 
-    public partial class SrqsStatusBroadcast
+    public static partial class SrqsStatusBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Srqs Status Broadcast

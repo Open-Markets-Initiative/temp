@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  New Order Single Request Message Methods
     /// </summary>
 
-    public partial class NewOrderSingleRequest
+    public static partial class NewOrderSingleRequest
     {
         /// <summary>
         ///  Eti Identifier for New Order Single Request

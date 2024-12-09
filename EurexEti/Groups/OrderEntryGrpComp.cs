@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Order Entry Grp Comp Message Methods
     /// </summary>
 
-    public partial static class OrderEntryGrpComp
+    public static partial class OrderEntryGrpComp
     {
         /// <summary>
         ///  Fix Tag for Order Entry Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Order Entry Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int orderEntryGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup orderEntryGrpComp, out int current)
         {
             current = offset;
 

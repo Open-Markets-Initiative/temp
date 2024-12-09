@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Mm Parameter Definition Response Message Methods
     /// </summary>
 
-    public partial class MmParameterDefinitionResponse
+    public static partial class MmParameterDefinitionResponse
     {
         /// <summary>
         ///  Eti Identifier for Mm Parameter Definition Response

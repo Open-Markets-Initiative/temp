@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Inquire User Request Message Methods
     /// </summary>
 
-    public partial class InquireUserRequest
+    public static partial class InquireUserRequest
     {
         /// <summary>
         ///  Eti Identifier for Inquire User Request

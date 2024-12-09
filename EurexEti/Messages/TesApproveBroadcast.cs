@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Tes Approve Broadcast Message Methods
     /// </summary>
 
-    public partial class TesApproveBroadcast
+    public static partial class TesApproveBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Tes Approve Broadcast

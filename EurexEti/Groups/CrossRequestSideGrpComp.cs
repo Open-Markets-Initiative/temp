@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Cross Request Side Grp Comp Message Methods
     /// </summary>
 
-    public partial static class CrossRequestSideGrpComp
+    public static partial class CrossRequestSideGrpComp
     {
         /// <summary>
         ///  Fix Tag for Cross Request Side Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Cross Request Side Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int crossRequestSideGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup crossRequestSideGrpComp, out int current)
         {
             current = offset;
 

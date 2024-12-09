@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Side Cross Leg Grp Comp Message Methods
     /// </summary>
 
-    public partial static class SideCrossLegGrpComp
+    public static partial class SideCrossLegGrpComp
     {
         /// <summary>
         ///  Fix Tag for Side Cross Leg Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Side Cross Leg Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int sideCrossLegGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup sideCrossLegGrpComp, out int current)
         {
             current = offset;
 

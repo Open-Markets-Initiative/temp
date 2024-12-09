@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Party Entitlements Update Report Message Methods
     /// </summary>
 
-    public partial class PartyEntitlementsUpdateReport
+    public static partial class PartyEntitlementsUpdateReport
     {
         /// <summary>
         ///  Eti Identifier for Party Entitlements Update Report

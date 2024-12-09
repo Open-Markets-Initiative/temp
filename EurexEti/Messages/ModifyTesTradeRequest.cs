@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Modify Tes Trade Request Message Methods
     /// </summary>
 
-    public partial class ModifyTesTradeRequest
+    public static partial class ModifyTesTradeRequest
     {
         /// <summary>
         ///  Eti Identifier for Modify Tes Trade Request

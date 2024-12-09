@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  User Logout Response Message Methods
     /// </summary>
 
-    public partial class UserLogoutResponse
+    public static partial class UserLogoutResponse
     {
         /// <summary>
         ///  Eti Identifier for User Logout Response

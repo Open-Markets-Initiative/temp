@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  New Order Complex Request Message Methods
     /// </summary>
 
-    public partial class NewOrderComplexRequest
+    public static partial class NewOrderComplexRequest
     {
         /// <summary>
         ///  Eti Identifier for New Order Complex Request

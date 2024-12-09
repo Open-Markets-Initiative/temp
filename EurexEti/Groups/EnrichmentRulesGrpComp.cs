@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Enrichment Rules Grp Comp Message Methods
     /// </summary>
 
-    public partial static class EnrichmentRulesGrpComp
+    public static partial class EnrichmentRulesGrpComp
     {
         /// <summary>
         ///  Fix Tag for Enrichment Rules Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Enrichment Rules Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int enrichmentRulesGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup enrichmentRulesGrpComp, out int current)
         {
             current = offset;
 

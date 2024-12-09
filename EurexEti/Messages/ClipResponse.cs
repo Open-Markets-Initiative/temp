@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Clip Response Message Methods
     /// </summary>
 
-    public partial class ClipResponse
+    public static partial class ClipResponse
     {
         /// <summary>
         ///  Eti Identifier for Clip Response

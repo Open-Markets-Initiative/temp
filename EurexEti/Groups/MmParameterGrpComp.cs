@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Mm Parameter Grp Comp Message Methods
     /// </summary>
 
-    public partial static class MmParameterGrpComp
+    public static partial class MmParameterGrpComp
     {
         /// <summary>
         ///  Fix Tag for Mm Parameter Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Mm Parameter Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int mmParameterGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup mmParameterGrpComp, out int current)
         {
             current = offset;
 

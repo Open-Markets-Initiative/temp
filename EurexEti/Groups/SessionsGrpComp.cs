@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Sessions Grp Comp Message Methods
     /// </summary>
 
-    public partial static class SessionsGrpComp
+    public static partial class SessionsGrpComp
     {
         /// <summary>
         ///  Fix Tag for Sessions Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Sessions Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int sessionsGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup sessionsGrpComp, out int current)
         {
             current = offset;
 

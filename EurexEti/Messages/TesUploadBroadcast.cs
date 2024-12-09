@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Tes Upload Broadcast Message Methods
     /// </summary>
 
-    public partial class TesUploadBroadcast
+    public static partial class TesUploadBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Tes Upload Broadcast

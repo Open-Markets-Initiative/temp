@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Logout Request Message Methods
     /// </summary>
 
-    public partial class LogoutRequest
+    public static partial class LogoutRequest
     {
         /// <summary>
         ///  Eti Identifier for Logout Request

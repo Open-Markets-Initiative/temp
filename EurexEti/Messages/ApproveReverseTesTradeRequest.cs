@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Approve Reverse Tes Trade Request Message Methods
     /// </summary>
 
-    public partial class ApproveReverseTesTradeRequest
+    public static partial class ApproveReverseTesTradeRequest
     {
         /// <summary>
         ///  Eti Identifier for Approve Reverse Tes Trade Request

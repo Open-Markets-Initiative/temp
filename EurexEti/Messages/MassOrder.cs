@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Mass Order Message Methods
     /// </summary>
 
-    public partial class MassOrder
+    public static partial class MassOrder
     {
         /// <summary>
         ///  Eti Identifier for Mass Order

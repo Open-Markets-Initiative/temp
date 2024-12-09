@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Add Flexible Instrument Response Message Methods
     /// </summary>
 
-    public partial class AddFlexibleInstrumentResponse
+    public static partial class AddFlexibleInstrumentResponse
     {
         /// <summary>
         ///  Eti Identifier for Add Flexible Instrument Response

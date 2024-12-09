@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete Basket Trade Request Message Methods
     /// </summary>
 
-    public partial class DeleteBasketTradeRequest
+    public static partial class DeleteBasketTradeRequest
     {
         /// <summary>
         ///  Eti Identifier for Delete Basket Trade Request

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete All Quote Request Message Methods
     /// </summary>
 
-    public partial class DeleteAllQuoteRequest
+    public static partial class DeleteAllQuoteRequest
     {
         /// <summary>
         ///  Eti Identifier for Delete All Quote Request

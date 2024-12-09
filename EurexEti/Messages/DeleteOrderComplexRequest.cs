@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete Order Complex Request Message Methods
     /// </summary>
 
-    public partial class DeleteOrderComplexRequest
+    public static partial class DeleteOrderComplexRequest
     {
         /// <summary>
         ///  Eti Identifier for Delete Order Complex Request

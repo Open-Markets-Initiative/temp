@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete Clip Request Message Methods
     /// </summary>
 
-    public partial class DeleteClipRequest
+    public static partial class DeleteClipRequest
     {
         /// <summary>
         ///  Eti Identifier for Delete Clip Request

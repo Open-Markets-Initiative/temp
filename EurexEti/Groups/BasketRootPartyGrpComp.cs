@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Basket Root Party Grp Comp Message Methods
     /// </summary>
 
-    public partial static class BasketRootPartyGrpComp
+    public static partial class BasketRootPartyGrpComp
     {
         /// <summary>
         ///  Fix Tag for Basket Root Party Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Basket Root Party Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int basketRootPartyGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup basketRootPartyGrpComp, out int current)
         {
             current = offset;
 

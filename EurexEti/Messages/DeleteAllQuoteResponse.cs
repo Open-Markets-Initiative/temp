@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete All Quote Response Message Methods
     /// </summary>
 
-    public partial class DeleteAllQuoteResponse
+    public static partial class DeleteAllQuoteResponse
     {
         /// <summary>
         ///  Eti Identifier for Delete All Quote Response

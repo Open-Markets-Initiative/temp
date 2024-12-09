@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Enter Clip Request Message Methods
     /// </summary>
 
-    public partial class EnterClipRequest
+    public static partial class EnterClipRequest
     {
         /// <summary>
         ///  Eti Identifier for Enter Clip Request

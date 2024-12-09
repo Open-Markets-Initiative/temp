@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Quote Notification Message Methods
     /// </summary>
 
-    public partial class SrqsQuoteNotification
+    public static partial class SrqsQuoteNotification
     {
         /// <summary>
         ///  Eti Identifier for Srqs Quote Notification

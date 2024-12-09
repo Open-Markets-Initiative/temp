@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Modify Order Response Message Methods
     /// </summary>
 
-    public partial class ModifyOrderResponse
+    public static partial class ModifyOrderResponse
     {
         /// <summary>
         ///  Eti Identifier for Modify Order Response

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Rra Update Base Party Grp Comp Message Methods
     /// </summary>
 
-    public partial static class RraUpdateBasePartyGrpComp
+    public static partial class RraUpdateBasePartyGrpComp
     {
         /// <summary>
         ///  Fix Tag for Rra Update Base Party Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Rra Update Base Party Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int rraUpdateBasePartyGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup rraUpdateBasePartyGrpComp, out int current)
         {
             current = offset;
 

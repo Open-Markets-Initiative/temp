@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Instrmnt Leg Exec Grp Comp Message Methods
     /// </summary>
 
-    public partial static class InstrmntLegExecGrpComp
+    public static partial class InstrmntLegExecGrpComp
     {
         /// <summary>
         ///  Fix Tag for Instrmnt Leg Exec Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Instrmnt Leg Exec Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int instrmntLegExecGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup instrmntLegExecGrpComp, out int current)
         {
             current = offset;
 

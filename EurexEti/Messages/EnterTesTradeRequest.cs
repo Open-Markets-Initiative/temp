@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Enter Tes Trade Request Message Methods
     /// </summary>
 
-    public partial class EnterTesTradeRequest
+    public static partial class EnterTesTradeRequest
     {
         /// <summary>
         ///  Eti Identifier for Enter Tes Trade Request

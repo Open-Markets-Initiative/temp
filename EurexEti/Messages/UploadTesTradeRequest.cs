@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Upload Tes Trade Request Message Methods
     /// </summary>
 
-    public partial class UploadTesTradeRequest
+    public static partial class UploadTesTradeRequest
     {
         /// <summary>
         ///  Eti Identifier for Upload Tes Trade Request

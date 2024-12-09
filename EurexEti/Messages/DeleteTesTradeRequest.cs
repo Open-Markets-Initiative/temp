@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete Tes Trade Request Message Methods
     /// </summary>
 
-    public partial class DeleteTesTradeRequest
+    public static partial class DeleteTesTradeRequest
     {
         /// <summary>
         ///  Eti Identifier for Delete Tes Trade Request

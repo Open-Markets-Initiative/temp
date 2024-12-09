@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Inquire Smart Respondent Response Message Methods
     /// </summary>
 
-    public partial class SrqsInquireSmartRespondentResponse
+    public static partial class SrqsInquireSmartRespondentResponse
     {
         /// <summary>
         ///  Eti Identifier for Srqs Inquire Smart Respondent Response

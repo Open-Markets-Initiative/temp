@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Deal Notification Message Methods
     /// </summary>
 
-    public partial class SrqsDealNotification
+    public static partial class SrqsDealNotification
     {
         /// <summary>
         ///  Eti Identifier for Srqs Deal Notification

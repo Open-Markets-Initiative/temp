@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Retransmit Me Message Request Message Methods
     /// </summary>
 
-    public partial class RetransmitMeMessageRequest
+    public static partial class RetransmitMeMessageRequest
     {
         /// <summary>
         ///  Eti Identifier for Retransmit Me Message Request

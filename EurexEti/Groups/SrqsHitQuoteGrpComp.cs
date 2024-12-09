@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Hit Quote Grp Comp Message Methods
     /// </summary>
 
-    public partial static class SrqsHitQuoteGrpComp
+    public static partial class SrqsHitQuoteGrpComp
     {
         /// <summary>
         ///  Fix Tag for Srqs Hit Quote Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Srqs Hit Quote Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int srqsHitQuoteGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup srqsHitQuoteGrpComp, out int current)
         {
             current = offset;
 

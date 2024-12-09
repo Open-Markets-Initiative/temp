@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Basket Approve Broadcast Message Methods
     /// </summary>
 
-    public partial class BasketApproveBroadcast
+    public static partial class BasketApproveBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Basket Approve Broadcast

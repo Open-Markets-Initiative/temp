@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Instrument Event Grp Comp Message Methods
     /// </summary>
 
-    public partial static class InstrumentEventGrpComp
+    public static partial class InstrumentEventGrpComp
     {
         /// <summary>
         ///  Fix Tag for Instrument Event Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Instrument Event Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int instrumentEventGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup instrumentEventGrpComp, out int current)
         {
             current = offset;
 

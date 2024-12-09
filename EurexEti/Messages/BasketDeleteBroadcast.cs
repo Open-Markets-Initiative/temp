@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Basket Delete Broadcast Message Methods
     /// </summary>
 
-    public partial class BasketDeleteBroadcast
+    public static partial class BasketDeleteBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Basket Delete Broadcast

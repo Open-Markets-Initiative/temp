@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  User Login Request Encrypted Message Methods
     /// </summary>
 
-    public partial class UserLoginRequestEncrypted
+    public static partial class UserLoginRequestEncrypted
     {
         /// <summary>
         ///  Eti Identifier for User Login Request Encrypted

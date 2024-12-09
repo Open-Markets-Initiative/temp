@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Risk Limit Qty Grp Comp Message Methods
     /// </summary>
 
-    public partial static class RiskLimitQtyGrpComp
+    public static partial class RiskLimitQtyGrpComp
     {
         /// <summary>
         ///  Fix Tag for Risk Limit Qty Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Risk Limit Qty Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int riskLimitQtyGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup riskLimitQtyGrpComp, out int current)
         {
             current = offset;
 

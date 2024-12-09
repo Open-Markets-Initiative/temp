@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Target Party Trd Grp Comp Message Methods
     /// </summary>
 
-    public partial static class SrqsTargetPartyTrdGrpComp
+    public static partial class SrqsTargetPartyTrdGrpComp
     {
         /// <summary>
         ///  Fix Tag for Srqs Target Party Trd Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Srqs Target Party Trd Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int srqsTargetPartyTrdGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup srqsTargetPartyTrdGrpComp, out int current)
         {
             current = offset;
 

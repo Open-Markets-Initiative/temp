@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Quote Leg Exec Grp Comp Message Methods
     /// </summary>
 
-    public partial static class QuoteLegExecGrpComp
+    public static partial class QuoteLegExecGrpComp
     {
         /// <summary>
         ///  Fix Tag for Quote Leg Exec Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Quote Leg Exec Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int quoteLegExecGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup quoteLegExecGrpComp, out int current)
         {
             current = offset;
 

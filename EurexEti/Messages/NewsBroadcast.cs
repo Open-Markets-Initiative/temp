@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  News Broadcast Message Methods
     /// </summary>
 
-    public partial class NewsBroadcast
+    public static partial class NewsBroadcast
     {
         /// <summary>
         ///  Eti Identifier for News Broadcast

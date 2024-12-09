@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Forced User Logout Notification Message Methods
     /// </summary>
 
-    public partial class ForcedUserLogoutNotification
+    public static partial class ForcedUserLogoutNotification
     {
         /// <summary>
         ///  Eti Identifier for Forced User Logout Notification

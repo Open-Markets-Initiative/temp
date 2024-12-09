@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Mass Quote Response Message Methods
     /// </summary>
 
-    public partial class MassQuoteResponse
+    public static partial class MassQuoteResponse
     {
         /// <summary>
         ///  Eti Identifier for Mass Quote Response

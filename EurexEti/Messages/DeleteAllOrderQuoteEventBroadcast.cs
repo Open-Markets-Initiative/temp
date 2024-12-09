@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete All Order Quote Event Broadcast Message Methods
     /// </summary>
 
-    public partial class DeleteAllOrderQuoteEventBroadcast
+    public static partial class DeleteAllOrderQuoteEventBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Delete All Order Quote Event Broadcast

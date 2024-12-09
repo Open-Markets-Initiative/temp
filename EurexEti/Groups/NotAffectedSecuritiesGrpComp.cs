@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Not Affected Securities Grp Comp Message Methods
     /// </summary>
 
-    public partial static class NotAffectedSecuritiesGrpComp
+    public static partial class NotAffectedSecuritiesGrpComp
     {
         /// <summary>
         ///  Fix Tag for Not Affected Securities Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Not Affected Securities Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int notAffectedSecuritiesGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup notAffectedSecuritiesGrpComp, out int current)
         {
             current = offset;
 

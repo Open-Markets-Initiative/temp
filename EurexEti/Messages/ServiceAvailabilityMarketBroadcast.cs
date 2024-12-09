@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Service Availability Market Broadcast Message Methods
     /// </summary>
 
-    public partial class ServiceAvailabilityMarketBroadcast
+    public static partial class ServiceAvailabilityMarketBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Service Availability Market Broadcast

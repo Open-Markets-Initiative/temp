@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Tes Response Message Methods
     /// </summary>
 
-    public partial class TesResponse
+    public static partial class TesResponse
     {
         /// <summary>
         ///  Eti Identifier for Tes Response

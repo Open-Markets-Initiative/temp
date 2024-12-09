@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Add Scaled Simple Instrument Response Message Methods
     /// </summary>
 
-    public partial class AddScaledSimpleInstrumentResponse
+    public static partial class AddScaledSimpleInstrumentResponse
     {
         /// <summary>
         ///  Eti Identifier for Add Scaled Simple Instrument Response

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Order Book Item Grp Comp Message Methods
     /// </summary>
 
-    public partial static class OrderBookItemGrpComp
+    public static partial class OrderBookItemGrpComp
     {
         /// <summary>
         ///  Fix Tag for Order Book Item Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Order Book Item Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int orderBookItemGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup orderBookItemGrpComp, out int current)
         {
             current = offset;
 

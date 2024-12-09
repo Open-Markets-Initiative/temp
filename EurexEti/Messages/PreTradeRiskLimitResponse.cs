@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Pre Trade Risk Limit Response Message Methods
     /// </summary>
 
-    public partial class PreTradeRiskLimitResponse
+    public static partial class PreTradeRiskLimitResponse
     {
         /// <summary>
         ///  Eti Identifier for Pre Trade Risk Limit Response

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete All Order Nr Response Message Methods
     /// </summary>
 
-    public partial class DeleteAllOrderNrResponse
+    public static partial class DeleteAllOrderNrResponse
     {
         /// <summary>
         ///  Eti Identifier for Delete All Order Nr Response

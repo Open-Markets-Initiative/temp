@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Inquire Mm Parameter Request Message Methods
     /// </summary>
 
-    public partial class InquireMmParameterRequest
+    public static partial class InquireMmParameterRequest
     {
         /// <summary>
         ///  Eti Identifier for Inquire Mm Parameter Request

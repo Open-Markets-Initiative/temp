@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Modify Basket Trade Request Message Methods
     /// </summary>
 
-    public partial class ModifyBasketTradeRequest
+    public static partial class ModifyBasketTradeRequest
     {
         /// <summary>
         ///  Eti Identifier for Modify Basket Trade Request

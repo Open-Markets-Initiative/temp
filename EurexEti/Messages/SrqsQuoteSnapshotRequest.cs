@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Quote Snapshot Request Message Methods
     /// </summary>
 
-    public partial class SrqsQuoteSnapshotRequest
+    public static partial class SrqsQuoteSnapshotRequest
     {
         /// <summary>
         ///  Eti Identifier for Srqs Quote Snapshot Request

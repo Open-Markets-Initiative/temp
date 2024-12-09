@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Ping Response Message Methods
     /// </summary>
 
-    public partial class PingResponse
+    public static partial class PingResponse
     {
         /// <summary>
         ///  Eti Identifier for Ping Response

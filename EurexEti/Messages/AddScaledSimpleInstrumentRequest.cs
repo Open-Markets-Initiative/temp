@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Add Scaled Simple Instrument Request Message Methods
     /// </summary>
 
-    public partial class AddScaledSimpleInstrumentRequest
+    public static partial class AddScaledSimpleInstrumentRequest
     {
         /// <summary>
         ///  Eti Identifier for Add Scaled Simple Instrument Request

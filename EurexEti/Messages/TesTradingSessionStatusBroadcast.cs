@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Tes Trading Session Status Broadcast Message Methods
     /// </summary>
 
-    public partial class TesTradingSessionStatusBroadcast
+    public static partial class TesTradingSessionStatusBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Tes Trading Session Status Broadcast

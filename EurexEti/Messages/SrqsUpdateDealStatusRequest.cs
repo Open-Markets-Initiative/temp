@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Update Deal Status Request Message Methods
     /// </summary>
 
-    public partial class SrqsUpdateDealStatusRequest
+    public static partial class SrqsUpdateDealStatusRequest
     {
         /// <summary>
         ///  Eti Identifier for Srqs Update Deal Status Request

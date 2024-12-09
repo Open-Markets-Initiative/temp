@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Reject Message Methods
     /// </summary>
 
-    public partial class Reject
+    public static partial class Reject
     {
         /// <summary>
         ///  Eti Identifier for Reject

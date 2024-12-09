@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Broadcast Error Notification Message Methods
     /// </summary>
 
-    public partial class BroadcastErrorNotification
+    public static partial class BroadcastErrorNotification
     {
         /// <summary>
         ///  Eti Identifier for Broadcast Error Notification

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Inquire Session List Response Message Methods
     /// </summary>
 
-    public partial class InquireSessionListResponse
+    public static partial class InquireSessionListResponse
     {
         /// <summary>
         ///  Eti Identifier for Inquire Session List Response

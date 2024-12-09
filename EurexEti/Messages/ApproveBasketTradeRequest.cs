@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Approve Basket Trade Request Message Methods
     /// </summary>
 
-    public partial class ApproveBasketTradeRequest
+    public static partial class ApproveBasketTradeRequest
     {
         /// <summary>
         ///  Eti Identifier for Approve Basket Trade Request

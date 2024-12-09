@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Unsubscribe Request Message Methods
     /// </summary>
 
-    public partial class UnsubscribeRequest
+    public static partial class UnsubscribeRequest
     {
         /// <summary>
         ///  Eti Identifier for Unsubscribe Request

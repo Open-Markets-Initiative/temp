@@ -19,7 +19,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, int length, string value, out int current)
         {
-            if (length > offset + size)
+            if (length > offset + value.Length)
             {
                 throw new System.Exception("Invalid Length for Public Key");
             }

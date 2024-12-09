@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Side Alloc Grp Comp Message Methods
     /// </summary>
 
-    public partial static class SideAllocGrpComp
+    public static partial class SideAllocGrpComp
     {
         /// <summary>
         ///  Fix Tag for Side Alloc Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Side Alloc Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int sideAllocGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup sideAllocGrpComp, out int current)
         {
             current = offset;
 

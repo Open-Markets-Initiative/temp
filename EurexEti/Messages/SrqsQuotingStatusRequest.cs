@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Quoting Status Request Message Methods
     /// </summary>
 
-    public partial class SrqsQuotingStatusRequest
+    public static partial class SrqsQuotingStatusRequest
     {
         /// <summary>
         ///  Eti Identifier for Srqs Quoting Status Request

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Cross Request Message Methods
     /// </summary>
 
-    public partial class CrossRequest
+    public static partial class CrossRequest
     {
         /// <summary>
         ///  Eti Identifier for Cross Request

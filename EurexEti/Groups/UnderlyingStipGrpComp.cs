@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Underlying Stip Grp Comp Message Methods
     /// </summary>
 
-    public partial static class UnderlyingStipGrpComp
+    public static partial class UnderlyingStipGrpComp
     {
         /// <summary>
         ///  Fix Tag for Underlying Stip Grp Comp (Generated)
@@ -16,7 +16,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Encode Underlying Stip Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int underlyingStipGrpComp, out int current)
+        public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup underlyingStipGrpComp, out int current)
         {
             current = offset;
 

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  New Order Nr Response Message Methods
     /// </summary>
 
-    public partial class NewOrderNrResponse
+    public static partial class NewOrderNrResponse
     {
         /// <summary>
         ///  Eti Identifier for New Order Nr Response

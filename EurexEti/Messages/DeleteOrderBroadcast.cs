@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete Order Broadcast Message Methods
     /// </summary>
 
-    public partial class DeleteOrderBroadcast
+    public static partial class DeleteOrderBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Delete Order Broadcast

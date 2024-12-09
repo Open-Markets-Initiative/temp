@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Mass Quote Request Message Methods
     /// </summary>
 
-    public partial class MassQuoteRequest
+    public static partial class MassQuoteRequest
     {
         /// <summary>
         ///  Eti Identifier for Mass Quote Request

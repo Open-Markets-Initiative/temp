@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Pre Trade Risk Limits Definition Request Message Methods
     /// </summary>
 
-    public partial class PreTradeRiskLimitsDefinitionRequest
+    public static partial class PreTradeRiskLimitsDefinitionRequest
     {
         /// <summary>
         ///  Eti Identifier for Pre Trade Risk Limits Definition Request

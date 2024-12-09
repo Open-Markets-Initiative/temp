@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Delete Order Single Request Message Methods
     /// </summary>
 
-    public partial class DeleteOrderSingleRequest
+    public static partial class DeleteOrderSingleRequest
     {
         /// <summary>
         ///  Eti Identifier for Delete Order Single Request

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Tm Trading Session Status Broadcast Message Methods
     /// </summary>
 
-    public partial class TmTradingSessionStatusBroadcast
+    public static partial class TmTradingSessionStatusBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Tm Trading Session Status Broadcast

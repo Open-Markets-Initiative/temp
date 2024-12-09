@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Clip Deletion Notification Message Methods
     /// </summary>
 
-    public partial class ClipDeletionNotification
+    public static partial class ClipDeletionNotification
     {
         /// <summary>
         ///  Eti Identifier for Clip Deletion Notification

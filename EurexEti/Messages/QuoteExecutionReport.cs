@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Quote Execution Report Message Methods
     /// </summary>
 
-    public partial class QuoteExecutionReport
+    public static partial class QuoteExecutionReport
     {
         /// <summary>
         ///  Eti Identifier for Quote Execution Report

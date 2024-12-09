@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Hit Quote Request Message Methods
     /// </summary>
 
-    public partial class SrqsHitQuoteRequest
+    public static partial class SrqsHitQuoteRequest
     {
         /// <summary>
         ///  Eti Identifier for Srqs Hit Quote Request

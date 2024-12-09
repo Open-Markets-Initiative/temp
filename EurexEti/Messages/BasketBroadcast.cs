@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Basket Broadcast Message Methods
     /// </summary>
 
-    public partial class BasketBroadcast
+    public static partial class BasketBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Basket Broadcast

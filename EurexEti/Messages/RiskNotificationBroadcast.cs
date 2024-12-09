@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Risk Notification Broadcast Message Methods
     /// </summary>
 
-    public partial class RiskNotificationBroadcast
+    public static partial class RiskNotificationBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Risk Notification Broadcast

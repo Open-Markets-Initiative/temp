@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Tes Delete Broadcast Message Methods
     /// </summary>
 
-    public partial class TesDeleteBroadcast
+    public static partial class TesDeleteBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Tes Delete Broadcast

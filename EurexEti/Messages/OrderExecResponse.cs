@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Order Exec Response Message Methods
     /// </summary>
 
-    public partial class OrderExecResponse
+    public static partial class OrderExecResponse
     {
         /// <summary>
         ///  Eti Identifier for Order Exec Response

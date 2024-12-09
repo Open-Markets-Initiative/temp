@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Tes Reversal Broadcast Message Methods
     /// </summary>
 
-    public partial class TesReversalBroadcast
+    public static partial class TesReversalBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Tes Reversal Broadcast

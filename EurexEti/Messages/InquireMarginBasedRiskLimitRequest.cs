@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Inquire Margin Based Risk Limit Request Message Methods
     /// </summary>
 
-    public partial class InquireMarginBasedRiskLimitRequest
+    public static partial class InquireMarginBasedRiskLimitRequest
     {
         /// <summary>
         ///  Eti Identifier for Inquire Margin Based Risk Limit Request

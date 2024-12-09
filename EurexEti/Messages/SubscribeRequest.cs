@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Subscribe Request Message Methods
     /// </summary>
 
-    public partial class SubscribeRequest
+    public static partial class SubscribeRequest
     {
         /// <summary>
         ///  Eti Identifier for Subscribe Request

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Heartbeat Notification Message Methods
     /// </summary>
 
-    public partial class HeartbeatNotification
+    public static partial class HeartbeatNotification
     {
         /// <summary>
         ///  Eti Identifier for Heartbeat Notification

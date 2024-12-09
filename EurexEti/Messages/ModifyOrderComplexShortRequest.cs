@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Modify Order Complex Short Request Message Methods
     /// </summary>
 
-    public partial class ModifyOrderComplexShortRequest
+    public static partial class ModifyOrderComplexShortRequest
     {
         /// <summary>
         ///  Eti Identifier for Modify Order Complex Short Request

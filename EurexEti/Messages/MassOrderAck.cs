@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Mass Order Ack Message Methods
     /// </summary>
 
-    public partial class MassOrderAck
+    public static partial class MassOrderAck
     {
         /// <summary>
         ///  Eti Identifier for Mass Order Ack

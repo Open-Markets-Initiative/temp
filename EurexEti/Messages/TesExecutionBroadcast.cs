@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Tes Execution Broadcast Message Methods
     /// </summary>
 
-    public partial class TesExecutionBroadcast
+    public static partial class TesExecutionBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Tes Execution Broadcast

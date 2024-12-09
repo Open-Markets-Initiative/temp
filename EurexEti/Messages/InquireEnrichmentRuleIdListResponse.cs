@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Inquire Enrichment Rule Id List Response Message Methods
     /// </summary>
 
-    public partial class InquireEnrichmentRuleIdListResponse
+    public static partial class InquireEnrichmentRuleIdListResponse
     {
         /// <summary>
         ///  Eti Identifier for Inquire Enrichment Rule Id List Response

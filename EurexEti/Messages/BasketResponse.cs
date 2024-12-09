@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Basket Response Message Methods
     /// </summary>
 
-    public partial class BasketResponse
+    public static partial class BasketResponse
     {
         /// <summary>
         ///  Eti Identifier for Basket Response

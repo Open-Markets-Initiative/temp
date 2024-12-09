@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Update Remaining Risk Allowance Base Response Message Methods
     /// </summary>
 
-    public partial class UpdateRemainingRiskAllowanceBaseResponse
+    public static partial class UpdateRemainingRiskAllowanceBaseResponse
     {
         /// <summary>
         ///  Eti Identifier for Update Remaining Risk Allowance Base Response

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Trade Broadcast Message Methods
     /// </summary>
 
-    public partial class TradeBroadcast
+    public static partial class TradeBroadcast
     {
         /// <summary>
         ///  Eti Identifier for Trade Broadcast

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Party Action Report Message Methods
     /// </summary>
 
-    public partial class PartyActionReport
+    public static partial class PartyActionReport
     {
         /// <summary>
         ///  Eti Identifier for Party Action Report

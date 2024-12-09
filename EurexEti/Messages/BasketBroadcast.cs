@@ -71,10 +71,10 @@ namespace Eurex.EtiDerivatives.v130
             var basketProfileId = (uint)message.GetInt(BasketProfileId.FixTag);
             BasketProfileId.Encode(pointer, current, basketProfileId, out current);
 
-            var isBasketSideAllocGrpComp = message.TryGetGroup(NoBasketSideAlloc.FixTag, out var basketSideAllocGrpComp) && BasketSideAllocGrpComp.sectionList.Length > 0;
+            var isBasketSideAllocGrpComp = message.TryGetGroup(NoBasketSideAlloc.FixTag, out var basketSideAllocGrpComp) && basketSideAllocGrpComp.sectionList.Count > 0;
             if (isBasketSideAllocGrpComp)
             {
-                var noBasketSideAlloc = (ushort)basketSideAllocGrpComp.sectionList.Length;
+                var noBasketSideAlloc = (ushort)basketSideAllocGrpComp.sectionList.Count;
                 NoBasketSideAlloc.Encode(pointer, current, noBasketSideAlloc, out current);
             }
             else
@@ -94,10 +94,10 @@ namespace Eurex.EtiDerivatives.v130
             var messageEventSource = message.GetToken(MessageEventSource.FixTag);
             MessageEventSource.Encode(pointer, current, messageEventSource, out current);
 
-            var isBasketRootPartyGrpComp = message.TryGetGroup(NoBasketRootPartyGrpsBc.FixTag, out var basketRootPartyGrpComp) && BasketRootPartyGrpComp.sectionList.Length > 0;
+            var isBasketRootPartyGrpComp = message.TryGetGroup(NoBasketRootPartyGrpsBc.FixTag, out var basketRootPartyGrpComp) && basketRootPartyGrpComp.sectionList.Count > 0;
             if (isBasketRootPartyGrpComp)
             {
-                var noBasketRootPartyGrpsBc = (byte)basketRootPartyGrpComp.sectionList.Length;
+                var noBasketRootPartyGrpsBc = (byte)basketRootPartyGrpComp.sectionList.Count;
                 NoBasketRootPartyGrpsBc.Encode(pointer, current, noBasketRootPartyGrpsBc, out current);
             }
             else
@@ -105,10 +105,10 @@ namespace Eurex.EtiDerivatives.v130
                 NoBasketRootPartyGrpsBc.Zero(pointer, current, out current);
             }
 
-            var isInstrmtMatchSideGrpComp = message.TryGetGroup(NoInstrmtMatchSides.FixTag, out var instrmtMatchSideGrpComp) && InstrmtMatchSideGrpComp.sectionList.Length > 0;
+            var isInstrmtMatchSideGrpComp = message.TryGetGroup(NoInstrmtMatchSides.FixTag, out var instrmtMatchSideGrpComp) && instrmtMatchSideGrpComp.sectionList.Count > 0;
             if (isInstrmtMatchSideGrpComp)
             {
-                var noInstrmtMatchSides = (byte)instrmtMatchSideGrpComp.sectionList.Length;
+                var noInstrmtMatchSides = (byte)instrmtMatchSideGrpComp.sectionList.Count;
                 NoInstrmtMatchSides.Encode(pointer, current, noInstrmtMatchSides, out current);
             }
             else

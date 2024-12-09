@@ -89,10 +89,10 @@ namespace Eurex.EtiDerivatives.v130
             var tradingCapacity = (byte)message.GetInt(TradingCapacity.FixTag);
             TradingCapacity.Encode(pointer, current, tradingCapacity, out current);
 
-            var isSrqsTargetPartyTrdGrpComp = message.TryGetGroup(NoSrqsTargetPartyTrdGrps.FixTag, out var srqsTargetPartyTrdGrpComp) && SrqsTargetPartyTrdGrpComp.sectionList.Length > 0;
+            var isSrqsTargetPartyTrdGrpComp = message.TryGetGroup(NoSrqsTargetPartyTrdGrps.FixTag, out var srqsTargetPartyTrdGrpComp) && srqsTargetPartyTrdGrpComp.sectionList.Count > 0;
             if (isSrqsTargetPartyTrdGrpComp)
             {
-                var noSrqsTargetPartyTrdGrps = (byte)srqsTargetPartyTrdGrpComp.sectionList.Length;
+                var noSrqsTargetPartyTrdGrps = (byte)srqsTargetPartyTrdGrpComp.sectionList.Count;
                 NoSrqsTargetPartyTrdGrps.Encode(pointer, current, noSrqsTargetPartyTrdGrps, out current);
             }
             else

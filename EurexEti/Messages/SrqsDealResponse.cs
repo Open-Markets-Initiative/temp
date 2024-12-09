@@ -53,10 +53,10 @@ namespace Eurex.EtiDerivatives.v130
             var secondaryTradeId = (uint)message.GetInt(SecondaryTradeId.FixTag);
             SecondaryTradeId.Encode(pointer, current, secondaryTradeId, out current);
 
-            var isSrqsQuoteGrpComp = message.TryGetGroup(NoSrqsQuoteGrps.FixTag, out var srqsQuoteGrpComp) && SrqsQuoteGrpComp.sectionList.Length > 0;
+            var isSrqsQuoteGrpComp = message.TryGetGroup(NoSrqsQuoteGrps.FixTag, out var srqsQuoteGrpComp) && srqsQuoteGrpComp.sectionList.Count > 0;
             if (isSrqsQuoteGrpComp)
             {
-                var noSrqsQuoteGrps = (byte)srqsQuoteGrpComp.sectionList.Length;
+                var noSrqsQuoteGrps = (byte)srqsQuoteGrpComp.sectionList.Count;
                 NoSrqsQuoteGrps.Encode(pointer, current, noSrqsQuoteGrps, out current);
             }
             else

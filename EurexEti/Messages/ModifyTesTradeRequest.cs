@@ -78,10 +78,10 @@ namespace Eurex.EtiDerivatives.v130
             var tradePublishIndicator = (byte)message.GetInt(TradePublishIndicator.FixTag);
             TradePublishIndicator.Encode(pointer, current, tradePublishIndicator, out current);
 
-            var isSideAllocGrpComp = message.TryGetGroup(NoSideAllocs.FixTag, out var sideAllocGrpComp) && SideAllocGrpComp.sectionList.Length > 0;
+            var isSideAllocGrpComp = message.TryGetGroup(NoSideAllocs.FixTag, out var sideAllocGrpComp) && sideAllocGrpComp.sectionList.Count > 0;
             if (isSideAllocGrpComp)
             {
-                var noSideAllocs = (byte)sideAllocGrpComp.sectionList.Length;
+                var noSideAllocs = (byte)sideAllocGrpComp.sectionList.Count;
                 NoSideAllocs.Encode(pointer, current, noSideAllocs, out current);
             }
             else
@@ -89,10 +89,10 @@ namespace Eurex.EtiDerivatives.v130
                 NoSideAllocs.Zero(pointer, current, out current);
             }
 
-            var isTrdInstrmntLegGrpComp = message.TryGetGroup(NoLegs.FixTag, out var trdInstrmntLegGrpComp) && TrdInstrmntLegGrpComp.sectionList.Length > 0;
+            var isTrdInstrmntLegGrpComp = message.TryGetGroup(NoLegs.FixTag, out var trdInstrmntLegGrpComp) && trdInstrmntLegGrpComp.sectionList.Count > 0;
             if (isTrdInstrmntLegGrpComp)
             {
-                var noLegs = (byte)trdInstrmntLegGrpComp.sectionList.Length;
+                var noLegs = (byte)trdInstrmntLegGrpComp.sectionList.Count;
                 NoLegs.Encode(pointer, current, noLegs, out current);
             }
             else

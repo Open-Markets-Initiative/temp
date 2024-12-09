@@ -65,10 +65,10 @@ namespace Eurex.EtiDerivatives.v130
             var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
             MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
 
-            var isQuoteLegExecGrpComp = message.TryGetGroup(NoLegExecs.FixTag, out var quoteLegExecGrpComp) && QuoteLegExecGrpComp.sectionList.Length > 0;
+            var isQuoteLegExecGrpComp = message.TryGetGroup(NoLegExecs.FixTag, out var quoteLegExecGrpComp) && quoteLegExecGrpComp.sectionList.Count > 0;
             if (isQuoteLegExecGrpComp)
             {
-                var noLegExecs = (ushort)quoteLegExecGrpComp.sectionList.Length;
+                var noLegExecs = (ushort)quoteLegExecGrpComp.sectionList.Count;
                 NoLegExecs.Encode(pointer, current, noLegExecs, out current);
             }
             else
@@ -76,10 +76,10 @@ namespace Eurex.EtiDerivatives.v130
                 NoLegExecs.Zero(pointer, current, out current);
             }
 
-            var isQuoteEventGrpComp = message.TryGetGroup(NoQuoteEvents.FixTag, out var quoteEventGrpComp) && QuoteEventGrpComp.sectionList.Length > 0;
+            var isQuoteEventGrpComp = message.TryGetGroup(NoQuoteEvents.FixTag, out var quoteEventGrpComp) && quoteEventGrpComp.sectionList.Count > 0;
             if (isQuoteEventGrpComp)
             {
-                var noQuoteEvents = (byte)quoteEventGrpComp.sectionList.Length;
+                var noQuoteEvents = (byte)quoteEventGrpComp.sectionList.Count;
                 NoQuoteEvents.Encode(pointer, current, noQuoteEvents, out current);
             }
             else

@@ -81,10 +81,10 @@ namespace Eurex.EtiDerivatives.v130
             var orderAttributeLiquidityProvision = (byte)message.GetInt(OrderAttributeLiquidityProvision.FixTag);
             OrderAttributeLiquidityProvision.Encode(pointer, current, orderAttributeLiquidityProvision, out current);
 
-            var isQuoteEntryGrpComp = message.TryGetGroup(NoQuoteEntries.FixTag, out var quoteEntryGrpComp) && QuoteEntryGrpComp.sectionList.Length > 0;
+            var isQuoteEntryGrpComp = message.TryGetGroup(NoQuoteEntries.FixTag, out var quoteEntryGrpComp) && quoteEntryGrpComp.sectionList.Count > 0;
             if (isQuoteEntryGrpComp)
             {
-                var noQuoteEntries = (byte)quoteEntryGrpComp.sectionList.Length;
+                var noQuoteEntries = (byte)quoteEntryGrpComp.sectionList.Count;
                 NoQuoteEntries.Encode(pointer, current, noQuoteEntries, out current);
             }
             else

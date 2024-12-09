@@ -57,10 +57,10 @@ namespace Eurex.EtiDerivatives.v130
             var riskLimitPlatform = (byte)message.GetInt(RiskLimitPlatform.FixTag);
             RiskLimitPlatform.Encode(pointer, current, riskLimitPlatform, out current);
 
-            var isRiskLimitQtyGrpComp = message.TryGetGroup(NoRiskLimitsQty.FixTag, out var riskLimitQtyGrpComp) && RiskLimitQtyGrpComp.sectionList.Length > 0;
+            var isRiskLimitQtyGrpComp = message.TryGetGroup(NoRiskLimitsQty.FixTag, out var riskLimitQtyGrpComp) && riskLimitQtyGrpComp.sectionList.Count > 0;
             if (isRiskLimitQtyGrpComp)
             {
-                var noRiskLimitsQty = (byte)riskLimitQtyGrpComp.sectionList.Length;
+                var noRiskLimitsQty = (byte)riskLimitQtyGrpComp.sectionList.Count;
                 NoRiskLimitsQty.Encode(pointer, current, noRiskLimitsQty, out current);
             }
             else

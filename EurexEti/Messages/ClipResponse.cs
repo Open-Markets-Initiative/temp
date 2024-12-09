@@ -65,10 +65,10 @@ namespace Eurex.EtiDerivatives.v130
             var crossRequestId = message.GetInt(CrossRequestId.FixTag);
             CrossRequestId.Encode(pointer, current, crossRequestId, out current);
 
-            var isCrossRequestAckSideGrpComp = message.TryGetGroup(NoSides.FixTag, out var crossRequestAckSideGrpComp) && CrossRequestAckSideGrpComp.sectionList.Length > 0;
+            var isCrossRequestAckSideGrpComp = message.TryGetGroup(NoSides.FixTag, out var crossRequestAckSideGrpComp) && crossRequestAckSideGrpComp.sectionList.Count > 0;
             if (isCrossRequestAckSideGrpComp)
             {
-                var noSides = (byte)crossRequestAckSideGrpComp.sectionList.Length;
+                var noSides = (byte)crossRequestAckSideGrpComp.sectionList.Count;
                 NoSides.Encode(pointer, current, noSides, out current);
             }
             else

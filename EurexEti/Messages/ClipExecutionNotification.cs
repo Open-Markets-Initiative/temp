@@ -83,10 +83,10 @@ namespace Eurex.EtiDerivatives.v130
             var execRestatementReason = (ushort)message.GetInt(ExecRestatementReason.FixTag);
             ExecRestatementReason.Encode(pointer, current, execRestatementReason, out current);
 
-            var isInstrmntLegExecGrpComp = message.TryGetGroup(NoLegExecs.FixTag, out var instrmntLegExecGrpComp) && InstrmntLegExecGrpComp.sectionList.Length > 0;
+            var isInstrmntLegExecGrpComp = message.TryGetGroup(NoLegExecs.FixTag, out var instrmntLegExecGrpComp) && instrmntLegExecGrpComp.sectionList.Count > 0;
             if (isInstrmntLegExecGrpComp)
             {
-                var noLegExecs = (ushort)instrmntLegExecGrpComp.sectionList.Length;
+                var noLegExecs = (ushort)instrmntLegExecGrpComp.sectionList.Count;
                 NoLegExecs.Encode(pointer, current, noLegExecs, out current);
             }
             else
@@ -109,10 +109,10 @@ namespace Eurex.EtiDerivatives.v130
             var matchType = (byte)message.GetInt(MatchType.FixTag);
             MatchType.Encode(pointer, current, matchType, out current);
 
-            var isFillsGrpComp = message.TryGetGroup(NoFills.FixTag, out var fillsGrpComp) && FillsGrpComp.sectionList.Length > 0;
+            var isFillsGrpComp = message.TryGetGroup(NoFills.FixTag, out var fillsGrpComp) && fillsGrpComp.sectionList.Count > 0;
             if (isFillsGrpComp)
             {
-                var noFills = (byte)fillsGrpComp.sectionList.Length;
+                var noFills = (byte)fillsGrpComp.sectionList.Count;
                 NoFills.Encode(pointer, current, noFills, out current);
             }
             else

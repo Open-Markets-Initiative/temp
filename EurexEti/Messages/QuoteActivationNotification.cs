@@ -68,10 +68,10 @@ namespace Eurex.EtiDerivatives.v130
             var partyIdEnteringTrader = (uint)message.GetInt(PartyIdEnteringTrader.FixTag);
             PartyIdEnteringTrader.Encode(pointer, current, partyIdEnteringTrader, out current);
 
-            var isNotAffectedSecuritiesGrpComp = message.TryGetGroup(NoNotAffectedSecurities.FixTag, out var notAffectedSecuritiesGrpComp) && NotAffectedSecuritiesGrpComp.sectionList.Length > 0;
+            var isNotAffectedSecuritiesGrpComp = message.TryGetGroup(NoNotAffectedSecurities.FixTag, out var notAffectedSecuritiesGrpComp) && notAffectedSecuritiesGrpComp.sectionList.Count > 0;
             if (isNotAffectedSecuritiesGrpComp)
             {
-                var noNotAffectedSecurities = (ushort)notAffectedSecuritiesGrpComp.sectionList.Length;
+                var noNotAffectedSecurities = (ushort)notAffectedSecuritiesGrpComp.sectionList.Count;
                 NoNotAffectedSecurities.Encode(pointer, current, noNotAffectedSecurities, out current);
             }
             else

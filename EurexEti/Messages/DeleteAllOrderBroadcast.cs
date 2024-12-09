@@ -80,10 +80,10 @@ namespace Eurex.EtiDerivatives.v130
             var partyIdEnteringTrader = (uint)message.GetInt(PartyIdEnteringTrader.FixTag);
             PartyIdEnteringTrader.Encode(pointer, current, partyIdEnteringTrader, out current);
 
-            var isNotAffectedOrdersGrpComp = message.TryGetGroup(NoNotAffectedOrders.FixTag, out var notAffectedOrdersGrpComp) && NotAffectedOrdersGrpComp.sectionList.Length > 0;
+            var isNotAffectedOrdersGrpComp = message.TryGetGroup(NoNotAffectedOrders.FixTag, out var notAffectedOrdersGrpComp) && notAffectedOrdersGrpComp.sectionList.Count > 0;
             if (isNotAffectedOrdersGrpComp)
             {
-                var noNotAffectedOrders = (ushort)notAffectedOrdersGrpComp.sectionList.Length;
+                var noNotAffectedOrders = (ushort)notAffectedOrdersGrpComp.sectionList.Count;
                 NoNotAffectedOrders.Encode(pointer, current, noNotAffectedOrders, out current);
             }
             else
@@ -91,10 +91,10 @@ namespace Eurex.EtiDerivatives.v130
                 NoNotAffectedOrders.Zero(pointer, current, out current);
             }
 
-            var isAffectedOrderRequestsGrpComp = message.TryGetGroup(NoAffectedOrderRequests.FixTag, out var affectedOrderRequestsGrpComp) && AffectedOrderRequestsGrpComp.sectionList.Length > 0;
+            var isAffectedOrderRequestsGrpComp = message.TryGetGroup(NoAffectedOrderRequests.FixTag, out var affectedOrderRequestsGrpComp) && affectedOrderRequestsGrpComp.sectionList.Count > 0;
             if (isAffectedOrderRequestsGrpComp)
             {
-                var noAffectedOrderRequests = (ushort)affectedOrderRequestsGrpComp.sectionList.Length;
+                var noAffectedOrderRequests = (ushort)affectedOrderRequestsGrpComp.sectionList.Count;
                 NoAffectedOrderRequests.Encode(pointer, current, noAffectedOrderRequests, out current);
             }
             else

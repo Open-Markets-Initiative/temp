@@ -89,10 +89,10 @@ namespace Eurex.EtiDerivatives.v130
             var massOrderReportId = (uint)message.GetInt(MassOrderReportId.FixTag);
             MassOrderReportId.Encode(pointer, current, massOrderReportId, out current);
 
-            var isInstrmntLegExecGrpComp = message.TryGetGroup(NoLegExecs.FixTag, out var instrmntLegExecGrpComp) && InstrmntLegExecGrpComp.sectionList.Length > 0;
+            var isInstrmntLegExecGrpComp = message.TryGetGroup(NoLegExecs.FixTag, out var instrmntLegExecGrpComp) && instrmntLegExecGrpComp.sectionList.Count > 0;
             if (isInstrmntLegExecGrpComp)
             {
-                var noLegExecs = (ushort)instrmntLegExecGrpComp.sectionList.Length;
+                var noLegExecs = (ushort)instrmntLegExecGrpComp.sectionList.Count;
                 NoLegExecs.Encode(pointer, current, noLegExecs, out current);
             }
             else
@@ -130,10 +130,10 @@ namespace Eurex.EtiDerivatives.v130
                 FixClOrdId.SetNull(pointer, current, out current);
             }
 
-            var isFillsGrpComp = message.TryGetGroup(NoFills.FixTag, out var fillsGrpComp) && FillsGrpComp.sectionList.Length > 0;
+            var isFillsGrpComp = message.TryGetGroup(NoFills.FixTag, out var fillsGrpComp) && fillsGrpComp.sectionList.Count > 0;
             if (isFillsGrpComp)
             {
-                var noFills = (byte)fillsGrpComp.sectionList.Length;
+                var noFills = (byte)fillsGrpComp.sectionList.Count;
                 NoFills.Encode(pointer, current, noFills, out current);
             }
             else
@@ -141,10 +141,10 @@ namespace Eurex.EtiDerivatives.v130
                 NoFills.Zero(pointer, current, out current);
             }
 
-            var isOrderEventGrpComp = message.TryGetGroup(NoOrderEvents.FixTag, out var orderEventGrpComp) && OrderEventGrpComp.sectionList.Length > 0;
+            var isOrderEventGrpComp = message.TryGetGroup(NoOrderEvents.FixTag, out var orderEventGrpComp) && orderEventGrpComp.sectionList.Count > 0;
             if (isOrderEventGrpComp)
             {
-                var noOrderEvents = (byte)orderEventGrpComp.sectionList.Length;
+                var noOrderEvents = (byte)orderEventGrpComp.sectionList.Count;
                 NoOrderEvents.Encode(pointer, current, noOrderEvents, out current);
             }
             else

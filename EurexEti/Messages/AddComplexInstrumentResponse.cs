@@ -89,10 +89,10 @@ namespace Eurex.EtiDerivatives.v130
             var productComplex = (byte)message.GetInt(ProductComplex.FixTag);
             ProductComplex.Encode(pointer, current, productComplex, out current);
 
-            var isInstrmtLegGrpComp = message.TryGetGroup(NoLegOnbooks.FixTag, out var instrmtLegGrpComp) && InstrmtLegGrpComp.sectionList.Length > 0;
+            var isInstrmtLegGrpComp = message.TryGetGroup(NoLegOnbooks.FixTag, out var instrmtLegGrpComp) && instrmtLegGrpComp.sectionList.Count > 0;
             if (isInstrmtLegGrpComp)
             {
-                var noLegOnbooks = (byte)instrmtLegGrpComp.sectionList.Length;
+                var noLegOnbooks = (byte)instrmtLegGrpComp.sectionList.Count;
                 NoLegOnbooks.Encode(pointer, current, noLegOnbooks, out current);
             }
             else

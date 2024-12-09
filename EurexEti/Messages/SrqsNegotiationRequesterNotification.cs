@@ -107,10 +107,10 @@ namespace Eurex.EtiDerivatives.v130
             var respondentType = (byte)message.GetInt(RespondentType.FixTag);
             RespondentType.Encode(pointer, current, respondentType, out current);
 
-            var isTargetPartiesComp = message.TryGetGroup(NoTargetPartyIDs.FixTag, out var targetPartiesComp) && TargetPartiesComp.sectionList.Length > 0;
+            var isTargetPartiesComp = message.TryGetGroup(NoTargetPartyIDs.FixTag, out var targetPartiesComp) && targetPartiesComp.sectionList.Count > 0;
             if (isTargetPartiesComp)
             {
-                var noTargetPartyIDs = (byte)targetPartiesComp.sectionList.Length;
+                var noTargetPartyIDs = (byte)targetPartiesComp.sectionList.Count;
                 NoTargetPartyIDs.Encode(pointer, current, noTargetPartyIDs, out current);
             }
             else

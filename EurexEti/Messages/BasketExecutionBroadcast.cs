@@ -80,10 +80,10 @@ namespace Eurex.EtiDerivatives.v130
             var optionalEarlyTerminationIndicator = (byte)message.GetInt(OptionalEarlyTerminationIndicator.FixTag);
             OptionalEarlyTerminationIndicator.Encode(pointer, current, optionalEarlyTerminationIndicator, out current);
 
-            var isBasketExecGrpComp = message.TryGetGroup(NoInstrmtMatchSides.FixTag, out var basketExecGrpComp) && BasketExecGrpComp.sectionList.Length > 0;
+            var isBasketExecGrpComp = message.TryGetGroup(NoInstrmtMatchSides.FixTag, out var basketExecGrpComp) && basketExecGrpComp.sectionList.Count > 0;
             if (isBasketExecGrpComp)
             {
-                var noInstrmtMatchSides = (byte)basketExecGrpComp.sectionList.Length;
+                var noInstrmtMatchSides = (byte)basketExecGrpComp.sectionList.Count;
                 NoInstrmtMatchSides.Encode(pointer, current, noInstrmtMatchSides, out current);
             }
             else

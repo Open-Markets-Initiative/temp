@@ -77,10 +77,10 @@ namespace Eurex.EtiDerivatives.v130
             var reversalCancellationReason = (byte)message.GetInt(ReversalCancellationReason.FixTag);
             ReversalCancellationReason.Encode(pointer, current, reversalCancellationReason, out current);
 
-            var isSideAllocGrpBcComp = message.TryGetGroup(NoSideAllocs.FixTag, out var sideAllocGrpBcComp) && SideAllocGrpBcComp.sectionList.Length > 0;
+            var isSideAllocGrpBcComp = message.TryGetGroup(NoSideAllocs.FixTag, out var sideAllocGrpBcComp) && sideAllocGrpBcComp.sectionList.Count > 0;
             if (isSideAllocGrpBcComp)
             {
-                var noSideAllocs = (byte)sideAllocGrpBcComp.sectionList.Length;
+                var noSideAllocs = (byte)sideAllocGrpBcComp.sectionList.Count;
                 NoSideAllocs.Encode(pointer, current, noSideAllocs, out current);
             }
             else

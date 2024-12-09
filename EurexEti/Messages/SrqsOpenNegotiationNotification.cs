@@ -113,10 +113,10 @@ namespace Eurex.EtiDerivatives.v130
             var quoteSubType = (byte)message.GetInt(QuoteSubType.FixTag);
             QuoteSubType.Encode(pointer, current, quoteSubType, out current);
 
-            var isQuotReqLegsGrpComp = message.TryGetGroup(NoLegs.FixTag, out var quotReqLegsGrpComp) && QuotReqLegsGrpComp.sectionList.Length > 0;
+            var isQuotReqLegsGrpComp = message.TryGetGroup(NoLegs.FixTag, out var quotReqLegsGrpComp) && quotReqLegsGrpComp.sectionList.Count > 0;
             if (isQuotReqLegsGrpComp)
             {
-                var noLegs = (byte)quotReqLegsGrpComp.sectionList.Length;
+                var noLegs = (byte)quotReqLegsGrpComp.sectionList.Count;
                 NoLegs.Encode(pointer, current, noLegs, out current);
             }
             else

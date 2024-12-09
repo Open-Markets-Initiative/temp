@@ -41,10 +41,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad4.Encode(pointer, current, out current);
 
-            var isSessionsGrpComp = message.TryGetGroup(NoSessions.FixTag, out var sessionsGrpComp) && SessionsGrpComp.sectionList.Length > 0;
+            var isSessionsGrpComp = message.TryGetGroup(NoSessions.FixTag, out var sessionsGrpComp) && sessionsGrpComp.sectionList.Count > 0;
             if (isSessionsGrpComp)
             {
-                var noSessions = (ushort)sessionsGrpComp.sectionList.Length;
+                var noSessions = (ushort)sessionsGrpComp.sectionList.Count;
                 NoSessions.Encode(pointer, current, noSessions, out current);
             }
             else

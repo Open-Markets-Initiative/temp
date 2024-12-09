@@ -53,10 +53,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad7.Encode(pointer, current, out current);
 
-            var isSrqsQuoteEntryGrpComp = message.TryGetGroup(NoQuoteEntries.FixTag, out var srqsQuoteEntryGrpComp) && SrqsQuoteEntryGrpComp.sectionList.Length > 0;
+            var isSrqsQuoteEntryGrpComp = message.TryGetGroup(NoQuoteEntries.FixTag, out var srqsQuoteEntryGrpComp) && srqsQuoteEntryGrpComp.sectionList.Count > 0;
             if (isSrqsQuoteEntryGrpComp)
             {
-                var noQuoteEntries = (byte)srqsQuoteEntryGrpComp.sectionList.Length;
+                var noQuoteEntries = (byte)srqsQuoteEntryGrpComp.sectionList.Count;
                 NoQuoteEntries.Encode(pointer, current, noQuoteEntries, out current);
             }
             else

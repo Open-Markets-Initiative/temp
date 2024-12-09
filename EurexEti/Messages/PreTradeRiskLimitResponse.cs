@@ -59,10 +59,10 @@ namespace Eurex.EtiDerivatives.v130
             var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
             MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
 
-            var isRiskLimitsRptGrpComp = message.TryGetGroup(NoRiskLimits.FixTag, out var riskLimitsRptGrpComp) && RiskLimitsRptGrpComp.sectionList.Length > 0;
+            var isRiskLimitsRptGrpComp = message.TryGetGroup(NoRiskLimits.FixTag, out var riskLimitsRptGrpComp) && riskLimitsRptGrpComp.sectionList.Count > 0;
             if (isRiskLimitsRptGrpComp)
             {
-                var noRiskLimits = (byte)riskLimitsRptGrpComp.sectionList.Length;
+                var noRiskLimits = (byte)riskLimitsRptGrpComp.sectionList.Count;
                 NoRiskLimits.Encode(pointer, current, noRiskLimits, out current);
             }
             else

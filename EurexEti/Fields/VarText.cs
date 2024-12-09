@@ -47,7 +47,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, int size, out string value, out int current)
         {
-            if (length > offset + VarText.Length)
+            if (length > offset + size)
             {
                 return TryDecode(pointer, offset, size, out value, out current);
             }

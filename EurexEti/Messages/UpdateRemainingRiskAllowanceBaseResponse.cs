@@ -53,10 +53,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad3.Encode(pointer, current, out current);
 
-            var isRraUpdateBasePartyAckGrpComp = message.TryGetGroup(NoPartyRiskLimits.FixTag, out var rraUpdateBasePartyAckGrpComp) && RraUpdateBasePartyAckGrpComp.sectionList.Length > 0;
+            var isRraUpdateBasePartyAckGrpComp = message.TryGetGroup(NoPartyRiskLimits.FixTag, out var rraUpdateBasePartyAckGrpComp) && rraUpdateBasePartyAckGrpComp.sectionList.Count > 0;
             if (isRraUpdateBasePartyAckGrpComp)
             {
-                var noPartyRiskLimits = (ushort)rraUpdateBasePartyAckGrpComp.sectionList.Length;
+                var noPartyRiskLimits = (ushort)rraUpdateBasePartyAckGrpComp.sectionList.Count;
                 NoPartyRiskLimits.Encode(pointer, current, noPartyRiskLimits, out current);
             }
             else

@@ -104,10 +104,10 @@ namespace Eurex.EtiDerivatives.v130
             var side = (byte)message.GetInt(Side.FixTag);
             Side.Encode(pointer, current, side, out current);
 
-            var isOrderBookItemGrpComp = message.TryGetGroup(NoOrderBookItems.FixTag, out var orderBookItemGrpComp) && OrderBookItemGrpComp.sectionList.Length > 0;
+            var isOrderBookItemGrpComp = message.TryGetGroup(NoOrderBookItems.FixTag, out var orderBookItemGrpComp) && orderBookItemGrpComp.sectionList.Count > 0;
             if (isOrderBookItemGrpComp)
             {
-                var noOrderBookItems = (byte)orderBookItemGrpComp.sectionList.Length;
+                var noOrderBookItems = (byte)orderBookItemGrpComp.sectionList.Count;
                 NoOrderBookItems.Encode(pointer, current, noOrderBookItems, out current);
             }
             else
@@ -124,10 +124,10 @@ namespace Eurex.EtiDerivatives.v130
             var hedgingInstruction = (byte)message.GetInt(HedgingInstruction.FixTag);
             HedgingInstruction.Encode(pointer, current, hedgingInstruction, out current);
 
-            var isSrqsTargetPartyTrdGrpComp = message.TryGetGroup(NoSrqsTargetPartyTrdGrps.FixTag, out var srqsTargetPartyTrdGrpComp) && SrqsTargetPartyTrdGrpComp.sectionList.Length > 0;
+            var isSrqsTargetPartyTrdGrpComp = message.TryGetGroup(NoSrqsTargetPartyTrdGrps.FixTag, out var srqsTargetPartyTrdGrpComp) && srqsTargetPartyTrdGrpComp.sectionList.Count > 0;
             if (isSrqsTargetPartyTrdGrpComp)
             {
-                var noSrqsTargetPartyTrdGrps = (byte)srqsTargetPartyTrdGrpComp.sectionList.Length;
+                var noSrqsTargetPartyTrdGrps = (byte)srqsTargetPartyTrdGrpComp.sectionList.Count;
                 NoSrqsTargetPartyTrdGrps.Encode(pointer, current, noSrqsTargetPartyTrdGrps, out current);
             }
             else

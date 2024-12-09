@@ -119,10 +119,10 @@ namespace Eurex.EtiDerivatives.v130
             var tradePlatform = (byte)message.GetInt(TradePlatform.FixTag);
             TradePlatform.Encode(pointer, current, tradePlatform, out current);
 
-            var isSideAllocExtGrpComp = message.TryGetGroup(NoSideAllocs.FixTag, out var sideAllocExtGrpComp) && SideAllocExtGrpComp.sectionList.Length > 0;
+            var isSideAllocExtGrpComp = message.TryGetGroup(NoSideAllocs.FixTag, out var sideAllocExtGrpComp) && sideAllocExtGrpComp.sectionList.Count > 0;
             if (isSideAllocExtGrpComp)
             {
-                var noSideAllocs = (byte)sideAllocExtGrpComp.sectionList.Length;
+                var noSideAllocs = (byte)sideAllocExtGrpComp.sectionList.Count;
                 NoSideAllocs.Encode(pointer, current, noSideAllocs, out current);
             }
             else
@@ -130,10 +130,10 @@ namespace Eurex.EtiDerivatives.v130
                 NoSideAllocs.Zero(pointer, current, out current);
             }
 
-            var isTrdInstrmntLegGrpComp = message.TryGetGroup(NoLegs.FixTag, out var trdInstrmntLegGrpComp) && TrdInstrmntLegGrpComp.sectionList.Length > 0;
+            var isTrdInstrmntLegGrpComp = message.TryGetGroup(NoLegs.FixTag, out var trdInstrmntLegGrpComp) && trdInstrmntLegGrpComp.sectionList.Count > 0;
             if (isTrdInstrmntLegGrpComp)
             {
-                var noLegs = (byte)trdInstrmntLegGrpComp.sectionList.Length;
+                var noLegs = (byte)trdInstrmntLegGrpComp.sectionList.Count;
                 NoLegs.Encode(pointer, current, noLegs, out current);
             }
             else
@@ -141,10 +141,10 @@ namespace Eurex.EtiDerivatives.v130
                 NoLegs.Zero(pointer, current, out current);
             }
 
-            var isInstrumentEventGrpComp = message.TryGetGroup(NoEvents.FixTag, out var instrumentEventGrpComp) && InstrumentEventGrpComp.sectionList.Length > 0;
+            var isInstrumentEventGrpComp = message.TryGetGroup(NoEvents.FixTag, out var instrumentEventGrpComp) && instrumentEventGrpComp.sectionList.Count > 0;
             if (isInstrumentEventGrpComp)
             {
-                var noEvents = (byte)instrumentEventGrpComp.sectionList.Length;
+                var noEvents = (byte)instrumentEventGrpComp.sectionList.Count;
                 NoEvents.Encode(pointer, current, noEvents, out current);
             }
             else
@@ -152,10 +152,10 @@ namespace Eurex.EtiDerivatives.v130
                 NoEvents.Zero(pointer, current, out current);
             }
 
-            var isInstrumentAttributeGrpComp = message.TryGetGroup(NoInstrAttrib.FixTag, out var instrumentAttributeGrpComp) && InstrumentAttributeGrpComp.sectionList.Length > 0;
+            var isInstrumentAttributeGrpComp = message.TryGetGroup(NoInstrAttrib.FixTag, out var instrumentAttributeGrpComp) && instrumentAttributeGrpComp.sectionList.Count > 0;
             if (isInstrumentAttributeGrpComp)
             {
-                var noInstrAttrib = (byte)instrumentAttributeGrpComp.sectionList.Length;
+                var noInstrAttrib = (byte)instrumentAttributeGrpComp.sectionList.Count;
                 NoInstrAttrib.Encode(pointer, current, noInstrAttrib, out current);
             }
             else
@@ -163,10 +163,10 @@ namespace Eurex.EtiDerivatives.v130
                 NoInstrAttrib.Zero(pointer, current, out current);
             }
 
-            var isUnderlyingStipGrpComp = message.TryGetGroup(NoUnderlyingStips.FixTag, out var underlyingStipGrpComp) && UnderlyingStipGrpComp.sectionList.Length > 0;
+            var isUnderlyingStipGrpComp = message.TryGetGroup(NoUnderlyingStips.FixTag, out var underlyingStipGrpComp) && underlyingStipGrpComp.sectionList.Count > 0;
             if (isUnderlyingStipGrpComp)
             {
-                var noUnderlyingStips = (byte)underlyingStipGrpComp.sectionList.Length;
+                var noUnderlyingStips = (byte)underlyingStipGrpComp.sectionList.Count;
                 NoUnderlyingStips.Encode(pointer, current, noUnderlyingStips, out current);
             }
             else

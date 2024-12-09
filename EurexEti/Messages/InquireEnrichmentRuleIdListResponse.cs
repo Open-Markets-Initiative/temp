@@ -44,10 +44,10 @@ namespace Eurex.EtiDerivatives.v130
             var lastEntityProcessed = message.GetData(LastEntityProcessed.FixTag);
             LastEntityProcessed.Encode(pointer, current, lastEntityProcessed, out current);
 
-            var isEnrichmentRulesGrpComp = message.TryGetGroup(NoEnrichmentRules.FixTag, out var enrichmentRulesGrpComp) && EnrichmentRulesGrpComp.sectionList.Length > 0;
+            var isEnrichmentRulesGrpComp = message.TryGetGroup(NoEnrichmentRules.FixTag, out var enrichmentRulesGrpComp) && enrichmentRulesGrpComp.sectionList.Count > 0;
             if (isEnrichmentRulesGrpComp)
             {
-                var noEnrichmentRules = (ushort)enrichmentRulesGrpComp.sectionList.Length;
+                var noEnrichmentRules = (ushort)enrichmentRulesGrpComp.sectionList.Count;
                 NoEnrichmentRules.Encode(pointer, current, noEnrichmentRules, out current);
             }
             else

@@ -48,10 +48,10 @@ namespace Eurex.EtiDerivatives.v130
             var partitionId = (ushort)message.GetInt(PartitionId.FixTag);
             PartitionId.Encode(pointer, current, partitionId, out current);
 
-            var isRraUpdateBasePartyGrpComp = message.TryGetGroup(NoPartyRiskLimits.FixTag, out var rraUpdateBasePartyGrpComp) && RraUpdateBasePartyGrpComp.sectionList.Length > 0;
+            var isRraUpdateBasePartyGrpComp = message.TryGetGroup(NoPartyRiskLimits.FixTag, out var rraUpdateBasePartyGrpComp) && rraUpdateBasePartyGrpComp.sectionList.Count > 0;
             if (isRraUpdateBasePartyGrpComp)
             {
-                var noPartyRiskLimits = (ushort)rraUpdateBasePartyGrpComp.sectionList.Length;
+                var noPartyRiskLimits = (ushort)rraUpdateBasePartyGrpComp.sectionList.Count;
                 NoPartyRiskLimits.Encode(pointer, current, noPartyRiskLimits, out current);
             }
             else

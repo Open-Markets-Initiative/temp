@@ -189,10 +189,10 @@ namespace Eurex.EtiDerivatives.v130
                 PartyEndClientIdentification.SetNull(pointer, current, out current);
             }
 
-            var isOrderEntryGrpComp = message.TryGetGroup(NoOrderEntries.FixTag, out var orderEntryGrpComp) && OrderEntryGrpComp.sectionList.Length > 0;
+            var isOrderEntryGrpComp = message.TryGetGroup(NoOrderEntries.FixTag, out var orderEntryGrpComp) && orderEntryGrpComp.sectionList.Count > 0;
             if (isOrderEntryGrpComp)
             {
-                var noOrderEntries = (byte)orderEntryGrpComp.sectionList.Length;
+                var noOrderEntries = (byte)orderEntryGrpComp.sectionList.Count;
                 NoOrderEntries.Encode(pointer, current, noOrderEntries, out current);
             }
             else

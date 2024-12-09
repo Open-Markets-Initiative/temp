@@ -90,10 +90,10 @@ namespace Eurex.EtiDerivatives.v130
             var hedgingInstruction = (byte)message.GetInt(HedgingInstruction.FixTag);
             HedgingInstruction.Encode(pointer, current, hedgingInstruction, out current);
 
-            var isSrqsHitQuoteGrpComp = message.TryGetGroup(NoSrqsQuoteGrps.FixTag, out var srqsHitQuoteGrpComp) && SrqsHitQuoteGrpComp.sectionList.Length > 0;
+            var isSrqsHitQuoteGrpComp = message.TryGetGroup(NoSrqsQuoteGrps.FixTag, out var srqsHitQuoteGrpComp) && srqsHitQuoteGrpComp.sectionList.Count > 0;
             if (isSrqsHitQuoteGrpComp)
             {
-                var noSrqsQuoteGrps = (byte)srqsHitQuoteGrpComp.sectionList.Length;
+                var noSrqsQuoteGrps = (byte)srqsHitQuoteGrpComp.sectionList.Count;
                 NoSrqsQuoteGrps.Encode(pointer, current, noSrqsQuoteGrps, out current);
             }
             else

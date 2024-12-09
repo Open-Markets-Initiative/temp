@@ -98,10 +98,10 @@ namespace Eurex.EtiDerivatives.v130
             var transactionDelayIndicator = (byte)message.GetInt(TransactionDelayIndicator.FixTag);
             TransactionDelayIndicator.Encode(pointer, current, transactionDelayIndicator, out current);
 
-            var isOrderEventGrpComp = message.TryGetGroup(NoOrderEvents.FixTag, out var orderEventGrpComp) && OrderEventGrpComp.sectionList.Length > 0;
+            var isOrderEventGrpComp = message.TryGetGroup(NoOrderEvents.FixTag, out var orderEventGrpComp) && orderEventGrpComp.sectionList.Count > 0;
             if (isOrderEventGrpComp)
             {
-                var noOrderEvents = (byte)orderEventGrpComp.sectionList.Length;
+                var noOrderEvents = (byte)orderEventGrpComp.sectionList.Count;
                 NoOrderEvents.Encode(pointer, current, noOrderEvents, out current);
             }
             else

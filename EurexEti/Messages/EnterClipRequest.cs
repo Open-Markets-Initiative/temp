@@ -63,10 +63,10 @@ namespace Eurex.EtiDerivatives.v130
             var crossRequestId = message.GetInt(CrossRequestId.FixTag);
             CrossRequestId.Encode(pointer, current, crossRequestId, out current);
 
-            var isCrossRequestSideGrpComp = message.TryGetGroup(NoSides.FixTag, out var crossRequestSideGrpComp) && CrossRequestSideGrpComp.sectionList.Length > 0;
+            var isCrossRequestSideGrpComp = message.TryGetGroup(NoSides.FixTag, out var crossRequestSideGrpComp) && crossRequestSideGrpComp.sectionList.Count > 0;
             if (isCrossRequestSideGrpComp)
             {
-                var noSides = (byte)crossRequestSideGrpComp.sectionList.Length;
+                var noSides = (byte)crossRequestSideGrpComp.sectionList.Count;
                 NoSides.Encode(pointer, current, noSides, out current);
             }
             else
@@ -74,10 +74,10 @@ namespace Eurex.EtiDerivatives.v130
                 NoSides.Zero(pointer, current, out current);
             }
 
-            var isSideCrossLegGrpComp = message.TryGetGroup(NoCrossLegs.FixTag, out var sideCrossLegGrpComp) && SideCrossLegGrpComp.sectionList.Length > 0;
+            var isSideCrossLegGrpComp = message.TryGetGroup(NoCrossLegs.FixTag, out var sideCrossLegGrpComp) && sideCrossLegGrpComp.sectionList.Count > 0;
             if (isSideCrossLegGrpComp)
             {
-                var noCrossLegs = (byte)sideCrossLegGrpComp.sectionList.Length;
+                var noCrossLegs = (byte)sideCrossLegGrpComp.sectionList.Count;
                 NoCrossLegs.Encode(pointer, current, noCrossLegs, out current);
             }
             else

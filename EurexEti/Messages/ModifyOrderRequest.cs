@@ -228,10 +228,10 @@ namespace Eurex.EtiDerivatives.v130
             var selfMatchPreventionInstruction = (byte)message.GetInt(SelfMatchPreventionInstruction.FixTag);
             SelfMatchPreventionInstruction.Encode(pointer, current, selfMatchPreventionInstruction, out current);
 
-            var isLegOrdGrpComp = message.TryGetGroup(NoLegOnbooks.FixTag, out var legOrdGrpComp) && LegOrdGrpComp.sectionList.Length > 0;
+            var isLegOrdGrpComp = message.TryGetGroup(NoLegOnbooks.FixTag, out var legOrdGrpComp) && legOrdGrpComp.sectionList.Count > 0;
             if (isLegOrdGrpComp)
             {
-                var noLegOnbooks = (byte)legOrdGrpComp.sectionList.Length;
+                var noLegOnbooks = (byte)legOrdGrpComp.sectionList.Count;
                 NoLegOnbooks.Encode(pointer, current, noLegOnbooks, out current);
             }
             else

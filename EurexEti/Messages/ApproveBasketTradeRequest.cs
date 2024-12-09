@@ -57,10 +57,10 @@ namespace Eurex.EtiDerivatives.v130
             var rootPartySubIdType = (ushort)message.GetInt(RootPartySubIdType.FixTag);
             RootPartySubIdType.Encode(pointer, current, rootPartySubIdType, out current);
 
-            var isBasketSideAllocExtGrpComp = message.TryGetGroup(NoBasketSideAlloc.FixTag, out var basketSideAllocExtGrpComp) && BasketSideAllocExtGrpComp.sectionList.Length > 0;
+            var isBasketSideAllocExtGrpComp = message.TryGetGroup(NoBasketSideAlloc.FixTag, out var basketSideAllocExtGrpComp) && basketSideAllocExtGrpComp.sectionList.Count > 0;
             if (isBasketSideAllocExtGrpComp)
             {
-                var noBasketSideAlloc = (ushort)basketSideAllocExtGrpComp.sectionList.Length;
+                var noBasketSideAlloc = (ushort)basketSideAllocExtGrpComp.sectionList.Count;
                 NoBasketSideAlloc.Encode(pointer, current, noBasketSideAlloc, out current);
             }
             else

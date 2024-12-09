@@ -40,9 +40,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noNotAffectedSecurities.FixTag, count);
+            message.AppendInt(NoNotAffectedSecurities.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var notAffectedSecurityId = NotAffectedSecurityId.Decode(pointer, current, out current);
                 message.AppendULong(NotAffectedSecurityId.FixTag, notAffectedSecurityId);

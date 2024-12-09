@@ -111,9 +111,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noEnrichmentRules.FixTag, count);
+            message.AppendInt(NoEnrichmentRules.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var enrichmentRuleId = (short)EnrichmentRuleId.Decode(pointer, current, out current);
                 message.AppendInt(EnrichmentRuleId.FixTag, enrichmentRuleId);

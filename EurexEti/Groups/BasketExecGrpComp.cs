@@ -51,9 +51,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noInstrmtMatchSides.FixTag, count);
+            message.AppendInt(NoInstrmtMatchSides.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var packageId = (int)PackageId.Decode(pointer, current, out current);
                 message.AppendInt(PackageId.FixTag, packageId);

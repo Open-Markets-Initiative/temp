@@ -78,9 +78,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noOldBasketSideAlloc.FixTag, count);
+            message.AppendInt(NoOldBasketSideAlloc.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var allocQty = AllocQty.Decode(pointer, current, out current);
                 message.AppendDouble(AllocQty.FixTag, allocQty);

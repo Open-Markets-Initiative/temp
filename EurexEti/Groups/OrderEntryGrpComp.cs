@@ -59,9 +59,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noOrderEntries.FixTag, count);
+            message.AppendInt(NoOrderEntries.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var price = Price.Decode(pointer, current, out current);
                 message.AppendDouble(Price.FixTag, price);

@@ -51,9 +51,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noOrderEvents.FixTag, count);
+            message.AppendInt(NoOrderEvents.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var orderEventPx = OrderEventPx.Decode(pointer, current, out current);
                 message.AppendDouble(OrderEventPx.FixTag, orderEventPx);

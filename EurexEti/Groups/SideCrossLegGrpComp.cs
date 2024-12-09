@@ -54,9 +54,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noCrossLegs.FixTag, count);
+            message.AppendInt(NoCrossLegs.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var legInputSource = LegInputSource.Decode(pointer, current, out current);
                 message.AppendInt(LegInputSource.FixTag, legInputSource);

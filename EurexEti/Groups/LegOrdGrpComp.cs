@@ -51,9 +51,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noLegOnbooks.FixTag, count);
+            message.AppendInt(NoLegOnbooks.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 if (LegAccount.TryDecode(pointer, current, out var legAccount, out current))
                 {

@@ -57,9 +57,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noUnderlyingStips.FixTag, count);
+            message.AppendInt(NoUnderlyingStips.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 if (UnderlyingStipValue.TryDecode(pointer, current, out var underlyingStipValue, out current))
                 {

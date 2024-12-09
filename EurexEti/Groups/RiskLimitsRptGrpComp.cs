@@ -75,9 +75,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noRiskLimits.FixTag, count);
+            message.AppendInt(NoRiskLimits.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var riskLimitQty = RiskLimitQty.Decode(pointer, current, out current);
                 message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);

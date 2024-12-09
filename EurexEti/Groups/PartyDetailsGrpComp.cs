@@ -66,9 +66,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noPartyDetails.FixTag, count);
+            message.AppendInt(NoPartyDetails.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var partyDetailIdExecutingTrader = (int)PartyDetailIdExecutingTrader.Decode(pointer, current, out current);
                 message.AppendInt(PartyDetailIdExecutingTrader.FixTag, partyDetailIdExecutingTrader);

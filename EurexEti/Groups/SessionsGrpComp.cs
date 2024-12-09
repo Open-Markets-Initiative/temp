@@ -48,9 +48,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noSessions.FixTag, count);
+            message.AppendInt(NoSessions.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var partyIdSessionId = (int)PartyIdSessionId.Decode(pointer, current, out current);
                 message.AppendInt(PartyIdSessionId.FixTag, partyIdSessionId);

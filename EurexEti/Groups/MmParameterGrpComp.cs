@@ -60,9 +60,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noMmParameters.FixTag, count);
+            message.AppendInt(NoMmParameters.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var exposureDuration = ExposureDuration.Decode(pointer, current, out current);
                 message.AppendLong(ExposureDuration.FixTag, exposureDuration);

@@ -57,9 +57,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noPartyRiskLimits.FixTag, count);
+            message.AppendInt(NoPartyRiskLimits.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var remainingRiskAllowanceBaseLong = RemainingRiskAllowanceBaseLong.Decode(pointer, current, out current);
                 message.AppendDouble(RemainingRiskAllowanceBaseLong.FixTag, remainingRiskAllowanceBaseLong);

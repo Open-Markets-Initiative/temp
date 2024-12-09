@@ -45,9 +45,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noEvents.FixTag, count);
+            message.AppendInt(NoEvents.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var eventDate = (int)EventDate.Decode(pointer, current, out current);
                 message.AppendInt(EventDate.FixTag, eventDate);

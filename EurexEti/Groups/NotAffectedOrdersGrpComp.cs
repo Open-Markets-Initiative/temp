@@ -43,9 +43,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noNotAffectedOrders.FixTag, count);
+            message.AppendInt(NoNotAffectedOrders.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var notAffectedOrderId = NotAffectedOrderId.Decode(pointer, current, out current);
                 message.AppendULong(NotAffectedOrderId.FixTag, notAffectedOrderId);

@@ -186,9 +186,9 @@ namespace Eurex.EtiDerivatives.v130
                 return;
             }
 
-            message.AppendInt(noSides.FixTag, count);
+            message.AppendInt(NoSides.FixTag, count);
 
-            while (count--)
+            while (count-- > 0)
             {
                 var partyIdClientId = PartyIdClientId.Decode(pointer, current, out current);
                 message.AppendULong(PartyIdClientId.FixTag, partyIdClientId);

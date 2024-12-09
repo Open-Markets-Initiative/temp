@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Quote Entry Grp Comp Message Methods
     /// </summary>
 
-    public partial class SrqsQuoteEntryGrpComp
+    public partial static class SrqsQuoteEntryGrpComp
     {
         /// <summary>
         ///  Fix Tag for Srqs Quote Entry Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39143;
 
         /// <summary>
-        ///  Length of Srqs Quote Entry Grp Comp in bytes
-        /// </summary>
-        public const int Length = 136;
-
-        /// <summary>
         ///  Encode Srqs Quote Entry Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int srqsQuoteEntryGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode srqs quote entry grp comp ---
-
-            if (!message.TryGetGroup(SrqsQuoteEntryGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(SrqsQuoteEntryGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in srqsQuoteEntryGrpComp.sectionList)
             {
                 var transactTime = group.GetULong(TransactTime.FixTag);
                 TransactTime.Encode(pointer, current, transactTime, out current);
@@ -120,14 +108,84 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Srqs Quote Entry Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            SrqsQuoteEntryGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noQuoteEntries.FixTag, count);
 
+            while (count--)
+            {
+                var transactTime = TransactTime.Decode(pointer, current, out current);
+                message.AppendULong(TransactTime.FixTag, transactTime);
+
+                var expireTime = ExpireTime.Decode(pointer, current, out current);
+                message.AppendULong(ExpireTime.FixTag, expireTime);
+
+                var quoteId = QuoteId.Decode(pointer, current, out current);
+                message.AppendULong(QuoteId.FixTag, quoteId);
+
+                var secondaryQuoteId = SecondaryQuoteId.Decode(pointer, current, out current);
+                message.AppendULong(SecondaryQuoteId.FixTag, secondaryQuoteId);
+
+                var bidPx = BidPx.Decode(pointer, current, out current);
+                message.AppendDouble(BidPx.FixTag, bidPx);
+
+                var bidSize = BidSize.Decode(pointer, current, out current);
+                message.AppendDouble(BidSize.FixTag, bidSize);
+
+                var offerPx = OfferPx.Decode(pointer, current, out current);
+                message.AppendDouble(OfferPx.FixTag, offerPx);
+
+                var offerSize = OfferSize.Decode(pointer, current, out current);
+                message.AppendDouble(OfferSize.FixTag, offerSize);
+
+                var underlyingPx = UnderlyingPx.Decode(pointer, current, out current);
+                message.AppendDouble(UnderlyingPx.FixTag, underlyingPx);
+
+                var underlyingDeltaPercentage = UnderlyingDeltaPercentage.Decode(pointer, current, out current);
+                message.AppendDouble(UnderlyingDeltaPercentage.FixTag, underlyingDeltaPercentage);
+
+                var quoteRefPrice = QuoteRefPrice.Decode(pointer, current, out current);
+                message.AppendDouble(QuoteRefPrice.FixTag, quoteRefPrice);
+
+                var partyIdExecutingTrader = (int)PartyIdExecutingTrader.Decode(pointer, current, out current);
+                message.AppendInt(PartyIdExecutingTrader.FixTag, partyIdExecutingTrader);
+
+                var negotiationId = (int)NegotiationId.Decode(pointer, current, out current);
+                message.AppendInt(NegotiationId.FixTag, negotiationId);
+
+                var quotingStatus = QuotingStatus.Decode(pointer, current, out current);
+                message.AppendInt(QuotingStatus.FixTag, quotingStatus);
+
+                if (FirmNegotiationId.TryDecode(pointer, current, out var firmNegotiationId, out current))
+                {
+                    message.AppendString(FirmNegotiationId.FixTag, firmNegotiationId);
+                }
+
+                if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
+                {
+                    message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
+                }
+
+                if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
+                {
+                    message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
+                }
+
+                if (PartyEnteringTrader.TryDecode(pointer, current, out var partyEnteringTrader, out current))
+                {
+                    message.AppendString(PartyEnteringTrader.FixTag, partyEnteringTrader);
+                }
+
+                current += Pad2.Length;
+
+            }
         }
     }
 }

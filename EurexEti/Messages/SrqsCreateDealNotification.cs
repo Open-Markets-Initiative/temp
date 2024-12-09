@@ -104,8 +104,16 @@ namespace Eurex.EtiDerivatives.v130
             var side = (byte)message.GetInt(Side.FixTag);
             Side.Encode(pointer, current, side, out current);
 
-            var noOrderBookItems = (byte)message.GetInt(NoOrderBookItems.FixTag);
-            NoOrderBookItems.Encode(pointer, current, noOrderBookItems, out current);
+            var isOrderBookItemGrpComp = message.TryGetGroup(NoOrderBookItems.FixTag, out var orderBookItemGrpComp) && OrderBookItemGrpComp.sectionList.Length > 0;
+            if (isOrderBookItemGrpComp)
+            {
+                var noOrderBookItems = (byte)orderBookItemGrpComp.sectionList.Length;
+                NoOrderBookItems.Encode(pointer, current, noOrderBookItems, out current);
+            }
+            else
+            {
+                NoOrderBookItems.Zero(pointer, current, out current);
+            }
 
             var tradingCapacity = (byte)message.GetInt(TradingCapacity.FixTag);
             TradingCapacity.Encode(pointer, current, tradingCapacity, out current);
@@ -116,8 +124,16 @@ namespace Eurex.EtiDerivatives.v130
             var hedgingInstruction = (byte)message.GetInt(HedgingInstruction.FixTag);
             HedgingInstruction.Encode(pointer, current, hedgingInstruction, out current);
 
-            var noSrqsTargetPartyTrdGrps = (byte)message.GetInt(NoSrqsTargetPartyTrdGrps.FixTag);
-            NoSrqsTargetPartyTrdGrps.Encode(pointer, current, noSrqsTargetPartyTrdGrps, out current);
+            var isSrqsTargetPartyTrdGrpComp = message.TryGetGroup(NoSrqsTargetPartyTrdGrps.FixTag, out var srqsTargetPartyTrdGrpComp) && SrqsTargetPartyTrdGrpComp.sectionList.Length > 0;
+            if (isSrqsTargetPartyTrdGrpComp)
+            {
+                var noSrqsTargetPartyTrdGrps = (byte)srqsTargetPartyTrdGrpComp.sectionList.Length;
+                NoSrqsTargetPartyTrdGrps.Encode(pointer, current, noSrqsTargetPartyTrdGrps, out current);
+            }
+            else
+            {
+                NoSrqsTargetPartyTrdGrps.Zero(pointer, current, out current);
+            }
 
             if (message.TryGetString(RootPartyExecutingFirm.FixTag, out var rootPartyExecutingFirm))
             {
@@ -271,11 +287,15 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad3.Encode(pointer, current, out current);
 
-            var orderBookItemGrpComp = (byte)message.GetInt(OrderBookItemGrpComp.FixTag);
-            OrderBookItemGrpComp.Encode(message, pointer, current, orderBookItemGrpComp, out current);
+            if (isOrderBookItemGrpComp)
+            {
+                OrderBookItemGrpComp.Encode(pointer, current, orderBookItemGrpComp, out current);
+            }
 
-            var srqsTargetPartyTrdGrpComp = (byte)message.GetInt(SrqsTargetPartyTrdGrpComp.FixTag);
-            SrqsTargetPartyTrdGrpComp.Encode(message, pointer, current, srqsTargetPartyTrdGrpComp, out current);
+            if (isSrqsTargetPartyTrdGrpComp)
+            {
+                SrqsTargetPartyTrdGrpComp.Encode(pointer, current, srqsTargetPartyTrdGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -371,8 +391,7 @@ namespace Eurex.EtiDerivatives.v130
             var side = Side.Decode(pointer, current, out current);
             message.AppendInt(Side.FixTag, side);
 
-            var noOrderBookItems = NoOrderBookItems.Decode(pointer, current, out current);
-            message.AppendInt(NoOrderBookItems.FixTag, noOrderBookItems);
+            var noOrderBookItems = (int)NoOrderBookItems.Decode(pointer, current, out current);
 
             var tradingCapacity = TradingCapacity.Decode(pointer, current, out current);
             message.AppendInt(TradingCapacity.FixTag, tradingCapacity);
@@ -383,8 +402,7 @@ namespace Eurex.EtiDerivatives.v130
             var hedgingInstruction = HedgingInstruction.Decode(pointer, current, out current);
             message.AppendInt(HedgingInstruction.FixTag, hedgingInstruction);
 
-            var noSrqsTargetPartyTrdGrps = NoSrqsTargetPartyTrdGrps.Decode(pointer, current, out current);
-            message.AppendInt(NoSrqsTargetPartyTrdGrps.FixTag, noSrqsTargetPartyTrdGrps);
+            var noSrqsTargetPartyTrdGrps = (int)NoSrqsTargetPartyTrdGrps.Decode(pointer, current, out current);
 
             if (RootPartyExecutingFirm.TryDecode(pointer, current, out var rootPartyExecutingFirm, out current))
             {
@@ -474,9 +492,9 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad3.Length;
 
-            OrderBookItemGrpComp.Decode(ref message, pointer, current, out current);
+            OrderBookItemGrpComp.Decode(ref message, pointer, current, noOrderBookItems, out current);
 
-            SrqsTargetPartyTrdGrpComp.Decode(ref message, pointer, current, out current);
+            SrqsTargetPartyTrdGrpComp.Decode(ref message, pointer, current, noSrqsTargetPartyTrdGrps, out current);
 
             return FixErrorCode.None;
         }

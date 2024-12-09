@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Basket Side Alloc Ext Grp Comp Message Methods
     /// </summary>
 
-    public partial class BasketSideAllocExtGrpComp
+    public partial static class BasketSideAllocExtGrpComp
     {
         /// <summary>
         ///  Fix Tag for Basket Side Alloc Ext Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39104;
 
         /// <summary>
-        ///  Length of Basket Side Alloc Ext Grp Comp in bytes
-        /// </summary>
-        public const int Length = 184;
-
-        /// <summary>
         ///  Encode Basket Side Alloc Ext Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int basketSideAllocExtGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode basket side alloc ext grp comp ---
-
-            if (!message.TryGetGroup(BasketSideAllocExtGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(BasketSideAllocExtGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in basketSideAllocExtGrpComp.sectionList)
             {
                 var allocQty = group.GetDouble(AllocQty.FixTag);
                 AllocQty.Encode(pointer, current, allocQty, out current);
@@ -198,14 +186,130 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Basket Side Alloc Ext Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            BasketSideAllocExtGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noBasketSideAlloc.FixTag, count);
 
+            while (count--)
+            {
+                var allocQty = AllocQty.Decode(pointer, current, out current);
+                message.AppendDouble(AllocQty.FixTag, allocQty);
+
+                var partyIdClientId = PartyIdClientId.Decode(pointer, current, out current);
+                message.AppendULong(PartyIdClientId.FixTag, partyIdClientId);
+
+                var partyIdInvestmentDecisionMaker = PartyIdInvestmentDecisionMaker.Decode(pointer, current, out current);
+                message.AppendULong(PartyIdInvestmentDecisionMaker.FixTag, partyIdInvestmentDecisionMaker);
+
+                var executingTrader = ExecutingTrader.Decode(pointer, current, out current);
+                message.AppendULong(ExecutingTrader.FixTag, executingTrader);
+
+                var packageId = (int)PackageId.Decode(pointer, current, out current);
+                message.AppendInt(PackageId.FixTag, packageId);
+
+                var sideMarketSegmentId = SideMarketSegmentId.Decode(pointer, current, out current);
+                message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
+
+                var allocId = (int)AllocId.Decode(pointer, current, out current);
+                message.AppendInt(AllocId.FixTag, allocId);
+
+                var side = Side.Decode(pointer, current, out current);
+                message.AppendInt(Side.FixTag, side);
+
+                var positionEffect = PositionEffect.Decode(pointer, current, out current);
+                message.AppendToken(PositionEffect.FixTag, positionEffect);
+
+                var tradingCapacity = TradingCapacity.Decode(pointer, current, out current);
+                message.AppendInt(TradingCapacity.FixTag, tradingCapacity);
+
+                var orderAttributeLiquidityProvision = OrderAttributeLiquidityProvision.Decode(pointer, current, out current);
+                message.AppendInt(OrderAttributeLiquidityProvision.FixTag, orderAttributeLiquidityProvision);
+
+                var executingTraderQualifier = ExecutingTraderQualifier.Decode(pointer, current, out current);
+                message.AppendInt(ExecutingTraderQualifier.FixTag, executingTraderQualifier);
+
+                var partyIdInvestmentDecisionMakerQualifier = PartyIdInvestmentDecisionMakerQualifier.Decode(pointer, current, out current);
+                message.AppendInt(PartyIdInvestmentDecisionMakerQualifier.FixTag, partyIdInvestmentDecisionMakerQualifier);
+
+                var orderAttributeRiskReduction = OrderAttributeRiskReduction.Decode(pointer, current, out current);
+                message.AppendInt(OrderAttributeRiskReduction.FixTag, orderAttributeRiskReduction);
+
+                var orderOrigination = OrderOrigination.Decode(pointer, current, out current);
+                message.AppendInt(OrderOrigination.FixTag, orderOrigination);
+
+                if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
+                {
+                    message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
+                }
+
+                if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
+                {
+                    message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
+                }
+
+                if (Account.TryDecode(pointer, current, out var account, out current))
+                {
+                    message.AppendString(Account.FixTag, account);
+                }
+
+                if (FreeText1.TryDecode(pointer, current, out var freeText1, out current))
+                {
+                    message.AppendString(FreeText1.FixTag, freeText1);
+                }
+
+                if (FreeText2.TryDecode(pointer, current, out var freeText2, out current))
+                {
+                    message.AppendString(FreeText2.FixTag, freeText2);
+                }
+
+                if (FreeText3.TryDecode(pointer, current, out var freeText3, out current))
+                {
+                    message.AppendString(FreeText3.FixTag, freeText3);
+                }
+
+                if (PartyIdTakeUpTradingFirm.TryDecode(pointer, current, out var partyIdTakeUpTradingFirm, out current))
+                {
+                    message.AppendString(PartyIdTakeUpTradingFirm.FixTag, partyIdTakeUpTradingFirm);
+                }
+
+                if (PartyIdOrderOriginationFirm.TryDecode(pointer, current, out var partyIdOrderOriginationFirm, out current))
+                {
+                    message.AppendString(PartyIdOrderOriginationFirm.FixTag, partyIdOrderOriginationFirm);
+                }
+
+                if (PartyIdBeneficiary.TryDecode(pointer, current, out var partyIdBeneficiary, out current))
+                {
+                    message.AppendString(PartyIdBeneficiary.FixTag, partyIdBeneficiary);
+                }
+
+                if (PartyIdPositionAccount.TryDecode(pointer, current, out var partyIdPositionAccount, out current))
+                {
+                    message.AppendString(PartyIdPositionAccount.FixTag, partyIdPositionAccount);
+                }
+
+                if (PartyIdLocationId.TryDecode(pointer, current, out var partyIdLocationId, out current))
+                {
+                    message.AppendString(PartyIdLocationId.FixTag, partyIdLocationId);
+                }
+
+                var custOrderHandlingInst = CustOrderHandlingInst.Decode(pointer, current, out current);
+                message.AppendToken(CustOrderHandlingInst.FixTag, custOrderHandlingInst);
+
+                if (ComplianceText.TryDecode(pointer, current, out var complianceText, out current))
+                {
+                    message.AppendString(ComplianceText.FixTag, complianceText);
+                }
+
+                current += Pad7.Length;
+
+            }
         }
     }
 }

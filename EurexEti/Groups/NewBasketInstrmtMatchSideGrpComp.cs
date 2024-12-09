@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  New Basket Instrmt Match Side Grp Comp Message Methods
     /// </summary>
 
-    public partial class NewBasketInstrmtMatchSideGrpComp
+    public partial static class NewBasketInstrmtMatchSideGrpComp
     {
         /// <summary>
         ///  Fix Tag for New Basket Instrmt Match Side Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39117;
 
         /// <summary>
-        ///  Length of New Basket Instrmt Match Side Grp Comp in bytes
-        /// </summary>
-        public const int Length = 80;
-
-        /// <summary>
         ///  Encode New Basket Instrmt Match Side Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int newBasketInstrmtMatchSideGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode new basket instrmt match side grp comp ---
-
-            if (!message.TryGetGroup(NewBasketInstrmtMatchSideGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(NewBasketInstrmtMatchSideGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in newBasketInstrmtMatchSideGrpComp.sectionList)
             {
                 var securityId = group.GetLong(SecurityId.FixTag);
                 SecurityId.Encode(pointer, current, securityId, out current);
@@ -87,14 +75,63 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode New Basket Instrmt Match Side Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            NewBasketInstrmtMatchSideGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noNewBasketInstrmtMatchSides.FixTag, count);
 
+            while (count--)
+            {
+                var securityId = SecurityId.Decode(pointer, current, out current);
+                message.AppendLong(SecurityId.FixTag, securityId);
+
+                var lastPx = LastPx.Decode(pointer, current, out current);
+                message.AppendDouble(LastPx.FixTag, lastPx);
+
+                var transBkdTime = TransBkdTime.Decode(pointer, current, out current);
+                message.AppendULong(TransBkdTime.FixTag, transBkdTime);
+
+                var relatedClosePrice = RelatedClosePrice.Decode(pointer, current, out current);
+                message.AppendDouble(RelatedClosePrice.FixTag, relatedClosePrice);
+
+                var clearingTradePrice = ClearingTradePrice.Decode(pointer, current, out current);
+                message.AppendDouble(ClearingTradePrice.FixTag, clearingTradePrice);
+
+                var packageId = (int)PackageId.Decode(pointer, current, out current);
+                message.AppendInt(PackageId.FixTag, packageId);
+
+                var sideMarketSegmentId = SideMarketSegmentId.Decode(pointer, current, out current);
+                message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
+
+                var sideTrdSubTyp = (short)SideTrdSubTyp.Decode(pointer, current, out current);
+                message.AppendInt(SideTrdSubTyp.FixTag, sideTrdSubTyp);
+
+                var productComplex = ProductComplex.Decode(pointer, current, out current);
+                message.AppendInt(ProductComplex.FixTag, productComplex);
+
+                var tradePublishIndicator = TradePublishIndicator.Decode(pointer, current, out current);
+                message.AppendInt(TradePublishIndicator.FixTag, tradePublishIndicator);
+
+                var instrmtMatchSideId = InstrmtMatchSideId.Decode(pointer, current, out current);
+                message.AppendInt(InstrmtMatchSideId.FixTag, instrmtMatchSideId);
+
+                var effectOnBasket = EffectOnBasket.Decode(pointer, current, out current);
+                message.AppendInt(EffectOnBasket.FixTag, effectOnBasket);
+
+                if (TradeReportText.TryDecode(pointer, current, out var tradeReportText, out current))
+                {
+                    message.AppendString(TradeReportText.FixTag, tradeReportText);
+                }
+
+                current += Pad6.Length;
+
+            }
         }
     }
 }

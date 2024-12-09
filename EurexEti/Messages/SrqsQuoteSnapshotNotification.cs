@@ -53,16 +53,26 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad7.Encode(pointer, current, out current);
 
-            var noQuoteEntries = (byte)message.GetInt(NoQuoteEntries.FixTag);
-            NoQuoteEntries.Encode(pointer, current, noQuoteEntries, out current);
+            var isSrqsQuoteEntryGrpComp = message.TryGetGroup(NoQuoteEntries.FixTag, out var srqsQuoteEntryGrpComp) && SrqsQuoteEntryGrpComp.sectionList.Length > 0;
+            if (isSrqsQuoteEntryGrpComp)
+            {
+                var noQuoteEntries = (byte)srqsQuoteEntryGrpComp.sectionList.Length;
+                NoQuoteEntries.Encode(pointer, current, noQuoteEntries, out current);
+            }
+            else
+            {
+                NoQuoteEntries.Zero(pointer, current, out current);
+            }
 
             var messageEventSource = message.GetToken(MessageEventSource.FixTag);
             MessageEventSource.Encode(pointer, current, messageEventSource, out current);
 
             Pad6.Encode(pointer, current, out current);
 
-            var srqsQuoteEntryGrpComp = (byte)message.GetInt(SrqsQuoteEntryGrpComp.FixTag);
-            SrqsQuoteEntryGrpComp.Encode(message, pointer, current, srqsQuoteEntryGrpComp, out current);
+            if (isSrqsQuoteEntryGrpComp)
+            {
+                SrqsQuoteEntryGrpComp.Encode(pointer, current, srqsQuoteEntryGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -107,15 +117,14 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad7.Length;
 
-            var noQuoteEntries = NoQuoteEntries.Decode(pointer, current, out current);
-            message.AppendInt(NoQuoteEntries.FixTag, noQuoteEntries);
+            var noQuoteEntries = (int)NoQuoteEntries.Decode(pointer, current, out current);
 
             var messageEventSource = MessageEventSource.Decode(pointer, current, out current);
             message.AppendToken(MessageEventSource.FixTag, messageEventSource);
 
             current += Pad6.Length;
 
-            SrqsQuoteEntryGrpComp.Decode(ref message, pointer, current, out current);
+            SrqsQuoteEntryGrpComp.Decode(ref message, pointer, current, noQuoteEntries, out current);
 
             return FixErrorCode.None;
         }

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Rra Update Base Party Ack Grp Comp Message Methods
     /// </summary>
 
-    public partial class RraUpdateBasePartyAckGrpComp
+    public partial static class RraUpdateBasePartyAckGrpComp
     {
         /// <summary>
         ///  Fix Tag for Rra Update Base Party Ack Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39134;
 
         /// <summary>
-        ///  Length of Rra Update Base Party Ack Grp Comp in bytes
-        /// </summary>
-        public const int Length = 8;
-
-        /// <summary>
         ///  Encode Rra Update Base Party Ack Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int rraUpdateBasePartyAckGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode rra update base party ack grp comp ---
-
-            if (!message.TryGetGroup(RraUpdateBasePartyAckGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(RraUpdateBasePartyAckGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in rraUpdateBasePartyAckGrpComp.sectionList)
             {
                 if (group.TryGetString(PartyDetailExecutingUnit.FixTag, out var partyDetailExecutingUnit))
                 {
@@ -54,14 +42,30 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Rra Update Base Party Ack Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            RraUpdateBasePartyAckGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noPartyRiskLimits.FixTag, count);
 
+            while (count--)
+            {
+                if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
+                {
+                    message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
+                }
+
+                current += Pad1.Length;
+
+                var riskLimitResult = (short)RiskLimitResult.Decode(pointer, current, out current);
+                message.AppendInt(RiskLimitResult.FixTag, riskLimitResult);
+
+            }
         }
     }
 }

@@ -59,8 +59,16 @@ namespace Eurex.EtiDerivatives.v130
             var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
             MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
 
-            var noRiskLimits = (byte)message.GetInt(NoRiskLimits.FixTag);
-            NoRiskLimits.Encode(pointer, current, noRiskLimits, out current);
+            var isRiskLimitsRptGrpComp = message.TryGetGroup(NoRiskLimits.FixTag, out var riskLimitsRptGrpComp) && RiskLimitsRptGrpComp.sectionList.Length > 0;
+            if (isRiskLimitsRptGrpComp)
+            {
+                var noRiskLimits = (byte)riskLimitsRptGrpComp.sectionList.Length;
+                NoRiskLimits.Encode(pointer, current, noRiskLimits, out current);
+            }
+            else
+            {
+                NoRiskLimits.Zero(pointer, current, out current);
+            }
 
             var partyDetailStatus = (byte)message.GetInt(PartyDetailStatus.FixTag);
             PartyDetailStatus.Encode(pointer, current, partyDetailStatus, out current);
@@ -79,8 +87,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad4.Encode(pointer, current, out current);
 
-            var riskLimitsRptGrpComp = (byte)message.GetInt(RiskLimitsRptGrpComp.FixTag);
-            RiskLimitsRptGrpComp.Encode(message, pointer, current, riskLimitsRptGrpComp, out current);
+            if (isRiskLimitsRptGrpComp)
+            {
+                RiskLimitsRptGrpComp.Encode(pointer, current, riskLimitsRptGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -131,8 +141,7 @@ namespace Eurex.EtiDerivatives.v130
             var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
             message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
 
-            var noRiskLimits = NoRiskLimits.Decode(pointer, current, out current);
-            message.AppendInt(NoRiskLimits.FixTag, noRiskLimits);
+            var noRiskLimits = (int)NoRiskLimits.Decode(pointer, current, out current);
 
             var partyDetailStatus = PartyDetailStatus.Decode(pointer, current, out current);
             message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
@@ -147,7 +156,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad4.Length;
 
-            RiskLimitsRptGrpComp.Decode(ref message, pointer, current, out current);
+            RiskLimitsRptGrpComp.Decode(ref message, pointer, current, noRiskLimits, out current);
 
             return FixErrorCode.None;
         }

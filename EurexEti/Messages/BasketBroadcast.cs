@@ -71,8 +71,16 @@ namespace Eurex.EtiDerivatives.v130
             var basketProfileId = (uint)message.GetInt(BasketProfileId.FixTag);
             BasketProfileId.Encode(pointer, current, basketProfileId, out current);
 
-            var noBasketSideAlloc = (ushort)message.GetInt(NoBasketSideAlloc.FixTag);
-            NoBasketSideAlloc.Encode(pointer, current, noBasketSideAlloc, out current);
+            var isBasketSideAllocGrpComp = message.TryGetGroup(NoBasketSideAlloc.FixTag, out var basketSideAllocGrpComp) && BasketSideAllocGrpComp.sectionList.Length > 0;
+            if (isBasketSideAllocGrpComp)
+            {
+                var noBasketSideAlloc = (ushort)basketSideAllocGrpComp.sectionList.Length;
+                NoBasketSideAlloc.Encode(pointer, current, noBasketSideAlloc, out current);
+            }
+            else
+            {
+                NoBasketSideAlloc.Zero(pointer, current, out current);
+            }
 
             var trdType = (ushort)message.GetInt(TrdType.FixTag);
             TrdType.Encode(pointer, current, trdType, out current);
@@ -86,11 +94,27 @@ namespace Eurex.EtiDerivatives.v130
             var messageEventSource = message.GetToken(MessageEventSource.FixTag);
             MessageEventSource.Encode(pointer, current, messageEventSource, out current);
 
-            var noBasketRootPartyGrpsBc = (byte)message.GetInt(NoBasketRootPartyGrpsBc.FixTag);
-            NoBasketRootPartyGrpsBc.Encode(pointer, current, noBasketRootPartyGrpsBc, out current);
+            var isBasketRootPartyGrpComp = message.TryGetGroup(NoBasketRootPartyGrpsBc.FixTag, out var basketRootPartyGrpComp) && BasketRootPartyGrpComp.sectionList.Length > 0;
+            if (isBasketRootPartyGrpComp)
+            {
+                var noBasketRootPartyGrpsBc = (byte)basketRootPartyGrpComp.sectionList.Length;
+                NoBasketRootPartyGrpsBc.Encode(pointer, current, noBasketRootPartyGrpsBc, out current);
+            }
+            else
+            {
+                NoBasketRootPartyGrpsBc.Zero(pointer, current, out current);
+            }
 
-            var noInstrmtMatchSides = (byte)message.GetInt(NoInstrmtMatchSides.FixTag);
-            NoInstrmtMatchSides.Encode(pointer, current, noInstrmtMatchSides, out current);
+            var isInstrmtMatchSideGrpComp = message.TryGetGroup(NoInstrmtMatchSides.FixTag, out var instrmtMatchSideGrpComp) && InstrmtMatchSideGrpComp.sectionList.Length > 0;
+            if (isInstrmtMatchSideGrpComp)
+            {
+                var noInstrmtMatchSides = (byte)instrmtMatchSideGrpComp.sectionList.Length;
+                NoInstrmtMatchSides.Encode(pointer, current, noInstrmtMatchSides, out current);
+            }
+            else
+            {
+                NoInstrmtMatchSides.Zero(pointer, current, out current);
+            }
 
             var basketAnonymity = (byte)message.GetInt(BasketAnonymity.FixTag);
             BasketAnonymity.Encode(pointer, current, basketAnonymity, out current);
@@ -118,14 +142,20 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad5.Encode(pointer, current, out current);
 
-            var basketRootPartyGrpComp = (byte)message.GetInt(BasketRootPartyGrpComp.FixTag);
-            BasketRootPartyGrpComp.Encode(message, pointer, current, basketRootPartyGrpComp, out current);
+            if (isBasketRootPartyGrpComp)
+            {
+                BasketRootPartyGrpComp.Encode(pointer, current, basketRootPartyGrpComp, out current);
+            }
 
-            var instrmtMatchSideGrpComp = (byte)message.GetInt(InstrmtMatchSideGrpComp.FixTag);
-            InstrmtMatchSideGrpComp.Encode(message, pointer, current, instrmtMatchSideGrpComp, out current);
+            if (isInstrmtMatchSideGrpComp)
+            {
+                InstrmtMatchSideGrpComp.Encode(pointer, current, instrmtMatchSideGrpComp, out current);
+            }
 
-            var basketSideAllocGrpComp = (byte)message.GetInt(BasketSideAllocGrpComp.FixTag);
-            BasketSideAllocGrpComp.Encode(message, pointer, current, basketSideAllocGrpComp, out current);
+            if (isBasketSideAllocGrpComp)
+            {
+                BasketSideAllocGrpComp.Encode(pointer, current, basketSideAllocGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -188,8 +218,7 @@ namespace Eurex.EtiDerivatives.v130
             var basketProfileId = (int)BasketProfileId.Decode(pointer, current, out current);
             message.AppendInt(BasketProfileId.FixTag, basketProfileId);
 
-            var noBasketSideAlloc = (short)NoBasketSideAlloc.Decode(pointer, current, out current);
-            message.AppendInt(NoBasketSideAlloc.FixTag, noBasketSideAlloc);
+            var noBasketSideAlloc = (int)NoBasketSideAlloc.Decode(pointer, current, out current);
 
             var trdType = (short)TrdType.Decode(pointer, current, out current);
             message.AppendInt(TrdType.FixTag, trdType);
@@ -203,11 +232,9 @@ namespace Eurex.EtiDerivatives.v130
             var messageEventSource = MessageEventSource.Decode(pointer, current, out current);
             message.AppendToken(MessageEventSource.FixTag, messageEventSource);
 
-            var noBasketRootPartyGrpsBc = NoBasketRootPartyGrpsBc.Decode(pointer, current, out current);
-            message.AppendInt(NoBasketRootPartyGrpsBc.FixTag, noBasketRootPartyGrpsBc);
+            var noBasketRootPartyGrpsBc = (int)NoBasketRootPartyGrpsBc.Decode(pointer, current, out current);
 
-            var noInstrmtMatchSides = NoInstrmtMatchSides.Decode(pointer, current, out current);
-            message.AppendInt(NoInstrmtMatchSides.FixTag, noInstrmtMatchSides);
+            var noInstrmtMatchSides = (int)NoInstrmtMatchSides.Decode(pointer, current, out current);
 
             var basketAnonymity = BasketAnonymity.Decode(pointer, current, out current);
             message.AppendInt(BasketAnonymity.FixTag, basketAnonymity);
@@ -227,11 +254,11 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad5.Length;
 
-            BasketRootPartyGrpComp.Decode(ref message, pointer, current, out current);
+            BasketRootPartyGrpComp.Decode(ref message, pointer, current, noBasketRootPartyGrpsBc, out current);
 
-            InstrmtMatchSideGrpComp.Decode(ref message, pointer, current, out current);
+            InstrmtMatchSideGrpComp.Decode(ref message, pointer, current, noInstrmtMatchSides, out current);
 
-            BasketSideAllocGrpComp.Decode(ref message, pointer, current, out current);
+            BasketSideAllocGrpComp.Decode(ref message, pointer, current, noBasketSideAlloc, out current);
 
             return FixErrorCode.None;
         }

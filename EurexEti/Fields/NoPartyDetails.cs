@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  No Party Details: 2 Byte Fixed Width Integer
+    ///  No Party Details: Runtime Count Field
     /// </summary>
 
-    public sealed class NoPartyDetails
+    public static class NoPartyDetails
     {
         /// <summary>
         ///  Fix Tag for No Party Details
@@ -52,15 +52,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set No Party Details to 0
+        /// </summary>
+        public unsafe static void Zero(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + NoPartyDetails.Length)
+            {
+                throw new System.Exception("Invalid Length for No Party Details");
+            }
+
+            Zero(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set No Party Details to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zero(byte* pointer, int offset, out int current)
+        {
+            Zero(pointer, offset);
+
+            current = offset + NoPartyDetails.Length;
+        }
+
+        /// <summary>
+        ///  Set No Party Details to 0
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zero(byte* pointer, int offset)
+        {
+            *(ushort*) (pointer + offset) = 0;
+        }
+
+        /// <summary>
         ///  TryDecode No Party Details
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out ushort value, out int current)
         {
             if (length > offset + NoPartyDetails.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +99,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode No Party Details
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out ushort value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value > 0;
         }
 
         /// <summary>

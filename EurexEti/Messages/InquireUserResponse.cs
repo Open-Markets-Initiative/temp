@@ -44,13 +44,23 @@ namespace Eurex.EtiDerivatives.v130
             var lastEntityProcessed = message.GetData(LastEntityProcessed.FixTag);
             LastEntityProcessed.Encode(pointer, current, lastEntityProcessed, out current);
 
-            var noPartyDetails = (ushort)message.GetInt(NoPartyDetails.FixTag);
-            NoPartyDetails.Encode(pointer, current, noPartyDetails, out current);
+            var isPartyDetailsGrpComp = message.TryGetGroup(NoPartyDetails.FixTag, out var partyDetailsGrpComp) && PartyDetailsGrpComp.sectionList.Length > 0;
+            if (isPartyDetailsGrpComp)
+            {
+                var noPartyDetails = (ushort)partyDetailsGrpComp.sectionList.Length;
+                NoPartyDetails.Encode(pointer, current, noPartyDetails, out current);
+            }
+            else
+            {
+                NoPartyDetails.Zero(pointer, current, out current);
+            }
 
             Pad6.Encode(pointer, current, out current);
 
-            var partyDetailsGrpComp = (byte)message.GetInt(PartyDetailsGrpComp.FixTag);
-            PartyDetailsGrpComp.Encode(message, pointer, current, partyDetailsGrpComp, out current);
+            if (isPartyDetailsGrpComp)
+            {
+                PartyDetailsGrpComp.Encode(pointer, current, partyDetailsGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -86,12 +96,11 @@ namespace Eurex.EtiDerivatives.v130
             var lastEntityProcessed = LastEntityProcessed.Decode(pointer, current, out current);
             message.AppendData(LastEntityProcessed.FixTag, lastEntityProcessed);
 
-            var noPartyDetails = (short)NoPartyDetails.Decode(pointer, current, out current);
-            message.AppendInt(NoPartyDetails.FixTag, noPartyDetails);
+            var noPartyDetails = (int)NoPartyDetails.Decode(pointer, current, out current);
 
             current += Pad6.Length;
 
-            PartyDetailsGrpComp.Decode(ref message, pointer, current, out current);
+            PartyDetailsGrpComp.Decode(ref message, pointer, current, noPartyDetails, out current);
 
             return FixErrorCode.None;
         }

@@ -89,8 +89,16 @@ namespace Eurex.EtiDerivatives.v130
             var massOrderReportId = (uint)message.GetInt(MassOrderReportId.FixTag);
             MassOrderReportId.Encode(pointer, current, massOrderReportId, out current);
 
-            var noLegExecs = (ushort)message.GetInt(NoLegExecs.FixTag);
-            NoLegExecs.Encode(pointer, current, noLegExecs, out current);
+            var isInstrmntLegExecGrpComp = message.TryGetGroup(NoLegExecs.FixTag, out var instrmntLegExecGrpComp) && InstrmntLegExecGrpComp.sectionList.Length > 0;
+            if (isInstrmntLegExecGrpComp)
+            {
+                var noLegExecs = (ushort)instrmntLegExecGrpComp.sectionList.Length;
+                NoLegExecs.Encode(pointer, current, noLegExecs, out current);
+            }
+            else
+            {
+                NoLegExecs.Zero(pointer, current, out current);
+            }
 
             var execRestatementReason = (ushort)message.GetInt(ExecRestatementReason.FixTag);
             ExecRestatementReason.Encode(pointer, current, execRestatementReason, out current);
@@ -122,20 +130,42 @@ namespace Eurex.EtiDerivatives.v130
                 FixClOrdId.SetNull(pointer, current, out current);
             }
 
-            var noFills = (byte)message.GetInt(NoFills.FixTag);
-            NoFills.Encode(pointer, current, noFills, out current);
+            var isFillsGrpComp = message.TryGetGroup(NoFills.FixTag, out var fillsGrpComp) && FillsGrpComp.sectionList.Length > 0;
+            if (isFillsGrpComp)
+            {
+                var noFills = (byte)fillsGrpComp.sectionList.Length;
+                NoFills.Encode(pointer, current, noFills, out current);
+            }
+            else
+            {
+                NoFills.Zero(pointer, current, out current);
+            }
 
-            var noOrderEvents = (byte)message.GetInt(NoOrderEvents.FixTag);
-            NoOrderEvents.Encode(pointer, current, noOrderEvents, out current);
+            var isOrderEventGrpComp = message.TryGetGroup(NoOrderEvents.FixTag, out var orderEventGrpComp) && OrderEventGrpComp.sectionList.Length > 0;
+            if (isOrderEventGrpComp)
+            {
+                var noOrderEvents = (byte)orderEventGrpComp.sectionList.Length;
+                NoOrderEvents.Encode(pointer, current, noOrderEvents, out current);
+            }
+            else
+            {
+                NoOrderEvents.Zero(pointer, current, out current);
+            }
 
-            var fillsGrpComp = (byte)message.GetInt(FillsGrpComp.FixTag);
-            FillsGrpComp.Encode(message, pointer, current, fillsGrpComp, out current);
+            if (isFillsGrpComp)
+            {
+                FillsGrpComp.Encode(pointer, current, fillsGrpComp, out current);
+            }
 
-            var instrmntLegExecGrpComp = (byte)message.GetInt(InstrmntLegExecGrpComp.FixTag);
-            InstrmntLegExecGrpComp.Encode(message, pointer, current, instrmntLegExecGrpComp, out current);
+            if (isInstrmntLegExecGrpComp)
+            {
+                InstrmntLegExecGrpComp.Encode(pointer, current, instrmntLegExecGrpComp, out current);
+            }
 
-            var orderEventGrpComp = (byte)message.GetInt(OrderEventGrpComp.FixTag);
-            OrderEventGrpComp.Encode(message, pointer, current, orderEventGrpComp, out current);
+            if (isOrderEventGrpComp)
+            {
+                OrderEventGrpComp.Encode(pointer, current, orderEventGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -216,8 +246,7 @@ namespace Eurex.EtiDerivatives.v130
             var massOrderReportId = (int)MassOrderReportId.Decode(pointer, current, out current);
             message.AppendInt(MassOrderReportId.FixTag, massOrderReportId);
 
-            var noLegExecs = (short)NoLegExecs.Decode(pointer, current, out current);
-            message.AppendInt(NoLegExecs.FixTag, noLegExecs);
+            var noLegExecs = (int)NoLegExecs.Decode(pointer, current, out current);
 
             var execRestatementReason = (short)ExecRestatementReason.Decode(pointer, current, out current);
             message.AppendInt(ExecRestatementReason.FixTag, execRestatementReason);
@@ -245,17 +274,15 @@ namespace Eurex.EtiDerivatives.v130
                 message.AppendString(FixClOrdId.FixTag, fixClOrdId);
             }
 
-            var noFills = NoFills.Decode(pointer, current, out current);
-            message.AppendInt(NoFills.FixTag, noFills);
+            var noFills = (int)NoFills.Decode(pointer, current, out current);
 
-            var noOrderEvents = NoOrderEvents.Decode(pointer, current, out current);
-            message.AppendInt(NoOrderEvents.FixTag, noOrderEvents);
+            var noOrderEvents = (int)NoOrderEvents.Decode(pointer, current, out current);
 
-            FillsGrpComp.Decode(ref message, pointer, current, out current);
+            FillsGrpComp.Decode(ref message, pointer, current, noFills, out current);
 
-            InstrmntLegExecGrpComp.Decode(ref message, pointer, current, out current);
+            InstrmntLegExecGrpComp.Decode(ref message, pointer, current, noLegExecs, out current);
 
-            OrderEventGrpComp.Decode(ref message, pointer, current, out current);
+            OrderEventGrpComp.Decode(ref message, pointer, current, noOrderEvents, out current);
 
             return FixErrorCode.None;
         }

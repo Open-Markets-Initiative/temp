@@ -74,8 +74,16 @@ namespace Eurex.EtiDerivatives.v130
             var trdType = (ushort)message.GetInt(TrdType.FixTag);
             TrdType.Encode(pointer, current, trdType, out current);
 
-            var noBasketSideAlloc = (ushort)message.GetInt(NoBasketSideAlloc.FixTag);
-            NoBasketSideAlloc.Encode(pointer, current, noBasketSideAlloc, out current);
+            var isBasketSideAllocExtBcGrpComp = message.TryGetGroup(NoBasketSideAlloc.FixTag, out var basketSideAllocExtBcGrpComp) && BasketSideAllocExtBcGrpComp.sectionList.Length > 0;
+            if (isBasketSideAllocExtBcGrpComp)
+            {
+                var noBasketSideAlloc = (ushort)basketSideAllocExtBcGrpComp.sectionList.Length;
+                NoBasketSideAlloc.Encode(pointer, current, noBasketSideAlloc, out current);
+            }
+            else
+            {
+                NoBasketSideAlloc.Zero(pointer, current, out current);
+            }
 
             var tradeReportType = (byte)message.GetInt(TradeReportType.FixTag);
             TradeReportType.Encode(pointer, current, tradeReportType, out current);
@@ -89,8 +97,16 @@ namespace Eurex.EtiDerivatives.v130
             var messageEventSource = message.GetToken(MessageEventSource.FixTag);
             MessageEventSource.Encode(pointer, current, messageEventSource, out current);
 
-            var noBasketRootPartyGrps = (byte)message.GetInt(NoBasketRootPartyGrps.FixTag);
-            NoBasketRootPartyGrps.Encode(pointer, current, noBasketRootPartyGrps, out current);
+            var isBasketRootPartyGrpComp = message.TryGetGroup(NoBasketRootPartyGrps.FixTag, out var basketRootPartyGrpComp) && BasketRootPartyGrpComp.sectionList.Length > 0;
+            if (isBasketRootPartyGrpComp)
+            {
+                var noBasketRootPartyGrps = (byte)basketRootPartyGrpComp.sectionList.Length;
+                NoBasketRootPartyGrps.Encode(pointer, current, noBasketRootPartyGrps, out current);
+            }
+            else
+            {
+                NoBasketRootPartyGrps.Zero(pointer, current, out current);
+            }
 
             var partyIdEnteringFirm = (byte)message.GetInt(PartyIdEnteringFirm.FixTag);
             PartyIdEnteringFirm.Encode(pointer, current, partyIdEnteringFirm, out current);
@@ -124,11 +140,15 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad4.Encode(pointer, current, out current);
 
-            var basketRootPartyGrpComp = (byte)message.GetInt(BasketRootPartyGrpComp.FixTag);
-            BasketRootPartyGrpComp.Encode(message, pointer, current, basketRootPartyGrpComp, out current);
+            if (isBasketRootPartyGrpComp)
+            {
+                BasketRootPartyGrpComp.Encode(pointer, current, basketRootPartyGrpComp, out current);
+            }
 
-            var basketSideAllocExtBcGrpComp = (byte)message.GetInt(BasketSideAllocExtBcGrpComp.FixTag);
-            BasketSideAllocExtBcGrpComp.Encode(message, pointer, current, basketSideAllocExtBcGrpComp, out current);
+            if (isBasketSideAllocExtBcGrpComp)
+            {
+                BasketSideAllocExtBcGrpComp.Encode(pointer, current, basketSideAllocExtBcGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -194,8 +214,7 @@ namespace Eurex.EtiDerivatives.v130
             var trdType = (short)TrdType.Decode(pointer, current, out current);
             message.AppendInt(TrdType.FixTag, trdType);
 
-            var noBasketSideAlloc = (short)NoBasketSideAlloc.Decode(pointer, current, out current);
-            message.AppendInt(NoBasketSideAlloc.FixTag, noBasketSideAlloc);
+            var noBasketSideAlloc = (int)NoBasketSideAlloc.Decode(pointer, current, out current);
 
             var tradeReportType = TradeReportType.Decode(pointer, current, out current);
             message.AppendInt(TradeReportType.FixTag, tradeReportType);
@@ -209,8 +228,7 @@ namespace Eurex.EtiDerivatives.v130
             var messageEventSource = MessageEventSource.Decode(pointer, current, out current);
             message.AppendToken(MessageEventSource.FixTag, messageEventSource);
 
-            var noBasketRootPartyGrps = NoBasketRootPartyGrps.Decode(pointer, current, out current);
-            message.AppendInt(NoBasketRootPartyGrps.FixTag, noBasketRootPartyGrps);
+            var noBasketRootPartyGrps = (int)NoBasketRootPartyGrps.Decode(pointer, current, out current);
 
             var partyIdEnteringFirm = PartyIdEnteringFirm.Decode(pointer, current, out current);
             message.AppendInt(PartyIdEnteringFirm.FixTag, partyIdEnteringFirm);
@@ -232,9 +250,9 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad4.Length;
 
-            BasketRootPartyGrpComp.Decode(ref message, pointer, current, out current);
+            BasketRootPartyGrpComp.Decode(ref message, pointer, current, noBasketRootPartyGrps, out current);
 
-            BasketSideAllocExtBcGrpComp.Decode(ref message, pointer, current, out current);
+            BasketSideAllocExtBcGrpComp.Decode(ref message, pointer, current, noBasketSideAlloc, out current);
 
             return FixErrorCode.None;
         }

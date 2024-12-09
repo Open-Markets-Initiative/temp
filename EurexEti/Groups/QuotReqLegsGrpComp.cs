@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Quot Req Legs Grp Comp Message Methods
     /// </summary>
 
-    public partial class QuotReqLegsGrpComp
+    public partial static class QuotReqLegsGrpComp
     {
         /// <summary>
         ///  Fix Tag for Quot Req Legs Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39127;
 
         /// <summary>
-        ///  Length of Quot Req Legs Grp Comp in bytes
-        /// </summary>
-        public const int Length = 24;
-
-        /// <summary>
         ///  Encode Quot Req Legs Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int quotReqLegsGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode quot req legs grp comp ---
-
-            if (!message.TryGetGroup(QuotReqLegsGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(QuotReqLegsGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in quotReqLegsGrpComp.sectionList)
             {
                 var legSecurityId = group.GetLong(LegSecurityId.FixTag);
                 LegSecurityId.Encode(pointer, current, legSecurityId, out current);
@@ -57,14 +45,37 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Quot Req Legs Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            QuotReqLegsGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noLegs.FixTag, count);
 
+            while (count--)
+            {
+                var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
+                message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+
+                var legRatioQty = (int)LegRatioQty.Decode(pointer, current, out current);
+                message.AppendInt(LegRatioQty.FixTag, legRatioQty);
+
+                var legSymbol = LegSymbol.Decode(pointer, current, out current);
+                message.AppendInt(LegSymbol.FixTag, legSymbol);
+
+                var legSecurityType = LegSecurityType.Decode(pointer, current, out current);
+                message.AppendInt(LegSecurityType.FixTag, legSecurityType);
+
+                var legSide = LegSide.Decode(pointer, current, out current);
+                message.AppendInt(LegSide.FixTag, legSide);
+
+                current += Pad6.Length;
+
+            }
         }
     }
 }

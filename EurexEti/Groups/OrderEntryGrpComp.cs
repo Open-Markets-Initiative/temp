@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Order Entry Grp Comp Message Methods
     /// </summary>
 
-    public partial class OrderEntryGrpComp
+    public partial static class OrderEntryGrpComp
     {
         /// <summary>
         ///  Fix Tag for Order Entry Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39124;
 
         /// <summary>
-        ///  Length of Order Entry Grp Comp in bytes
-        /// </summary>
-        public const int Length = 40;
-
-        /// <summary>
         ///  Encode Order Entry Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int orderEntryGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode order entry grp comp ---
-
-            if (!message.TryGetGroup(OrderEntryGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(OrderEntryGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in orderEntryGrpComp.sectionList)
             {
                 var price = group.GetDouble(Price.FixTag);
                 Price.Encode(pointer, current, price, out current);
@@ -62,14 +50,42 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Order Entry Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            OrderEntryGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noOrderEntries.FixTag, count);
 
+            while (count--)
+            {
+                var price = Price.Decode(pointer, current, out current);
+                message.AppendDouble(Price.FixTag, price);
+
+                var orderQty = OrderQty.Decode(pointer, current, out current);
+                message.AppendDouble(OrderQty.FixTag, orderQty);
+
+                var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+
+                current += Pad4.Length;
+
+                var securityId = SecurityId.Decode(pointer, current, out current);
+                message.AppendLong(SecurityId.FixTag, securityId);
+
+                var side = Side.Decode(pointer, current, out current);
+                message.AppendInt(Side.FixTag, side);
+
+                var productComplex = ProductComplex.Decode(pointer, current, out current);
+                message.AppendInt(ProductComplex.FixTag, productComplex);
+
+                current += Pad6.Length;
+
+            }
         }
     }
 }

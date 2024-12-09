@@ -56,13 +56,23 @@ namespace Eurex.EtiDerivatives.v130
             var massActionReportId = message.GetULong(MassActionReportId.FixTag);
             MassActionReportId.Encode(pointer, current, massActionReportId, out current);
 
-            var noNotAffectedSecurities = (ushort)message.GetInt(NoNotAffectedSecurities.FixTag);
-            NoNotAffectedSecurities.Encode(pointer, current, noNotAffectedSecurities, out current);
+            var isNotAffectedSecuritiesGrpComp = message.TryGetGroup(NoNotAffectedSecurities.FixTag, out var notAffectedSecuritiesGrpComp) && NotAffectedSecuritiesGrpComp.sectionList.Length > 0;
+            if (isNotAffectedSecuritiesGrpComp)
+            {
+                var noNotAffectedSecurities = (ushort)notAffectedSecuritiesGrpComp.sectionList.Length;
+                NoNotAffectedSecurities.Encode(pointer, current, noNotAffectedSecurities, out current);
+            }
+            else
+            {
+                NoNotAffectedSecurities.Zero(pointer, current, out current);
+            }
 
             Pad6.Encode(pointer, current, out current);
 
-            var notAffectedSecuritiesGrpComp = (byte)message.GetInt(NotAffectedSecuritiesGrpComp.FixTag);
-            NotAffectedSecuritiesGrpComp.Encode(message, pointer, current, notAffectedSecuritiesGrpComp, out current);
+            if (isNotAffectedSecuritiesGrpComp)
+            {
+                NotAffectedSecuritiesGrpComp.Encode(pointer, current, notAffectedSecuritiesGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -110,12 +120,11 @@ namespace Eurex.EtiDerivatives.v130
             var massActionReportId = MassActionReportId.Decode(pointer, current, out current);
             message.AppendULong(MassActionReportId.FixTag, massActionReportId);
 
-            var noNotAffectedSecurities = (short)NoNotAffectedSecurities.Decode(pointer, current, out current);
-            message.AppendInt(NoNotAffectedSecurities.FixTag, noNotAffectedSecurities);
+            var noNotAffectedSecurities = (int)NoNotAffectedSecurities.Decode(pointer, current, out current);
 
             current += Pad6.Length;
 
-            NotAffectedSecuritiesGrpComp.Decode(ref message, pointer, current, out current);
+            NotAffectedSecuritiesGrpComp.Decode(ref message, pointer, current, noNotAffectedSecurities, out current);
 
             return FixErrorCode.None;
         }

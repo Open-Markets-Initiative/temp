@@ -77,8 +77,16 @@ namespace Eurex.EtiDerivatives.v130
             var targetPartyIdExecutingTrader = (uint)message.GetInt(TargetPartyIdExecutingTrader.FixTag);
             TargetPartyIdExecutingTrader.Encode(pointer, current, targetPartyIdExecutingTrader, out current);
 
-            var noNotAffectedSecurities = (ushort)message.GetInt(NoNotAffectedSecurities.FixTag);
-            NoNotAffectedSecurities.Encode(pointer, current, noNotAffectedSecurities, out current);
+            var isNotAffectedSecuritiesGrpComp = message.TryGetGroup(NoNotAffectedSecurities.FixTag, out var notAffectedSecuritiesGrpComp) && NotAffectedSecuritiesGrpComp.sectionList.Length > 0;
+            if (isNotAffectedSecuritiesGrpComp)
+            {
+                var noNotAffectedSecurities = (ushort)notAffectedSecuritiesGrpComp.sectionList.Length;
+                NoNotAffectedSecurities.Encode(pointer, current, noNotAffectedSecurities, out current);
+            }
+            else
+            {
+                NoNotAffectedSecurities.Zero(pointer, current, out current);
+            }
 
             var massActionReason = (byte)message.GetInt(MassActionReason.FixTag);
             MassActionReason.Encode(pointer, current, massActionReason, out current);
@@ -97,8 +105,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad1.Encode(pointer, current, out current);
 
-            var notAffectedSecuritiesGrpComp = (byte)message.GetInt(NotAffectedSecuritiesGrpComp.FixTag);
-            NotAffectedSecuritiesGrpComp.Encode(message, pointer, current, notAffectedSecuritiesGrpComp, out current);
+            if (isNotAffectedSecuritiesGrpComp)
+            {
+                NotAffectedSecuritiesGrpComp.Encode(pointer, current, notAffectedSecuritiesGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -167,8 +177,7 @@ namespace Eurex.EtiDerivatives.v130
             var targetPartyIdExecutingTrader = (int)TargetPartyIdExecutingTrader.Decode(pointer, current, out current);
             message.AppendInt(TargetPartyIdExecutingTrader.FixTag, targetPartyIdExecutingTrader);
 
-            var noNotAffectedSecurities = (short)NoNotAffectedSecurities.Decode(pointer, current, out current);
-            message.AppendInt(NoNotAffectedSecurities.FixTag, noNotAffectedSecurities);
+            var noNotAffectedSecurities = (int)NoNotAffectedSecurities.Decode(pointer, current, out current);
 
             var massActionReason = MassActionReason.Decode(pointer, current, out current);
             message.AppendInt(MassActionReason.FixTag, massActionReason);
@@ -183,7 +192,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad1.Length;
 
-            NotAffectedSecuritiesGrpComp.Decode(ref message, pointer, current, out current);
+            NotAffectedSecuritiesGrpComp.Decode(ref message, pointer, current, noNotAffectedSecurities, out current);
 
             return FixErrorCode.None;
         }

@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  No Risk Limits: 1 Byte Fixed Width Integer
+    ///  No Risk Limits: Runtime Count Field
     /// </summary>
 
-    public sealed class NoRiskLimits
+    public static class NoRiskLimits
     {
         /// <summary>
         ///  Fix Tag for No Risk Limits
@@ -52,15 +52,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set No Risk Limits to 0
+        /// </summary>
+        public unsafe static void Zero(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + NoRiskLimits.Length)
+            {
+                throw new System.Exception("Invalid Length for No Risk Limits");
+            }
+
+            Zero(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set No Risk Limits to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zero(byte* pointer, int offset, out int current)
+        {
+            Zero(pointer, offset);
+
+            current = offset + NoRiskLimits.Length;
+        }
+
+        /// <summary>
+        ///  Set No Risk Limits to 0
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zero(byte* pointer, int offset)
+        {
+            *(byte*) (pointer + offset) = 0;
+        }
+
+        /// <summary>
         ///  TryDecode No Risk Limits
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out byte value, out int current)
         {
             if (length > offset + NoRiskLimits.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +99,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode No Risk Limits
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out byte value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value > 0;
         }
 
         /// <summary>

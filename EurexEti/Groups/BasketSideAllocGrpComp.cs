@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Basket Side Alloc Grp Comp Message Methods
     /// </summary>
 
-    public partial class BasketSideAllocGrpComp
+    public partial static class BasketSideAllocGrpComp
     {
         /// <summary>
         ///  Fix Tag for Basket Side Alloc Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39105;
 
         /// <summary>
-        ///  Length of Basket Side Alloc Grp Comp in bytes
-        /// </summary>
-        public const int Length = 32;
-
-        /// <summary>
         ///  Encode Basket Side Alloc Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int basketSideAllocGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode basket side alloc grp comp ---
-
-            if (!message.TryGetGroup(BasketSideAllocGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(BasketSideAllocGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in basketSideAllocGrpComp.sectionList)
             {
                 var allocQty = group.GetDouble(AllocQty.FixTag);
                 AllocQty.Encode(pointer, current, allocQty, out current);
@@ -78,14 +66,50 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Basket Side Alloc Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            BasketSideAllocGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noBasketSideAlloc.FixTag, count);
 
+            while (count--)
+            {
+                var allocQty = AllocQty.Decode(pointer, current, out current);
+                message.AppendDouble(AllocQty.FixTag, allocQty);
+
+                var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
+                message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
+
+                var partySubIdType = (short)PartySubIdType.Decode(pointer, current, out current);
+                message.AppendInt(PartySubIdType.FixTag, partySubIdType);
+
+                var side = Side.Decode(pointer, current, out current);
+                message.AppendInt(Side.FixTag, side);
+
+                var instrmtMatchSideId = InstrmtMatchSideId.Decode(pointer, current, out current);
+                message.AppendInt(InstrmtMatchSideId.FixTag, instrmtMatchSideId);
+
+                var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
+                message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
+
+                if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
+                {
+                    message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
+                }
+
+                if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
+                {
+                    message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
+                }
+
+                current += Pad4.Length;
+
+            }
         }
     }
 }

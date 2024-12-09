@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Risk Limits Rpt Grp Comp Message Methods
     /// </summary>
 
-    public partial class RiskLimitsRptGrpComp
+    public partial static class RiskLimitsRptGrpComp
     {
         /// <summary>
         ///  Fix Tag for Risk Limits Rpt Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39133;
 
         /// <summary>
-        ///  Length of Risk Limits Rpt Grp Comp in bytes
-        /// </summary>
-        public const int Length = 56;
-
-        /// <summary>
         ///  Encode Risk Limits Rpt Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int riskLimitsRptGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode risk limits rpt grp comp ---
-
-            if (!message.TryGetGroup(RiskLimitsRptGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(RiskLimitsRptGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in riskLimitsRptGrpComp.sectionList)
             {
                 var riskLimitQty = group.GetDouble(RiskLimitQty.FixTag);
                 RiskLimitQty.Encode(pointer, current, riskLimitQty, out current);
@@ -78,14 +66,54 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Risk Limits Rpt Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            RiskLimitsRptGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noRiskLimits.FixTag, count);
 
+            while (count--)
+            {
+                var riskLimitQty = RiskLimitQty.Decode(pointer, current, out current);
+                message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);
+
+                var riskLimitOpenQty = RiskLimitOpenQty.Decode(pointer, current, out current);
+                message.AppendDouble(RiskLimitOpenQty.FixTag, riskLimitOpenQty);
+
+                var riskLimitNetPositionQty = RiskLimitNetPositionQty.Decode(pointer, current, out current);
+                message.AppendDouble(RiskLimitNetPositionQty.FixTag, riskLimitNetPositionQty);
+
+                var nettingCoefficient = NettingCoefficient.Decode(pointer, current, out current);
+                message.AppendDouble(NettingCoefficient.FixTag, nettingCoefficient);
+
+                var quoteWeightingCoefficient = QuoteWeightingCoefficient.Decode(pointer, current, out current);
+                message.AppendDouble(QuoteWeightingCoefficient.FixTag, quoteWeightingCoefficient);
+
+                var activationDate = (int)ActivationDate.Decode(pointer, current, out current);
+                message.AppendInt(ActivationDate.FixTag, activationDate);
+
+                var riskLimitType = RiskLimitType.Decode(pointer, current, out current);
+                message.AppendInt(RiskLimitType.FixTag, riskLimitType);
+
+                var riskLimitRequestingPartyRole = RiskLimitRequestingPartyRole.Decode(pointer, current, out current);
+                message.AppendInt(RiskLimitRequestingPartyRole.FixTag, riskLimitRequestingPartyRole);
+
+                var riskLimitViolationIndicator = RiskLimitViolationIndicator.Decode(pointer, current, out current);
+                message.AppendInt(RiskLimitViolationIndicator.FixTag, riskLimitViolationIndicator);
+
+                if (RiskLimitGroup.TryDecode(pointer, current, out var riskLimitGroup, out current))
+                {
+                    message.AppendString(RiskLimitGroup.FixTag, riskLimitGroup);
+                }
+
+                current += Pad6.Length;
+
+            }
         }
     }
 }

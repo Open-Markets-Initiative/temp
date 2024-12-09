@@ -44,13 +44,23 @@ namespace Eurex.EtiDerivatives.v130
             var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
             MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
 
-            var noPartyDetails = (ushort)message.GetInt(NoPartyDetails.FixTag);
-            NoPartyDetails.Encode(pointer, current, noPartyDetails, out current);
+            var isSmartPartyDetailGrpComp = message.TryGetGroup(NoPartyDetails.FixTag, out var smartPartyDetailGrpComp) && SmartPartyDetailGrpComp.sectionList.Length > 0;
+            if (isSmartPartyDetailGrpComp)
+            {
+                var noPartyDetails = (ushort)smartPartyDetailGrpComp.sectionList.Length;
+                NoPartyDetails.Encode(pointer, current, noPartyDetails, out current);
+            }
+            else
+            {
+                NoPartyDetails.Zero(pointer, current, out current);
+            }
 
             Pad2.Encode(pointer, current, out current);
 
-            var smartPartyDetailGrpComp = (byte)message.GetInt(SmartPartyDetailGrpComp.FixTag);
-            SmartPartyDetailGrpComp.Encode(message, pointer, current, smartPartyDetailGrpComp, out current);
+            if (isSmartPartyDetailGrpComp)
+            {
+                SmartPartyDetailGrpComp.Encode(pointer, current, smartPartyDetailGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -86,12 +96,11 @@ namespace Eurex.EtiDerivatives.v130
             var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
             message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
 
-            var noPartyDetails = (short)NoPartyDetails.Decode(pointer, current, out current);
-            message.AppendInt(NoPartyDetails.FixTag, noPartyDetails);
+            var noPartyDetails = (int)NoPartyDetails.Decode(pointer, current, out current);
 
             current += Pad2.Length;
 
-            SmartPartyDetailGrpComp.Decode(ref message, pointer, current, out current);
+            SmartPartyDetailGrpComp.Decode(ref message, pointer, current, noPartyDetails, out current);
 
             return FixErrorCode.None;
         }

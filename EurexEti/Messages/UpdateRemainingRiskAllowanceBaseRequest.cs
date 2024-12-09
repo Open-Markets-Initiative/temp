@@ -48,13 +48,23 @@ namespace Eurex.EtiDerivatives.v130
             var partitionId = (ushort)message.GetInt(PartitionId.FixTag);
             PartitionId.Encode(pointer, current, partitionId, out current);
 
-            var noPartyRiskLimits = (ushort)message.GetInt(NoPartyRiskLimits.FixTag);
-            NoPartyRiskLimits.Encode(pointer, current, noPartyRiskLimits, out current);
+            var isRraUpdateBasePartyGrpComp = message.TryGetGroup(NoPartyRiskLimits.FixTag, out var rraUpdateBasePartyGrpComp) && RraUpdateBasePartyGrpComp.sectionList.Length > 0;
+            if (isRraUpdateBasePartyGrpComp)
+            {
+                var noPartyRiskLimits = (ushort)rraUpdateBasePartyGrpComp.sectionList.Length;
+                NoPartyRiskLimits.Encode(pointer, current, noPartyRiskLimits, out current);
+            }
+            else
+            {
+                NoPartyRiskLimits.Zero(pointer, current, out current);
+            }
 
             Pad4.Encode(pointer, current, out current);
 
-            var rraUpdateBasePartyGrpComp = (byte)message.GetInt(RraUpdateBasePartyGrpComp.FixTag);
-            RraUpdateBasePartyGrpComp.Encode(message, pointer, current, rraUpdateBasePartyGrpComp, out current);
+            if (isRraUpdateBasePartyGrpComp)
+            {
+                RraUpdateBasePartyGrpComp.Encode(pointer, current, rraUpdateBasePartyGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -90,12 +100,11 @@ namespace Eurex.EtiDerivatives.v130
             var partitionId = (short)PartitionId.Decode(pointer, current, out current);
             message.AppendInt(PartitionId.FixTag, partitionId);
 
-            var noPartyRiskLimits = (short)NoPartyRiskLimits.Decode(pointer, current, out current);
-            message.AppendInt(NoPartyRiskLimits.FixTag, noPartyRiskLimits);
+            var noPartyRiskLimits = (int)NoPartyRiskLimits.Decode(pointer, current, out current);
 
             current += Pad4.Length;
 
-            RraUpdateBasePartyGrpComp.Decode(ref message, pointer, current, out current);
+            RraUpdateBasePartyGrpComp.Decode(ref message, pointer, current, noPartyRiskLimits, out current);
 
             return FixErrorCode.None;
         }

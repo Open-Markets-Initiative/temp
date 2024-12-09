@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Order Event Grp Comp Message Methods
     /// </summary>
 
-    public partial class OrderEventGrpComp
+    public partial static class OrderEventGrpComp
     {
         /// <summary>
         ///  Fix Tag for Order Event Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39125;
 
         /// <summary>
-        ///  Length of Order Event Grp Comp in bytes
-        /// </summary>
-        public const int Length = 24;
-
-        /// <summary>
         ///  Encode Order Event Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int orderEventGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode order event grp comp ---
-
-            if (!message.TryGetGroup(OrderEventGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(OrderEventGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in orderEventGrpComp.sectionList)
             {
                 var orderEventPx = group.GetDouble(OrderEventPx.FixTag);
                 OrderEventPx.Encode(pointer, current, orderEventPx, out current);
@@ -54,14 +42,34 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Order Event Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            OrderEventGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noOrderEvents.FixTag, count);
 
+            while (count--)
+            {
+                var orderEventPx = OrderEventPx.Decode(pointer, current, out current);
+                message.AppendDouble(OrderEventPx.FixTag, orderEventPx);
+
+                var orderEventQty = OrderEventQty.Decode(pointer, current, out current);
+                message.AppendDouble(OrderEventQty.FixTag, orderEventQty);
+
+                var orderEventMatchId = (int)OrderEventMatchId.Decode(pointer, current, out current);
+                message.AppendInt(OrderEventMatchId.FixTag, orderEventMatchId);
+
+                var orderEventReason = OrderEventReason.Decode(pointer, current, out current);
+                message.AppendInt(OrderEventReason.FixTag, orderEventReason);
+
+                current += Pad3.Length;
+
+            }
         }
     }
 }

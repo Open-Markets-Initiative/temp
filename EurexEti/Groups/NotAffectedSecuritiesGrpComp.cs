@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Not Affected Securities Grp Comp Message Methods
     /// </summary>
 
-    public partial class NotAffectedSecuritiesGrpComp
+    public partial static class NotAffectedSecuritiesGrpComp
     {
         /// <summary>
         ///  Fix Tag for Not Affected Securities Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39120;
 
         /// <summary>
-        ///  Length of Not Affected Securities Grp Comp in bytes
-        /// </summary>
-        public const int Length = 8;
-
-        /// <summary>
         ///  Encode Not Affected Securities Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int notAffectedSecuritiesGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode not affected securities grp comp ---
-
-            if (!message.TryGetGroup(NotAffectedSecuritiesGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(NotAffectedSecuritiesGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in notAffectedSecuritiesGrpComp.sectionList)
             {
                 var notAffectedSecurityId = group.GetULong(NotAffectedSecurityId.FixTag);
                 NotAffectedSecurityId.Encode(pointer, current, notAffectedSecurityId, out current);
@@ -43,14 +31,23 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Not Affected Securities Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            NotAffectedSecuritiesGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noNotAffectedSecurities.FixTag, count);
 
+            while (count--)
+            {
+                var notAffectedSecurityId = NotAffectedSecurityId.Decode(pointer, current, out current);
+                message.AppendULong(NotAffectedSecurityId.FixTag, notAffectedSecurityId);
+
+            }
         }
     }
 }

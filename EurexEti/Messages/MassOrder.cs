@@ -189,13 +189,23 @@ namespace Eurex.EtiDerivatives.v130
                 PartyEndClientIdentification.SetNull(pointer, current, out current);
             }
 
-            var noOrderEntries = (byte)message.GetInt(NoOrderEntries.FixTag);
-            NoOrderEntries.Encode(pointer, current, noOrderEntries, out current);
+            var isOrderEntryGrpComp = message.TryGetGroup(NoOrderEntries.FixTag, out var orderEntryGrpComp) && OrderEntryGrpComp.sectionList.Length > 0;
+            if (isOrderEntryGrpComp)
+            {
+                var noOrderEntries = (byte)orderEntryGrpComp.sectionList.Length;
+                NoOrderEntries.Encode(pointer, current, noOrderEntries, out current);
+            }
+            else
+            {
+                NoOrderEntries.Zero(pointer, current, out current);
+            }
 
             Pad7.Encode(pointer, current, out current);
 
-            var orderEntryGrpComp = (byte)message.GetInt(OrderEntryGrpComp.FixTag);
-            OrderEntryGrpComp.Encode(message, pointer, current, orderEntryGrpComp, out current);
+            if (isOrderEntryGrpComp)
+            {
+                OrderEntryGrpComp.Encode(pointer, current, orderEntryGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -328,12 +338,11 @@ namespace Eurex.EtiDerivatives.v130
                 message.AppendString(PartyEndClientIdentification.FixTag, partyEndClientIdentification);
             }
 
-            var noOrderEntries = NoOrderEntries.Decode(pointer, current, out current);
-            message.AppendInt(NoOrderEntries.FixTag, noOrderEntries);
+            var noOrderEntries = (int)NoOrderEntries.Decode(pointer, current, out current);
 
             current += Pad7.Length;
 
-            OrderEntryGrpComp.Decode(ref message, pointer, current, out current);
+            OrderEntryGrpComp.Decode(ref message, pointer, current, noOrderEntries, out current);
 
             return FixErrorCode.None;
         }

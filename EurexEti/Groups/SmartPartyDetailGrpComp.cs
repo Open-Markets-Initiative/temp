@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Smart Party Detail Grp Comp Message Methods
     /// </summary>
 
-    public partial class SmartPartyDetailGrpComp
+    public partial static class SmartPartyDetailGrpComp
     {
         /// <summary>
         ///  Fix Tag for Smart Party Detail Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39141;
 
         /// <summary>
-        ///  Length of Smart Party Detail Grp Comp in bytes
-        /// </summary>
-        public const int Length = 16;
-
-        /// <summary>
         ///  Encode Smart Party Detail Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int smartPartyDetailGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode smart party detail grp comp ---
-
-            if (!message.TryGetGroup(SmartPartyDetailGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(SmartPartyDetailGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in smartPartyDetailGrpComp.sectionList)
             {
                 if (group.TryGetString(PartyDetailExecutingUnit.FixTag, out var partyDetailExecutingUnit))
                 {
@@ -60,14 +48,32 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Smart Party Detail Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            SmartPartyDetailGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noPartyDetails.FixTag, count);
 
+            while (count--)
+            {
+                if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
+                {
+                    message.AppendString(PartyDetailExecutingUnit.FixTag, partyDetailExecutingUnit);
+                }
+
+                if (PartyDetailExecutingTrader.TryDecode(pointer, current, out var partyDetailExecutingTrader, out current))
+                {
+                    message.AppendString(PartyDetailExecutingTrader.FixTag, partyDetailExecutingTrader);
+                }
+
+                current += Pad5.Length;
+
+            }
         }
     }
 }

@@ -105,13 +105,23 @@ namespace Eurex.EtiDerivatives.v130
             var transactionDelayIndicator = (byte)message.GetInt(TransactionDelayIndicator.FixTag);
             TransactionDelayIndicator.Encode(pointer, current, transactionDelayIndicator, out current);
 
-            var noOrderEvents = (byte)message.GetInt(NoOrderEvents.FixTag);
-            NoOrderEvents.Encode(pointer, current, noOrderEvents, out current);
+            var isOrderEventGrpComp = message.TryGetGroup(NoOrderEvents.FixTag, out var orderEventGrpComp) && OrderEventGrpComp.sectionList.Length > 0;
+            if (isOrderEventGrpComp)
+            {
+                var noOrderEvents = (byte)orderEventGrpComp.sectionList.Length;
+                NoOrderEvents.Encode(pointer, current, noOrderEvents, out current);
+            }
+            else
+            {
+                NoOrderEvents.Zero(pointer, current, out current);
+            }
 
             Pad7.Encode(pointer, current, out current);
 
-            var orderEventGrpComp = (byte)message.GetInt(OrderEventGrpComp.FixTag);
-            OrderEventGrpComp.Encode(message, pointer, current, orderEventGrpComp, out current);
+            if (isOrderEventGrpComp)
+            {
+                OrderEventGrpComp.Encode(pointer, current, orderEventGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -208,12 +218,11 @@ namespace Eurex.EtiDerivatives.v130
             var transactionDelayIndicator = TransactionDelayIndicator.Decode(pointer, current, out current);
             message.AppendInt(TransactionDelayIndicator.FixTag, transactionDelayIndicator);
 
-            var noOrderEvents = NoOrderEvents.Decode(pointer, current, out current);
-            message.AppendInt(NoOrderEvents.FixTag, noOrderEvents);
+            var noOrderEvents = (int)NoOrderEvents.Decode(pointer, current, out current);
 
             current += Pad7.Length;
 
-            OrderEventGrpComp.Decode(ref message, pointer, current, out current);
+            OrderEventGrpComp.Decode(ref message, pointer, current, noOrderEvents, out current);
 
             return FixErrorCode.None;
         }

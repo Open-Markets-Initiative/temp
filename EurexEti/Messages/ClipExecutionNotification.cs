@@ -83,8 +83,16 @@ namespace Eurex.EtiDerivatives.v130
             var execRestatementReason = (ushort)message.GetInt(ExecRestatementReason.FixTag);
             ExecRestatementReason.Encode(pointer, current, execRestatementReason, out current);
 
-            var noLegExecs = (ushort)message.GetInt(NoLegExecs.FixTag);
-            NoLegExecs.Encode(pointer, current, noLegExecs, out current);
+            var isInstrmntLegExecGrpComp = message.TryGetGroup(NoLegExecs.FixTag, out var instrmntLegExecGrpComp) && InstrmntLegExecGrpComp.sectionList.Length > 0;
+            if (isInstrmntLegExecGrpComp)
+            {
+                var noLegExecs = (ushort)instrmntLegExecGrpComp.sectionList.Length;
+                NoLegExecs.Encode(pointer, current, noLegExecs, out current);
+            }
+            else
+            {
+                NoLegExecs.Zero(pointer, current, out current);
+            }
 
             var productComplex = (byte)message.GetInt(ProductComplex.FixTag);
             ProductComplex.Encode(pointer, current, productComplex, out current);
@@ -101,16 +109,28 @@ namespace Eurex.EtiDerivatives.v130
             var matchType = (byte)message.GetInt(MatchType.FixTag);
             MatchType.Encode(pointer, current, matchType, out current);
 
-            var noFills = (byte)message.GetInt(NoFills.FixTag);
-            NoFills.Encode(pointer, current, noFills, out current);
+            var isFillsGrpComp = message.TryGetGroup(NoFills.FixTag, out var fillsGrpComp) && FillsGrpComp.sectionList.Length > 0;
+            if (isFillsGrpComp)
+            {
+                var noFills = (byte)fillsGrpComp.sectionList.Length;
+                NoFills.Encode(pointer, current, noFills, out current);
+            }
+            else
+            {
+                NoFills.Zero(pointer, current, out current);
+            }
 
             Pad2.Encode(pointer, current, out current);
 
-            var fillsGrpComp = (byte)message.GetInt(FillsGrpComp.FixTag);
-            FillsGrpComp.Encode(message, pointer, current, fillsGrpComp, out current);
+            if (isFillsGrpComp)
+            {
+                FillsGrpComp.Encode(pointer, current, fillsGrpComp, out current);
+            }
 
-            var instrmntLegExecGrpComp = (byte)message.GetInt(InstrmntLegExecGrpComp.FixTag);
-            InstrmntLegExecGrpComp.Encode(message, pointer, current, instrmntLegExecGrpComp, out current);
+            if (isInstrmntLegExecGrpComp)
+            {
+                InstrmntLegExecGrpComp.Encode(pointer, current, instrmntLegExecGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -185,8 +205,7 @@ namespace Eurex.EtiDerivatives.v130
             var execRestatementReason = (short)ExecRestatementReason.Decode(pointer, current, out current);
             message.AppendInt(ExecRestatementReason.FixTag, execRestatementReason);
 
-            var noLegExecs = (short)NoLegExecs.Decode(pointer, current, out current);
-            message.AppendInt(NoLegExecs.FixTag, noLegExecs);
+            var noLegExecs = (int)NoLegExecs.Decode(pointer, current, out current);
 
             var productComplex = ProductComplex.Decode(pointer, current, out current);
             message.AppendInt(ProductComplex.FixTag, productComplex);
@@ -203,14 +222,13 @@ namespace Eurex.EtiDerivatives.v130
             var matchType = MatchType.Decode(pointer, current, out current);
             message.AppendInt(MatchType.FixTag, matchType);
 
-            var noFills = NoFills.Decode(pointer, current, out current);
-            message.AppendInt(NoFills.FixTag, noFills);
+            var noFills = (int)NoFills.Decode(pointer, current, out current);
 
             current += Pad2.Length;
 
-            FillsGrpComp.Decode(ref message, pointer, current, out current);
+            FillsGrpComp.Decode(ref message, pointer, current, noFills, out current);
 
-            InstrmntLegExecGrpComp.Decode(ref message, pointer, current, out current);
+            InstrmntLegExecGrpComp.Decode(ref message, pointer, current, noLegExecs, out current);
 
             return FixErrorCode.None;
         }

@@ -80,11 +80,27 @@ namespace Eurex.EtiDerivatives.v130
             var partyIdEnteringTrader = (uint)message.GetInt(PartyIdEnteringTrader.FixTag);
             PartyIdEnteringTrader.Encode(pointer, current, partyIdEnteringTrader, out current);
 
-            var noNotAffectedOrders = (ushort)message.GetInt(NoNotAffectedOrders.FixTag);
-            NoNotAffectedOrders.Encode(pointer, current, noNotAffectedOrders, out current);
+            var isNotAffectedOrdersGrpComp = message.TryGetGroup(NoNotAffectedOrders.FixTag, out var notAffectedOrdersGrpComp) && NotAffectedOrdersGrpComp.sectionList.Length > 0;
+            if (isNotAffectedOrdersGrpComp)
+            {
+                var noNotAffectedOrders = (ushort)notAffectedOrdersGrpComp.sectionList.Length;
+                NoNotAffectedOrders.Encode(pointer, current, noNotAffectedOrders, out current);
+            }
+            else
+            {
+                NoNotAffectedOrders.Zero(pointer, current, out current);
+            }
 
-            var noAffectedOrderRequests = (ushort)message.GetInt(NoAffectedOrderRequests.FixTag);
-            NoAffectedOrderRequests.Encode(pointer, current, noAffectedOrderRequests, out current);
+            var isAffectedOrderRequestsGrpComp = message.TryGetGroup(NoAffectedOrderRequests.FixTag, out var affectedOrderRequestsGrpComp) && AffectedOrderRequestsGrpComp.sectionList.Length > 0;
+            if (isAffectedOrderRequestsGrpComp)
+            {
+                var noAffectedOrderRequests = (ushort)affectedOrderRequestsGrpComp.sectionList.Length;
+                NoAffectedOrderRequests.Encode(pointer, current, noAffectedOrderRequests, out current);
+            }
+            else
+            {
+                NoAffectedOrderRequests.Zero(pointer, current, out current);
+            }
 
             var partyIdEnteringFirm = (byte)message.GetInt(PartyIdEnteringFirm.FixTag);
             PartyIdEnteringFirm.Encode(pointer, current, partyIdEnteringFirm, out current);
@@ -98,11 +114,15 @@ namespace Eurex.EtiDerivatives.v130
             var side = (byte)message.GetInt(Side.FixTag);
             Side.Encode(pointer, current, side, out current);
 
-            var notAffectedOrdersGrpComp = (byte)message.GetInt(NotAffectedOrdersGrpComp.FixTag);
-            NotAffectedOrdersGrpComp.Encode(message, pointer, current, notAffectedOrdersGrpComp, out current);
+            if (isNotAffectedOrdersGrpComp)
+            {
+                NotAffectedOrdersGrpComp.Encode(pointer, current, notAffectedOrdersGrpComp, out current);
+            }
 
-            var affectedOrderRequestsGrpComp = (byte)message.GetInt(AffectedOrderRequestsGrpComp.FixTag);
-            AffectedOrderRequestsGrpComp.Encode(message, pointer, current, affectedOrderRequestsGrpComp, out current);
+            if (isAffectedOrderRequestsGrpComp)
+            {
+                AffectedOrderRequestsGrpComp.Encode(pointer, current, affectedOrderRequestsGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -174,11 +194,9 @@ namespace Eurex.EtiDerivatives.v130
             var partyIdEnteringTrader = (int)PartyIdEnteringTrader.Decode(pointer, current, out current);
             message.AppendInt(PartyIdEnteringTrader.FixTag, partyIdEnteringTrader);
 
-            var noNotAffectedOrders = (short)NoNotAffectedOrders.Decode(pointer, current, out current);
-            message.AppendInt(NoNotAffectedOrders.FixTag, noNotAffectedOrders);
+            var noNotAffectedOrders = (int)NoNotAffectedOrders.Decode(pointer, current, out current);
 
-            var noAffectedOrderRequests = (short)NoAffectedOrderRequests.Decode(pointer, current, out current);
-            message.AppendInt(NoAffectedOrderRequests.FixTag, noAffectedOrderRequests);
+            var noAffectedOrderRequests = (int)NoAffectedOrderRequests.Decode(pointer, current, out current);
 
             var partyIdEnteringFirm = PartyIdEnteringFirm.Decode(pointer, current, out current);
             message.AppendInt(PartyIdEnteringFirm.FixTag, partyIdEnteringFirm);
@@ -192,9 +210,9 @@ namespace Eurex.EtiDerivatives.v130
             var side = Side.Decode(pointer, current, out current);
             message.AppendInt(Side.FixTag, side);
 
-            NotAffectedOrdersGrpComp.Decode(ref message, pointer, current, out current);
+            NotAffectedOrdersGrpComp.Decode(ref message, pointer, current, noNotAffectedOrders, out current);
 
-            AffectedOrderRequestsGrpComp.Decode(ref message, pointer, current, out current);
+            AffectedOrderRequestsGrpComp.Decode(ref message, pointer, current, noAffectedOrderRequests, out current);
 
             return FixErrorCode.None;
         }

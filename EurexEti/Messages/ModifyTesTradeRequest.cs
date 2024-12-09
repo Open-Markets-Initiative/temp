@@ -78,11 +78,27 @@ namespace Eurex.EtiDerivatives.v130
             var tradePublishIndicator = (byte)message.GetInt(TradePublishIndicator.FixTag);
             TradePublishIndicator.Encode(pointer, current, tradePublishIndicator, out current);
 
-            var noSideAllocs = (byte)message.GetInt(NoSideAllocs.FixTag);
-            NoSideAllocs.Encode(pointer, current, noSideAllocs, out current);
+            var isSideAllocGrpComp = message.TryGetGroup(NoSideAllocs.FixTag, out var sideAllocGrpComp) && SideAllocGrpComp.sectionList.Length > 0;
+            if (isSideAllocGrpComp)
+            {
+                var noSideAllocs = (byte)sideAllocGrpComp.sectionList.Length;
+                NoSideAllocs.Encode(pointer, current, noSideAllocs, out current);
+            }
+            else
+            {
+                NoSideAllocs.Zero(pointer, current, out current);
+            }
 
-            var noLegs = (byte)message.GetInt(NoLegs.FixTag);
-            NoLegs.Encode(pointer, current, noLegs, out current);
+            var isTrdInstrmntLegGrpComp = message.TryGetGroup(NoLegs.FixTag, out var trdInstrmntLegGrpComp) && TrdInstrmntLegGrpComp.sectionList.Length > 0;
+            if (isTrdInstrmntLegGrpComp)
+            {
+                var noLegs = (byte)trdInstrmntLegGrpComp.sectionList.Length;
+                NoLegs.Encode(pointer, current, noLegs, out current);
+            }
+            else
+            {
+                NoLegs.Zero(pointer, current, out current);
+            }
 
             var swapClearer = (byte)message.GetInt(SwapClearer.FixTag);
             SwapClearer.Encode(pointer, current, swapClearer, out current);
@@ -107,11 +123,15 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad1.Encode(pointer, current, out current);
 
-            var sideAllocGrpComp = (byte)message.GetInt(SideAllocGrpComp.FixTag);
-            SideAllocGrpComp.Encode(message, pointer, current, sideAllocGrpComp, out current);
+            if (isSideAllocGrpComp)
+            {
+                SideAllocGrpComp.Encode(pointer, current, sideAllocGrpComp, out current);
+            }
 
-            var trdInstrmntLegGrpComp = (byte)message.GetInt(TrdInstrmntLegGrpComp.FixTag);
-            TrdInstrmntLegGrpComp.Encode(message, pointer, current, trdInstrmntLegGrpComp, out current);
+            if (isTrdInstrmntLegGrpComp)
+            {
+                TrdInstrmntLegGrpComp.Encode(pointer, current, trdInstrmntLegGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -177,11 +197,9 @@ namespace Eurex.EtiDerivatives.v130
             var tradePublishIndicator = TradePublishIndicator.Decode(pointer, current, out current);
             message.AppendInt(TradePublishIndicator.FixTag, tradePublishIndicator);
 
-            var noSideAllocs = NoSideAllocs.Decode(pointer, current, out current);
-            message.AppendInt(NoSideAllocs.FixTag, noSideAllocs);
+            var noSideAllocs = (int)NoSideAllocs.Decode(pointer, current, out current);
 
-            var noLegs = NoLegs.Decode(pointer, current, out current);
-            message.AppendInt(NoLegs.FixTag, noLegs);
+            var noLegs = (int)NoLegs.Decode(pointer, current, out current);
 
             var swapClearer = SwapClearer.Decode(pointer, current, out current);
             message.AppendInt(SwapClearer.FixTag, swapClearer);
@@ -198,9 +216,9 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad1.Length;
 
-            SideAllocGrpComp.Decode(ref message, pointer, current, out current);
+            SideAllocGrpComp.Decode(ref message, pointer, current, noSideAllocs, out current);
 
-            TrdInstrmntLegGrpComp.Decode(ref message, pointer, current, out current);
+            TrdInstrmntLegGrpComp.Decode(ref message, pointer, current, noLegs, out current);
 
             return FixErrorCode.None;
         }

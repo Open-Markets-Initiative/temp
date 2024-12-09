@@ -77,8 +77,16 @@ namespace Eurex.EtiDerivatives.v130
             var reversalCancellationReason = (byte)message.GetInt(ReversalCancellationReason.FixTag);
             ReversalCancellationReason.Encode(pointer, current, reversalCancellationReason, out current);
 
-            var noSideAllocs = (byte)message.GetInt(NoSideAllocs.FixTag);
-            NoSideAllocs.Encode(pointer, current, noSideAllocs, out current);
+            var isSideAllocGrpBcComp = message.TryGetGroup(NoSideAllocs.FixTag, out var sideAllocGrpBcComp) && SideAllocGrpBcComp.sectionList.Length > 0;
+            if (isSideAllocGrpBcComp)
+            {
+                var noSideAllocs = (byte)sideAllocGrpBcComp.sectionList.Length;
+                NoSideAllocs.Encode(pointer, current, noSideAllocs, out current);
+            }
+            else
+            {
+                NoSideAllocs.Zero(pointer, current, out current);
+            }
 
             if (message.TryGetString(TradeReportId.FixTag, out var tradeReportId))
             {
@@ -100,8 +108,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad3.Encode(pointer, current, out current);
 
-            var sideAllocGrpBcComp = (byte)message.GetInt(SideAllocGrpBcComp.FixTag);
-            SideAllocGrpBcComp.Encode(message, pointer, current, sideAllocGrpBcComp, out current);
+            if (isSideAllocGrpBcComp)
+            {
+                SideAllocGrpBcComp.Encode(pointer, current, sideAllocGrpBcComp, out current);
+            }
 
             // --- complete header ---
 
@@ -170,8 +180,7 @@ namespace Eurex.EtiDerivatives.v130
             var reversalCancellationReason = ReversalCancellationReason.Decode(pointer, current, out current);
             message.AppendInt(ReversalCancellationReason.FixTag, reversalCancellationReason);
 
-            var noSideAllocs = NoSideAllocs.Decode(pointer, current, out current);
-            message.AppendInt(NoSideAllocs.FixTag, noSideAllocs);
+            var noSideAllocs = (int)NoSideAllocs.Decode(pointer, current, out current);
 
             if (TradeReportId.TryDecode(pointer, current, out var tradeReportId, out current))
             {
@@ -185,7 +194,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad3.Length;
 
-            SideAllocGrpBcComp.Decode(ref message, pointer, current, out current);
+            SideAllocGrpBcComp.Decode(ref message, pointer, current, noSideAllocs, out current);
 
             return FixErrorCode.None;
         }

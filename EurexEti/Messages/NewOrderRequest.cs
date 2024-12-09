@@ -221,8 +221,16 @@ namespace Eurex.EtiDerivatives.v130
             var productComplex = (byte)message.GetInt(ProductComplex.FixTag);
             ProductComplex.Encode(pointer, current, productComplex, out current);
 
-            var noLegOnbooks = (byte)message.GetInt(NoLegOnbooks.FixTag);
-            NoLegOnbooks.Encode(pointer, current, noLegOnbooks, out current);
+            var isLegOrdGrpComp = message.TryGetGroup(NoLegOnbooks.FixTag, out var legOrdGrpComp) && LegOrdGrpComp.sectionList.Length > 0;
+            if (isLegOrdGrpComp)
+            {
+                var noLegOnbooks = (byte)legOrdGrpComp.sectionList.Length;
+                NoLegOnbooks.Encode(pointer, current, noLegOnbooks, out current);
+            }
+            else
+            {
+                NoLegOnbooks.Zero(pointer, current, out current);
+            }
 
             var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
             MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
@@ -252,8 +260,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad22.Encode(pointer, current, out current);
 
-            var legOrdGrpComp = (byte)message.GetInt(LegOrdGrpComp.FixTag);
-            LegOrdGrpComp.Encode(message, pointer, current, legOrdGrpComp, out current);
+            if (isLegOrdGrpComp)
+            {
+                LegOrdGrpComp.Encode(pointer, current, legOrdGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -414,8 +424,7 @@ namespace Eurex.EtiDerivatives.v130
             var productComplex = ProductComplex.Decode(pointer, current, out current);
             message.AppendInt(ProductComplex.FixTag, productComplex);
 
-            var noLegOnbooks = NoLegOnbooks.Decode(pointer, current, out current);
-            message.AppendInt(NoLegOnbooks.FixTag, noLegOnbooks);
+            var noLegOnbooks = (int)NoLegOnbooks.Decode(pointer, current, out current);
 
             var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
             message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
@@ -445,7 +454,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad22.Length;
 
-            LegOrdGrpComp.Decode(ref message, pointer, current, out current);
+            LegOrdGrpComp.Decode(ref message, pointer, current, noLegOnbooks, out current);
 
             return FixErrorCode.None;
         }

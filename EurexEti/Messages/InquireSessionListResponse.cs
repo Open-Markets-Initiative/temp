@@ -41,13 +41,23 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad4.Encode(pointer, current, out current);
 
-            var noSessions = (ushort)message.GetInt(NoSessions.FixTag);
-            NoSessions.Encode(pointer, current, noSessions, out current);
+            var isSessionsGrpComp = message.TryGetGroup(NoSessions.FixTag, out var sessionsGrpComp) && SessionsGrpComp.sectionList.Length > 0;
+            if (isSessionsGrpComp)
+            {
+                var noSessions = (ushort)sessionsGrpComp.sectionList.Length;
+                NoSessions.Encode(pointer, current, noSessions, out current);
+            }
+            else
+            {
+                NoSessions.Zero(pointer, current, out current);
+            }
 
             Pad6.Encode(pointer, current, out current);
 
-            var sessionsGrpComp = (byte)message.GetInt(SessionsGrpComp.FixTag);
-            SessionsGrpComp.Encode(message, pointer, current, sessionsGrpComp, out current);
+            if (isSessionsGrpComp)
+            {
+                SessionsGrpComp.Encode(pointer, current, sessionsGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -80,12 +90,11 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad4.Length;
 
-            var noSessions = (short)NoSessions.Decode(pointer, current, out current);
-            message.AppendInt(NoSessions.FixTag, noSessions);
+            var noSessions = (int)NoSessions.Decode(pointer, current, out current);
 
             current += Pad6.Length;
 
-            SessionsGrpComp.Decode(ref message, pointer, current, out current);
+            SessionsGrpComp.Decode(ref message, pointer, current, noSessions, out current);
 
             return FixErrorCode.None;
         }

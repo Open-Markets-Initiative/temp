@@ -89,8 +89,16 @@ namespace Eurex.EtiDerivatives.v130
             var tradingCapacity = (byte)message.GetInt(TradingCapacity.FixTag);
             TradingCapacity.Encode(pointer, current, tradingCapacity, out current);
 
-            var noSrqsTargetPartyTrdGrps = (byte)message.GetInt(NoSrqsTargetPartyTrdGrps.FixTag);
-            NoSrqsTargetPartyTrdGrps.Encode(pointer, current, noSrqsTargetPartyTrdGrps, out current);
+            var isSrqsTargetPartyTrdGrpComp = message.TryGetGroup(NoSrqsTargetPartyTrdGrps.FixTag, out var srqsTargetPartyTrdGrpComp) && SrqsTargetPartyTrdGrpComp.sectionList.Length > 0;
+            if (isSrqsTargetPartyTrdGrpComp)
+            {
+                var noSrqsTargetPartyTrdGrps = (byte)srqsTargetPartyTrdGrpComp.sectionList.Length;
+                NoSrqsTargetPartyTrdGrps.Encode(pointer, current, noSrqsTargetPartyTrdGrps, out current);
+            }
+            else
+            {
+                NoSrqsTargetPartyTrdGrps.Zero(pointer, current, out current);
+            }
 
             if (message.TryGetString(RootPartyExecutingFirm.FixTag, out var rootPartyExecutingFirm))
             {
@@ -244,8 +252,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad1.Encode(pointer, current, out current);
 
-            var srqsTargetPartyTrdGrpComp = (byte)message.GetInt(SrqsTargetPartyTrdGrpComp.FixTag);
-            SrqsTargetPartyTrdGrpComp.Encode(message, pointer, current, srqsTargetPartyTrdGrpComp, out current);
+            if (isSrqsTargetPartyTrdGrpComp)
+            {
+                SrqsTargetPartyTrdGrpComp.Encode(pointer, current, srqsTargetPartyTrdGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -326,8 +336,7 @@ namespace Eurex.EtiDerivatives.v130
             var tradingCapacity = TradingCapacity.Decode(pointer, current, out current);
             message.AppendInt(TradingCapacity.FixTag, tradingCapacity);
 
-            var noSrqsTargetPartyTrdGrps = NoSrqsTargetPartyTrdGrps.Decode(pointer, current, out current);
-            message.AppendInt(NoSrqsTargetPartyTrdGrps.FixTag, noSrqsTargetPartyTrdGrps);
+            var noSrqsTargetPartyTrdGrps = (int)NoSrqsTargetPartyTrdGrps.Decode(pointer, current, out current);
 
             if (RootPartyExecutingFirm.TryDecode(pointer, current, out var rootPartyExecutingFirm, out current))
             {
@@ -417,7 +426,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad1.Length;
 
-            SrqsTargetPartyTrdGrpComp.Decode(ref message, pointer, current, out current);
+            SrqsTargetPartyTrdGrpComp.Decode(ref message, pointer, current, noSrqsTargetPartyTrdGrps, out current);
 
             return FixErrorCode.None;
         }

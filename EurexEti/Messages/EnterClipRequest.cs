@@ -63,11 +63,27 @@ namespace Eurex.EtiDerivatives.v130
             var crossRequestId = message.GetInt(CrossRequestId.FixTag);
             CrossRequestId.Encode(pointer, current, crossRequestId, out current);
 
-            var noSides = (byte)message.GetInt(NoSides.FixTag);
-            NoSides.Encode(pointer, current, noSides, out current);
+            var isCrossRequestSideGrpComp = message.TryGetGroup(NoSides.FixTag, out var crossRequestSideGrpComp) && CrossRequestSideGrpComp.sectionList.Length > 0;
+            if (isCrossRequestSideGrpComp)
+            {
+                var noSides = (byte)crossRequestSideGrpComp.sectionList.Length;
+                NoSides.Encode(pointer, current, noSides, out current);
+            }
+            else
+            {
+                NoSides.Zero(pointer, current, out current);
+            }
 
-            var noCrossLegs = (byte)message.GetInt(NoCrossLegs.FixTag);
-            NoCrossLegs.Encode(pointer, current, noCrossLegs, out current);
+            var isSideCrossLegGrpComp = message.TryGetGroup(NoCrossLegs.FixTag, out var sideCrossLegGrpComp) && SideCrossLegGrpComp.sectionList.Length > 0;
+            if (isSideCrossLegGrpComp)
+            {
+                var noCrossLegs = (byte)sideCrossLegGrpComp.sectionList.Length;
+                NoCrossLegs.Encode(pointer, current, noCrossLegs, out current);
+            }
+            else
+            {
+                NoCrossLegs.Zero(pointer, current, out current);
+            }
 
             var crossRequestType = (byte)message.GetInt(CrossRequestType.FixTag);
             CrossRequestType.Encode(pointer, current, crossRequestType, out current);
@@ -113,11 +129,15 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad7.Encode(pointer, current, out current);
 
-            var crossRequestSideGrpComp = (byte)message.GetInt(CrossRequestSideGrpComp.FixTag);
-            CrossRequestSideGrpComp.Encode(message, pointer, current, crossRequestSideGrpComp, out current);
+            if (isCrossRequestSideGrpComp)
+            {
+                CrossRequestSideGrpComp.Encode(pointer, current, crossRequestSideGrpComp, out current);
+            }
 
-            var sideCrossLegGrpComp = (byte)message.GetInt(SideCrossLegGrpComp.FixTag);
-            SideCrossLegGrpComp.Encode(message, pointer, current, sideCrossLegGrpComp, out current);
+            if (isSideCrossLegGrpComp)
+            {
+                SideCrossLegGrpComp.Encode(pointer, current, sideCrossLegGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -168,11 +188,9 @@ namespace Eurex.EtiDerivatives.v130
             var crossRequestId = CrossRequestId.Decode(pointer, current, out current);
             message.AppendInt(CrossRequestId.FixTag, crossRequestId);
 
-            var noSides = NoSides.Decode(pointer, current, out current);
-            message.AppendInt(NoSides.FixTag, noSides);
+            var noSides = (int)NoSides.Decode(pointer, current, out current);
 
-            var noCrossLegs = NoCrossLegs.Decode(pointer, current, out current);
-            message.AppendInt(NoCrossLegs.FixTag, noCrossLegs);
+            var noCrossLegs = (int)NoCrossLegs.Decode(pointer, current, out current);
 
             var crossRequestType = CrossRequestType.Decode(pointer, current, out current);
             message.AppendInt(CrossRequestType.FixTag, crossRequestType);
@@ -210,9 +228,9 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad7.Length;
 
-            CrossRequestSideGrpComp.Decode(ref message, pointer, current, out current);
+            CrossRequestSideGrpComp.Decode(ref message, pointer, current, noSides, out current);
 
-            SideCrossLegGrpComp.Decode(ref message, pointer, current, out current);
+            SideCrossLegGrpComp.Decode(ref message, pointer, current, noCrossLegs, out current);
 
             return FixErrorCode.None;
         }

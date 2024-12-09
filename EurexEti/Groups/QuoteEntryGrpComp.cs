@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Quote Entry Grp Comp Message Methods
     /// </summary>
 
-    public partial class QuoteEntryGrpComp
+    public partial static class QuoteEntryGrpComp
     {
         /// <summary>
         ///  Fix Tag for Quote Entry Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39129;
 
         /// <summary>
-        ///  Length of Quote Entry Grp Comp in bytes
-        /// </summary>
-        public const int Length = 40;
-
-        /// <summary>
         ///  Encode Quote Entry Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int quoteEntryGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode quote entry grp comp ---
-
-            if (!message.TryGetGroup(QuoteEntryGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(QuoteEntryGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in quoteEntryGrpComp.sectionList)
             {
                 var securityId = group.GetLong(SecurityId.FixTag);
                 SecurityId.Encode(pointer, current, securityId, out current);
@@ -55,14 +43,35 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Quote Entry Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            QuoteEntryGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noQuoteEntries.FixTag, count);
 
+            while (count--)
+            {
+                var securityId = SecurityId.Decode(pointer, current, out current);
+                message.AppendLong(SecurityId.FixTag, securityId);
+
+                var bidPx = BidPx.Decode(pointer, current, out current);
+                message.AppendDouble(BidPx.FixTag, bidPx);
+
+                var bidSize = BidSize.Decode(pointer, current, out current);
+                message.AppendDouble(BidSize.FixTag, bidSize);
+
+                var offerPx = OfferPx.Decode(pointer, current, out current);
+                message.AppendDouble(OfferPx.FixTag, offerPx);
+
+                var offerSize = OfferSize.Decode(pointer, current, out current);
+                message.AppendDouble(OfferSize.FixTag, offerSize);
+
+            }
         }
     }
 }

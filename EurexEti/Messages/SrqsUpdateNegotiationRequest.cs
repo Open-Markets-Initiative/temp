@@ -66,8 +66,16 @@ namespace Eurex.EtiDerivatives.v130
             var negotiationId = (uint)message.GetInt(NegotiationId.FixTag);
             NegotiationId.Encode(pointer, current, negotiationId, out current);
 
-            var noTargetPartyIDs = (byte)message.GetInt(NoTargetPartyIDs.FixTag);
-            NoTargetPartyIDs.Encode(pointer, current, noTargetPartyIDs, out current);
+            var isTargetPartiesComp = message.TryGetGroup(NoTargetPartyIDs.FixTag, out var targetPartiesComp) && TargetPartiesComp.sectionList.Length > 0;
+            if (isTargetPartiesComp)
+            {
+                var noTargetPartyIDs = (byte)targetPartiesComp.sectionList.Length;
+                NoTargetPartyIDs.Encode(pointer, current, noTargetPartyIDs, out current);
+            }
+            else
+            {
+                NoTargetPartyIDs.Zero(pointer, current, out current);
+            }
 
             var numberOfRespDisclosureInstruction = (byte)message.GetInt(NumberOfRespDisclosureInstruction.FixTag);
             NumberOfRespDisclosureInstruction.Encode(pointer, current, numberOfRespDisclosureInstruction, out current);
@@ -138,8 +146,10 @@ namespace Eurex.EtiDerivatives.v130
                 ChargeId.SetNull(pointer, current, out current);
             }
 
-            var targetPartiesComp = (byte)message.GetInt(TargetPartiesComp.FixTag);
-            TargetPartiesComp.Encode(message, pointer, current, targetPartiesComp, out current);
+            if (isTargetPartiesComp)
+            {
+                TargetPartiesComp.Encode(pointer, current, targetPartiesComp, out current);
+            }
 
             // --- complete header ---
 
@@ -193,8 +203,7 @@ namespace Eurex.EtiDerivatives.v130
             var negotiationId = (int)NegotiationId.Decode(pointer, current, out current);
             message.AppendInt(NegotiationId.FixTag, negotiationId);
 
-            var noTargetPartyIDs = NoTargetPartyIDs.Decode(pointer, current, out current);
-            message.AppendInt(NoTargetPartyIDs.FixTag, noTargetPartyIDs);
+            var noTargetPartyIDs = (int)NoTargetPartyIDs.Decode(pointer, current, out current);
 
             var numberOfRespDisclosureInstruction = NumberOfRespDisclosureInstruction.Decode(pointer, current, out current);
             message.AppendInt(NumberOfRespDisclosureInstruction.FixTag, numberOfRespDisclosureInstruction);
@@ -245,7 +254,7 @@ namespace Eurex.EtiDerivatives.v130
                 message.AppendString(ChargeId.FixTag, chargeId);
             }
 
-            TargetPartiesComp.Decode(ref message, pointer, current, out current);
+            TargetPartiesComp.Decode(ref message, pointer, current, noTargetPartyIDs, out current);
 
             return FixErrorCode.None;
         }

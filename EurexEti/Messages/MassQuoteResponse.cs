@@ -62,13 +62,23 @@ namespace Eurex.EtiDerivatives.v130
             var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
             MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
 
-            var noQuoteSideEntries = (byte)message.GetInt(NoQuoteSideEntries.FixTag);
-            NoQuoteSideEntries.Encode(pointer, current, noQuoteSideEntries, out current);
+            var isQuoteEntryAckGrpComp = message.TryGetGroup(NoQuoteSideEntries.FixTag, out var quoteEntryAckGrpComp) && QuoteEntryAckGrpComp.sectionList.Length > 0;
+            if (isQuoteEntryAckGrpComp)
+            {
+                var noQuoteSideEntries = (byte)quoteEntryAckGrpComp.sectionList.Length;
+                NoQuoteSideEntries.Encode(pointer, current, noQuoteSideEntries, out current);
+            }
+            else
+            {
+                NoQuoteSideEntries.Zero(pointer, current, out current);
+            }
 
             Pad3.Encode(pointer, current, out current);
 
-            var quoteEntryAckGrpComp = (byte)message.GetInt(QuoteEntryAckGrpComp.FixTag);
-            QuoteEntryAckGrpComp.Encode(message, pointer, current, quoteEntryAckGrpComp, out current);
+            if (isQuoteEntryAckGrpComp)
+            {
+                QuoteEntryAckGrpComp.Encode(pointer, current, quoteEntryAckGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -122,12 +132,11 @@ namespace Eurex.EtiDerivatives.v130
             var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
             message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
 
-            var noQuoteSideEntries = NoQuoteSideEntries.Decode(pointer, current, out current);
-            message.AppendInt(NoQuoteSideEntries.FixTag, noQuoteSideEntries);
+            var noQuoteSideEntries = (int)NoQuoteSideEntries.Decode(pointer, current, out current);
 
             current += Pad3.Length;
 
-            QuoteEntryAckGrpComp.Decode(ref message, pointer, current, out current);
+            QuoteEntryAckGrpComp.Decode(ref message, pointer, current, noQuoteSideEntries, out current);
 
             return FixErrorCode.None;
         }

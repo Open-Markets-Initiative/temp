@@ -53,8 +53,16 @@ namespace Eurex.EtiDerivatives.v130
             var secondaryTradeId = (uint)message.GetInt(SecondaryTradeId.FixTag);
             SecondaryTradeId.Encode(pointer, current, secondaryTradeId, out current);
 
-            var noSrqsQuoteGrps = (byte)message.GetInt(NoSrqsQuoteGrps.FixTag);
-            NoSrqsQuoteGrps.Encode(pointer, current, noSrqsQuoteGrps, out current);
+            var isSrqsQuoteGrpComp = message.TryGetGroup(NoSrqsQuoteGrps.FixTag, out var srqsQuoteGrpComp) && SrqsQuoteGrpComp.sectionList.Length > 0;
+            if (isSrqsQuoteGrpComp)
+            {
+                var noSrqsQuoteGrps = (byte)srqsQuoteGrpComp.sectionList.Length;
+                NoSrqsQuoteGrps.Encode(pointer, current, noSrqsQuoteGrps, out current);
+            }
+            else
+            {
+                NoSrqsQuoteGrps.Zero(pointer, current, out current);
+            }
 
             if (message.TryGetString(FirmTradeId.FixTag, out var firmTradeId))
             {
@@ -76,8 +84,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad3.Encode(pointer, current, out current);
 
-            var srqsQuoteGrpComp = (byte)message.GetInt(SrqsQuoteGrpComp.FixTag);
-            SrqsQuoteGrpComp.Encode(message, pointer, current, srqsQuoteGrpComp, out current);
+            if (isSrqsQuoteGrpComp)
+            {
+                SrqsQuoteGrpComp.Encode(pointer, current, srqsQuoteGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -122,8 +132,7 @@ namespace Eurex.EtiDerivatives.v130
             var secondaryTradeId = (int)SecondaryTradeId.Decode(pointer, current, out current);
             message.AppendInt(SecondaryTradeId.FixTag, secondaryTradeId);
 
-            var noSrqsQuoteGrps = NoSrqsQuoteGrps.Decode(pointer, current, out current);
-            message.AppendInt(NoSrqsQuoteGrps.FixTag, noSrqsQuoteGrps);
+            var noSrqsQuoteGrps = (int)NoSrqsQuoteGrps.Decode(pointer, current, out current);
 
             if (FirmTradeId.TryDecode(pointer, current, out var firmTradeId, out current))
             {
@@ -137,7 +146,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad3.Length;
 
-            SrqsQuoteGrpComp.Decode(ref message, pointer, current, out current);
+            SrqsQuoteGrpComp.Decode(ref message, pointer, current, noSrqsQuoteGrps, out current);
 
             return FixErrorCode.None;
         }

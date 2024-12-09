@@ -80,8 +80,16 @@ namespace Eurex.EtiDerivatives.v130
             var optionalEarlyTerminationIndicator = (byte)message.GetInt(OptionalEarlyTerminationIndicator.FixTag);
             OptionalEarlyTerminationIndicator.Encode(pointer, current, optionalEarlyTerminationIndicator, out current);
 
-            var noInstrmtMatchSides = (byte)message.GetInt(NoInstrmtMatchSides.FixTag);
-            NoInstrmtMatchSides.Encode(pointer, current, noInstrmtMatchSides, out current);
+            var isBasketExecGrpComp = message.TryGetGroup(NoInstrmtMatchSides.FixTag, out var basketExecGrpComp) && BasketExecGrpComp.sectionList.Length > 0;
+            if (isBasketExecGrpComp)
+            {
+                var noInstrmtMatchSides = (byte)basketExecGrpComp.sectionList.Length;
+                NoInstrmtMatchSides.Encode(pointer, current, noInstrmtMatchSides, out current);
+            }
+            else
+            {
+                NoInstrmtMatchSides.Zero(pointer, current, out current);
+            }
 
             var messageEventSource = message.GetToken(MessageEventSource.FixTag);
             MessageEventSource.Encode(pointer, current, messageEventSource, out current);
@@ -97,8 +105,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var basketExecGrpComp = (byte)message.GetInt(BasketExecGrpComp.FixTag);
-            BasketExecGrpComp.Encode(message, pointer, current, basketExecGrpComp, out current);
+            if (isBasketExecGrpComp)
+            {
+                BasketExecGrpComp.Encode(pointer, current, basketExecGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -170,8 +180,7 @@ namespace Eurex.EtiDerivatives.v130
             var optionalEarlyTerminationIndicator = OptionalEarlyTerminationIndicator.Decode(pointer, current, out current);
             message.AppendInt(OptionalEarlyTerminationIndicator.FixTag, optionalEarlyTerminationIndicator);
 
-            var noInstrmtMatchSides = NoInstrmtMatchSides.Decode(pointer, current, out current);
-            message.AppendInt(NoInstrmtMatchSides.FixTag, noInstrmtMatchSides);
+            var noInstrmtMatchSides = (int)NoInstrmtMatchSides.Decode(pointer, current, out current);
 
             var messageEventSource = MessageEventSource.Decode(pointer, current, out current);
             message.AppendToken(MessageEventSource.FixTag, messageEventSource);
@@ -183,7 +192,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            BasketExecGrpComp.Decode(ref message, pointer, current, out current);
+            BasketExecGrpComp.Decode(ref message, pointer, current, noInstrmtMatchSides, out current);
 
             return FixErrorCode.None;
         }

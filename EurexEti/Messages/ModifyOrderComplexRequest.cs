@@ -231,11 +231,21 @@ namespace Eurex.EtiDerivatives.v130
                 PartyEndClientIdentification.SetNull(pointer, current, out current);
             }
 
-            var noLegOnbooks = (byte)message.GetInt(NoLegOnbooks.FixTag);
-            NoLegOnbooks.Encode(pointer, current, noLegOnbooks, out current);
+            var isLegOrdGrpComp = message.TryGetGroup(NoLegOnbooks.FixTag, out var legOrdGrpComp) && LegOrdGrpComp.sectionList.Length > 0;
+            if (isLegOrdGrpComp)
+            {
+                var noLegOnbooks = (byte)legOrdGrpComp.sectionList.Length;
+                NoLegOnbooks.Encode(pointer, current, noLegOnbooks, out current);
+            }
+            else
+            {
+                NoLegOnbooks.Zero(pointer, current, out current);
+            }
 
-            var legOrdGrpComp = (byte)message.GetInt(LegOrdGrpComp.FixTag);
-            LegOrdGrpComp.Encode(message, pointer, current, legOrdGrpComp, out current);
+            if (isLegOrdGrpComp)
+            {
+                LegOrdGrpComp.Encode(pointer, current, legOrdGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -410,10 +420,9 @@ namespace Eurex.EtiDerivatives.v130
                 message.AppendString(PartyEndClientIdentification.FixTag, partyEndClientIdentification);
             }
 
-            var noLegOnbooks = NoLegOnbooks.Decode(pointer, current, out current);
-            message.AppendInt(NoLegOnbooks.FixTag, noLegOnbooks);
+            var noLegOnbooks = (int)NoLegOnbooks.Decode(pointer, current, out current);
 
-            LegOrdGrpComp.Decode(ref message, pointer, current, out current);
+            LegOrdGrpComp.Decode(ref message, pointer, current, noLegOnbooks, out current);
 
             return FixErrorCode.None;
         }

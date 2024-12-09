@@ -113,8 +113,16 @@ namespace Eurex.EtiDerivatives.v130
             var quoteSubType = (byte)message.GetInt(QuoteSubType.FixTag);
             QuoteSubType.Encode(pointer, current, quoteSubType, out current);
 
-            var noLegs = (byte)message.GetInt(NoLegs.FixTag);
-            NoLegs.Encode(pointer, current, noLegs, out current);
+            var isQuotReqLegsGrpComp = message.TryGetGroup(NoLegs.FixTag, out var quotReqLegsGrpComp) && QuotReqLegsGrpComp.sectionList.Length > 0;
+            if (isQuotReqLegsGrpComp)
+            {
+                var noLegs = (byte)quotReqLegsGrpComp.sectionList.Length;
+                NoLegs.Encode(pointer, current, noLegs, out current);
+            }
+            else
+            {
+                NoLegs.Zero(pointer, current, out current);
+            }
 
             var side = (byte)message.GetInt(Side.FixTag);
             Side.Encode(pointer, current, side, out current);
@@ -214,8 +222,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var quotReqLegsGrpComp = (byte)message.GetInt(QuotReqLegsGrpComp.FixTag);
-            QuotReqLegsGrpComp.Encode(message, pointer, current, quotReqLegsGrpComp, out current);
+            if (isQuotReqLegsGrpComp)
+            {
+                QuotReqLegsGrpComp.Encode(pointer, current, quotReqLegsGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -320,8 +330,7 @@ namespace Eurex.EtiDerivatives.v130
             var quoteSubType = QuoteSubType.Decode(pointer, current, out current);
             message.AppendInt(QuoteSubType.FixTag, quoteSubType);
 
-            var noLegs = NoLegs.Decode(pointer, current, out current);
-            message.AppendInt(NoLegs.FixTag, noLegs);
+            var noLegs = (int)NoLegs.Decode(pointer, current, out current);
 
             var side = Side.Decode(pointer, current, out current);
             message.AppendInt(Side.FixTag, side);
@@ -385,7 +394,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            QuotReqLegsGrpComp.Decode(ref message, pointer, current, out current);
+            QuotReqLegsGrpComp.Decode(ref message, pointer, current, noLegs, out current);
 
             return FixErrorCode.None;
         }

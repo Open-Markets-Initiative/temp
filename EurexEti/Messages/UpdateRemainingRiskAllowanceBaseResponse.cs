@@ -53,13 +53,23 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad3.Encode(pointer, current, out current);
 
-            var noPartyRiskLimits = (ushort)message.GetInt(NoPartyRiskLimits.FixTag);
-            NoPartyRiskLimits.Encode(pointer, current, noPartyRiskLimits, out current);
+            var isRraUpdateBasePartyAckGrpComp = message.TryGetGroup(NoPartyRiskLimits.FixTag, out var rraUpdateBasePartyAckGrpComp) && RraUpdateBasePartyAckGrpComp.sectionList.Length > 0;
+            if (isRraUpdateBasePartyAckGrpComp)
+            {
+                var noPartyRiskLimits = (ushort)rraUpdateBasePartyAckGrpComp.sectionList.Length;
+                NoPartyRiskLimits.Encode(pointer, current, noPartyRiskLimits, out current);
+            }
+            else
+            {
+                NoPartyRiskLimits.Zero(pointer, current, out current);
+            }
 
             Pad6.Encode(pointer, current, out current);
 
-            var rraUpdateBasePartyAckGrpComp = (byte)message.GetInt(RraUpdateBasePartyAckGrpComp.FixTag);
-            RraUpdateBasePartyAckGrpComp.Encode(message, pointer, current, rraUpdateBasePartyAckGrpComp, out current);
+            if (isRraUpdateBasePartyAckGrpComp)
+            {
+                RraUpdateBasePartyAckGrpComp.Encode(pointer, current, rraUpdateBasePartyAckGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -104,12 +114,11 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad3.Length;
 
-            var noPartyRiskLimits = (short)NoPartyRiskLimits.Decode(pointer, current, out current);
-            message.AppendInt(NoPartyRiskLimits.FixTag, noPartyRiskLimits);
+            var noPartyRiskLimits = (int)NoPartyRiskLimits.Decode(pointer, current, out current);
 
             current += Pad6.Length;
 
-            RraUpdateBasePartyAckGrpComp.Decode(ref message, pointer, current, out current);
+            RraUpdateBasePartyAckGrpComp.Decode(ref message, pointer, current, noPartyRiskLimits, out current);
 
             return FixErrorCode.None;
         }

@@ -19,7 +19,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, int length, string value, out int current)
         {
-            if (length > offset + value.Length)
+            if (length > offset + size)
             {
                 throw new System.Exception("Invalid Length for Var Text");
             }
@@ -62,11 +62,11 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  TryDecode Var Text
         /// </summary>
-        public unsafe static bool TryDecode(byte* pointer, int offset, int length, int size, out string value, out int current)
+        public unsafe static bool TryDecode(byte* pointer, int offset, int size, out string value, out int current)
         {
             if (size > 0)
             {
-                value = Decode(pointer, offset, size, out value, out current);
+                value = Decode(pointer, offset, size, out current);
 
                 return !string.IsNullOrEmpty(value);
             }

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Not Affected Orders Grp Comp Message Methods
     /// </summary>
 
-    public partial class NotAffectedOrdersGrpComp
+    public partial static class NotAffectedOrdersGrpComp
     {
         /// <summary>
         ///  Fix Tag for Not Affected Orders Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39119;
 
         /// <summary>
-        ///  Length of Not Affected Orders Grp Comp in bytes
-        /// </summary>
-        public const int Length = 16;
-
-        /// <summary>
         ///  Encode Not Affected Orders Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int notAffectedOrdersGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode not affected orders grp comp ---
-
-            if (!message.TryGetGroup(NotAffectedOrdersGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(NotAffectedOrdersGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in notAffectedOrdersGrpComp.sectionList)
             {
                 var notAffectedOrderId = group.GetULong(NotAffectedOrderId.FixTag);
                 NotAffectedOrderId.Encode(pointer, current, notAffectedOrderId, out current);
@@ -46,14 +34,26 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Not Affected Orders Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            NotAffectedOrdersGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noNotAffectedOrders.FixTag, count);
 
+            while (count--)
+            {
+                var notAffectedOrderId = NotAffectedOrderId.Decode(pointer, current, out current);
+                message.AppendULong(NotAffectedOrderId.FixTag, notAffectedOrderId);
+
+                var notAffOrigClOrdId = NotAffOrigClOrdId.Decode(pointer, current, out current);
+                message.AppendULong(NotAffOrigClOrdId.FixTag, notAffOrigClOrdId);
+
+            }
         }
     }
 }

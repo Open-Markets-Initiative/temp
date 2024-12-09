@@ -59,13 +59,23 @@ namespace Eurex.EtiDerivatives.v130
             var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
             MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
 
-            var noMmParameters = (byte)message.GetInt(NoMmParameters.FixTag);
-            NoMmParameters.Encode(pointer, current, noMmParameters, out current);
+            var isMmParameterGrpComp = message.TryGetGroup(NoMmParameters.FixTag, out var mmParameterGrpComp) && MmParameterGrpComp.sectionList.Length > 0;
+            if (isMmParameterGrpComp)
+            {
+                var noMmParameters = (byte)mmParameterGrpComp.sectionList.Length;
+                NoMmParameters.Encode(pointer, current, noMmParameters, out current);
+            }
+            else
+            {
+                NoMmParameters.Zero(pointer, current, out current);
+            }
 
             Pad3.Encode(pointer, current, out current);
 
-            var mmParameterGrpComp = (byte)message.GetInt(MmParameterGrpComp.FixTag);
-            MmParameterGrpComp.Encode(message, pointer, current, mmParameterGrpComp, out current);
+            if (isMmParameterGrpComp)
+            {
+                MmParameterGrpComp.Encode(pointer, current, mmParameterGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -116,12 +126,11 @@ namespace Eurex.EtiDerivatives.v130
             var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
             message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
 
-            var noMmParameters = NoMmParameters.Decode(pointer, current, out current);
-            message.AppendInt(NoMmParameters.FixTag, noMmParameters);
+            var noMmParameters = (int)NoMmParameters.Decode(pointer, current, out current);
 
             current += Pad3.Length;
 
-            MmParameterGrpComp.Decode(ref message, pointer, current, out current);
+            MmParameterGrpComp.Decode(ref message, pointer, current, noMmParameters, out current);
 
             return FixErrorCode.None;
         }

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Mm Parameter Grp Comp Message Methods
     /// </summary>
 
-    public partial class MmParameterGrpComp
+    public partial static class MmParameterGrpComp
     {
         /// <summary>
         ///  Fix Tag for Mm Parameter Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39116;
 
         /// <summary>
-        ///  Length of Mm Parameter Grp Comp in bytes
-        /// </summary>
-        public const int Length = 48;
-
-        /// <summary>
         ///  Encode Mm Parameter Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int mmParameterGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode mm parameter grp comp ---
-
-            if (!message.TryGetGroup(MmParameterGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(MmParameterGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in mmParameterGrpComp.sectionList)
             {
                 var exposureDuration = group.GetLong(ExposureDuration.FixTag);
                 ExposureDuration.Encode(pointer, current, exposureDuration, out current);
@@ -63,14 +51,43 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Mm Parameter Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            MmParameterGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noMmParameters.FixTag, count);
 
+            while (count--)
+            {
+                var exposureDuration = ExposureDuration.Decode(pointer, current, out current);
+                message.AppendLong(ExposureDuration.FixTag, exposureDuration);
+
+                var cumQty = CumQty.Decode(pointer, current, out current);
+                message.AppendDouble(CumQty.FixTag, cumQty);
+
+                var delta = Delta.Decode(pointer, current, out current);
+                message.AppendDouble(Delta.FixTag, delta);
+
+                var vega = Vega.Decode(pointer, current, out current);
+                message.AppendDouble(Vega.FixTag, vega);
+
+                var pctCount = PctCount.Decode(pointer, current, out current);
+                message.AppendInt(PctCount.FixTag, pctCount);
+
+                var targetPartyIdSessionId = (int)TargetPartyIdSessionId.Decode(pointer, current, out current);
+                message.AppendInt(TargetPartyIdSessionId.FixTag, targetPartyIdSessionId);
+
+                var mmRiskLimitActionType = MmRiskLimitActionType.Decode(pointer, current, out current);
+                message.AppendInt(MmRiskLimitActionType.FixTag, mmRiskLimitActionType);
+
+                current += Pad7.Length;
+
+            }
         }
     }
 }

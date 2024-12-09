@@ -90,8 +90,16 @@ namespace Eurex.EtiDerivatives.v130
             var hedgingInstruction = (byte)message.GetInt(HedgingInstruction.FixTag);
             HedgingInstruction.Encode(pointer, current, hedgingInstruction, out current);
 
-            var noSrqsQuoteGrps = (byte)message.GetInt(NoSrqsQuoteGrps.FixTag);
-            NoSrqsQuoteGrps.Encode(pointer, current, noSrqsQuoteGrps, out current);
+            var isSrqsHitQuoteGrpComp = message.TryGetGroup(NoSrqsQuoteGrps.FixTag, out var srqsHitQuoteGrpComp) && SrqsHitQuoteGrpComp.sectionList.Length > 0;
+            if (isSrqsHitQuoteGrpComp)
+            {
+                var noSrqsQuoteGrps = (byte)srqsHitQuoteGrpComp.sectionList.Length;
+                NoSrqsQuoteGrps.Encode(pointer, current, noSrqsQuoteGrps, out current);
+            }
+            else
+            {
+                NoSrqsQuoteGrps.Zero(pointer, current, out current);
+            }
 
             if (message.TryGetString(PartyExecutingFirm.FixTag, out var partyExecutingFirm))
             {
@@ -236,8 +244,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad6.Encode(pointer, current, out current);
 
-            var srqsHitQuoteGrpComp = (byte)message.GetInt(SrqsHitQuoteGrpComp.FixTag);
-            SrqsHitQuoteGrpComp.Encode(message, pointer, current, srqsHitQuoteGrpComp, out current);
+            if (isSrqsHitQuoteGrpComp)
+            {
+                SrqsHitQuoteGrpComp.Encode(pointer, current, srqsHitQuoteGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -315,8 +325,7 @@ namespace Eurex.EtiDerivatives.v130
             var hedgingInstruction = HedgingInstruction.Decode(pointer, current, out current);
             message.AppendInt(HedgingInstruction.FixTag, hedgingInstruction);
 
-            var noSrqsQuoteGrps = NoSrqsQuoteGrps.Decode(pointer, current, out current);
-            message.AppendInt(NoSrqsQuoteGrps.FixTag, noSrqsQuoteGrps);
+            var noSrqsQuoteGrps = (int)NoSrqsQuoteGrps.Decode(pointer, current, out current);
 
             if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
             {
@@ -401,7 +410,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad6.Length;
 
-            SrqsHitQuoteGrpComp.Decode(ref message, pointer, current, out current);
+            SrqsHitQuoteGrpComp.Decode(ref message, pointer, current, noSrqsQuoteGrps, out current);
 
             return FixErrorCode.None;
         }

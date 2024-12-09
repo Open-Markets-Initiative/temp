@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Public Key Len: Fixed Width Integer For Runtime Sized Field
+    ///  Public Key Len: Runtime Length Field
     /// </summary>
 
     public static class PublicKeyLen

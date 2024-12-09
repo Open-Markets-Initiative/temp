@@ -57,8 +57,16 @@ namespace Eurex.EtiDerivatives.v130
             var rootPartySubIdType = (ushort)message.GetInt(RootPartySubIdType.FixTag);
             RootPartySubIdType.Encode(pointer, current, rootPartySubIdType, out current);
 
-            var noBasketSideAlloc = (ushort)message.GetInt(NoBasketSideAlloc.FixTag);
-            NoBasketSideAlloc.Encode(pointer, current, noBasketSideAlloc, out current);
+            var isBasketSideAllocExtGrpComp = message.TryGetGroup(NoBasketSideAlloc.FixTag, out var basketSideAllocExtGrpComp) && BasketSideAllocExtGrpComp.sectionList.Length > 0;
+            if (isBasketSideAllocExtGrpComp)
+            {
+                var noBasketSideAlloc = (ushort)basketSideAllocExtGrpComp.sectionList.Length;
+                NoBasketSideAlloc.Encode(pointer, current, noBasketSideAlloc, out current);
+            }
+            else
+            {
+                NoBasketSideAlloc.Zero(pointer, current, out current);
+            }
 
             var trdType = (ushort)message.GetInt(TrdType.FixTag);
             TrdType.Encode(pointer, current, trdType, out current);
@@ -95,8 +103,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad5.Encode(pointer, current, out current);
 
-            var basketSideAllocExtGrpComp = (byte)message.GetInt(BasketSideAllocExtGrpComp.FixTag);
-            BasketSideAllocExtGrpComp.Encode(message, pointer, current, basketSideAllocExtGrpComp, out current);
+            if (isBasketSideAllocExtGrpComp)
+            {
+                BasketSideAllocExtGrpComp.Encode(pointer, current, basketSideAllocExtGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -141,8 +151,7 @@ namespace Eurex.EtiDerivatives.v130
             var rootPartySubIdType = (short)RootPartySubIdType.Decode(pointer, current, out current);
             message.AppendInt(RootPartySubIdType.FixTag, rootPartySubIdType);
 
-            var noBasketSideAlloc = (short)NoBasketSideAlloc.Decode(pointer, current, out current);
-            message.AppendInt(NoBasketSideAlloc.FixTag, noBasketSideAlloc);
+            var noBasketSideAlloc = (int)NoBasketSideAlloc.Decode(pointer, current, out current);
 
             var trdType = (short)TrdType.Decode(pointer, current, out current);
             message.AppendInt(TrdType.FixTag, trdType);
@@ -167,7 +176,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad5.Length;
 
-            BasketSideAllocExtGrpComp.Decode(ref message, pointer, current, out current);
+            BasketSideAllocExtGrpComp.Decode(ref message, pointer, current, noBasketSideAlloc, out current);
 
             return FixErrorCode.None;
         }

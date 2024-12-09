@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  No Basket Root Party Grps Bc: 1 Byte Fixed Width Integer
+    ///  No Basket Root Party Grps Bc: Runtime Count Field
     /// </summary>
 
-    public sealed class NoBasketRootPartyGrpsBc
+    public static class NoBasketRootPartyGrpsBc
     {
         /// <summary>
         ///  Fix Tag for No Basket Root Party Grps Bc
@@ -52,15 +52,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set No Basket Root Party Grps Bc to 0
+        /// </summary>
+        public unsafe static void Zero(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + NoBasketRootPartyGrpsBc.Length)
+            {
+                throw new System.Exception("Invalid Length for No Basket Root Party Grps Bc");
+            }
+
+            Zero(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set No Basket Root Party Grps Bc to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zero(byte* pointer, int offset, out int current)
+        {
+            Zero(pointer, offset);
+
+            current = offset + NoBasketRootPartyGrpsBc.Length;
+        }
+
+        /// <summary>
+        ///  Set No Basket Root Party Grps Bc to 0
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zero(byte* pointer, int offset)
+        {
+            *(byte*) (pointer + offset) = 0;
+        }
+
+        /// <summary>
         ///  TryDecode No Basket Root Party Grps Bc
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out byte value, out int current)
         {
             if (length > offset + NoBasketRootPartyGrpsBc.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +99,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode No Basket Root Party Grps Bc
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out byte value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value > 0;
         }
 
         /// <summary>

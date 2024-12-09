@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Quote Entry Ack Grp Comp Message Methods
     /// </summary>
 
-    public partial class QuoteEntryAckGrpComp
+    public partial static class QuoteEntryAckGrpComp
     {
         /// <summary>
         ///  Fix Tag for Quote Entry Ack Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39128;
 
         /// <summary>
-        ///  Length of Quote Entry Ack Grp Comp in bytes
-        /// </summary>
-        public const int Length = 24;
-
-        /// <summary>
         ///  Encode Quote Entry Ack Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int quoteEntryAckGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode quote entry ack grp comp ---
-
-            if (!message.TryGetGroup(QuoteEntryAckGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(QuoteEntryAckGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in quoteEntryAckGrpComp.sectionList)
             {
                 var securityId = group.GetLong(SecurityId.FixTag);
                 SecurityId.Encode(pointer, current, securityId, out current);
@@ -57,14 +45,37 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Quote Entry Ack Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            QuoteEntryAckGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noQuoteSideEntries.FixTag, count);
 
+            while (count--)
+            {
+                var securityId = SecurityId.Decode(pointer, current, out current);
+                message.AppendLong(SecurityId.FixTag, securityId);
+
+                var cxlSize = CxlSize.Decode(pointer, current, out current);
+                message.AppendDouble(CxlSize.FixTag, cxlSize);
+
+                var quoteEntryRejectReason = (int)QuoteEntryRejectReason.Decode(pointer, current, out current);
+                message.AppendInt(QuoteEntryRejectReason.FixTag, quoteEntryRejectReason);
+
+                var quoteEntryStatus = QuoteEntryStatus.Decode(pointer, current, out current);
+                message.AppendInt(QuoteEntryStatus.FixTag, quoteEntryStatus);
+
+                var side = Side.Decode(pointer, current, out current);
+                message.AppendInt(Side.FixTag, side);
+
+                current += Pad2.Length;
+
+            }
         }
     }
 }

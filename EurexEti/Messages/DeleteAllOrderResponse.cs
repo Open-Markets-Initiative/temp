@@ -63,19 +63,39 @@ namespace Eurex.EtiDerivatives.v130
             var massActionReportId = message.GetULong(MassActionReportId.FixTag);
             MassActionReportId.Encode(pointer, current, massActionReportId, out current);
 
-            var noNotAffectedOrders = (ushort)message.GetInt(NoNotAffectedOrders.FixTag);
-            NoNotAffectedOrders.Encode(pointer, current, noNotAffectedOrders, out current);
+            var isNotAffectedOrdersGrpComp = message.TryGetGroup(NoNotAffectedOrders.FixTag, out var notAffectedOrdersGrpComp) && NotAffectedOrdersGrpComp.sectionList.Length > 0;
+            if (isNotAffectedOrdersGrpComp)
+            {
+                var noNotAffectedOrders = (ushort)notAffectedOrdersGrpComp.sectionList.Length;
+                NoNotAffectedOrders.Encode(pointer, current, noNotAffectedOrders, out current);
+            }
+            else
+            {
+                NoNotAffectedOrders.Zero(pointer, current, out current);
+            }
 
-            var noAffectedOrderRequests = (ushort)message.GetInt(NoAffectedOrderRequests.FixTag);
-            NoAffectedOrderRequests.Encode(pointer, current, noAffectedOrderRequests, out current);
+            var isAffectedOrderRequestsGrpComp = message.TryGetGroup(NoAffectedOrderRequests.FixTag, out var affectedOrderRequestsGrpComp) && AffectedOrderRequestsGrpComp.sectionList.Length > 0;
+            if (isAffectedOrderRequestsGrpComp)
+            {
+                var noAffectedOrderRequests = (ushort)affectedOrderRequestsGrpComp.sectionList.Length;
+                NoAffectedOrderRequests.Encode(pointer, current, noAffectedOrderRequests, out current);
+            }
+            else
+            {
+                NoAffectedOrderRequests.Zero(pointer, current, out current);
+            }
 
             Pad4.Encode(pointer, current, out current);
 
-            var notAffectedOrdersGrpComp = (byte)message.GetInt(NotAffectedOrdersGrpComp.FixTag);
-            NotAffectedOrdersGrpComp.Encode(message, pointer, current, notAffectedOrdersGrpComp, out current);
+            if (isNotAffectedOrdersGrpComp)
+            {
+                NotAffectedOrdersGrpComp.Encode(pointer, current, notAffectedOrdersGrpComp, out current);
+            }
 
-            var affectedOrderRequestsGrpComp = (byte)message.GetInt(AffectedOrderRequestsGrpComp.FixTag);
-            AffectedOrderRequestsGrpComp.Encode(message, pointer, current, affectedOrderRequestsGrpComp, out current);
+            if (isAffectedOrderRequestsGrpComp)
+            {
+                AffectedOrderRequestsGrpComp.Encode(pointer, current, affectedOrderRequestsGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -130,17 +150,15 @@ namespace Eurex.EtiDerivatives.v130
             var massActionReportId = MassActionReportId.Decode(pointer, current, out current);
             message.AppendULong(MassActionReportId.FixTag, massActionReportId);
 
-            var noNotAffectedOrders = (short)NoNotAffectedOrders.Decode(pointer, current, out current);
-            message.AppendInt(NoNotAffectedOrders.FixTag, noNotAffectedOrders);
+            var noNotAffectedOrders = (int)NoNotAffectedOrders.Decode(pointer, current, out current);
 
-            var noAffectedOrderRequests = (short)NoAffectedOrderRequests.Decode(pointer, current, out current);
-            message.AppendInt(NoAffectedOrderRequests.FixTag, noAffectedOrderRequests);
+            var noAffectedOrderRequests = (int)NoAffectedOrderRequests.Decode(pointer, current, out current);
 
             current += Pad4.Length;
 
-            NotAffectedOrdersGrpComp.Decode(ref message, pointer, current, out current);
+            NotAffectedOrdersGrpComp.Decode(ref message, pointer, current, noNotAffectedOrders, out current);
 
-            AffectedOrderRequestsGrpComp.Decode(ref message, pointer, current, out current);
+            AffectedOrderRequestsGrpComp.Decode(ref message, pointer, current, noAffectedOrderRequests, out current);
 
             return FixErrorCode.None;
         }

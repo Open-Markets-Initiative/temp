@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Fills Grp Comp Message Methods
     /// </summary>
 
-    public partial class FillsGrpComp
+    public partial static class FillsGrpComp
     {
         /// <summary>
         ///  Fix Tag for Fills Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39109;
 
         /// <summary>
-        ///  Length of Fills Grp Comp in bytes
-        /// </summary>
-        public const int Length = 32;
-
-        /// <summary>
         ///  Encode Fills Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int fillsGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode fills grp comp ---
-
-            if (!message.TryGetGroup(FillsGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(FillsGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in fillsGrpComp.sectionList)
             {
                 var fillPx = group.GetDouble(FillPx.FixTag);
                 FillPx.Encode(pointer, current, fillPx, out current);
@@ -57,14 +45,37 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Fills Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            FillsGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noFills.FixTag, count);
 
+            while (count--)
+            {
+                var fillPx = FillPx.Decode(pointer, current, out current);
+                message.AppendDouble(FillPx.FixTag, fillPx);
+
+                var fillQty = FillQty.Decode(pointer, current, out current);
+                message.AppendDouble(FillQty.FixTag, fillQty);
+
+                var fillMatchId = (int)FillMatchId.Decode(pointer, current, out current);
+                message.AppendInt(FillMatchId.FixTag, fillMatchId);
+
+                var fillExecId = FillExecId.Decode(pointer, current, out current);
+                message.AppendInt(FillExecId.FixTag, fillExecId);
+
+                var fillLiquidityInd = FillLiquidityInd.Decode(pointer, current, out current);
+                message.AppendInt(FillLiquidityInd.FixTag, fillLiquidityInd);
+
+                current += Pad7.Length;
+
+            }
         }
     }
 }

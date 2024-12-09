@@ -89,13 +89,23 @@ namespace Eurex.EtiDerivatives.v130
             var productComplex = (byte)message.GetInt(ProductComplex.FixTag);
             ProductComplex.Encode(pointer, current, productComplex, out current);
 
-            var noLegOnbooks = (byte)message.GetInt(NoLegOnbooks.FixTag);
-            NoLegOnbooks.Encode(pointer, current, noLegOnbooks, out current);
+            var isInstrmtLegGrpComp = message.TryGetGroup(NoLegOnbooks.FixTag, out var instrmtLegGrpComp) && InstrmtLegGrpComp.sectionList.Length > 0;
+            if (isInstrmtLegGrpComp)
+            {
+                var noLegOnbooks = (byte)instrmtLegGrpComp.sectionList.Length;
+                NoLegOnbooks.Encode(pointer, current, noLegOnbooks, out current);
+            }
+            else
+            {
+                NoLegOnbooks.Zero(pointer, current, out current);
+            }
 
             Pad6.Encode(pointer, current, out current);
 
-            var instrmtLegGrpComp = (byte)message.GetInt(InstrmtLegGrpComp.FixTag);
-            InstrmtLegGrpComp.Encode(message, pointer, current, instrmtLegGrpComp, out current);
+            if (isInstrmtLegGrpComp)
+            {
+                InstrmtLegGrpComp.Encode(pointer, current, instrmtLegGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -176,12 +186,11 @@ namespace Eurex.EtiDerivatives.v130
             var productComplex = ProductComplex.Decode(pointer, current, out current);
             message.AppendInt(ProductComplex.FixTag, productComplex);
 
-            var noLegOnbooks = NoLegOnbooks.Decode(pointer, current, out current);
-            message.AppendInt(NoLegOnbooks.FixTag, noLegOnbooks);
+            var noLegOnbooks = (int)NoLegOnbooks.Decode(pointer, current, out current);
 
             current += Pad6.Length;
 
-            InstrmtLegGrpComp.Decode(ref message, pointer, current, out current);
+            InstrmtLegGrpComp.Decode(ref message, pointer, current, noLegOnbooks, out current);
 
             return FixErrorCode.None;
         }

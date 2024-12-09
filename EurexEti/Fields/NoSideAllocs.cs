@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  No Side Allocs: 1 Byte Fixed Width Integer
+    ///  No Side Allocs: Runtime Count Field
     /// </summary>
 
-    public sealed class NoSideAllocs
+    public static class NoSideAllocs
     {
         /// <summary>
         ///  Fix Tag for No Side Allocs
@@ -52,15 +52,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set No Side Allocs to 0
+        /// </summary>
+        public unsafe static void Zero(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + NoSideAllocs.Length)
+            {
+                throw new System.Exception("Invalid Length for No Side Allocs");
+            }
+
+            Zero(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set No Side Allocs to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zero(byte* pointer, int offset, out int current)
+        {
+            Zero(pointer, offset);
+
+            current = offset + NoSideAllocs.Length;
+        }
+
+        /// <summary>
+        ///  Set No Side Allocs to 0
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zero(byte* pointer, int offset)
+        {
+            *(byte*) (pointer + offset) = 0;
+        }
+
+        /// <summary>
         ///  TryDecode No Side Allocs
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out byte value, out int current)
         {
             if (length > offset + NoSideAllocs.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +99,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode No Side Allocs
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out byte value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value > 0;
         }
 
         /// <summary>

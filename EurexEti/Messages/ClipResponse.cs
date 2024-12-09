@@ -65,16 +65,26 @@ namespace Eurex.EtiDerivatives.v130
             var crossRequestId = message.GetInt(CrossRequestId.FixTag);
             CrossRequestId.Encode(pointer, current, crossRequestId, out current);
 
-            var noSides = (byte)message.GetInt(NoSides.FixTag);
-            NoSides.Encode(pointer, current, noSides, out current);
+            var isCrossRequestAckSideGrpComp = message.TryGetGroup(NoSides.FixTag, out var crossRequestAckSideGrpComp) && CrossRequestAckSideGrpComp.sectionList.Length > 0;
+            if (isCrossRequestAckSideGrpComp)
+            {
+                var noSides = (byte)crossRequestAckSideGrpComp.sectionList.Length;
+                NoSides.Encode(pointer, current, noSides, out current);
+            }
+            else
+            {
+                NoSides.Zero(pointer, current, out current);
+            }
 
             var impliedCheckPriceIndicator = (byte)message.GetInt(ImpliedCheckPriceIndicator.FixTag);
             ImpliedCheckPriceIndicator.Encode(pointer, current, impliedCheckPriceIndicator, out current);
 
             Pad6.Encode(pointer, current, out current);
 
-            var crossRequestAckSideGrpComp = (byte)message.GetInt(CrossRequestAckSideGrpComp.FixTag);
-            CrossRequestAckSideGrpComp.Encode(message, pointer, current, crossRequestAckSideGrpComp, out current);
+            if (isCrossRequestAckSideGrpComp)
+            {
+                CrossRequestAckSideGrpComp.Encode(pointer, current, crossRequestAckSideGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -131,15 +141,14 @@ namespace Eurex.EtiDerivatives.v130
             var crossRequestId = CrossRequestId.Decode(pointer, current, out current);
             message.AppendInt(CrossRequestId.FixTag, crossRequestId);
 
-            var noSides = NoSides.Decode(pointer, current, out current);
-            message.AppendInt(NoSides.FixTag, noSides);
+            var noSides = (int)NoSides.Decode(pointer, current, out current);
 
             var impliedCheckPriceIndicator = ImpliedCheckPriceIndicator.Decode(pointer, current, out current);
             message.AppendInt(ImpliedCheckPriceIndicator.FixTag, impliedCheckPriceIndicator);
 
             current += Pad6.Length;
 
-            CrossRequestAckSideGrpComp.Decode(ref message, pointer, current, out current);
+            CrossRequestAckSideGrpComp.Decode(ref message, pointer, current, noSides, out current);
 
             return FixErrorCode.None;
         }

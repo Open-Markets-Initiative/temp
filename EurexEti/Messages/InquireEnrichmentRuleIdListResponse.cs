@@ -44,13 +44,23 @@ namespace Eurex.EtiDerivatives.v130
             var lastEntityProcessed = message.GetData(LastEntityProcessed.FixTag);
             LastEntityProcessed.Encode(pointer, current, lastEntityProcessed, out current);
 
-            var noEnrichmentRules = (ushort)message.GetInt(NoEnrichmentRules.FixTag);
-            NoEnrichmentRules.Encode(pointer, current, noEnrichmentRules, out current);
+            var isEnrichmentRulesGrpComp = message.TryGetGroup(NoEnrichmentRules.FixTag, out var enrichmentRulesGrpComp) && EnrichmentRulesGrpComp.sectionList.Length > 0;
+            if (isEnrichmentRulesGrpComp)
+            {
+                var noEnrichmentRules = (ushort)enrichmentRulesGrpComp.sectionList.Length;
+                NoEnrichmentRules.Encode(pointer, current, noEnrichmentRules, out current);
+            }
+            else
+            {
+                NoEnrichmentRules.Zero(pointer, current, out current);
+            }
 
             Pad6.Encode(pointer, current, out current);
 
-            var enrichmentRulesGrpComp = (byte)message.GetInt(EnrichmentRulesGrpComp.FixTag);
-            EnrichmentRulesGrpComp.Encode(message, pointer, current, enrichmentRulesGrpComp, out current);
+            if (isEnrichmentRulesGrpComp)
+            {
+                EnrichmentRulesGrpComp.Encode(pointer, current, enrichmentRulesGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -86,12 +96,11 @@ namespace Eurex.EtiDerivatives.v130
             var lastEntityProcessed = LastEntityProcessed.Decode(pointer, current, out current);
             message.AppendData(LastEntityProcessed.FixTag, lastEntityProcessed);
 
-            var noEnrichmentRules = (short)NoEnrichmentRules.Decode(pointer, current, out current);
-            message.AppendInt(NoEnrichmentRules.FixTag, noEnrichmentRules);
+            var noEnrichmentRules = (int)NoEnrichmentRules.Decode(pointer, current, out current);
 
             current += Pad6.Length;
 
-            EnrichmentRulesGrpComp.Decode(ref message, pointer, current, out current);
+            EnrichmentRulesGrpComp.Decode(ref message, pointer, current, noEnrichmentRules, out current);
 
             return FixErrorCode.None;
         }

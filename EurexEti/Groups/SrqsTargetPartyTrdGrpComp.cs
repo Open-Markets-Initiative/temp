@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Srqs Target Party Trd Grp Comp Message Methods
     /// </summary>
 
-    public partial class SrqsTargetPartyTrdGrpComp
+    public partial static class SrqsTargetPartyTrdGrpComp
     {
         /// <summary>
         ///  Fix Tag for Srqs Target Party Trd Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39145;
 
         /// <summary>
-        ///  Length of Srqs Target Party Trd Grp Comp in bytes
-        /// </summary>
-        public const int Length = 40;
-
-        /// <summary>
         ///  Encode Srqs Target Party Trd Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int srqsTargetPartyTrdGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode srqs target party trd grp comp ---
-
-            if (!message.TryGetGroup(SrqsTargetPartyTrdGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(SrqsTargetPartyTrdGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in srqsTargetPartyTrdGrpComp.sectionList)
             {
                 var sideLastQty = group.GetDouble(SideLastQty.FixTag);
                 SideLastQty.Encode(pointer, current, sideLastQty, out current);
@@ -78,14 +66,46 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Srqs Target Party Trd Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            SrqsTargetPartyTrdGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noSrqsTargetPartyTrdGrps.FixTag, count);
 
+            while (count--)
+            {
+                var sideLastQty = SideLastQty.Decode(pointer, current, out current);
+                message.AppendDouble(SideLastQty.FixTag, sideLastQty);
+
+                var quoteId = QuoteId.Decode(pointer, current, out current);
+                message.AppendULong(QuoteId.FixTag, quoteId);
+
+                var targetPartyIdExecutingTrader = (int)TargetPartyIdExecutingTrader.Decode(pointer, current, out current);
+                message.AppendInt(TargetPartyIdExecutingTrader.FixTag, targetPartyIdExecutingTrader);
+
+                if (TargetPartyExecutingFirm.TryDecode(pointer, current, out var targetPartyExecutingFirm, out current))
+                {
+                    message.AppendString(TargetPartyExecutingFirm.FixTag, targetPartyExecutingFirm);
+                }
+
+                if (TargetPartyExecutingTrader.TryDecode(pointer, current, out var targetPartyExecutingTrader, out current))
+                {
+                    message.AppendString(TargetPartyExecutingTrader.FixTag, targetPartyExecutingTrader);
+                }
+
+                if (TargetPartyEnteringTrader.TryDecode(pointer, current, out var targetPartyEnteringTrader, out current))
+                {
+                    message.AppendString(TargetPartyEnteringTrader.FixTag, targetPartyEnteringTrader);
+                }
+
+                current += Pad3.Length;
+
+            }
         }
     }
 }

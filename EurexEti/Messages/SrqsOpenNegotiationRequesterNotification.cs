@@ -104,11 +104,27 @@ namespace Eurex.EtiDerivatives.v130
             var quoteSubType = (byte)message.GetInt(QuoteSubType.FixTag);
             QuoteSubType.Encode(pointer, current, quoteSubType, out current);
 
-            var noLegs = (byte)message.GetInt(NoLegs.FixTag);
-            NoLegs.Encode(pointer, current, noLegs, out current);
+            var isQuotReqLegsGrpComp = message.TryGetGroup(NoLegs.FixTag, out var quotReqLegsGrpComp) && QuotReqLegsGrpComp.sectionList.Length > 0;
+            if (isQuotReqLegsGrpComp)
+            {
+                var noLegs = (byte)quotReqLegsGrpComp.sectionList.Length;
+                NoLegs.Encode(pointer, current, noLegs, out current);
+            }
+            else
+            {
+                NoLegs.Zero(pointer, current, out current);
+            }
 
-            var noTargetPartyIDs = (byte)message.GetInt(NoTargetPartyIDs.FixTag);
-            NoTargetPartyIDs.Encode(pointer, current, noTargetPartyIDs, out current);
+            var isTargetPartiesComp = message.TryGetGroup(NoTargetPartyIDs.FixTag, out var targetPartiesComp) && TargetPartiesComp.sectionList.Length > 0;
+            if (isTargetPartiesComp)
+            {
+                var noTargetPartyIDs = (byte)targetPartiesComp.sectionList.Length;
+                NoTargetPartyIDs.Encode(pointer, current, noTargetPartyIDs, out current);
+            }
+            else
+            {
+                NoTargetPartyIDs.Zero(pointer, current, out current);
+            }
 
             var side = (byte)message.GetInt(Side.FixTag);
             Side.Encode(pointer, current, side, out current);
@@ -206,11 +222,15 @@ namespace Eurex.EtiDerivatives.v130
                 ChargeId.SetNull(pointer, current, out current);
             }
 
-            var quotReqLegsGrpComp = (byte)message.GetInt(QuotReqLegsGrpComp.FixTag);
-            QuotReqLegsGrpComp.Encode(message, pointer, current, quotReqLegsGrpComp, out current);
+            if (isQuotReqLegsGrpComp)
+            {
+                QuotReqLegsGrpComp.Encode(pointer, current, quotReqLegsGrpComp, out current);
+            }
 
-            var targetPartiesComp = (byte)message.GetInt(TargetPartiesComp.FixTag);
-            TargetPartiesComp.Encode(message, pointer, current, targetPartiesComp, out current);
+            if (isTargetPartiesComp)
+            {
+                TargetPartiesComp.Encode(pointer, current, targetPartiesComp, out current);
+            }
 
             // --- complete header ---
 
@@ -306,11 +326,9 @@ namespace Eurex.EtiDerivatives.v130
             var quoteSubType = QuoteSubType.Decode(pointer, current, out current);
             message.AppendInt(QuoteSubType.FixTag, quoteSubType);
 
-            var noLegs = NoLegs.Decode(pointer, current, out current);
-            message.AppendInt(NoLegs.FixTag, noLegs);
+            var noLegs = (int)NoLegs.Decode(pointer, current, out current);
 
-            var noTargetPartyIDs = NoTargetPartyIDs.Decode(pointer, current, out current);
-            message.AppendInt(NoTargetPartyIDs.FixTag, noTargetPartyIDs);
+            var noTargetPartyIDs = (int)NoTargetPartyIDs.Decode(pointer, current, out current);
 
             var side = Side.Decode(pointer, current, out current);
             message.AppendInt(Side.FixTag, side);
@@ -380,9 +398,9 @@ namespace Eurex.EtiDerivatives.v130
                 message.AppendString(ChargeId.FixTag, chargeId);
             }
 
-            QuotReqLegsGrpComp.Decode(ref message, pointer, current, out current);
+            QuotReqLegsGrpComp.Decode(ref message, pointer, current, noLegs, out current);
 
-            TargetPartiesComp.Decode(ref message, pointer, current, out current);
+            TargetPartiesComp.Decode(ref message, pointer, current, noTargetPartyIDs, out current);
 
             return FixErrorCode.None;
         }

@@ -81,8 +81,16 @@ namespace Eurex.EtiDerivatives.v130
             var orderAttributeLiquidityProvision = (byte)message.GetInt(OrderAttributeLiquidityProvision.FixTag);
             OrderAttributeLiquidityProvision.Encode(pointer, current, orderAttributeLiquidityProvision, out current);
 
-            var noQuoteEntries = (byte)message.GetInt(NoQuoteEntries.FixTag);
-            NoQuoteEntries.Encode(pointer, current, noQuoteEntries, out current);
+            var isQuoteEntryGrpComp = message.TryGetGroup(NoQuoteEntries.FixTag, out var quoteEntryGrpComp) && QuoteEntryGrpComp.sectionList.Length > 0;
+            if (isQuoteEntryGrpComp)
+            {
+                var noQuoteEntries = (byte)quoteEntryGrpComp.sectionList.Length;
+                NoQuoteEntries.Encode(pointer, current, noQuoteEntries, out current);
+            }
+            else
+            {
+                NoQuoteEntries.Zero(pointer, current, out current);
+            }
 
             var partyIdInvestmentDecisionMakerQualifier = (byte)message.GetInt(PartyIdInvestmentDecisionMakerQualifier.FixTag);
             PartyIdInvestmentDecisionMakerQualifier.Encode(pointer, current, partyIdInvestmentDecisionMakerQualifier, out current);
@@ -92,8 +100,10 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad5.Encode(pointer, current, out current);
 
-            var quoteEntryGrpComp = (byte)message.GetInt(QuoteEntryGrpComp.FixTag);
-            QuoteEntryGrpComp.Encode(message, pointer, current, quoteEntryGrpComp, out current);
+            if (isQuoteEntryGrpComp)
+            {
+                QuoteEntryGrpComp.Encode(pointer, current, quoteEntryGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -162,8 +172,7 @@ namespace Eurex.EtiDerivatives.v130
             var orderAttributeLiquidityProvision = OrderAttributeLiquidityProvision.Decode(pointer, current, out current);
             message.AppendInt(OrderAttributeLiquidityProvision.FixTag, orderAttributeLiquidityProvision);
 
-            var noQuoteEntries = NoQuoteEntries.Decode(pointer, current, out current);
-            message.AppendInt(NoQuoteEntries.FixTag, noQuoteEntries);
+            var noQuoteEntries = (int)NoQuoteEntries.Decode(pointer, current, out current);
 
             var partyIdInvestmentDecisionMakerQualifier = PartyIdInvestmentDecisionMakerQualifier.Decode(pointer, current, out current);
             message.AppendInt(PartyIdInvestmentDecisionMakerQualifier.FixTag, partyIdInvestmentDecisionMakerQualifier);
@@ -173,7 +182,7 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad5.Length;
 
-            QuoteEntryGrpComp.Decode(ref message, pointer, current, out current);
+            QuoteEntryGrpComp.Decode(ref message, pointer, current, noQuoteEntries, out current);
 
             return FixErrorCode.None;
         }

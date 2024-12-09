@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Var Text Len: Fixed Width Integer For Runtime Sized Field
+    ///  Var Text Len: Runtime Length Field
     /// </summary>
 
     public static class VarTextLen

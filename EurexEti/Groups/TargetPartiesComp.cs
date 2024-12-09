@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Target Parties Comp Message Methods
     /// </summary>
 
-    public partial class TargetPartiesComp
+    public partial static class TargetPartiesComp
     {
         /// <summary>
         ///  Fix Tag for Target Parties Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39146;
 
         /// <summary>
-        ///  Length of Target Parties Comp in bytes
-        /// </summary>
-        public const int Length = 32;
-
-        /// <summary>
         ///  Encode Target Parties Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int targetPartiesComp, out int current)
         {
             current = offset;
 
-            // --- encode target parties comp ---
-
-            if (!message.TryGetGroup(TargetPartiesComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(TargetPartiesComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in targetPartiesComp.sectionList)
             {
                 var targetPartyIdExecutingTrader = (uint)group.GetInt(TargetPartyIdExecutingTrader.FixTag);
                 TargetPartyIdExecutingTrader.Encode(pointer, current, targetPartyIdExecutingTrader, out current);
@@ -96,14 +84,68 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Target Parties Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            TargetPartiesComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noTargetPartyIDs.FixTag, count);
 
+            while (count--)
+            {
+                var targetPartyIdExecutingTrader = (int)TargetPartyIdExecutingTrader.Decode(pointer, current, out current);
+                message.AppendInt(TargetPartyIdExecutingTrader.FixTag, targetPartyIdExecutingTrader);
+
+                var sideDisclosureInstruction = SideDisclosureInstruction.Decode(pointer, current, out current);
+                message.AppendInt(SideDisclosureInstruction.FixTag, sideDisclosureInstruction);
+
+                var priceDisclosureInstruction = PriceDisclosureInstruction.Decode(pointer, current, out current);
+                message.AppendInt(PriceDisclosureInstruction.FixTag, priceDisclosureInstruction);
+
+                var leavesQtyDisclosureInstruction = LeavesQtyDisclosureInstruction.Decode(pointer, current, out current);
+                message.AppendInt(LeavesQtyDisclosureInstruction.FixTag, leavesQtyDisclosureInstruction);
+
+                var lastPxDisclosureInstruction = LastPxDisclosureInstruction.Decode(pointer, current, out current);
+                message.AppendInt(LastPxDisclosureInstruction.FixTag, lastPxDisclosureInstruction);
+
+                var lastQtyDisclosureInstruction = LastQtyDisclosureInstruction.Decode(pointer, current, out current);
+                message.AppendInt(LastQtyDisclosureInstruction.FixTag, lastQtyDisclosureInstruction);
+
+                var freeText5DisclosureInstruction = FreeText5DisclosureInstruction.Decode(pointer, current, out current);
+                message.AppendInt(FreeText5DisclosureInstruction.FixTag, freeText5DisclosureInstruction);
+
+                var partyOrderOriginationDisclosureInstruction = PartyOrderOriginationDisclosureInstruction.Decode(pointer, current, out current);
+                message.AppendInt(PartyOrderOriginationDisclosureInstruction.FixTag, partyOrderOriginationDisclosureInstruction);
+
+                var quoteInstruction = QuoteInstruction.Decode(pointer, current, out current);
+                message.AppendInt(QuoteInstruction.FixTag, quoteInstruction);
+
+                var chargeIdDisclosureInstruction = ChargeIdDisclosureInstruction.Decode(pointer, current, out current);
+                message.AppendInt(ChargeIdDisclosureInstruction.FixTag, chargeIdDisclosureInstruction);
+
+                if (TargetPartyExecutingFirm.TryDecode(pointer, current, out var targetPartyExecutingFirm, out current))
+                {
+                    message.AppendString(TargetPartyExecutingFirm.FixTag, targetPartyExecutingFirm);
+                }
+
+                if (TargetPartyExecutingTrader.TryDecode(pointer, current, out var targetPartyExecutingTrader, out current))
+                {
+                    message.AppendString(TargetPartyExecutingTrader.FixTag, targetPartyExecutingTrader);
+                }
+
+                var partyDetailStatus = PartyDetailStatus.Decode(pointer, current, out current);
+                message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
+
+                var partyDetailStatusInformation = PartyDetailStatusInformation.Decode(pointer, current, out current);
+                message.AppendInt(PartyDetailStatusInformation.FixTag, partyDetailStatusInformation);
+
+                current += Pad6.Length;
+
+            }
         }
     }
 }

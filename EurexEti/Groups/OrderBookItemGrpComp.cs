@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Order Book Item Grp Comp Message Methods
     /// </summary>
 
-    public partial class OrderBookItemGrpComp
+    public partial static class OrderBookItemGrpComp
     {
         /// <summary>
         ///  Fix Tag for Order Book Item Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39123;
 
         /// <summary>
-        ///  Length of Order Book Item Grp Comp in bytes
-        /// </summary>
-        public const int Length = 48;
-
-        /// <summary>
         ///  Encode Order Book Item Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int orderBookItemGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode order book item grp comp ---
-
-            if (!message.TryGetGroup(OrderBookItemGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(OrderBookItemGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in orderBookItemGrpComp.sectionList)
             {
                 var securityId = group.GetLong(SecurityId.FixTag);
                 SecurityId.Encode(pointer, current, securityId, out current);
@@ -63,14 +51,43 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Order Book Item Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            OrderBookItemGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noOrderBookItems.FixTag, count);
 
+            while (count--)
+            {
+                var securityId = SecurityId.Decode(pointer, current, out current);
+                message.AppendLong(SecurityId.FixTag, securityId);
+
+                var bestBidPx = BestBidPx.Decode(pointer, current, out current);
+                message.AppendDouble(BestBidPx.FixTag, bestBidPx);
+
+                var bestBidSize = BestBidSize.Decode(pointer, current, out current);
+                message.AppendDouble(BestBidSize.FixTag, bestBidSize);
+
+                var bestOfferPx = BestOfferPx.Decode(pointer, current, out current);
+                message.AppendDouble(BestOfferPx.FixTag, bestOfferPx);
+
+                var bestOfferSize = BestOfferSize.Decode(pointer, current, out current);
+                message.AppendDouble(BestOfferSize.FixTag, bestOfferSize);
+
+                var mdBookType = MdBookType.Decode(pointer, current, out current);
+                message.AppendInt(MdBookType.FixTag, mdBookType);
+
+                var mdSubBookType = MdSubBookType.Decode(pointer, current, out current);
+                message.AppendInt(MdSubBookType.FixTag, mdSubBookType);
+
+                current += Pad6.Length;
+
+            }
         }
     }
 }

@@ -99,20 +99,60 @@ namespace Eurex.EtiDerivatives.v130
             var tradePublishIndicator = (byte)message.GetInt(TradePublishIndicator.FixTag);
             TradePublishIndicator.Encode(pointer, current, tradePublishIndicator, out current);
 
-            var noSideAllocs = (byte)message.GetInt(NoSideAllocs.FixTag);
-            NoSideAllocs.Encode(pointer, current, noSideAllocs, out current);
+            var isSideAllocGrpComp = message.TryGetGroup(NoSideAllocs.FixTag, out var sideAllocGrpComp) && SideAllocGrpComp.sectionList.Length > 0;
+            if (isSideAllocGrpComp)
+            {
+                var noSideAllocs = (byte)sideAllocGrpComp.sectionList.Length;
+                NoSideAllocs.Encode(pointer, current, noSideAllocs, out current);
+            }
+            else
+            {
+                NoSideAllocs.Zero(pointer, current, out current);
+            }
 
-            var noEvents = (byte)message.GetInt(NoEvents.FixTag);
-            NoEvents.Encode(pointer, current, noEvents, out current);
+            var isInstrumentEventGrpComp = message.TryGetGroup(NoEvents.FixTag, out var instrumentEventGrpComp) && InstrumentEventGrpComp.sectionList.Length > 0;
+            if (isInstrumentEventGrpComp)
+            {
+                var noEvents = (byte)instrumentEventGrpComp.sectionList.Length;
+                NoEvents.Encode(pointer, current, noEvents, out current);
+            }
+            else
+            {
+                NoEvents.Zero(pointer, current, out current);
+            }
 
-            var noLegs = (byte)message.GetInt(NoLegs.FixTag);
-            NoLegs.Encode(pointer, current, noLegs, out current);
+            var isTrdInstrmntLegGrpComp = message.TryGetGroup(NoLegs.FixTag, out var trdInstrmntLegGrpComp) && TrdInstrmntLegGrpComp.sectionList.Length > 0;
+            if (isTrdInstrmntLegGrpComp)
+            {
+                var noLegs = (byte)trdInstrmntLegGrpComp.sectionList.Length;
+                NoLegs.Encode(pointer, current, noLegs, out current);
+            }
+            else
+            {
+                NoLegs.Zero(pointer, current, out current);
+            }
 
-            var noInstrAttrib = (byte)message.GetInt(NoInstrAttrib.FixTag);
-            NoInstrAttrib.Encode(pointer, current, noInstrAttrib, out current);
+            var isInstrumentAttributeGrpComp = message.TryGetGroup(NoInstrAttrib.FixTag, out var instrumentAttributeGrpComp) && InstrumentAttributeGrpComp.sectionList.Length > 0;
+            if (isInstrumentAttributeGrpComp)
+            {
+                var noInstrAttrib = (byte)instrumentAttributeGrpComp.sectionList.Length;
+                NoInstrAttrib.Encode(pointer, current, noInstrAttrib, out current);
+            }
+            else
+            {
+                NoInstrAttrib.Zero(pointer, current, out current);
+            }
 
-            var noUnderlyingStips = (byte)message.GetInt(NoUnderlyingStips.FixTag);
-            NoUnderlyingStips.Encode(pointer, current, noUnderlyingStips, out current);
+            var isUnderlyingStipGrpComp = message.TryGetGroup(NoUnderlyingStips.FixTag, out var underlyingStipGrpComp) && UnderlyingStipGrpComp.sectionList.Length > 0;
+            if (isUnderlyingStipGrpComp)
+            {
+                var noUnderlyingStips = (byte)underlyingStipGrpComp.sectionList.Length;
+                NoUnderlyingStips.Encode(pointer, current, noUnderlyingStips, out current);
+            }
+            else
+            {
+                NoUnderlyingStips.Zero(pointer, current, out current);
+            }
 
             var partyIdSettlementLocation = (byte)message.GetInt(PartyIdSettlementLocation.FixTag);
             PartyIdSettlementLocation.Encode(pointer, current, partyIdSettlementLocation, out current);
@@ -179,20 +219,30 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad4.Encode(pointer, current, out current);
 
-            var sideAllocGrpComp = (byte)message.GetInt(SideAllocGrpComp.FixTag);
-            SideAllocGrpComp.Encode(message, pointer, current, sideAllocGrpComp, out current);
+            if (isSideAllocGrpComp)
+            {
+                SideAllocGrpComp.Encode(pointer, current, sideAllocGrpComp, out current);
+            }
 
-            var trdInstrmntLegGrpComp = (byte)message.GetInt(TrdInstrmntLegGrpComp.FixTag);
-            TrdInstrmntLegGrpComp.Encode(message, pointer, current, trdInstrmntLegGrpComp, out current);
+            if (isTrdInstrmntLegGrpComp)
+            {
+                TrdInstrmntLegGrpComp.Encode(pointer, current, trdInstrmntLegGrpComp, out current);
+            }
 
-            var instrumentEventGrpComp = (byte)message.GetInt(InstrumentEventGrpComp.FixTag);
-            InstrumentEventGrpComp.Encode(message, pointer, current, instrumentEventGrpComp, out current);
+            if (isInstrumentEventGrpComp)
+            {
+                InstrumentEventGrpComp.Encode(pointer, current, instrumentEventGrpComp, out current);
+            }
 
-            var instrumentAttributeGrpComp = (byte)message.GetInt(InstrumentAttributeGrpComp.FixTag);
-            InstrumentAttributeGrpComp.Encode(message, pointer, current, instrumentAttributeGrpComp, out current);
+            if (isInstrumentAttributeGrpComp)
+            {
+                InstrumentAttributeGrpComp.Encode(pointer, current, instrumentAttributeGrpComp, out current);
+            }
 
-            var underlyingStipGrpComp = (byte)message.GetInt(UnderlyingStipGrpComp.FixTag);
-            UnderlyingStipGrpComp.Encode(message, pointer, current, underlyingStipGrpComp, out current);
+            if (isUnderlyingStipGrpComp)
+            {
+                UnderlyingStipGrpComp.Encode(pointer, current, underlyingStipGrpComp, out current);
+            }
 
             // --- complete header ---
 
@@ -279,20 +329,15 @@ namespace Eurex.EtiDerivatives.v130
             var tradePublishIndicator = TradePublishIndicator.Decode(pointer, current, out current);
             message.AppendInt(TradePublishIndicator.FixTag, tradePublishIndicator);
 
-            var noSideAllocs = NoSideAllocs.Decode(pointer, current, out current);
-            message.AppendInt(NoSideAllocs.FixTag, noSideAllocs);
+            var noSideAllocs = (int)NoSideAllocs.Decode(pointer, current, out current);
 
-            var noEvents = NoEvents.Decode(pointer, current, out current);
-            message.AppendInt(NoEvents.FixTag, noEvents);
+            var noEvents = (int)NoEvents.Decode(pointer, current, out current);
 
-            var noLegs = NoLegs.Decode(pointer, current, out current);
-            message.AppendInt(NoLegs.FixTag, noLegs);
+            var noLegs = (int)NoLegs.Decode(pointer, current, out current);
 
-            var noInstrAttrib = NoInstrAttrib.Decode(pointer, current, out current);
-            message.AppendInt(NoInstrAttrib.FixTag, noInstrAttrib);
+            var noInstrAttrib = (int)NoInstrAttrib.Decode(pointer, current, out current);
 
-            var noUnderlyingStips = NoUnderlyingStips.Decode(pointer, current, out current);
-            message.AppendInt(NoUnderlyingStips.FixTag, noUnderlyingStips);
+            var noUnderlyingStips = (int)NoUnderlyingStips.Decode(pointer, current, out current);
 
             var partyIdSettlementLocation = PartyIdSettlementLocation.Decode(pointer, current, out current);
             message.AppendInt(PartyIdSettlementLocation.FixTag, partyIdSettlementLocation);
@@ -335,15 +380,15 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad4.Length;
 
-            SideAllocGrpComp.Decode(ref message, pointer, current, out current);
+            SideAllocGrpComp.Decode(ref message, pointer, current, noSideAllocs, out current);
 
-            TrdInstrmntLegGrpComp.Decode(ref message, pointer, current, out current);
+            TrdInstrmntLegGrpComp.Decode(ref message, pointer, current, noLegs, out current);
 
-            InstrumentEventGrpComp.Decode(ref message, pointer, current, out current);
+            InstrumentEventGrpComp.Decode(ref message, pointer, current, noEvents, out current);
 
-            InstrumentAttributeGrpComp.Decode(ref message, pointer, current, out current);
+            InstrumentAttributeGrpComp.Decode(ref message, pointer, current, noInstrAttrib, out current);
 
-            UnderlyingStipGrpComp.Decode(ref message, pointer, current, out current);
+            UnderlyingStipGrpComp.Decode(ref message, pointer, current, noUnderlyingStips, out current);
 
             return FixErrorCode.None;
         }

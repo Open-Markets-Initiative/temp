@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Side Alloc Grp Bc Comp Message Methods
     /// </summary>
 
-    public partial class SideAllocGrpBcComp
+    public partial static class SideAllocGrpBcComp
     {
         /// <summary>
         ///  Fix Tag for Side Alloc Grp Bc Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39138;
 
         /// <summary>
-        ///  Length of Side Alloc Grp Bc Comp in bytes
-        /// </summary>
-        public const int Length = 40;
-
-        /// <summary>
         ///  Encode Side Alloc Grp Bc Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int sideAllocGrpBcComp, out int current)
         {
             current = offset;
 
-            // --- encode side alloc grp bc comp ---
-
-            if (!message.TryGetGroup(SideAllocGrpBcComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(SideAllocGrpBcComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in sideAllocGrpBcComp.sectionList)
             {
                 var allocQty = group.GetDouble(AllocQty.FixTag);
                 AllocQty.Encode(pointer, current, allocQty, out current);
@@ -78,14 +66,50 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Side Alloc Grp Bc Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            SideAllocGrpBcComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noSideAllocs.FixTag, count);
 
+            while (count--)
+            {
+                var allocQty = AllocQty.Decode(pointer, current, out current);
+                message.AppendDouble(AllocQty.FixTag, allocQty);
+
+                var reversalApprovalTime = ReversalApprovalTime.Decode(pointer, current, out current);
+                message.AppendULong(ReversalApprovalTime.FixTag, reversalApprovalTime);
+
+                var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
+                message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
+
+                var tesEnrichmentRuleId = (int)TesEnrichmentRuleId.Decode(pointer, current, out current);
+                message.AppendInt(TesEnrichmentRuleId.FixTag, tesEnrichmentRuleId);
+
+                if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
+                {
+                    message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
+                }
+
+                if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
+                {
+                    message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
+                }
+
+                var side = Side.Decode(pointer, current, out current);
+                message.AppendInt(Side.FixTag, side);
+
+                var tradeAllocStatus = TradeAllocStatus.Decode(pointer, current, out current);
+                message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
+
+                current += Pad3.Length;
+
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Instrmt Leg Grp Comp Message Methods
     /// </summary>
 
-    public partial class InstrmtLegGrpComp
+    public partial static class InstrmtLegGrpComp
     {
         /// <summary>
         ///  Fix Tag for Instrmt Leg Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39111;
 
         /// <summary>
-        ///  Length of Instrmt Leg Grp Comp in bytes
-        /// </summary>
-        public const int Length = 32;
-
-        /// <summary>
         ///  Encode Instrmt Leg Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int instrmtLegGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode instrmt leg grp comp ---
-
-            if (!message.TryGetGroup(InstrmtLegGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(InstrmtLegGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in instrmtLegGrpComp.sectionList)
             {
                 var legSecurityId = group.GetLong(LegSecurityId.FixTag);
                 LegSecurityId.Encode(pointer, current, legSecurityId, out current);
@@ -60,14 +48,40 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Instrmt Leg Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            InstrmtLegGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noLegOnbooks.FixTag, count);
 
+            while (count--)
+            {
+                var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
+                message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+
+                var legPrice = LegPrice.Decode(pointer, current, out current);
+                message.AppendDouble(LegPrice.FixTag, legPrice);
+
+                var legSymbol = LegSymbol.Decode(pointer, current, out current);
+                message.AppendInt(LegSymbol.FixTag, legSymbol);
+
+                var legRatioQty = (int)LegRatioQty.Decode(pointer, current, out current);
+                message.AppendInt(LegRatioQty.FixTag, legRatioQty);
+
+                var legSide = LegSide.Decode(pointer, current, out current);
+                message.AppendInt(LegSide.FixTag, legSide);
+
+                var legSecurityType = LegSecurityType.Decode(pointer, current, out current);
+                message.AppendInt(LegSecurityType.FixTag, legSecurityType);
+
+                current += Pad6.Length;
+
+            }
         }
     }
 }

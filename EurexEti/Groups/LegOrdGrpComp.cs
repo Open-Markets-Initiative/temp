@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Leg Ord Grp Comp Message Methods
     /// </summary>
 
-    public partial class LegOrdGrpComp
+    public partial static class LegOrdGrpComp
     {
         /// <summary>
         ///  Fix Tag for Leg Ord Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39115;
 
         /// <summary>
-        ///  Length of Leg Ord Grp Comp in bytes
-        /// </summary>
-        public const int Length = 8;
-
-        /// <summary>
         ///  Encode Leg Ord Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int legOrdGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode leg ord grp comp ---
-
-            if (!message.TryGetGroup(LegOrdGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(LegOrdGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in legOrdGrpComp.sectionList)
             {
                 if (group.TryGetString(LegAccount.FixTag, out var legAccount))
                 {
@@ -54,14 +42,30 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Leg Ord Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            LegOrdGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noLegOnbooks.FixTag, count);
 
+            while (count--)
+            {
+                if (LegAccount.TryDecode(pointer, current, out var legAccount, out current))
+                {
+                    message.AppendString(LegAccount.FixTag, legAccount);
+                }
+
+                var legPositionEffect = LegPositionEffect.Decode(pointer, current, out current);
+                message.AppendToken(LegPositionEffect.FixTag, legPositionEffect);
+
+                current += Pad5.Length;
+
+            }
         }
     }
 }

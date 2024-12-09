@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Cross Request Ack Side Grp Comp Message Methods
     /// </summary>
 
-    public partial class CrossRequestAckSideGrpComp
+    public partial static class CrossRequestAckSideGrpComp
     {
         /// <summary>
         ///  Fix Tag for Cross Request Ack Side Grp Comp (Generated)
@@ -14,25 +14,13 @@ namespace Eurex.EtiDerivatives.v130
         public const ushort FixTag = 39106;
 
         /// <summary>
-        ///  Length of Cross Request Ack Side Grp Comp in bytes
-        /// </summary>
-        public const int Length = 16;
-
-        /// <summary>
         ///  Encode Cross Request Ack Side Grp Comp
         /// </summary>
-        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, byte numInGroup, out int current)
+        public static unsafe void Encode(FixMessage message, byte* pointer, int offset, int crossRequestAckSideGrpComp, out int current)
         {
             current = offset;
 
-            // --- encode cross request ack side grp comp ---
-
-            if (!message.TryGetGroup(CrossRequestAckSideGrpComp.FixTag, out var groups))
-            {
-                throw SessionReject.MissingRepeatingGroup(CrossRequestAckSideGrpComp.FixTag, message);
-            }
-
-            foreach (var group in groups.sectionList)
+            foreach (var group in crossRequestAckSideGrpComp.sectionList)
             {
                 var orderId = group.GetULong(OrderId.FixTag);
                 OrderId.Encode(pointer, current, orderId, out current);
@@ -51,14 +39,31 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Cross Request Ack Side Grp Comp
         /// </summary>
-        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
         {
             current = offset;
 
-            // --- TODO ---
+            if (count < 1)
+            {
+                return;
+            }
 
-            CrossRequestAckSideGrpComp.Decode(ref message, pointer, current, out current);
+            message.AppendInt(noSides.FixTag, count);
 
+            while (count--)
+            {
+                var orderId = OrderId.Decode(pointer, current, out current);
+                message.AppendULong(OrderId.FixTag, orderId);
+
+                var inputSource = InputSource.Decode(pointer, current, out current);
+                message.AppendInt(InputSource.FixTag, inputSource);
+
+                var side = Side.Decode(pointer, current, out current);
+                message.AppendInt(Side.FixTag, side);
+
+                current += Pad6.Length;
+
+            }
         }
     }
 }

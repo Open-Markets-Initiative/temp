@@ -116,13 +116,15 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, out string value, out int current)
         {
+            current = offset + FreeText1.Length;
             value = string.Empty;
 
             if (*(pointer + offset) == 0)
             {
                 return false;
             }
-            value = Decode(pointer, offset, out current);
+
+            value = Decode(pointer, offset);
 
             return !string.IsNullOrEmpty(value);
         }

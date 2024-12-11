@@ -107,7 +107,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, out double value, out int current)
         {
-            var raw = *(long*)(pointer + offset);
+            var raw = *(ulong*)(pointer + offset);
 
             var result = raw != NoValue;
 

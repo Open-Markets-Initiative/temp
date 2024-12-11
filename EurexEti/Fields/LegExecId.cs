@@ -21,7 +21,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Null value for Leg Exec Id
         /// </summary>
-        public const int NoValue = 0x80000000;
+        public const int NoValue = unchecked((int)0x80000000);
 
         /// <summary>
         ///  Encode Leg Exec Id

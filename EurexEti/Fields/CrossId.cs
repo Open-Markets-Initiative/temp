@@ -21,7 +21,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Null value for Cross Id
         /// </summary>
-        public const int NoValue = 0x80000000;
+        public const int NoValue = unchecked((int)0x80000000);
 
         /// <summary>
         ///  Encode Cross Id

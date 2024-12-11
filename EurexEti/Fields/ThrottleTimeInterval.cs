@@ -21,7 +21,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Null value for Throttle Time Interval
         /// </summary>
-        public const long NoValue = 0x8000000000000000;
+        public const long NoValue = unchecked((long)0x8000000000000000);
 
         /// <summary>
         ///  Encode Throttle Time Interval

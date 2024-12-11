@@ -21,7 +21,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Null value for Number Of Securities
         /// </summary>
-        public const int NoValue = 0x80000000;
+        public const int NoValue = unchecked((int)0x80000000);
 
         /// <summary>
         ///  Encode Number Of Securities

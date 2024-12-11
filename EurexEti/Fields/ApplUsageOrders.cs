@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Appl Usage Orders: Enum
     /// </summary>
 
-    public sealed class ApplUsageOrders
+    public static class ApplUsageOrders
     {
         /// <summary>
         ///  Automated

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Settl Method: Enum
     /// </summary>
 
-    public sealed class SettlMethod
+    public static class SettlMethod
     {
         /// <summary>
         ///  Cash Settlement

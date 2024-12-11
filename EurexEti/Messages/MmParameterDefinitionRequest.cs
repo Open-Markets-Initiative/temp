@@ -45,31 +45,79 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var exposureDuration = message.GetLong(ExposureDuration.FixTag);
-            ExposureDuration.Encode(pointer, current, exposureDuration, out current);
+            if (message.TryGetLong(ExposureDuration.FixTag, out var exposureDuration))
+            {
+                ExposureDuration.Encode(pointer, current, exposureDuration, out current);
+            }
+            else
+            {
+                ExposureDuration.SetNull(pointer, current, out current);
+            }
 
-            var cumQty = message.GetDouble(CumQty.FixTag);
-            CumQty.Encode(pointer, current, cumQty, out current);
+            if (message.TryGetDouble(CumQty.FixTag, out var cumQty))
+            {
+                CumQty.Encode(pointer, current, cumQty, out current);
+            }
+            else
+            {
+                CumQty.SetNull(pointer, current, out current);
+            }
 
-            var delta = message.GetDouble(Delta.FixTag);
-            Delta.Encode(pointer, current, delta, out current);
+            if (message.TryGetDouble(Delta.FixTag, out var delta))
+            {
+                Delta.Encode(pointer, current, delta, out current);
+            }
+            else
+            {
+                Delta.SetNull(pointer, current, out current);
+            }
 
-            var vega = message.GetDouble(Vega.FixTag);
-            Vega.Encode(pointer, current, vega, out current);
+            if (message.TryGetDouble(Vega.FixTag, out var vega))
+            {
+                Vega.Encode(pointer, current, vega, out current);
+            }
+            else
+            {
+                Vega.SetNull(pointer, current, out current);
+            }
 
-            var mmRiskLimitActionType = (byte)message.GetInt(MmRiskLimitActionType.FixTag);
-            MmRiskLimitActionType.Encode(pointer, current, mmRiskLimitActionType, out current);
+            if (message.TryGetInt(MmRiskLimitActionType.FixTag, out var mmRiskLimitActionType))
+            {
+                MmRiskLimitActionType.Encode(pointer, current, (byte)mmRiskLimitActionType, out current);
+            }
+            else
+            {
+                MmRiskLimitActionType.SetNull(pointer, current, out current);
+            }
 
             Pad3.Encode(pointer, current, out current);
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var targetPartyIdSessionId = (uint)message.GetInt(TargetPartyIdSessionId.FixTag);
-            TargetPartyIdSessionId.Encode(pointer, current, targetPartyIdSessionId, out current);
+            if (message.TryGetInt(TargetPartyIdSessionId.FixTag, out var targetPartyIdSessionId))
+            {
+                TargetPartyIdSessionId.Encode(pointer, current, (uint)targetPartyIdSessionId, out current);
+            }
+            else
+            {
+                TargetPartyIdSessionId.SetNull(pointer, current, out current);
+            }
 
-            var pctCount = message.GetInt(PctCount.FixTag);
-            PctCount.Encode(pointer, current, pctCount, out current);
+            if (message.TryGetInt(PctCount.FixTag, out var pctCount))
+            {
+                PctCount.Encode(pointer, current, pctCount, out current);
+            }
+            else
+            {
+                PctCount.SetNull(pointer, current, out current);
+            }
 
             // --- complete header ---
 
@@ -96,37 +144,57 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var exposureDuration = ExposureDuration.Decode(pointer, current, out current);
-            message.AppendLong(ExposureDuration.FixTag, exposureDuration);
+            if (ExposureDuration.TryDecode(pointer, current, out var exposureDuration, out current))
+            {
+                message.AppendLong(ExposureDuration.FixTag, exposureDuration);
+            }
 
-            var cumQty = CumQty.Decode(pointer, current, out current);
-            message.AppendDouble(CumQty.FixTag, cumQty);
+            if (CumQty.TryDecode(pointer, current, out var cumQty, out current))
+            {
+                message.AppendDouble(CumQty.FixTag, cumQty);
+            }
 
-            var delta = Delta.Decode(pointer, current, out current);
-            message.AppendDouble(Delta.FixTag, delta);
+            if (Delta.TryDecode(pointer, current, out var delta, out current))
+            {
+                message.AppendDouble(Delta.FixTag, delta);
+            }
 
-            var vega = Vega.Decode(pointer, current, out current);
-            message.AppendDouble(Vega.FixTag, vega);
+            if (Vega.TryDecode(pointer, current, out var vega, out current))
+            {
+                message.AppendDouble(Vega.FixTag, vega);
+            }
 
-            var mmRiskLimitActionType = MmRiskLimitActionType.Decode(pointer, current, out current);
-            message.AppendInt(MmRiskLimitActionType.FixTag, mmRiskLimitActionType);
+            if (MmRiskLimitActionType.TryDecode(pointer, current, out var mmRiskLimitActionType, out current))
+            {
+                message.AppendInt(MmRiskLimitActionType.FixTag, mmRiskLimitActionType);
+            }
 
             current += Pad3.Length;
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var targetPartyIdSessionId = (int)TargetPartyIdSessionId.Decode(pointer, current, out current);
-            message.AppendInt(TargetPartyIdSessionId.FixTag, targetPartyIdSessionId);
+            if (TargetPartyIdSessionId.TryDecode(pointer, current, out var targetPartyIdSessionId, out current))
+            {
+                message.AppendInt(TargetPartyIdSessionId.FixTag, (int)targetPartyIdSessionId);
+            }
 
-            var pctCount = PctCount.Decode(pointer, current, out current);
-            message.AppendInt(PctCount.FixTag, pctCount);
+            if (PctCount.TryDecode(pointer, current, out var pctCount, out current))
+            {
+                message.AppendInt(PctCount.FixTag, pctCount);
+            }
 
             return FixErrorCode.None;
         }

@@ -45,11 +45,23 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var heartBtInt = (uint)message.GetInt(HeartBtInt.FixTag);
-            HeartBtInt.Encode(pointer, current, heartBtInt, out current);
+            if (message.TryGetInt(HeartBtInt.FixTag, out var heartBtInt))
+            {
+                HeartBtInt.Encode(pointer, current, (uint)heartBtInt, out current);
+            }
+            else
+            {
+                HeartBtInt.SetNull(pointer, current, out current);
+            }
 
-            var partyIdSessionId = (uint)message.GetInt(PartyIdSessionId.FixTag);
-            PartyIdSessionId.Encode(pointer, current, partyIdSessionId, out current);
+            if (message.TryGetInt(PartyIdSessionId.FixTag, out var partyIdSessionId))
+            {
+                PartyIdSessionId.Encode(pointer, current, (uint)partyIdSessionId, out current);
+            }
+            else
+            {
+                PartyIdSessionId.SetNull(pointer, current, out current);
+            }
 
             if (message.TryGetString(DefaultCstmApplVerId.FixTag, out var defaultCstmApplVerId))
             {
@@ -159,17 +171,25 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var heartBtInt = (int)HeartBtInt.Decode(pointer, current, out current);
-            message.AppendInt(HeartBtInt.FixTag, heartBtInt);
+            if (HeartBtInt.TryDecode(pointer, current, out var heartBtInt, out current))
+            {
+                message.AppendInt(HeartBtInt.FixTag, (int)heartBtInt);
+            }
 
-            var partyIdSessionId = (int)PartyIdSessionId.Decode(pointer, current, out current);
-            message.AppendInt(PartyIdSessionId.FixTag, partyIdSessionId);
+            if (PartyIdSessionId.TryDecode(pointer, current, out var partyIdSessionId, out current))
+            {
+                message.AppendInt(PartyIdSessionId.FixTag, (int)partyIdSessionId);
+            }
 
             if (DefaultCstmApplVerId.TryDecode(pointer, current, out var defaultCstmApplVerId, out current))
             {

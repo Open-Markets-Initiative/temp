@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Party Id Entering Firm: Enum
     /// </summary>
 
-    public sealed class PartyIdEnteringFirm
+    public static class PartyIdEnteringFirm
     {
         /// <summary>
         ///  Participant
@@ -53,15 +53,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Party Id Entering Firm to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + PartyIdEnteringFirm.Length)
+            {
+                throw new System.Exception("Invalid Length for Party Id Entering Firm");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Party Id Entering Firm to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + PartyIdEnteringFirm.Length;
+        }
+
+        /// <summary>
+        ///  Set Party Id Entering Firm to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(byte*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Party Id Entering Firm
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out byte value, out int current)
         {
             if (length > offset + PartyIdEnteringFirm.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -69,6 +100,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Party Id Entering Firm
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out byte value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

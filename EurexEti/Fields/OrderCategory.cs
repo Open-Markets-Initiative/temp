@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Order Category: Enum
     /// </summary>
 
-    public sealed class OrderCategory
+    public static class OrderCategory
     {
         /// <summary>
         ///  Order

@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Contract Date: 4 Byte Fixed Width Integer
+    ///  Contract Date: Optional 4 Byte Fixed Width Integer
     /// </summary>
 
-    public sealed class ContractDate
+    public static class ContractDate
     {
         /// <summary>
         ///  Fix Tag for Contract Date
@@ -17,6 +17,11 @@ namespace Eurex.EtiDerivatives.v130
         ///  Length of Contract Date in bytes
         /// </summary>
         public const int Length = 4;
+
+        /// <summary>
+        ///  Null value for Contract Date
+        /// </summary>
+        public const uint NoValue = 0xFFFFFFFF;
 
         /// <summary>
         ///  Encode Contract Date
@@ -52,15 +57,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Contract Date to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + ContractDate.Length)
+            {
+                throw new System.Exception("Invalid Length for Contract Date");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Contract Date to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + ContractDate.Length;
+        }
+
+        /// <summary>
+        ///  Set Contract Date to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(uint*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Contract Date
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out uint value, out int current)
         {
             if (length > offset + ContractDate.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +104,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Contract Date
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out uint value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

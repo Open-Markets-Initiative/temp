@@ -22,14 +22,32 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in srqsHitQuoteGrpComp.sectionList)
             {
-                var orderQty = group.GetDouble(OrderQty.FixTag);
-                OrderQty.Encode(pointer, current, orderQty, out current);
+                if (group.TryGetDouble(OrderQty.FixTag, out var orderQty))
+                {
+                    OrderQty.Encode(pointer, current, orderQty, out current);
+                }
+                else
+                {
+                    OrderQty.SetNull(pointer, current, out current);
+                }
 
-                var quoteId = group.GetULong(QuoteId.FixTag);
-                QuoteId.Encode(pointer, current, quoteId, out current);
+                if (group.TryGetULong(QuoteId.FixTag, out var quoteId))
+                {
+                    QuoteId.Encode(pointer, current, quoteId, out current);
+                }
+                else
+                {
+                    QuoteId.SetNull(pointer, current, out current);
+                }
 
-                var side = (byte)group.GetInt(Side.FixTag);
-                Side.Encode(pointer, current, side, out current);
+                if (group.TryGetInt(Side.FixTag, out var side))
+                {
+                    Side.Encode(pointer, current, (byte)side, out current);
+                }
+                else
+                {
+                    Side.SetNull(pointer, current, out current);
+                }
 
                 Pad7.Encode(pointer, current, out current);
 
@@ -52,14 +70,20 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var orderQty = OrderQty.Decode(pointer, current, out current);
-                message.AppendDouble(OrderQty.FixTag, orderQty);
+                if (OrderQty.TryDecode(pointer, current, out var orderQty, out current))
+                {
+                    message.AppendDouble(OrderQty.FixTag, orderQty);
+                }
 
-                var quoteId = QuoteId.Decode(pointer, current, out current);
-                message.AppendULong(QuoteId.FixTag, quoteId);
+                if (QuoteId.TryDecode(pointer, current, out var quoteId, out current))
+                {
+                    message.AppendULong(QuoteId.FixTag, quoteId);
+                }
 
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
+                if (Side.TryDecode(pointer, current, out var side, out current))
+                {
+                    message.AppendInt(Side.FixTag, side);
+                }
 
                 current += Pad7.Length;
 

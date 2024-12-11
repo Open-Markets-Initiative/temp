@@ -22,23 +22,59 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in quoteLegExecGrpComp.sectionList)
             {
-                var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-                LegSecurityId.Encode(pointer, current, legSecurityId, out current);
+                if (group.TryGetLong(LegSecurityId.FixTag, out var legSecurityId))
+                {
+                    LegSecurityId.Encode(pointer, current, legSecurityId, out current);
+                }
+                else
+                {
+                    LegSecurityId.SetNull(pointer, current, out current);
+                }
 
-                var legLastPx = group.GetDouble(LegLastPx.FixTag);
-                LegLastPx.Encode(pointer, current, legLastPx, out current);
+                if (group.TryGetDouble(LegLastPx.FixTag, out var legLastPx))
+                {
+                    LegLastPx.Encode(pointer, current, legLastPx, out current);
+                }
+                else
+                {
+                    LegLastPx.SetNull(pointer, current, out current);
+                }
 
-                var legLastQty = group.GetDouble(LegLastQty.FixTag);
-                LegLastQty.Encode(pointer, current, legLastQty, out current);
+                if (group.TryGetDouble(LegLastQty.FixTag, out var legLastQty))
+                {
+                    LegLastQty.Encode(pointer, current, legLastQty, out current);
+                }
+                else
+                {
+                    LegLastQty.SetNull(pointer, current, out current);
+                }
 
-                var legExecId = group.GetInt(LegExecId.FixTag);
-                LegExecId.Encode(pointer, current, legExecId, out current);
+                if (group.TryGetInt(LegExecId.FixTag, out var legExecId))
+                {
+                    LegExecId.Encode(pointer, current, legExecId, out current);
+                }
+                else
+                {
+                    LegExecId.SetNull(pointer, current, out current);
+                }
 
-                var legSide = (byte)group.GetInt(LegSide.FixTag);
-                LegSide.Encode(pointer, current, legSide, out current);
+                if (group.TryGetInt(LegSide.FixTag, out var legSide))
+                {
+                    LegSide.Encode(pointer, current, (byte)legSide, out current);
+                }
+                else
+                {
+                    LegSide.SetNull(pointer, current, out current);
+                }
 
-                var noQuoteEventsIndex = (byte)group.GetInt(NoQuoteEventsIndex.FixTag);
-                NoQuoteEventsIndex.Encode(pointer, current, noQuoteEventsIndex, out current);
+                if (group.TryGetInt(NoQuoteEventsIndex.FixTag, out var noQuoteEventsIndex))
+                {
+                    NoQuoteEventsIndex.Encode(pointer, current, (byte)noQuoteEventsIndex, out current);
+                }
+                else
+                {
+                    NoQuoteEventsIndex.SetNull(pointer, current, out current);
+                }
 
                 Pad2.Encode(pointer, current, out current);
 
@@ -61,23 +97,35 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-                message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+                if (LegSecurityId.TryDecode(pointer, current, out var legSecurityId, out current))
+                {
+                    message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+                }
 
-                var legLastPx = LegLastPx.Decode(pointer, current, out current);
-                message.AppendDouble(LegLastPx.FixTag, legLastPx);
+                if (LegLastPx.TryDecode(pointer, current, out var legLastPx, out current))
+                {
+                    message.AppendDouble(LegLastPx.FixTag, legLastPx);
+                }
 
-                var legLastQty = LegLastQty.Decode(pointer, current, out current);
-                message.AppendDouble(LegLastQty.FixTag, legLastQty);
+                if (LegLastQty.TryDecode(pointer, current, out var legLastQty, out current))
+                {
+                    message.AppendDouble(LegLastQty.FixTag, legLastQty);
+                }
 
-                var legExecId = LegExecId.Decode(pointer, current, out current);
-                message.AppendInt(LegExecId.FixTag, legExecId);
+                if (LegExecId.TryDecode(pointer, current, out var legExecId, out current))
+                {
+                    message.AppendInt(LegExecId.FixTag, legExecId);
+                }
 
-                var legSide = LegSide.Decode(pointer, current, out current);
-                message.AppendInt(LegSide.FixTag, legSide);
+                if (LegSide.TryDecode(pointer, current, out var legSide, out current))
+                {
+                    message.AppendInt(LegSide.FixTag, legSide);
+                }
 
-                var noQuoteEventsIndex = NoQuoteEventsIndex.Decode(pointer, current, out current);
-                message.AppendInt(NoQuoteEventsIndex.FixTag, noQuoteEventsIndex);
+                if (NoQuoteEventsIndex.TryDecode(pointer, current, out var noQuoteEventsIndex, out current))
+                {
+                    message.AppendInt(NoQuoteEventsIndex.FixTag, noQuoteEventsIndex);
+                }
 
                 current += Pad2.Length;
 

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Session Reject Reason: Enum
     /// </summary>
 
-    public sealed class SessionRejectReason
+    public static class SessionRejectReason
     {
         /// <summary>
         ///  Required Tag Missing
@@ -208,15 +208,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Session Reject Reason to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + SessionRejectReason.Length)
+            {
+                throw new System.Exception("Invalid Length for Session Reject Reason");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Session Reject Reason to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + SessionRejectReason.Length;
+        }
+
+        /// <summary>
+        ///  Set Session Reject Reason to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(uint*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Session Reject Reason
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out uint value, out int current)
         {
             if (length > offset + SessionRejectReason.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -224,6 +255,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Session Reject Reason
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out uint value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

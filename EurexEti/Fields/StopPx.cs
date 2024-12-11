@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Stop Px: 8 Byte Fixed Width Integer with 8 Decimal Place Precision
+    ///  Stop Px: 8 Byte Fixed Width Nullable Integer with 8 Decimal Place Precision
     /// </summary>
 
-    public sealed class StopPx
+    public static class StopPx
     {
         /// <summary>
         ///  Fix Tag for Stop Px
@@ -21,7 +21,12 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decimal place factor for Stop Px
         /// </summary>
-        public const int Factor = 100000000;
+        public const ulong Factor = 100000000;
+
+        /// <summary>
+        ///  Null value for Stop Px
+        /// </summary>
+        public const ulong NoValue = 0x8000000000000000;
 
         /// <summary>
         ///  Encode Stop Px
@@ -48,15 +53,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Stop Px to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + StopPx.Length)
+            {
+                throw new System.Exception("Invalid Length for Stop Px");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Stop Px to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + StopPx.Length;
+        }
+
+        /// <summary>
+        ///  Set Stop Px to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(ulong*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Stop Px
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out double value, out int current)
         {
             if (length > offset + StopPx.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -64,6 +100,22 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Stop Px
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out double value, out int current)
+        {
+            var raw = *(long*)(pointer + offset);
+
+            var result = raw != NoValue;
+
+            value = raw / (double)Factor;
+
+            current = offset + StopPx.Length;
+
+            return result;
         }
 
         /// <summary>

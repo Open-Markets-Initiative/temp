@@ -22,14 +22,32 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in rraUpdateBasePartyGrpComp.sectionList)
             {
-                var remainingRiskAllowanceBaseLong = group.GetDouble(RemainingRiskAllowanceBaseLong.FixTag);
-                RemainingRiskAllowanceBaseLong.Encode(pointer, current, remainingRiskAllowanceBaseLong, out current);
+                if (group.TryGetDouble(RemainingRiskAllowanceBaseLong.FixTag, out var remainingRiskAllowanceBaseLong))
+                {
+                    RemainingRiskAllowanceBaseLong.Encode(pointer, current, remainingRiskAllowanceBaseLong, out current);
+                }
+                else
+                {
+                    RemainingRiskAllowanceBaseLong.SetNull(pointer, current, out current);
+                }
 
-                var remainingRiskAllowanceBaseShort = group.GetDouble(RemainingRiskAllowanceBaseShort.FixTag);
-                RemainingRiskAllowanceBaseShort.Encode(pointer, current, remainingRiskAllowanceBaseShort, out current);
+                if (group.TryGetDouble(RemainingRiskAllowanceBaseShort.FixTag, out var remainingRiskAllowanceBaseShort))
+                {
+                    RemainingRiskAllowanceBaseShort.Encode(pointer, current, remainingRiskAllowanceBaseShort, out current);
+                }
+                else
+                {
+                    RemainingRiskAllowanceBaseShort.SetNull(pointer, current, out current);
+                }
 
-                var riskLimitId = (uint)group.GetInt(RiskLimitId.FixTag);
-                RiskLimitId.Encode(pointer, current, riskLimitId, out current);
+                if (group.TryGetInt(RiskLimitId.FixTag, out var riskLimitId))
+                {
+                    RiskLimitId.Encode(pointer, current, (uint)riskLimitId, out current);
+                }
+                else
+                {
+                    RiskLimitId.SetNull(pointer, current, out current);
+                }
 
                 if (group.TryGetString(PartyDetailExecutingUnit.FixTag, out var partyDetailExecutingUnit))
                 {
@@ -61,14 +79,20 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var remainingRiskAllowanceBaseLong = RemainingRiskAllowanceBaseLong.Decode(pointer, current, out current);
-                message.AppendDouble(RemainingRiskAllowanceBaseLong.FixTag, remainingRiskAllowanceBaseLong);
+                if (RemainingRiskAllowanceBaseLong.TryDecode(pointer, current, out var remainingRiskAllowanceBaseLong, out current))
+                {
+                    message.AppendDouble(RemainingRiskAllowanceBaseLong.FixTag, remainingRiskAllowanceBaseLong);
+                }
 
-                var remainingRiskAllowanceBaseShort = RemainingRiskAllowanceBaseShort.Decode(pointer, current, out current);
-                message.AppendDouble(RemainingRiskAllowanceBaseShort.FixTag, remainingRiskAllowanceBaseShort);
+                if (RemainingRiskAllowanceBaseShort.TryDecode(pointer, current, out var remainingRiskAllowanceBaseShort, out current))
+                {
+                    message.AppendDouble(RemainingRiskAllowanceBaseShort.FixTag, remainingRiskAllowanceBaseShort);
+                }
 
-                var riskLimitId = (int)RiskLimitId.Decode(pointer, current, out current);
-                message.AppendInt(RiskLimitId.FixTag, riskLimitId);
+                if (RiskLimitId.TryDecode(pointer, current, out var riskLimitId, out current))
+                {
+                    message.AppendInt(RiskLimitId.FixTag, (int)riskLimitId);
+                }
 
                 if (PartyDetailExecutingUnit.TryDecode(pointer, current, out var partyDetailExecutingUnit, out current))
                 {

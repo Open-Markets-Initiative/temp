@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Leg Security Id: 8 Byte Fixed Width Integer
+    ///  Leg Security Id: Optional 8 Byte Fixed Width Integer
     /// </summary>
 
-    public sealed class LegSecurityId
+    public static class LegSecurityId
     {
         /// <summary>
         ///  Fix Tag for Leg Security Id
@@ -17,6 +17,11 @@ namespace Eurex.EtiDerivatives.v130
         ///  Length of Leg Security Id in bytes
         /// </summary>
         public const int Length = 8;
+
+        /// <summary>
+        ///  Null value for Leg Security Id
+        /// </summary>
+        public const long NoValue = 0x8000000000000000;
 
         /// <summary>
         ///  Encode Leg Security Id
@@ -52,15 +57,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Leg Security Id to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + LegSecurityId.Length)
+            {
+                throw new System.Exception("Invalid Length for Leg Security Id");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Leg Security Id to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + LegSecurityId.Length;
+        }
+
+        /// <summary>
+        ///  Set Leg Security Id to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(long*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Leg Security Id
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out long value, out int current)
         {
             if (length > offset + LegSecurityId.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +104,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Leg Security Id
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out long value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

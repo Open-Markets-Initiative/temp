@@ -45,20 +45,50 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var eurexVolumeRanking = (byte)message.GetInt(EurexVolumeRanking.FixTag);
-            EurexVolumeRanking.Encode(pointer, current, eurexVolumeRanking, out current);
+            if (message.TryGetInt(EurexVolumeRanking.FixTag, out var eurexVolumeRanking))
+            {
+                EurexVolumeRanking.Encode(pointer, current, (byte)eurexVolumeRanking, out current);
+            }
+            else
+            {
+                EurexVolumeRanking.SetNull(pointer, current, out current);
+            }
 
-            var enlightRfqAvgRespTimeRanking = (byte)message.GetInt(EnlightRfqAvgRespTimeRanking.FixTag);
-            EnlightRfqAvgRespTimeRanking.Encode(pointer, current, enlightRfqAvgRespTimeRanking, out current);
+            if (message.TryGetInt(EnlightRfqAvgRespTimeRanking.FixTag, out var enlightRfqAvgRespTimeRanking))
+            {
+                EnlightRfqAvgRespTimeRanking.Encode(pointer, current, (byte)enlightRfqAvgRespTimeRanking, out current);
+            }
+            else
+            {
+                EnlightRfqAvgRespTimeRanking.SetNull(pointer, current, out current);
+            }
 
-            var enlightRfqAvgRespRateRanking = (byte)message.GetInt(EnlightRfqAvgRespRateRanking.FixTag);
-            EnlightRfqAvgRespRateRanking.Encode(pointer, current, enlightRfqAvgRespRateRanking, out current);
+            if (message.TryGetInt(EnlightRfqAvgRespRateRanking.FixTag, out var enlightRfqAvgRespRateRanking))
+            {
+                EnlightRfqAvgRespRateRanking.Encode(pointer, current, (byte)enlightRfqAvgRespRateRanking, out current);
+            }
+            else
+            {
+                EnlightRfqAvgRespRateRanking.SetNull(pointer, current, out current);
+            }
 
-            var tradeToQuoteRatioRanking = (byte)message.GetInt(TradeToQuoteRatioRanking.FixTag);
-            TradeToQuoteRatioRanking.Encode(pointer, current, tradeToQuoteRatioRanking, out current);
+            if (message.TryGetInt(TradeToQuoteRatioRanking.FixTag, out var tradeToQuoteRatioRanking))
+            {
+                TradeToQuoteRatioRanking.Encode(pointer, current, (byte)tradeToQuoteRatioRanking, out current);
+            }
+            else
+            {
+                TradeToQuoteRatioRanking.SetNull(pointer, current, out current);
+            }
 
             // --- complete header ---
 
@@ -85,26 +115,40 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var eurexVolumeRanking = EurexVolumeRanking.Decode(pointer, current, out current);
-            message.AppendInt(EurexVolumeRanking.FixTag, eurexVolumeRanking);
+            if (EurexVolumeRanking.TryDecode(pointer, current, out var eurexVolumeRanking, out current))
+            {
+                message.AppendInt(EurexVolumeRanking.FixTag, eurexVolumeRanking);
+            }
 
-            var enlightRfqAvgRespTimeRanking = EnlightRfqAvgRespTimeRanking.Decode(pointer, current, out current);
-            message.AppendInt(EnlightRfqAvgRespTimeRanking.FixTag, enlightRfqAvgRespTimeRanking);
+            if (EnlightRfqAvgRespTimeRanking.TryDecode(pointer, current, out var enlightRfqAvgRespTimeRanking, out current))
+            {
+                message.AppendInt(EnlightRfqAvgRespTimeRanking.FixTag, enlightRfqAvgRespTimeRanking);
+            }
 
-            var enlightRfqAvgRespRateRanking = EnlightRfqAvgRespRateRanking.Decode(pointer, current, out current);
-            message.AppendInt(EnlightRfqAvgRespRateRanking.FixTag, enlightRfqAvgRespRateRanking);
+            if (EnlightRfqAvgRespRateRanking.TryDecode(pointer, current, out var enlightRfqAvgRespRateRanking, out current))
+            {
+                message.AppendInt(EnlightRfqAvgRespRateRanking.FixTag, enlightRfqAvgRespRateRanking);
+            }
 
-            var tradeToQuoteRatioRanking = TradeToQuoteRatioRanking.Decode(pointer, current, out current);
-            message.AppendInt(TradeToQuoteRatioRanking.FixTag, tradeToQuoteRatioRanking);
+            if (TradeToQuoteRatioRanking.TryDecode(pointer, current, out var tradeToQuoteRatioRanking, out current))
+            {
+                message.AppendInt(TradeToQuoteRatioRanking.FixTag, tradeToQuoteRatioRanking);
+            }
 
             return FixErrorCode.None;
         }

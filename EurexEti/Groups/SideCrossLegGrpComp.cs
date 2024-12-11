@@ -22,8 +22,14 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in sideCrossLegGrpComp.sectionList)
             {
-                var legInputSource = (byte)group.GetInt(LegInputSource.FixTag);
-                LegInputSource.Encode(pointer, current, legInputSource, out current);
+                if (group.TryGetInt(LegInputSource.FixTag, out var legInputSource))
+                {
+                    LegInputSource.Encode(pointer, current, (byte)legInputSource, out current);
+                }
+                else
+                {
+                    LegInputSource.SetNull(pointer, current, out current);
+                }
 
                 var legPositionEffect = group.GetToken(LegPositionEffect.FixTag);
                 LegPositionEffect.Encode(pointer, current, legPositionEffect, out current);
@@ -58,8 +64,10 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var legInputSource = LegInputSource.Decode(pointer, current, out current);
-                message.AppendInt(LegInputSource.FixTag, legInputSource);
+                if (LegInputSource.TryDecode(pointer, current, out var legInputSource, out current))
+                {
+                    message.AppendInt(LegInputSource.FixTag, legInputSource);
+                }
 
                 var legPositionEffect = LegPositionEffect.Decode(pointer, current, out current);
                 message.AppendToken(LegPositionEffect.FixTag, legPositionEffect);

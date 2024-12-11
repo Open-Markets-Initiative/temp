@@ -22,35 +22,95 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in targetPartiesComp.sectionList)
             {
-                var targetPartyIdExecutingTrader = (uint)group.GetInt(TargetPartyIdExecutingTrader.FixTag);
-                TargetPartyIdExecutingTrader.Encode(pointer, current, targetPartyIdExecutingTrader, out current);
+                if (group.TryGetInt(TargetPartyIdExecutingTrader.FixTag, out var targetPartyIdExecutingTrader))
+                {
+                    TargetPartyIdExecutingTrader.Encode(pointer, current, (uint)targetPartyIdExecutingTrader, out current);
+                }
+                else
+                {
+                    TargetPartyIdExecutingTrader.SetNull(pointer, current, out current);
+                }
 
-                var sideDisclosureInstruction = (byte)group.GetInt(SideDisclosureInstruction.FixTag);
-                SideDisclosureInstruction.Encode(pointer, current, sideDisclosureInstruction, out current);
+                if (group.TryGetInt(SideDisclosureInstruction.FixTag, out var sideDisclosureInstruction))
+                {
+                    SideDisclosureInstruction.Encode(pointer, current, (byte)sideDisclosureInstruction, out current);
+                }
+                else
+                {
+                    SideDisclosureInstruction.SetNull(pointer, current, out current);
+                }
 
-                var priceDisclosureInstruction = (byte)group.GetInt(PriceDisclosureInstruction.FixTag);
-                PriceDisclosureInstruction.Encode(pointer, current, priceDisclosureInstruction, out current);
+                if (group.TryGetInt(PriceDisclosureInstruction.FixTag, out var priceDisclosureInstruction))
+                {
+                    PriceDisclosureInstruction.Encode(pointer, current, (byte)priceDisclosureInstruction, out current);
+                }
+                else
+                {
+                    PriceDisclosureInstruction.SetNull(pointer, current, out current);
+                }
 
-                var leavesQtyDisclosureInstruction = (byte)group.GetInt(LeavesQtyDisclosureInstruction.FixTag);
-                LeavesQtyDisclosureInstruction.Encode(pointer, current, leavesQtyDisclosureInstruction, out current);
+                if (group.TryGetInt(LeavesQtyDisclosureInstruction.FixTag, out var leavesQtyDisclosureInstruction))
+                {
+                    LeavesQtyDisclosureInstruction.Encode(pointer, current, (byte)leavesQtyDisclosureInstruction, out current);
+                }
+                else
+                {
+                    LeavesQtyDisclosureInstruction.SetNull(pointer, current, out current);
+                }
 
-                var lastPxDisclosureInstruction = (byte)group.GetInt(LastPxDisclosureInstruction.FixTag);
-                LastPxDisclosureInstruction.Encode(pointer, current, lastPxDisclosureInstruction, out current);
+                if (group.TryGetInt(LastPxDisclosureInstruction.FixTag, out var lastPxDisclosureInstruction))
+                {
+                    LastPxDisclosureInstruction.Encode(pointer, current, (byte)lastPxDisclosureInstruction, out current);
+                }
+                else
+                {
+                    LastPxDisclosureInstruction.SetNull(pointer, current, out current);
+                }
 
-                var lastQtyDisclosureInstruction = (byte)group.GetInt(LastQtyDisclosureInstruction.FixTag);
-                LastQtyDisclosureInstruction.Encode(pointer, current, lastQtyDisclosureInstruction, out current);
+                if (group.TryGetInt(LastQtyDisclosureInstruction.FixTag, out var lastQtyDisclosureInstruction))
+                {
+                    LastQtyDisclosureInstruction.Encode(pointer, current, (byte)lastQtyDisclosureInstruction, out current);
+                }
+                else
+                {
+                    LastQtyDisclosureInstruction.SetNull(pointer, current, out current);
+                }
 
-                var freeText5DisclosureInstruction = (byte)group.GetInt(FreeText5DisclosureInstruction.FixTag);
-                FreeText5DisclosureInstruction.Encode(pointer, current, freeText5DisclosureInstruction, out current);
+                if (group.TryGetInt(FreeText5DisclosureInstruction.FixTag, out var freeText5DisclosureInstruction))
+                {
+                    FreeText5DisclosureInstruction.Encode(pointer, current, (byte)freeText5DisclosureInstruction, out current);
+                }
+                else
+                {
+                    FreeText5DisclosureInstruction.SetNull(pointer, current, out current);
+                }
 
-                var partyOrderOriginationDisclosureInstruction = (byte)group.GetInt(PartyOrderOriginationDisclosureInstruction.FixTag);
-                PartyOrderOriginationDisclosureInstruction.Encode(pointer, current, partyOrderOriginationDisclosureInstruction, out current);
+                if (group.TryGetInt(PartyOrderOriginationDisclosureInstruction.FixTag, out var partyOrderOriginationDisclosureInstruction))
+                {
+                    PartyOrderOriginationDisclosureInstruction.Encode(pointer, current, (byte)partyOrderOriginationDisclosureInstruction, out current);
+                }
+                else
+                {
+                    PartyOrderOriginationDisclosureInstruction.SetNull(pointer, current, out current);
+                }
 
-                var quoteInstruction = (byte)group.GetInt(QuoteInstruction.FixTag);
-                QuoteInstruction.Encode(pointer, current, quoteInstruction, out current);
+                if (group.TryGetInt(QuoteInstruction.FixTag, out var quoteInstruction))
+                {
+                    QuoteInstruction.Encode(pointer, current, (byte)quoteInstruction, out current);
+                }
+                else
+                {
+                    QuoteInstruction.SetNull(pointer, current, out current);
+                }
 
-                var chargeIdDisclosureInstruction = (byte)group.GetInt(ChargeIdDisclosureInstruction.FixTag);
-                ChargeIdDisclosureInstruction.Encode(pointer, current, chargeIdDisclosureInstruction, out current);
+                if (group.TryGetInt(ChargeIdDisclosureInstruction.FixTag, out var chargeIdDisclosureInstruction))
+                {
+                    ChargeIdDisclosureInstruction.Encode(pointer, current, (byte)chargeIdDisclosureInstruction, out current);
+                }
+                else
+                {
+                    ChargeIdDisclosureInstruction.SetNull(pointer, current, out current);
+                }
 
                 if (group.TryGetString(TargetPartyExecutingFirm.FixTag, out var targetPartyExecutingFirm))
                 {
@@ -70,11 +130,23 @@ namespace Eurex.EtiDerivatives.v130
                     TargetPartyExecutingTrader.SetNull(pointer, current, out current);
                 }
 
-                var partyDetailStatus = (byte)group.GetInt(PartyDetailStatus.FixTag);
-                PartyDetailStatus.Encode(pointer, current, partyDetailStatus, out current);
+                if (group.TryGetInt(PartyDetailStatus.FixTag, out var partyDetailStatus))
+                {
+                    PartyDetailStatus.Encode(pointer, current, (byte)partyDetailStatus, out current);
+                }
+                else
+                {
+                    PartyDetailStatus.SetNull(pointer, current, out current);
+                }
 
-                var partyDetailStatusInformation = (byte)group.GetInt(PartyDetailStatusInformation.FixTag);
-                PartyDetailStatusInformation.Encode(pointer, current, partyDetailStatusInformation, out current);
+                if (group.TryGetInt(PartyDetailStatusInformation.FixTag, out var partyDetailStatusInformation))
+                {
+                    PartyDetailStatusInformation.Encode(pointer, current, (byte)partyDetailStatusInformation, out current);
+                }
+                else
+                {
+                    PartyDetailStatusInformation.SetNull(pointer, current, out current);
+                }
 
                 Pad6.Encode(pointer, current, out current);
 
@@ -97,35 +169,55 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var targetPartyIdExecutingTrader = (int)TargetPartyIdExecutingTrader.Decode(pointer, current, out current);
-                message.AppendInt(TargetPartyIdExecutingTrader.FixTag, targetPartyIdExecutingTrader);
+                if (TargetPartyIdExecutingTrader.TryDecode(pointer, current, out var targetPartyIdExecutingTrader, out current))
+                {
+                    message.AppendInt(TargetPartyIdExecutingTrader.FixTag, (int)targetPartyIdExecutingTrader);
+                }
 
-                var sideDisclosureInstruction = SideDisclosureInstruction.Decode(pointer, current, out current);
-                message.AppendInt(SideDisclosureInstruction.FixTag, sideDisclosureInstruction);
+                if (SideDisclosureInstruction.TryDecode(pointer, current, out var sideDisclosureInstruction, out current))
+                {
+                    message.AppendInt(SideDisclosureInstruction.FixTag, sideDisclosureInstruction);
+                }
 
-                var priceDisclosureInstruction = PriceDisclosureInstruction.Decode(pointer, current, out current);
-                message.AppendInt(PriceDisclosureInstruction.FixTag, priceDisclosureInstruction);
+                if (PriceDisclosureInstruction.TryDecode(pointer, current, out var priceDisclosureInstruction, out current))
+                {
+                    message.AppendInt(PriceDisclosureInstruction.FixTag, priceDisclosureInstruction);
+                }
 
-                var leavesQtyDisclosureInstruction = LeavesQtyDisclosureInstruction.Decode(pointer, current, out current);
-                message.AppendInt(LeavesQtyDisclosureInstruction.FixTag, leavesQtyDisclosureInstruction);
+                if (LeavesQtyDisclosureInstruction.TryDecode(pointer, current, out var leavesQtyDisclosureInstruction, out current))
+                {
+                    message.AppendInt(LeavesQtyDisclosureInstruction.FixTag, leavesQtyDisclosureInstruction);
+                }
 
-                var lastPxDisclosureInstruction = LastPxDisclosureInstruction.Decode(pointer, current, out current);
-                message.AppendInt(LastPxDisclosureInstruction.FixTag, lastPxDisclosureInstruction);
+                if (LastPxDisclosureInstruction.TryDecode(pointer, current, out var lastPxDisclosureInstruction, out current))
+                {
+                    message.AppendInt(LastPxDisclosureInstruction.FixTag, lastPxDisclosureInstruction);
+                }
 
-                var lastQtyDisclosureInstruction = LastQtyDisclosureInstruction.Decode(pointer, current, out current);
-                message.AppendInt(LastQtyDisclosureInstruction.FixTag, lastQtyDisclosureInstruction);
+                if (LastQtyDisclosureInstruction.TryDecode(pointer, current, out var lastQtyDisclosureInstruction, out current))
+                {
+                    message.AppendInt(LastQtyDisclosureInstruction.FixTag, lastQtyDisclosureInstruction);
+                }
 
-                var freeText5DisclosureInstruction = FreeText5DisclosureInstruction.Decode(pointer, current, out current);
-                message.AppendInt(FreeText5DisclosureInstruction.FixTag, freeText5DisclosureInstruction);
+                if (FreeText5DisclosureInstruction.TryDecode(pointer, current, out var freeText5DisclosureInstruction, out current))
+                {
+                    message.AppendInt(FreeText5DisclosureInstruction.FixTag, freeText5DisclosureInstruction);
+                }
 
-                var partyOrderOriginationDisclosureInstruction = PartyOrderOriginationDisclosureInstruction.Decode(pointer, current, out current);
-                message.AppendInt(PartyOrderOriginationDisclosureInstruction.FixTag, partyOrderOriginationDisclosureInstruction);
+                if (PartyOrderOriginationDisclosureInstruction.TryDecode(pointer, current, out var partyOrderOriginationDisclosureInstruction, out current))
+                {
+                    message.AppendInt(PartyOrderOriginationDisclosureInstruction.FixTag, partyOrderOriginationDisclosureInstruction);
+                }
 
-                var quoteInstruction = QuoteInstruction.Decode(pointer, current, out current);
-                message.AppendInt(QuoteInstruction.FixTag, quoteInstruction);
+                if (QuoteInstruction.TryDecode(pointer, current, out var quoteInstruction, out current))
+                {
+                    message.AppendInt(QuoteInstruction.FixTag, quoteInstruction);
+                }
 
-                var chargeIdDisclosureInstruction = ChargeIdDisclosureInstruction.Decode(pointer, current, out current);
-                message.AppendInt(ChargeIdDisclosureInstruction.FixTag, chargeIdDisclosureInstruction);
+                if (ChargeIdDisclosureInstruction.TryDecode(pointer, current, out var chargeIdDisclosureInstruction, out current))
+                {
+                    message.AppendInt(ChargeIdDisclosureInstruction.FixTag, chargeIdDisclosureInstruction);
+                }
 
                 if (TargetPartyExecutingFirm.TryDecode(pointer, current, out var targetPartyExecutingFirm, out current))
                 {
@@ -137,11 +229,15 @@ namespace Eurex.EtiDerivatives.v130
                     message.AppendString(TargetPartyExecutingTrader.FixTag, targetPartyExecutingTrader);
                 }
 
-                var partyDetailStatus = PartyDetailStatus.Decode(pointer, current, out current);
-                message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
+                if (PartyDetailStatus.TryDecode(pointer, current, out var partyDetailStatus, out current))
+                {
+                    message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
+                }
 
-                var partyDetailStatusInformation = PartyDetailStatusInformation.Decode(pointer, current, out current);
-                message.AppendInt(PartyDetailStatusInformation.FixTag, partyDetailStatusInformation);
+                if (PartyDetailStatusInformation.TryDecode(pointer, current, out var partyDetailStatusInformation, out current))
+                {
+                    message.AppendInt(PartyDetailStatusInformation.FixTag, partyDetailStatusInformation);
+                }
 
                 current += Pad6.Length;
 

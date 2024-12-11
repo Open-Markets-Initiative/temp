@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Valid Until Time: 8 Byte Fixed Width Integer
+    ///  Valid Until Time: Optional 8 Byte Fixed Width Integer
     /// </summary>
 
-    public sealed class ValidUntilTime
+    public static class ValidUntilTime
     {
         /// <summary>
         ///  Fix Tag for Valid Until Time
@@ -17,6 +17,11 @@ namespace Eurex.EtiDerivatives.v130
         ///  Length of Valid Until Time in bytes
         /// </summary>
         public const int Length = 8;
+
+        /// <summary>
+        ///  Null value for Valid Until Time
+        /// </summary>
+        public const ulong NoValue = 0xFFFFFFFFFFFFFFFF;
 
         /// <summary>
         ///  Encode Valid Until Time
@@ -52,15 +57,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Valid Until Time to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + ValidUntilTime.Length)
+            {
+                throw new System.Exception("Invalid Length for Valid Until Time");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Valid Until Time to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + ValidUntilTime.Length;
+        }
+
+        /// <summary>
+        ///  Set Valid Until Time to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(ulong*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Valid Until Time
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out ulong value, out int current)
         {
             if (length > offset + ValidUntilTime.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +104,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Valid Until Time
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out ulong value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

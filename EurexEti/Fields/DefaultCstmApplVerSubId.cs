@@ -7,7 +7,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Default Cstm Appl Ver Sub Id: Optional Fixed Length String Field
     /// </summary>
 
-    public sealed class DefaultCstmApplVerSubId
+    public static class DefaultCstmApplVerSubId
     {
         /// <summary>
         ///  Fix Tag for Default Cstm Appl Ver Sub Id
@@ -116,6 +116,12 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, out string value, out int current)
         {
+            value = string.Empty;
+
+            if (*(pointer + offset) == 0)
+            {
+                return false;
+            }
             value = Decode(pointer, offset, out current);
 
             return !string.IsNullOrEmpty(value);

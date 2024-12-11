@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Exposure Duration: 8 Byte Fixed Width Integer
+    ///  Exposure Duration: Optional 8 Byte Fixed Width Integer
     /// </summary>
 
-    public sealed class ExposureDuration
+    public static class ExposureDuration
     {
         /// <summary>
         ///  Fix Tag for Exposure Duration
@@ -17,6 +17,11 @@ namespace Eurex.EtiDerivatives.v130
         ///  Length of Exposure Duration in bytes
         /// </summary>
         public const int Length = 8;
+
+        /// <summary>
+        ///  Null value for Exposure Duration
+        /// </summary>
+        public const long NoValue = 0x8000000000000000;
 
         /// <summary>
         ///  Encode Exposure Duration
@@ -52,15 +57,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Exposure Duration to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + ExposureDuration.Length)
+            {
+                throw new System.Exception("Invalid Length for Exposure Duration");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Exposure Duration to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + ExposureDuration.Length;
+        }
+
+        /// <summary>
+        ///  Set Exposure Duration to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(long*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Exposure Duration
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out long value, out int current)
         {
             if (length > offset + ExposureDuration.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +104,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Exposure Duration
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out long value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Pad 41: Fixed Length Padding
     /// </summary>
 
-    public sealed class Pad41
+    public static class Pad41
     {
         /// <summary>
         ///  Fix Tag for Pad 41

@@ -22,17 +22,41 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in basketExecGrpComp.sectionList)
             {
-                var packageId = (uint)group.GetInt(PackageId.FixTag);
-                PackageId.Encode(pointer, current, packageId, out current);
+                if (group.TryGetInt(PackageId.FixTag, out var packageId))
+                {
+                    PackageId.Encode(pointer, current, (uint)packageId, out current);
+                }
+                else
+                {
+                    PackageId.SetNull(pointer, current, out current);
+                }
 
-                var sideMarketSegmentId = group.GetInt(SideMarketSegmentId.FixTag);
-                SideMarketSegmentId.Encode(pointer, current, sideMarketSegmentId, out current);
+                if (group.TryGetInt(SideMarketSegmentId.FixTag, out var sideMarketSegmentId))
+                {
+                    SideMarketSegmentId.Encode(pointer, current, sideMarketSegmentId, out current);
+                }
+                else
+                {
+                    SideMarketSegmentId.SetNull(pointer, current, out current);
+                }
 
-                var allocId = (uint)group.GetInt(AllocId.FixTag);
-                AllocId.Encode(pointer, current, allocId, out current);
+                if (group.TryGetInt(AllocId.FixTag, out var allocId))
+                {
+                    AllocId.Encode(pointer, current, (uint)allocId, out current);
+                }
+                else
+                {
+                    AllocId.SetNull(pointer, current, out current);
+                }
 
-                var sideTrdSubTyp = (ushort)group.GetInt(SideTrdSubTyp.FixTag);
-                SideTrdSubTyp.Encode(pointer, current, sideTrdSubTyp, out current);
+                if (group.TryGetInt(SideTrdSubTyp.FixTag, out var sideTrdSubTyp))
+                {
+                    SideTrdSubTyp.Encode(pointer, current, (ushort)sideTrdSubTyp, out current);
+                }
+                else
+                {
+                    SideTrdSubTyp.SetNull(pointer, current, out current);
+                }
 
                 Pad2.Encode(pointer, current, out current);
 
@@ -55,17 +79,25 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var packageId = (int)PackageId.Decode(pointer, current, out current);
-                message.AppendInt(PackageId.FixTag, packageId);
+                if (PackageId.TryDecode(pointer, current, out var packageId, out current))
+                {
+                    message.AppendInt(PackageId.FixTag, (int)packageId);
+                }
 
-                var sideMarketSegmentId = SideMarketSegmentId.Decode(pointer, current, out current);
-                message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
+                if (SideMarketSegmentId.TryDecode(pointer, current, out var sideMarketSegmentId, out current))
+                {
+                    message.AppendInt(SideMarketSegmentId.FixTag, sideMarketSegmentId);
+                }
 
-                var allocId = (int)AllocId.Decode(pointer, current, out current);
-                message.AppendInt(AllocId.FixTag, allocId);
+                if (AllocId.TryDecode(pointer, current, out var allocId, out current))
+                {
+                    message.AppendInt(AllocId.FixTag, (int)allocId);
+                }
 
-                var sideTrdSubTyp = (short)SideTrdSubTyp.Decode(pointer, current, out current);
-                message.AppendInt(SideTrdSubTyp.FixTag, sideTrdSubTyp);
+                if (SideTrdSubTyp.TryDecode(pointer, current, out var sideTrdSubTyp, out current))
+                {
+                    message.AppendInt(SideTrdSubTyp.FixTag, (short)sideTrdSubTyp);
+                }
 
                 current += Pad2.Length;
 

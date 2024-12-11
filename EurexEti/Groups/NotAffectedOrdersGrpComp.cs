@@ -22,11 +22,23 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in notAffectedOrdersGrpComp.sectionList)
             {
-                var notAffectedOrderId = group.GetULong(NotAffectedOrderId.FixTag);
-                NotAffectedOrderId.Encode(pointer, current, notAffectedOrderId, out current);
+                if (group.TryGetULong(NotAffectedOrderId.FixTag, out var notAffectedOrderId))
+                {
+                    NotAffectedOrderId.Encode(pointer, current, notAffectedOrderId, out current);
+                }
+                else
+                {
+                    NotAffectedOrderId.SetNull(pointer, current, out current);
+                }
 
-                var notAffOrigClOrdId = group.GetULong(NotAffOrigClOrdId.FixTag);
-                NotAffOrigClOrdId.Encode(pointer, current, notAffOrigClOrdId, out current);
+                if (group.TryGetULong(NotAffOrigClOrdId.FixTag, out var notAffOrigClOrdId))
+                {
+                    NotAffOrigClOrdId.Encode(pointer, current, notAffOrigClOrdId, out current);
+                }
+                else
+                {
+                    NotAffOrigClOrdId.SetNull(pointer, current, out current);
+                }
 
             }
         }
@@ -47,11 +59,15 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var notAffectedOrderId = NotAffectedOrderId.Decode(pointer, current, out current);
-                message.AppendULong(NotAffectedOrderId.FixTag, notAffectedOrderId);
+                if (NotAffectedOrderId.TryDecode(pointer, current, out var notAffectedOrderId, out current))
+                {
+                    message.AppendULong(NotAffectedOrderId.FixTag, notAffectedOrderId);
+                }
 
-                var notAffOrigClOrdId = NotAffOrigClOrdId.Decode(pointer, current, out current);
-                message.AppendULong(NotAffOrigClOrdId.FixTag, notAffOrigClOrdId);
+                if (NotAffOrigClOrdId.TryDecode(pointer, current, out var notAffOrigClOrdId, out current))
+                {
+                    message.AppendULong(NotAffOrigClOrdId.FixTag, notAffOrigClOrdId);
+                }
 
             }
         }

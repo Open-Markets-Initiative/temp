@@ -22,14 +22,32 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in sessionsGrpComp.sectionList)
             {
-                var partyIdSessionId = (uint)group.GetInt(PartyIdSessionId.FixTag);
-                PartyIdSessionId.Encode(pointer, current, partyIdSessionId, out current);
+                if (group.TryGetInt(PartyIdSessionId.FixTag, out var partyIdSessionId))
+                {
+                    PartyIdSessionId.Encode(pointer, current, (uint)partyIdSessionId, out current);
+                }
+                else
+                {
+                    PartyIdSessionId.SetNull(pointer, current, out current);
+                }
 
-                var sessionMode = (byte)group.GetInt(SessionMode.FixTag);
-                SessionMode.Encode(pointer, current, sessionMode, out current);
+                if (group.TryGetInt(SessionMode.FixTag, out var sessionMode))
+                {
+                    SessionMode.Encode(pointer, current, (byte)sessionMode, out current);
+                }
+                else
+                {
+                    SessionMode.SetNull(pointer, current, out current);
+                }
 
-                var sessionSubMode = (byte)group.GetInt(SessionSubMode.FixTag);
-                SessionSubMode.Encode(pointer, current, sessionSubMode, out current);
+                if (group.TryGetInt(SessionSubMode.FixTag, out var sessionSubMode))
+                {
+                    SessionSubMode.Encode(pointer, current, (byte)sessionSubMode, out current);
+                }
+                else
+                {
+                    SessionSubMode.SetNull(pointer, current, out current);
+                }
 
                 Pad2.Encode(pointer, current, out current);
 
@@ -52,14 +70,20 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var partyIdSessionId = (int)PartyIdSessionId.Decode(pointer, current, out current);
-                message.AppendInt(PartyIdSessionId.FixTag, partyIdSessionId);
+                if (PartyIdSessionId.TryDecode(pointer, current, out var partyIdSessionId, out current))
+                {
+                    message.AppendInt(PartyIdSessionId.FixTag, (int)partyIdSessionId);
+                }
 
-                var sessionMode = SessionMode.Decode(pointer, current, out current);
-                message.AppendInt(SessionMode.FixTag, sessionMode);
+                if (SessionMode.TryDecode(pointer, current, out var sessionMode, out current))
+                {
+                    message.AppendInt(SessionMode.FixTag, sessionMode);
+                }
 
-                var sessionSubMode = SessionSubMode.Decode(pointer, current, out current);
-                message.AppendInt(SessionSubMode.FixTag, sessionSubMode);
+                if (SessionSubMode.TryDecode(pointer, current, out var sessionSubMode, out current))
+                {
+                    message.AppendInt(SessionSubMode.FixTag, sessionSubMode);
+                }
 
                 current += Pad2.Length;
 

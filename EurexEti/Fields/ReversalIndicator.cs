@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Reversal Indicator: Enum
     /// </summary>
 
-    public sealed class ReversalIndicator
+    public static class ReversalIndicator
     {
         /// <summary>
         ///  No
@@ -53,15 +53,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Reversal Indicator to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + ReversalIndicator.Length)
+            {
+                throw new System.Exception("Invalid Length for Reversal Indicator");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Reversal Indicator to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + ReversalIndicator.Length;
+        }
+
+        /// <summary>
+        ///  Set Reversal Indicator to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(byte*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Reversal Indicator
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out byte value, out int current)
         {
             if (length > offset + ReversalIndicator.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -69,6 +100,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Reversal Indicator
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out byte value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

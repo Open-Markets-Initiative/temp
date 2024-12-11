@@ -53,8 +53,10 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
             return FixErrorCode.None;
         }

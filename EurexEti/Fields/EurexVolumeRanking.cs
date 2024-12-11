@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Eurex Volume Ranking: Enum
     /// </summary>
 
-    public sealed class EurexVolumeRanking
+    public static class EurexVolumeRanking
     {
         /// <summary>
         ///  Low
@@ -58,15 +58,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Eurex Volume Ranking to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + EurexVolumeRanking.Length)
+            {
+                throw new System.Exception("Invalid Length for Eurex Volume Ranking");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Eurex Volume Ranking to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + EurexVolumeRanking.Length;
+        }
+
+        /// <summary>
+        ///  Set Eurex Volume Ranking to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(byte*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Eurex Volume Ranking
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out byte value, out int current)
         {
             if (length > offset + EurexVolumeRanking.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -74,6 +105,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Eurex Volume Ranking
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out byte value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

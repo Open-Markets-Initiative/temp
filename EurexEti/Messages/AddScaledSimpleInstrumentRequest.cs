@@ -45,17 +45,41 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var relatedSecurityId = message.GetLong(RelatedSecurityId.FixTag);
-            RelatedSecurityId.Encode(pointer, current, relatedSecurityId, out current);
+            if (message.TryGetLong(RelatedSecurityId.FixTag, out var relatedSecurityId))
+            {
+                RelatedSecurityId.Encode(pointer, current, relatedSecurityId, out current);
+            }
+            else
+            {
+                RelatedSecurityId.SetNull(pointer, current, out current);
+            }
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var quantityScalingFactor = (ushort)message.GetInt(QuantityScalingFactor.FixTag);
-            QuantityScalingFactor.Encode(pointer, current, quantityScalingFactor, out current);
+            if (message.TryGetInt(QuantityScalingFactor.FixTag, out var quantityScalingFactor))
+            {
+                QuantityScalingFactor.Encode(pointer, current, (ushort)quantityScalingFactor, out current);
+            }
+            else
+            {
+                QuantityScalingFactor.SetNull(pointer, current, out current);
+            }
 
-            var multilegModel = (byte)message.GetInt(MultilegModel.FixTag);
-            MultilegModel.Encode(pointer, current, multilegModel, out current);
+            if (message.TryGetInt(MultilegModel.FixTag, out var multilegModel))
+            {
+                MultilegModel.Encode(pointer, current, (byte)multilegModel, out current);
+            }
+            else
+            {
+                MultilegModel.SetNull(pointer, current, out current);
+            }
 
             Pad1.Encode(pointer, current, out current);
 
@@ -84,23 +108,35 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var relatedSecurityId = RelatedSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(RelatedSecurityId.FixTag, relatedSecurityId);
+            if (RelatedSecurityId.TryDecode(pointer, current, out var relatedSecurityId, out current))
+            {
+                message.AppendLong(RelatedSecurityId.FixTag, relatedSecurityId);
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var quantityScalingFactor = (short)QuantityScalingFactor.Decode(pointer, current, out current);
-            message.AppendInt(QuantityScalingFactor.FixTag, quantityScalingFactor);
+            if (QuantityScalingFactor.TryDecode(pointer, current, out var quantityScalingFactor, out current))
+            {
+                message.AppendInt(QuantityScalingFactor.FixTag, (short)quantityScalingFactor);
+            }
 
-            var multilegModel = MultilegModel.Decode(pointer, current, out current);
-            message.AppendInt(MultilegModel.FixTag, multilegModel);
+            if (MultilegModel.TryDecode(pointer, current, out var multilegModel, out current))
+            {
+                message.AppendInt(MultilegModel.FixTag, multilegModel);
+            }
 
             current += Pad1.Length;
 

@@ -30,17 +30,41 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var requestTime = message.GetULong(RequestTime.FixTag);
-            RequestTime.Encode(pointer, current, requestTime, out current);
+            if (message.TryGetULong(RequestTime.FixTag, out var requestTime))
+            {
+                RequestTime.Encode(pointer, current, requestTime, out current);
+            }
+            else
+            {
+                RequestTime.SetNull(pointer, current, out current);
+            }
 
-            var trdRegTsTimeIn = message.GetULong(TrdRegTsTimeIn.FixTag);
-            TrdRegTsTimeIn.Encode(pointer, current, trdRegTsTimeIn, out current);
+            if (message.TryGetULong(TrdRegTsTimeIn.FixTag, out var trdRegTsTimeIn))
+            {
+                TrdRegTsTimeIn.Encode(pointer, current, trdRegTsTimeIn, out current);
+            }
+            else
+            {
+                TrdRegTsTimeIn.SetNull(pointer, current, out current);
+            }
 
-            var trdRegTsTimeOut = message.GetULong(TrdRegTsTimeOut.FixTag);
-            TrdRegTsTimeOut.Encode(pointer, current, trdRegTsTimeOut, out current);
+            if (message.TryGetULong(TrdRegTsTimeOut.FixTag, out var trdRegTsTimeOut))
+            {
+                TrdRegTsTimeOut.Encode(pointer, current, trdRegTsTimeOut, out current);
+            }
+            else
+            {
+                TrdRegTsTimeOut.SetNull(pointer, current, out current);
+            }
 
-            var responseIn = message.GetULong(ResponseIn.FixTag);
-            ResponseIn.Encode(pointer, current, responseIn, out current);
+            if (message.TryGetULong(ResponseIn.FixTag, out var responseIn))
+            {
+                ResponseIn.Encode(pointer, current, responseIn, out current);
+            }
+            else
+            {
+                ResponseIn.SetNull(pointer, current, out current);
+            }
 
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
@@ -48,37 +72,97 @@ namespace Eurex.EtiDerivatives.v130
             var msgSeqNum = (uint)message.msgSeqNum;
             MsgSeqNum.Encode(pointer, current, msgSeqNum, out current);
 
-            var lastFragment = (byte)message.GetInt(LastFragment.FixTag);
-            LastFragment.Encode(pointer, current, lastFragment, out current);
+            if (message.TryGetInt(LastFragment.FixTag, out var lastFragment))
+            {
+                LastFragment.Encode(pointer, current, (byte)lastFragment, out current);
+            }
+            else
+            {
+                LastFragment.SetNull(pointer, current, out current);
+            }
 
             Pad3.Encode(pointer, current, out current);
 
-            var relatedSecurityId = message.GetLong(RelatedSecurityId.FixTag);
-            RelatedSecurityId.Encode(pointer, current, relatedSecurityId, out current);
+            if (message.TryGetLong(RelatedSecurityId.FixTag, out var relatedSecurityId))
+            {
+                RelatedSecurityId.Encode(pointer, current, relatedSecurityId, out current);
+            }
+            else
+            {
+                RelatedSecurityId.SetNull(pointer, current, out current);
+            }
 
-            var securityId = message.GetLong(SecurityId.FixTag);
-            SecurityId.Encode(pointer, current, securityId, out current);
+            if (message.TryGetLong(SecurityId.FixTag, out var securityId))
+            {
+                SecurityId.Encode(pointer, current, securityId, out current);
+            }
+            else
+            {
+                SecurityId.SetNull(pointer, current, out current);
+            }
 
-            var lastUpdateTime = message.GetULong(LastUpdateTime.FixTag);
-            LastUpdateTime.Encode(pointer, current, lastUpdateTime, out current);
+            if (message.TryGetULong(LastUpdateTime.FixTag, out var lastUpdateTime))
+            {
+                LastUpdateTime.Encode(pointer, current, lastUpdateTime, out current);
+            }
+            else
+            {
+                LastUpdateTime.SetNull(pointer, current, out current);
+            }
 
-            var securityResponseId = message.GetULong(SecurityResponseId.FixTag);
-            SecurityResponseId.Encode(pointer, current, securityResponseId, out current);
+            if (message.TryGetULong(SecurityResponseId.FixTag, out var securityResponseId))
+            {
+                SecurityResponseId.Encode(pointer, current, securityResponseId, out current);
+            }
+            else
+            {
+                SecurityResponseId.SetNull(pointer, current, out current);
+            }
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var quantityScalingFactor = (ushort)message.GetInt(QuantityScalingFactor.FixTag);
-            QuantityScalingFactor.Encode(pointer, current, quantityScalingFactor, out current);
+            if (message.TryGetInt(QuantityScalingFactor.FixTag, out var quantityScalingFactor))
+            {
+                QuantityScalingFactor.Encode(pointer, current, (ushort)quantityScalingFactor, out current);
+            }
+            else
+            {
+                QuantityScalingFactor.SetNull(pointer, current, out current);
+            }
 
-            var multilegModel = (byte)message.GetInt(MultilegModel.FixTag);
-            MultilegModel.Encode(pointer, current, multilegModel, out current);
+            if (message.TryGetInt(MultilegModel.FixTag, out var multilegModel))
+            {
+                MultilegModel.Encode(pointer, current, (byte)multilegModel, out current);
+            }
+            else
+            {
+                MultilegModel.SetNull(pointer, current, out current);
+            }
 
-            var impliedMarketIndicator = (byte)message.GetInt(ImpliedMarketIndicator.FixTag);
-            ImpliedMarketIndicator.Encode(pointer, current, impliedMarketIndicator, out current);
+            if (message.TryGetInt(ImpliedMarketIndicator.FixTag, out var impliedMarketIndicator))
+            {
+                ImpliedMarketIndicator.Encode(pointer, current, (byte)impliedMarketIndicator, out current);
+            }
+            else
+            {
+                ImpliedMarketIndicator.SetNull(pointer, current, out current);
+            }
 
-            var productComplex = (byte)message.GetInt(ProductComplex.FixTag);
-            ProductComplex.Encode(pointer, current, productComplex, out current);
+            if (message.TryGetInt(ProductComplex.FixTag, out var productComplex))
+            {
+                ProductComplex.Encode(pointer, current, (byte)productComplex, out current);
+            }
+            else
+            {
+                ProductComplex.SetNull(pointer, current, out current);
+            }
 
             Pad7.Encode(pointer, current, out current);
 
@@ -102,55 +186,87 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var requestTime = RequestTime.Decode(pointer, current, out current);
-            message.AppendULong(RequestTime.FixTag, requestTime);
+            if (RequestTime.TryDecode(pointer, current, out var requestTime, out current))
+            {
+                message.AppendULong(RequestTime.FixTag, requestTime);
+            }
 
-            var trdRegTsTimeIn = TrdRegTsTimeIn.Decode(pointer, current, out current);
-            message.AppendULong(TrdRegTsTimeIn.FixTag, trdRegTsTimeIn);
+            if (TrdRegTsTimeIn.TryDecode(pointer, current, out var trdRegTsTimeIn, out current))
+            {
+                message.AppendULong(TrdRegTsTimeIn.FixTag, trdRegTsTimeIn);
+            }
 
-            var trdRegTsTimeOut = TrdRegTsTimeOut.Decode(pointer, current, out current);
-            message.AppendULong(TrdRegTsTimeOut.FixTag, trdRegTsTimeOut);
+            if (TrdRegTsTimeOut.TryDecode(pointer, current, out var trdRegTsTimeOut, out current))
+            {
+                message.AppendULong(TrdRegTsTimeOut.FixTag, trdRegTsTimeOut);
+            }
 
-            var responseIn = ResponseIn.Decode(pointer, current, out current);
-            message.AppendULong(ResponseIn.FixTag, responseIn);
+            if (ResponseIn.TryDecode(pointer, current, out var responseIn, out current))
+            {
+                message.AppendULong(ResponseIn.FixTag, responseIn);
+            }
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var lastFragment = LastFragment.Decode(pointer, current, out current);
-            message.AppendInt(LastFragment.FixTag, lastFragment);
+            if (LastFragment.TryDecode(pointer, current, out var lastFragment, out current))
+            {
+                message.AppendInt(LastFragment.FixTag, lastFragment);
+            }
 
             current += Pad3.Length;
 
-            var relatedSecurityId = RelatedSecurityId.Decode(pointer, current, out current);
-            message.AppendLong(RelatedSecurityId.FixTag, relatedSecurityId);
+            if (RelatedSecurityId.TryDecode(pointer, current, out var relatedSecurityId, out current))
+            {
+                message.AppendLong(RelatedSecurityId.FixTag, relatedSecurityId);
+            }
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
+            if (SecurityId.TryDecode(pointer, current, out var securityId, out current))
+            {
+                message.AppendLong(SecurityId.FixTag, securityId);
+            }
 
-            var lastUpdateTime = LastUpdateTime.Decode(pointer, current, out current);
-            message.AppendULong(LastUpdateTime.FixTag, lastUpdateTime);
+            if (LastUpdateTime.TryDecode(pointer, current, out var lastUpdateTime, out current))
+            {
+                message.AppendULong(LastUpdateTime.FixTag, lastUpdateTime);
+            }
 
-            var securityResponseId = SecurityResponseId.Decode(pointer, current, out current);
-            message.AppendULong(SecurityResponseId.FixTag, securityResponseId);
+            if (SecurityResponseId.TryDecode(pointer, current, out var securityResponseId, out current))
+            {
+                message.AppendULong(SecurityResponseId.FixTag, securityResponseId);
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var quantityScalingFactor = (short)QuantityScalingFactor.Decode(pointer, current, out current);
-            message.AppendInt(QuantityScalingFactor.FixTag, quantityScalingFactor);
+            if (QuantityScalingFactor.TryDecode(pointer, current, out var quantityScalingFactor, out current))
+            {
+                message.AppendInt(QuantityScalingFactor.FixTag, (short)quantityScalingFactor);
+            }
 
-            var multilegModel = MultilegModel.Decode(pointer, current, out current);
-            message.AppendInt(MultilegModel.FixTag, multilegModel);
+            if (MultilegModel.TryDecode(pointer, current, out var multilegModel, out current))
+            {
+                message.AppendInt(MultilegModel.FixTag, multilegModel);
+            }
 
-            var impliedMarketIndicator = ImpliedMarketIndicator.Decode(pointer, current, out current);
-            message.AppendInt(ImpliedMarketIndicator.FixTag, impliedMarketIndicator);
+            if (ImpliedMarketIndicator.TryDecode(pointer, current, out var impliedMarketIndicator, out current))
+            {
+                message.AppendInt(ImpliedMarketIndicator.FixTag, impliedMarketIndicator);
+            }
 
-            var productComplex = ProductComplex.Decode(pointer, current, out current);
-            message.AppendInt(ProductComplex.FixTag, productComplex);
+            if (ProductComplex.TryDecode(pointer, current, out var productComplex, out current))
+            {
+                message.AppendInt(ProductComplex.FixTag, productComplex);
+            }
 
             current += Pad7.Length;
 

@@ -7,7 +7,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Last Entity Processed: Fixed Length Data Field
     /// </summary>
 
-    public sealed class LastEntityProcessed
+    public static class LastEntityProcessed
     {
         /// <summary>
         ///  Fix Tag for Last Entity Processed

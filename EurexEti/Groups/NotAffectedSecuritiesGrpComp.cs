@@ -22,8 +22,14 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in notAffectedSecuritiesGrpComp.sectionList)
             {
-                var notAffectedSecurityId = group.GetULong(NotAffectedSecurityId.FixTag);
-                NotAffectedSecurityId.Encode(pointer, current, notAffectedSecurityId, out current);
+                if (group.TryGetULong(NotAffectedSecurityId.FixTag, out var notAffectedSecurityId))
+                {
+                    NotAffectedSecurityId.Encode(pointer, current, notAffectedSecurityId, out current);
+                }
+                else
+                {
+                    NotAffectedSecurityId.SetNull(pointer, current, out current);
+                }
 
             }
         }
@@ -44,8 +50,10 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var notAffectedSecurityId = NotAffectedSecurityId.Decode(pointer, current, out current);
-                message.AppendULong(NotAffectedSecurityId.FixTag, notAffectedSecurityId);
+                if (NotAffectedSecurityId.TryDecode(pointer, current, out var notAffectedSecurityId, out current))
+                {
+                    message.AppendULong(NotAffectedSecurityId.FixTag, notAffectedSecurityId);
+                }
 
             }
         }

@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  T 7 Entry Service Rtm Trade Date: 4 Byte Fixed Width Integer
+    ///  T 7 Entry Service Rtm Trade Date: Optional 4 Byte Fixed Width Integer
     /// </summary>
 
-    public sealed class T7EntryServiceRtmTradeDate
+    public static class T7EntryServiceRtmTradeDate
     {
         /// <summary>
         ///  Fix Tag for T 7 Entry Service Rtm Trade Date
@@ -17,6 +17,11 @@ namespace Eurex.EtiDerivatives.v130
         ///  Length of T 7 Entry Service Rtm Trade Date in bytes
         /// </summary>
         public const int Length = 4;
+
+        /// <summary>
+        ///  Null value for T 7 Entry Service Rtm Trade Date
+        /// </summary>
+        public const uint NoValue = 0xFFFFFFFF;
 
         /// <summary>
         ///  Encode T 7 Entry Service Rtm Trade Date
@@ -52,15 +57,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set T 7 Entry Service Rtm Trade Date to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + T7EntryServiceRtmTradeDate.Length)
+            {
+                throw new System.Exception("Invalid Length for T 7 Entry Service Rtm Trade Date");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set T 7 Entry Service Rtm Trade Date to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + T7EntryServiceRtmTradeDate.Length;
+        }
+
+        /// <summary>
+        ///  Set T 7 Entry Service Rtm Trade Date to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(uint*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode T 7 Entry Service Rtm Trade Date
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out uint value, out int current)
         {
             if (length > offset + T7EntryServiceRtmTradeDate.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +104,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode T 7 Entry Service Rtm Trade Date
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out uint value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

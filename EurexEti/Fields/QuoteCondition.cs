@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Quote Condition: Enum
     /// </summary>
 
-    public sealed class QuoteCondition
+    public static class QuoteCondition
     {
         /// <summary>
         ///  Active

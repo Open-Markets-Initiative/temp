@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Price Disclosure Instruction: Enum
     /// </summary>
 
-    public sealed class PriceDisclosureInstruction
+    public static class PriceDisclosureInstruction
     {
         /// <summary>
         ///  No
@@ -53,15 +53,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Price Disclosure Instruction to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + PriceDisclosureInstruction.Length)
+            {
+                throw new System.Exception("Invalid Length for Price Disclosure Instruction");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Price Disclosure Instruction to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + PriceDisclosureInstruction.Length;
+        }
+
+        /// <summary>
+        ///  Set Price Disclosure Instruction to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(byte*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Price Disclosure Instruction
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out byte value, out int current)
         {
             if (length > offset + PriceDisclosureInstruction.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -69,6 +100,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Price Disclosure Instruction
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out byte value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

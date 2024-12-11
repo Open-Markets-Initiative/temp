@@ -22,14 +22,32 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in srqsTargetPartyTrdGrpComp.sectionList)
             {
-                var sideLastQty = group.GetDouble(SideLastQty.FixTag);
-                SideLastQty.Encode(pointer, current, sideLastQty, out current);
+                if (group.TryGetDouble(SideLastQty.FixTag, out var sideLastQty))
+                {
+                    SideLastQty.Encode(pointer, current, sideLastQty, out current);
+                }
+                else
+                {
+                    SideLastQty.SetNull(pointer, current, out current);
+                }
 
-                var quoteId = group.GetULong(QuoteId.FixTag);
-                QuoteId.Encode(pointer, current, quoteId, out current);
+                if (group.TryGetULong(QuoteId.FixTag, out var quoteId))
+                {
+                    QuoteId.Encode(pointer, current, quoteId, out current);
+                }
+                else
+                {
+                    QuoteId.SetNull(pointer, current, out current);
+                }
 
-                var targetPartyIdExecutingTrader = (uint)group.GetInt(TargetPartyIdExecutingTrader.FixTag);
-                TargetPartyIdExecutingTrader.Encode(pointer, current, targetPartyIdExecutingTrader, out current);
+                if (group.TryGetInt(TargetPartyIdExecutingTrader.FixTag, out var targetPartyIdExecutingTrader))
+                {
+                    TargetPartyIdExecutingTrader.Encode(pointer, current, (uint)targetPartyIdExecutingTrader, out current);
+                }
+                else
+                {
+                    TargetPartyIdExecutingTrader.SetNull(pointer, current, out current);
+                }
 
                 if (group.TryGetString(TargetPartyExecutingFirm.FixTag, out var targetPartyExecutingFirm))
                 {
@@ -79,14 +97,20 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var sideLastQty = SideLastQty.Decode(pointer, current, out current);
-                message.AppendDouble(SideLastQty.FixTag, sideLastQty);
+                if (SideLastQty.TryDecode(pointer, current, out var sideLastQty, out current))
+                {
+                    message.AppendDouble(SideLastQty.FixTag, sideLastQty);
+                }
 
-                var quoteId = QuoteId.Decode(pointer, current, out current);
-                message.AppendULong(QuoteId.FixTag, quoteId);
+                if (QuoteId.TryDecode(pointer, current, out var quoteId, out current))
+                {
+                    message.AppendULong(QuoteId.FixTag, quoteId);
+                }
 
-                var targetPartyIdExecutingTrader = (int)TargetPartyIdExecutingTrader.Decode(pointer, current, out current);
-                message.AppendInt(TargetPartyIdExecutingTrader.FixTag, targetPartyIdExecutingTrader);
+                if (TargetPartyIdExecutingTrader.TryDecode(pointer, current, out var targetPartyIdExecutingTrader, out current))
+                {
+                    message.AppendInt(TargetPartyIdExecutingTrader.FixTag, (int)targetPartyIdExecutingTrader);
+                }
 
                 if (TargetPartyExecutingFirm.TryDecode(pointer, current, out var targetPartyExecutingFirm, out current))
                 {

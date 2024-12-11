@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Leg Input Source: Enum
     /// </summary>
 
-    public sealed class LegInputSource
+    public static class LegInputSource
     {
         /// <summary>
         ///  Client Broker
@@ -63,15 +63,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Leg Input Source to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + LegInputSource.Length)
+            {
+                throw new System.Exception("Invalid Length for Leg Input Source");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Leg Input Source to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + LegInputSource.Length;
+        }
+
+        /// <summary>
+        ///  Set Leg Input Source to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(byte*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Leg Input Source
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out byte value, out int current)
         {
             if (length > offset + LegInputSource.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -79,6 +110,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Leg Input Source
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out byte value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

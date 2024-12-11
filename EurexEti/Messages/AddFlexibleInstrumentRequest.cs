@@ -45,29 +45,71 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var strikePrice = message.GetDouble(StrikePrice.FixTag);
-            StrikePrice.Encode(pointer, current, strikePrice, out current);
+            if (message.TryGetDouble(StrikePrice.FixTag, out var strikePrice))
+            {
+                StrikePrice.Encode(pointer, current, strikePrice, out current);
+            }
+            else
+            {
+                StrikePrice.SetNull(pointer, current, out current);
+            }
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var maturityDate = (uint)message.GetInt(MaturityDate.FixTag);
-            MaturityDate.Encode(pointer, current, maturityDate, out current);
+            if (message.TryGetInt(MaturityDate.FixTag, out var maturityDate))
+            {
+                MaturityDate.Encode(pointer, current, (uint)maturityDate, out current);
+            }
+            else
+            {
+                MaturityDate.SetNull(pointer, current, out current);
+            }
 
-            var contractDate = (uint)message.GetInt(ContractDate.FixTag);
-            ContractDate.Encode(pointer, current, contractDate, out current);
+            if (message.TryGetInt(ContractDate.FixTag, out var contractDate))
+            {
+                ContractDate.Encode(pointer, current, (uint)contractDate, out current);
+            }
+            else
+            {
+                ContractDate.SetNull(pointer, current, out current);
+            }
 
             var settlMethod = message.GetToken(SettlMethod.FixTag);
             SettlMethod.Encode(pointer, current, settlMethod, out current);
 
-            var optAttribute = (byte)message.GetInt(OptAttribute.FixTag);
-            OptAttribute.Encode(pointer, current, optAttribute, out current);
+            if (message.TryGetInt(OptAttribute.FixTag, out var optAttribute))
+            {
+                OptAttribute.Encode(pointer, current, (byte)optAttribute, out current);
+            }
+            else
+            {
+                OptAttribute.SetNull(pointer, current, out current);
+            }
 
-            var putOrCall = (byte)message.GetInt(PutOrCall.FixTag);
-            PutOrCall.Encode(pointer, current, putOrCall, out current);
+            if (message.TryGetInt(PutOrCall.FixTag, out var putOrCall))
+            {
+                PutOrCall.Encode(pointer, current, (byte)putOrCall, out current);
+            }
+            else
+            {
+                PutOrCall.SetNull(pointer, current, out current);
+            }
 
-            var exerciseStyle = (byte)message.GetInt(ExerciseStyle.FixTag);
-            ExerciseStyle.Encode(pointer, current, exerciseStyle, out current);
+            if (message.TryGetInt(ExerciseStyle.FixTag, out var exerciseStyle))
+            {
+                ExerciseStyle.Encode(pointer, current, (byte)exerciseStyle, out current);
+            }
+            else
+            {
+                ExerciseStyle.SetNull(pointer, current, out current);
+            }
 
             if (message.TryGetString(ComplianceText.FixTag, out var complianceText))
             {
@@ -105,35 +147,53 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var strikePrice = StrikePrice.Decode(pointer, current, out current);
-            message.AppendDouble(StrikePrice.FixTag, strikePrice);
+            if (StrikePrice.TryDecode(pointer, current, out var strikePrice, out current))
+            {
+                message.AppendDouble(StrikePrice.FixTag, strikePrice);
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var maturityDate = (int)MaturityDate.Decode(pointer, current, out current);
-            message.AppendInt(MaturityDate.FixTag, maturityDate);
+            if (MaturityDate.TryDecode(pointer, current, out var maturityDate, out current))
+            {
+                message.AppendInt(MaturityDate.FixTag, (int)maturityDate);
+            }
 
-            var contractDate = (int)ContractDate.Decode(pointer, current, out current);
-            message.AppendInt(ContractDate.FixTag, contractDate);
+            if (ContractDate.TryDecode(pointer, current, out var contractDate, out current))
+            {
+                message.AppendInt(ContractDate.FixTag, (int)contractDate);
+            }
 
             var settlMethod = SettlMethod.Decode(pointer, current, out current);
             message.AppendToken(SettlMethod.FixTag, settlMethod);
 
-            var optAttribute = OptAttribute.Decode(pointer, current, out current);
-            message.AppendInt(OptAttribute.FixTag, optAttribute);
+            if (OptAttribute.TryDecode(pointer, current, out var optAttribute, out current))
+            {
+                message.AppendInt(OptAttribute.FixTag, optAttribute);
+            }
 
-            var putOrCall = PutOrCall.Decode(pointer, current, out current);
-            message.AppendInt(PutOrCall.FixTag, putOrCall);
+            if (PutOrCall.TryDecode(pointer, current, out var putOrCall, out current))
+            {
+                message.AppendInt(PutOrCall.FixTag, putOrCall);
+            }
 
-            var exerciseStyle = ExerciseStyle.Decode(pointer, current, out current);
-            message.AppendInt(ExerciseStyle.FixTag, exerciseStyle);
+            if (ExerciseStyle.TryDecode(pointer, current, out var exerciseStyle, out current))
+            {
+                message.AppendInt(ExerciseStyle.FixTag, exerciseStyle);
+            }
 
             if (ComplianceText.TryDecode(pointer, current, out var complianceText, out current))
             {

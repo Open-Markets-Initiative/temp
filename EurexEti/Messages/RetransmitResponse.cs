@@ -30,8 +30,14 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var requestTime = message.GetULong(RequestTime.FixTag);
-            RequestTime.Encode(pointer, current, requestTime, out current);
+            if (message.TryGetULong(RequestTime.FixTag, out var requestTime))
+            {
+                RequestTime.Encode(pointer, current, requestTime, out current);
+            }
+            else
+            {
+                RequestTime.SetNull(pointer, current, out current);
+            }
 
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
@@ -41,14 +47,32 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad4.Encode(pointer, current, out current);
 
-            var applEndSeqNum = message.GetULong(ApplEndSeqNum.FixTag);
-            ApplEndSeqNum.Encode(pointer, current, applEndSeqNum, out current);
+            if (message.TryGetULong(ApplEndSeqNum.FixTag, out var applEndSeqNum))
+            {
+                ApplEndSeqNum.Encode(pointer, current, applEndSeqNum, out current);
+            }
+            else
+            {
+                ApplEndSeqNum.SetNull(pointer, current, out current);
+            }
 
-            var refApplLastSeqNum = message.GetULong(RefApplLastSeqNum.FixTag);
-            RefApplLastSeqNum.Encode(pointer, current, refApplLastSeqNum, out current);
+            if (message.TryGetULong(RefApplLastSeqNum.FixTag, out var refApplLastSeqNum))
+            {
+                RefApplLastSeqNum.Encode(pointer, current, refApplLastSeqNum, out current);
+            }
+            else
+            {
+                RefApplLastSeqNum.SetNull(pointer, current, out current);
+            }
 
-            var applTotalMessageCount = (ushort)message.GetInt(ApplTotalMessageCount.FixTag);
-            ApplTotalMessageCount.Encode(pointer, current, applTotalMessageCount, out current);
+            if (message.TryGetInt(ApplTotalMessageCount.FixTag, out var applTotalMessageCount))
+            {
+                ApplTotalMessageCount.Encode(pointer, current, (ushort)applTotalMessageCount, out current);
+            }
+            else
+            {
+                ApplTotalMessageCount.SetNull(pointer, current, out current);
+            }
 
             Pad6.Encode(pointer, current, out current);
 
@@ -72,25 +96,37 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var requestTime = RequestTime.Decode(pointer, current, out current);
-            message.AppendULong(RequestTime.FixTag, requestTime);
+            if (RequestTime.TryDecode(pointer, current, out var requestTime, out current))
+            {
+                message.AppendULong(RequestTime.FixTag, requestTime);
+            }
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
             current += Pad4.Length;
 
-            var applEndSeqNum = ApplEndSeqNum.Decode(pointer, current, out current);
-            message.AppendULong(ApplEndSeqNum.FixTag, applEndSeqNum);
+            if (ApplEndSeqNum.TryDecode(pointer, current, out var applEndSeqNum, out current))
+            {
+                message.AppendULong(ApplEndSeqNum.FixTag, applEndSeqNum);
+            }
 
-            var refApplLastSeqNum = RefApplLastSeqNum.Decode(pointer, current, out current);
-            message.AppendULong(RefApplLastSeqNum.FixTag, refApplLastSeqNum);
+            if (RefApplLastSeqNum.TryDecode(pointer, current, out var refApplLastSeqNum, out current))
+            {
+                message.AppendULong(RefApplLastSeqNum.FixTag, refApplLastSeqNum);
+            }
 
-            var applTotalMessageCount = (short)ApplTotalMessageCount.Decode(pointer, current, out current);
-            message.AppendInt(ApplTotalMessageCount.FixTag, applTotalMessageCount);
+            if (ApplTotalMessageCount.TryDecode(pointer, current, out var applTotalMessageCount, out current))
+            {
+                message.AppendInt(ApplTotalMessageCount.FixTag, (short)applTotalMessageCount);
+            }
 
             current += Pad6.Length;
 

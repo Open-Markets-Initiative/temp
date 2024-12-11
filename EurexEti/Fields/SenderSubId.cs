@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Sender Sub Id: 4 Byte Fixed Width Integer
+    ///  Sender Sub Id: Optional 4 Byte Fixed Width Integer
     /// </summary>
 
-    public sealed class SenderSubId
+    public static class SenderSubId
     {
         /// <summary>
         ///  Fix Tag for Sender Sub Id
@@ -17,6 +17,11 @@ namespace Eurex.EtiDerivatives.v130
         ///  Length of Sender Sub Id in bytes
         /// </summary>
         public const int Length = 4;
+
+        /// <summary>
+        ///  Null value for Sender Sub Id
+        /// </summary>
+        public const uint NoValue = 0xFFFFFFFF;
 
         /// <summary>
         ///  Encode Sender Sub Id
@@ -52,15 +57,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Sender Sub Id to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + SenderSubId.Length)
+            {
+                throw new System.Exception("Invalid Length for Sender Sub Id");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Sender Sub Id to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + SenderSubId.Length;
+        }
+
+        /// <summary>
+        ///  Set Sender Sub Id to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(uint*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Sender Sub Id
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out uint value, out int current)
         {
             if (length > offset + SenderSubId.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +104,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Sender Sub Id
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out uint value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

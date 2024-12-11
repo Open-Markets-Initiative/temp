@@ -33,49 +33,133 @@ namespace Eurex.EtiDerivatives.v130
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
-            var applSubId = (uint)message.GetInt(ApplSubId.FixTag);
-            ApplSubId.Encode(pointer, current, applSubId, out current);
+            if (message.TryGetInt(ApplSubId.FixTag, out var applSubId))
+            {
+                ApplSubId.Encode(pointer, current, (uint)applSubId, out current);
+            }
+            else
+            {
+                ApplSubId.SetNull(pointer, current, out current);
+            }
 
-            var applId = (byte)message.GetInt(ApplId.FixTag);
-            ApplId.Encode(pointer, current, applId, out current);
+            if (message.TryGetInt(ApplId.FixTag, out var applId))
+            {
+                ApplId.Encode(pointer, current, (byte)applId, out current);
+            }
+            else
+            {
+                ApplId.SetNull(pointer, current, out current);
+            }
 
-            var lastFragment = (byte)message.GetInt(LastFragment.FixTag);
-            LastFragment.Encode(pointer, current, lastFragment, out current);
+            if (message.TryGetInt(LastFragment.FixTag, out var lastFragment))
+            {
+                LastFragment.Encode(pointer, current, (byte)lastFragment, out current);
+            }
+            else
+            {
+                LastFragment.SetNull(pointer, current, out current);
+            }
 
             Pad2.Encode(pointer, current, out current);
 
-            var matchingEngineTradeDate = (uint)message.GetInt(MatchingEngineTradeDate.FixTag);
-            MatchingEngineTradeDate.Encode(pointer, current, matchingEngineTradeDate, out current);
+            if (message.TryGetInt(MatchingEngineTradeDate.FixTag, out var matchingEngineTradeDate))
+            {
+                MatchingEngineTradeDate.Encode(pointer, current, (uint)matchingEngineTradeDate, out current);
+            }
+            else
+            {
+                MatchingEngineTradeDate.SetNull(pointer, current, out current);
+            }
 
-            var tradeManagerTradeDate = (uint)message.GetInt(TradeManagerTradeDate.FixTag);
-            TradeManagerTradeDate.Encode(pointer, current, tradeManagerTradeDate, out current);
+            if (message.TryGetInt(TradeManagerTradeDate.FixTag, out var tradeManagerTradeDate))
+            {
+                TradeManagerTradeDate.Encode(pointer, current, (uint)tradeManagerTradeDate, out current);
+            }
+            else
+            {
+                TradeManagerTradeDate.SetNull(pointer, current, out current);
+            }
 
-            var applSeqTradeDate = (uint)message.GetInt(ApplSeqTradeDate.FixTag);
-            ApplSeqTradeDate.Encode(pointer, current, applSeqTradeDate, out current);
+            if (message.TryGetInt(ApplSeqTradeDate.FixTag, out var applSeqTradeDate))
+            {
+                ApplSeqTradeDate.Encode(pointer, current, (uint)applSeqTradeDate, out current);
+            }
+            else
+            {
+                ApplSeqTradeDate.SetNull(pointer, current, out current);
+            }
 
-            var t7EntryServiceTradeDate = (uint)message.GetInt(T7EntryServiceTradeDate.FixTag);
-            T7EntryServiceTradeDate.Encode(pointer, current, t7EntryServiceTradeDate, out current);
+            if (message.TryGetInt(T7EntryServiceTradeDate.FixTag, out var t7EntryServiceTradeDate))
+            {
+                T7EntryServiceTradeDate.Encode(pointer, current, (uint)t7EntryServiceTradeDate, out current);
+            }
+            else
+            {
+                T7EntryServiceTradeDate.SetNull(pointer, current, out current);
+            }
 
-            var t7EntryServiceRtmTradeDate = (uint)message.GetInt(T7EntryServiceRtmTradeDate.FixTag);
-            T7EntryServiceRtmTradeDate.Encode(pointer, current, t7EntryServiceRtmTradeDate, out current);
+            if (message.TryGetInt(T7EntryServiceRtmTradeDate.FixTag, out var t7EntryServiceRtmTradeDate))
+            {
+                T7EntryServiceRtmTradeDate.Encode(pointer, current, (uint)t7EntryServiceRtmTradeDate, out current);
+            }
+            else
+            {
+                T7EntryServiceRtmTradeDate.SetNull(pointer, current, out current);
+            }
 
-            var partitionId = (ushort)message.GetInt(PartitionId.FixTag);
-            PartitionId.Encode(pointer, current, partitionId, out current);
+            if (message.TryGetInt(PartitionId.FixTag, out var partitionId))
+            {
+                PartitionId.Encode(pointer, current, (ushort)partitionId, out current);
+            }
+            else
+            {
+                PartitionId.SetNull(pointer, current, out current);
+            }
 
-            var matchingEngineStatus = (byte)message.GetInt(MatchingEngineStatus.FixTag);
-            MatchingEngineStatus.Encode(pointer, current, matchingEngineStatus, out current);
+            if (message.TryGetInt(MatchingEngineStatus.FixTag, out var matchingEngineStatus))
+            {
+                MatchingEngineStatus.Encode(pointer, current, (byte)matchingEngineStatus, out current);
+            }
+            else
+            {
+                MatchingEngineStatus.SetNull(pointer, current, out current);
+            }
 
-            var tradeManagerStatus = (byte)message.GetInt(TradeManagerStatus.FixTag);
-            TradeManagerStatus.Encode(pointer, current, tradeManagerStatus, out current);
+            if (message.TryGetInt(TradeManagerStatus.FixTag, out var tradeManagerStatus))
+            {
+                TradeManagerStatus.Encode(pointer, current, (byte)tradeManagerStatus, out current);
+            }
+            else
+            {
+                TradeManagerStatus.SetNull(pointer, current, out current);
+            }
 
-            var applSeqStatus = (byte)message.GetInt(ApplSeqStatus.FixTag);
-            ApplSeqStatus.Encode(pointer, current, applSeqStatus, out current);
+            if (message.TryGetInt(ApplSeqStatus.FixTag, out var applSeqStatus))
+            {
+                ApplSeqStatus.Encode(pointer, current, (byte)applSeqStatus, out current);
+            }
+            else
+            {
+                ApplSeqStatus.SetNull(pointer, current, out current);
+            }
 
-            var t7EntryServiceStatus = (byte)message.GetInt(T7EntryServiceStatus.FixTag);
-            T7EntryServiceStatus.Encode(pointer, current, t7EntryServiceStatus, out current);
+            if (message.TryGetInt(T7EntryServiceStatus.FixTag, out var t7EntryServiceStatus))
+            {
+                T7EntryServiceStatus.Encode(pointer, current, (byte)t7EntryServiceStatus, out current);
+            }
+            else
+            {
+                T7EntryServiceStatus.SetNull(pointer, current, out current);
+            }
 
-            var t7EntryServiceRtmStatus = (byte)message.GetInt(T7EntryServiceRtmStatus.FixTag);
-            T7EntryServiceRtmStatus.Encode(pointer, current, t7EntryServiceRtmStatus, out current);
+            if (message.TryGetInt(T7EntryServiceRtmStatus.FixTag, out var t7EntryServiceRtmStatus))
+            {
+                T7EntryServiceRtmStatus.Encode(pointer, current, (byte)t7EntryServiceRtmStatus, out current);
+            }
+            else
+            {
+                T7EntryServiceRtmStatus.SetNull(pointer, current, out current);
+            }
 
             Pad5.Encode(pointer, current, out current);
 
@@ -99,52 +183,82 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var applSubId = (int)ApplSubId.Decode(pointer, current, out current);
-            message.AppendInt(ApplSubId.FixTag, applSubId);
+            if (ApplSubId.TryDecode(pointer, current, out var applSubId, out current))
+            {
+                message.AppendInt(ApplSubId.FixTag, (int)applSubId);
+            }
 
-            var applId = ApplId.Decode(pointer, current, out current);
-            message.AppendInt(ApplId.FixTag, applId);
+            if (ApplId.TryDecode(pointer, current, out var applId, out current))
+            {
+                message.AppendInt(ApplId.FixTag, applId);
+            }
 
-            var lastFragment = LastFragment.Decode(pointer, current, out current);
-            message.AppendInt(LastFragment.FixTag, lastFragment);
+            if (LastFragment.TryDecode(pointer, current, out var lastFragment, out current))
+            {
+                message.AppendInt(LastFragment.FixTag, lastFragment);
+            }
 
             current += Pad2.Length;
 
-            var matchingEngineTradeDate = (int)MatchingEngineTradeDate.Decode(pointer, current, out current);
-            message.AppendInt(MatchingEngineTradeDate.FixTag, matchingEngineTradeDate);
+            if (MatchingEngineTradeDate.TryDecode(pointer, current, out var matchingEngineTradeDate, out current))
+            {
+                message.AppendInt(MatchingEngineTradeDate.FixTag, (int)matchingEngineTradeDate);
+            }
 
-            var tradeManagerTradeDate = (int)TradeManagerTradeDate.Decode(pointer, current, out current);
-            message.AppendInt(TradeManagerTradeDate.FixTag, tradeManagerTradeDate);
+            if (TradeManagerTradeDate.TryDecode(pointer, current, out var tradeManagerTradeDate, out current))
+            {
+                message.AppendInt(TradeManagerTradeDate.FixTag, (int)tradeManagerTradeDate);
+            }
 
-            var applSeqTradeDate = (int)ApplSeqTradeDate.Decode(pointer, current, out current);
-            message.AppendInt(ApplSeqTradeDate.FixTag, applSeqTradeDate);
+            if (ApplSeqTradeDate.TryDecode(pointer, current, out var applSeqTradeDate, out current))
+            {
+                message.AppendInt(ApplSeqTradeDate.FixTag, (int)applSeqTradeDate);
+            }
 
-            var t7EntryServiceTradeDate = (int)T7EntryServiceTradeDate.Decode(pointer, current, out current);
-            message.AppendInt(T7EntryServiceTradeDate.FixTag, t7EntryServiceTradeDate);
+            if (T7EntryServiceTradeDate.TryDecode(pointer, current, out var t7EntryServiceTradeDate, out current))
+            {
+                message.AppendInt(T7EntryServiceTradeDate.FixTag, (int)t7EntryServiceTradeDate);
+            }
 
-            var t7EntryServiceRtmTradeDate = (int)T7EntryServiceRtmTradeDate.Decode(pointer, current, out current);
-            message.AppendInt(T7EntryServiceRtmTradeDate.FixTag, t7EntryServiceRtmTradeDate);
+            if (T7EntryServiceRtmTradeDate.TryDecode(pointer, current, out var t7EntryServiceRtmTradeDate, out current))
+            {
+                message.AppendInt(T7EntryServiceRtmTradeDate.FixTag, (int)t7EntryServiceRtmTradeDate);
+            }
 
-            var partitionId = (short)PartitionId.Decode(pointer, current, out current);
-            message.AppendInt(PartitionId.FixTag, partitionId);
+            if (PartitionId.TryDecode(pointer, current, out var partitionId, out current))
+            {
+                message.AppendInt(PartitionId.FixTag, (short)partitionId);
+            }
 
-            var matchingEngineStatus = MatchingEngineStatus.Decode(pointer, current, out current);
-            message.AppendInt(MatchingEngineStatus.FixTag, matchingEngineStatus);
+            if (MatchingEngineStatus.TryDecode(pointer, current, out var matchingEngineStatus, out current))
+            {
+                message.AppendInt(MatchingEngineStatus.FixTag, matchingEngineStatus);
+            }
 
-            var tradeManagerStatus = TradeManagerStatus.Decode(pointer, current, out current);
-            message.AppendInt(TradeManagerStatus.FixTag, tradeManagerStatus);
+            if (TradeManagerStatus.TryDecode(pointer, current, out var tradeManagerStatus, out current))
+            {
+                message.AppendInt(TradeManagerStatus.FixTag, tradeManagerStatus);
+            }
 
-            var applSeqStatus = ApplSeqStatus.Decode(pointer, current, out current);
-            message.AppendInt(ApplSeqStatus.FixTag, applSeqStatus);
+            if (ApplSeqStatus.TryDecode(pointer, current, out var applSeqStatus, out current))
+            {
+                message.AppendInt(ApplSeqStatus.FixTag, applSeqStatus);
+            }
 
-            var t7EntryServiceStatus = T7EntryServiceStatus.Decode(pointer, current, out current);
-            message.AppendInt(T7EntryServiceStatus.FixTag, t7EntryServiceStatus);
+            if (T7EntryServiceStatus.TryDecode(pointer, current, out var t7EntryServiceStatus, out current))
+            {
+                message.AppendInt(T7EntryServiceStatus.FixTag, t7EntryServiceStatus);
+            }
 
-            var t7EntryServiceRtmStatus = T7EntryServiceRtmStatus.Decode(pointer, current, out current);
-            message.AppendInt(T7EntryServiceRtmStatus.FixTag, t7EntryServiceRtmStatus);
+            if (T7EntryServiceRtmStatus.TryDecode(pointer, current, out var t7EntryServiceRtmStatus, out current))
+            {
+                message.AppendInt(T7EntryServiceRtmStatus.FixTag, t7EntryServiceRtmStatus);
+            }
 
             current += Pad5.Length;
 

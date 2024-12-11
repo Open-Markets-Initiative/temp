@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Number Of Resp Disclosure Instruction: Enum
     /// </summary>
 
-    public sealed class NumberOfRespDisclosureInstruction
+    public static class NumberOfRespDisclosureInstruction
     {
         /// <summary>
         ///  No
@@ -53,15 +53,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Number Of Resp Disclosure Instruction to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + NumberOfRespDisclosureInstruction.Length)
+            {
+                throw new System.Exception("Invalid Length for Number Of Resp Disclosure Instruction");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Number Of Resp Disclosure Instruction to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + NumberOfRespDisclosureInstruction.Length;
+        }
+
+        /// <summary>
+        ///  Set Number Of Resp Disclosure Instruction to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(byte*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Number Of Resp Disclosure Instruction
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out byte value, out int current)
         {
             if (length > offset + NumberOfRespDisclosureInstruction.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -69,6 +100,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Number Of Resp Disclosure Instruction
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out byte value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

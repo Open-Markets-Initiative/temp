@@ -33,14 +33,32 @@ namespace Eurex.EtiDerivatives.v130
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
-            var throttleTimeInterval = message.GetLong(ThrottleTimeInterval.FixTag);
-            ThrottleTimeInterval.Encode(pointer, current, throttleTimeInterval, out current);
+            if (message.TryGetLong(ThrottleTimeInterval.FixTag, out var throttleTimeInterval))
+            {
+                ThrottleTimeInterval.Encode(pointer, current, throttleTimeInterval, out current);
+            }
+            else
+            {
+                ThrottleTimeInterval.SetNull(pointer, current, out current);
+            }
 
-            var throttleNoMsgs = (uint)message.GetInt(ThrottleNoMsgs.FixTag);
-            ThrottleNoMsgs.Encode(pointer, current, throttleNoMsgs, out current);
+            if (message.TryGetInt(ThrottleNoMsgs.FixTag, out var throttleNoMsgs))
+            {
+                ThrottleNoMsgs.Encode(pointer, current, (uint)throttleNoMsgs, out current);
+            }
+            else
+            {
+                ThrottleNoMsgs.SetNull(pointer, current, out current);
+            }
 
-            var throttleDisconnectLimit = (uint)message.GetInt(ThrottleDisconnectLimit.FixTag);
-            ThrottleDisconnectLimit.Encode(pointer, current, throttleDisconnectLimit, out current);
+            if (message.TryGetInt(ThrottleDisconnectLimit.FixTag, out var throttleDisconnectLimit))
+            {
+                ThrottleDisconnectLimit.Encode(pointer, current, (uint)throttleDisconnectLimit, out current);
+            }
+            else
+            {
+                ThrottleDisconnectLimit.SetNull(pointer, current, out current);
+            }
 
             // --- complete header ---
 
@@ -62,17 +80,25 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var throttleTimeInterval = ThrottleTimeInterval.Decode(pointer, current, out current);
-            message.AppendLong(ThrottleTimeInterval.FixTag, throttleTimeInterval);
+            if (ThrottleTimeInterval.TryDecode(pointer, current, out var throttleTimeInterval, out current))
+            {
+                message.AppendLong(ThrottleTimeInterval.FixTag, throttleTimeInterval);
+            }
 
-            var throttleNoMsgs = (int)ThrottleNoMsgs.Decode(pointer, current, out current);
-            message.AppendInt(ThrottleNoMsgs.FixTag, throttleNoMsgs);
+            if (ThrottleNoMsgs.TryDecode(pointer, current, out var throttleNoMsgs, out current))
+            {
+                message.AppendInt(ThrottleNoMsgs.FixTag, (int)throttleNoMsgs);
+            }
 
-            var throttleDisconnectLimit = (int)ThrottleDisconnectLimit.Decode(pointer, current, out current);
-            message.AppendInt(ThrottleDisconnectLimit.FixTag, throttleDisconnectLimit);
+            if (ThrottleDisconnectLimit.TryDecode(pointer, current, out var throttleDisconnectLimit, out current))
+            {
+                message.AppendInt(ThrottleDisconnectLimit.FixTag, (int)throttleDisconnectLimit);
+            }
 
             return FixErrorCode.None;
         }

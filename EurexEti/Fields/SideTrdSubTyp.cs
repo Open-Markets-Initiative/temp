@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Side Trd Sub Typ: Enum
     /// </summary>
 
-    public sealed class SideTrdSubTyp
+    public static class SideTrdSubTyp
     {
         /// <summary>
         ///  Block Trade
@@ -53,15 +53,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Side Trd Sub Typ to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + SideTrdSubTyp.Length)
+            {
+                throw new System.Exception("Invalid Length for Side Trd Sub Typ");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Side Trd Sub Typ to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + SideTrdSubTyp.Length;
+        }
+
+        /// <summary>
+        ///  Set Side Trd Sub Typ to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(ushort*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Side Trd Sub Typ
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out ushort value, out int current)
         {
             if (length > offset + SideTrdSubTyp.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -69,6 +100,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Side Trd Sub Typ
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out ushort value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

@@ -45,17 +45,41 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var securityId = message.GetLong(SecurityId.FixTag);
-            SecurityId.Encode(pointer, current, securityId, out current);
+            if (message.TryGetLong(SecurityId.FixTag, out var securityId))
+            {
+                SecurityId.Encode(pointer, current, securityId, out current);
+            }
+            else
+            {
+                SecurityId.SetNull(pointer, current, out current);
+            }
 
-            var orderQty = message.GetDouble(OrderQty.FixTag);
-            OrderQty.Encode(pointer, current, orderQty, out current);
+            if (message.TryGetDouble(OrderQty.FixTag, out var orderQty))
+            {
+                OrderQty.Encode(pointer, current, orderQty, out current);
+            }
+            else
+            {
+                OrderQty.SetNull(pointer, current, out current);
+            }
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var side = (byte)message.GetInt(Side.FixTag);
-            Side.Encode(pointer, current, side, out current);
+            if (message.TryGetInt(Side.FixTag, out var side))
+            {
+                Side.Encode(pointer, current, (byte)side, out current);
+            }
+            else
+            {
+                Side.SetNull(pointer, current, out current);
+            }
 
             if (message.TryGetString(ComplianceText.FixTag, out var complianceText))
             {
@@ -93,23 +117,35 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
+            if (SecurityId.TryDecode(pointer, current, out var securityId, out current))
+            {
+                message.AppendLong(SecurityId.FixTag, securityId);
+            }
 
-            var orderQty = OrderQty.Decode(pointer, current, out current);
-            message.AppendDouble(OrderQty.FixTag, orderQty);
+            if (OrderQty.TryDecode(pointer, current, out var orderQty, out current))
+            {
+                message.AppendDouble(OrderQty.FixTag, orderQty);
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
+            if (Side.TryDecode(pointer, current, out var side, out current))
+            {
+                message.AppendInt(Side.FixTag, side);
+            }
 
             if (ComplianceText.TryDecode(pointer, current, out var complianceText, out current))
             {

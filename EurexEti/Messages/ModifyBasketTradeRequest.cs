@@ -45,23 +45,59 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var basketTrdMatchId = message.GetULong(BasketTrdMatchId.FixTag);
-            BasketTrdMatchId.Encode(pointer, current, basketTrdMatchId, out current);
+            if (message.TryGetULong(BasketTrdMatchId.FixTag, out var basketTrdMatchId))
+            {
+                BasketTrdMatchId.Encode(pointer, current, basketTrdMatchId, out current);
+            }
+            else
+            {
+                BasketTrdMatchId.SetNull(pointer, current, out current);
+            }
 
-            var basketExecId = (uint)message.GetInt(BasketExecId.FixTag);
-            BasketExecId.Encode(pointer, current, basketExecId, out current);
+            if (message.TryGetInt(BasketExecId.FixTag, out var basketExecId))
+            {
+                BasketExecId.Encode(pointer, current, (uint)basketExecId, out current);
+            }
+            else
+            {
+                BasketExecId.SetNull(pointer, current, out current);
+            }
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var maturityMonthYear = (uint)message.GetInt(MaturityMonthYear.FixTag);
-            MaturityMonthYear.Encode(pointer, current, maturityMonthYear, out current);
+            if (message.TryGetInt(MaturityMonthYear.FixTag, out var maturityMonthYear))
+            {
+                MaturityMonthYear.Encode(pointer, current, (uint)maturityMonthYear, out current);
+            }
+            else
+            {
+                MaturityMonthYear.SetNull(pointer, current, out current);
+            }
 
-            var basketProfileId = (uint)message.GetInt(BasketProfileId.FixTag);
-            BasketProfileId.Encode(pointer, current, basketProfileId, out current);
+            if (message.TryGetInt(BasketProfileId.FixTag, out var basketProfileId))
+            {
+                BasketProfileId.Encode(pointer, current, (uint)basketProfileId, out current);
+            }
+            else
+            {
+                BasketProfileId.SetNull(pointer, current, out current);
+            }
 
-            var trdType = (ushort)message.GetInt(TrdType.FixTag);
-            TrdType.Encode(pointer, current, trdType, out current);
+            if (message.TryGetInt(TrdType.FixTag, out var trdType))
+            {
+                TrdType.Encode(pointer, current, (ushort)trdType, out current);
+            }
+            else
+            {
+                TrdType.SetNull(pointer, current, out current);
+            }
 
             var isBasketSideAllocGrpComp = message.TryGetGroup(NoBasketSideAlloc.FixTag, out var basketSideAllocGrpComp) && basketSideAllocGrpComp.sectionList.Count > 0;
             if (isBasketSideAllocGrpComp)
@@ -74,8 +110,14 @@ namespace Eurex.EtiDerivatives.v130
                 NoBasketSideAlloc.Zero(pointer, current, out current);
             }
 
-            var tradeReportType = (byte)message.GetInt(TradeReportType.FixTag);
-            TradeReportType.Encode(pointer, current, tradeReportType, out current);
+            if (message.TryGetInt(TradeReportType.FixTag, out var tradeReportType))
+            {
+                TradeReportType.Encode(pointer, current, (byte)tradeReportType, out current);
+            }
+            else
+            {
+                TradeReportType.SetNull(pointer, current, out current);
+            }
 
             var isBasketRootPartyGrpComp = message.TryGetGroup(NoBasketRootPartyGrps.FixTag, out var basketRootPartyGrpComp) && basketRootPartyGrpComp.sectionList.Count > 0;
             if (isBasketRootPartyGrpComp)
@@ -99,8 +141,14 @@ namespace Eurex.EtiDerivatives.v130
                 NoInstrmtMatchSides.Zero(pointer, current, out current);
             }
 
-            var optionalEarlyTerminationIndicator = (byte)message.GetInt(OptionalEarlyTerminationIndicator.FixTag);
-            OptionalEarlyTerminationIndicator.Encode(pointer, current, optionalEarlyTerminationIndicator, out current);
+            if (message.TryGetInt(OptionalEarlyTerminationIndicator.FixTag, out var optionalEarlyTerminationIndicator))
+            {
+                OptionalEarlyTerminationIndicator.Encode(pointer, current, (byte)optionalEarlyTerminationIndicator, out current);
+            }
+            else
+            {
+                OptionalEarlyTerminationIndicator.SetNull(pointer, current, out current);
+            }
 
             if (message.TryGetString(BasketTradeReportText.FixTag, out var basketTradeReportText))
             {
@@ -160,41 +208,61 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var basketTrdMatchId = BasketTrdMatchId.Decode(pointer, current, out current);
-            message.AppendULong(BasketTrdMatchId.FixTag, basketTrdMatchId);
+            if (BasketTrdMatchId.TryDecode(pointer, current, out var basketTrdMatchId, out current))
+            {
+                message.AppendULong(BasketTrdMatchId.FixTag, basketTrdMatchId);
+            }
 
-            var basketExecId = (int)BasketExecId.Decode(pointer, current, out current);
-            message.AppendInt(BasketExecId.FixTag, basketExecId);
+            if (BasketExecId.TryDecode(pointer, current, out var basketExecId, out current))
+            {
+                message.AppendInt(BasketExecId.FixTag, (int)basketExecId);
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var maturityMonthYear = (int)MaturityMonthYear.Decode(pointer, current, out current);
-            message.AppendInt(MaturityMonthYear.FixTag, maturityMonthYear);
+            if (MaturityMonthYear.TryDecode(pointer, current, out var maturityMonthYear, out current))
+            {
+                message.AppendInt(MaturityMonthYear.FixTag, (int)maturityMonthYear);
+            }
 
-            var basketProfileId = (int)BasketProfileId.Decode(pointer, current, out current);
-            message.AppendInt(BasketProfileId.FixTag, basketProfileId);
+            if (BasketProfileId.TryDecode(pointer, current, out var basketProfileId, out current))
+            {
+                message.AppendInt(BasketProfileId.FixTag, (int)basketProfileId);
+            }
 
-            var trdType = (short)TrdType.Decode(pointer, current, out current);
-            message.AppendInt(TrdType.FixTag, trdType);
+            if (TrdType.TryDecode(pointer, current, out var trdType, out current))
+            {
+                message.AppendInt(TrdType.FixTag, (short)trdType);
+            }
 
             var noBasketSideAlloc = (int)NoBasketSideAlloc.Decode(pointer, current, out current);
 
-            var tradeReportType = TradeReportType.Decode(pointer, current, out current);
-            message.AppendInt(TradeReportType.FixTag, tradeReportType);
+            if (TradeReportType.TryDecode(pointer, current, out var tradeReportType, out current))
+            {
+                message.AppendInt(TradeReportType.FixTag, tradeReportType);
+            }
 
             var noBasketRootPartyGrps = (int)NoBasketRootPartyGrps.Decode(pointer, current, out current);
 
             var noInstrmtMatchSides = (int)NoInstrmtMatchSides.Decode(pointer, current, out current);
 
-            var optionalEarlyTerminationIndicator = OptionalEarlyTerminationIndicator.Decode(pointer, current, out current);
-            message.AppendInt(OptionalEarlyTerminationIndicator.FixTag, optionalEarlyTerminationIndicator);
+            if (OptionalEarlyTerminationIndicator.TryDecode(pointer, current, out var optionalEarlyTerminationIndicator, out current))
+            {
+                message.AppendInt(OptionalEarlyTerminationIndicator.FixTag, optionalEarlyTerminationIndicator);
+            }
 
             if (BasketTradeReportText.TryDecode(pointer, current, out var basketTradeReportText, out current))
             {

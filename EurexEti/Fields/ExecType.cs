@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Exec Type: Enum
     /// </summary>
 
-    public sealed class ExecType
+    public static class ExecType
     {
         /// <summary>
         ///  New

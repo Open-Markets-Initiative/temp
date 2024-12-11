@@ -22,14 +22,32 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in crossRequestAckSideGrpComp.sectionList)
             {
-                var orderId = group.GetULong(OrderId.FixTag);
-                OrderId.Encode(pointer, current, orderId, out current);
+                if (group.TryGetULong(OrderId.FixTag, out var orderId))
+                {
+                    OrderId.Encode(pointer, current, orderId, out current);
+                }
+                else
+                {
+                    OrderId.SetNull(pointer, current, out current);
+                }
 
-                var inputSource = (byte)group.GetInt(InputSource.FixTag);
-                InputSource.Encode(pointer, current, inputSource, out current);
+                if (group.TryGetInt(InputSource.FixTag, out var inputSource))
+                {
+                    InputSource.Encode(pointer, current, (byte)inputSource, out current);
+                }
+                else
+                {
+                    InputSource.SetNull(pointer, current, out current);
+                }
 
-                var side = (byte)group.GetInt(Side.FixTag);
-                Side.Encode(pointer, current, side, out current);
+                if (group.TryGetInt(Side.FixTag, out var side))
+                {
+                    Side.Encode(pointer, current, (byte)side, out current);
+                }
+                else
+                {
+                    Side.SetNull(pointer, current, out current);
+                }
 
                 Pad6.Encode(pointer, current, out current);
 
@@ -52,14 +70,20 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var orderId = OrderId.Decode(pointer, current, out current);
-                message.AppendULong(OrderId.FixTag, orderId);
+                if (OrderId.TryDecode(pointer, current, out var orderId, out current))
+                {
+                    message.AppendULong(OrderId.FixTag, orderId);
+                }
 
-                var inputSource = InputSource.Decode(pointer, current, out current);
-                message.AppendInt(InputSource.FixTag, inputSource);
+                if (InputSource.TryDecode(pointer, current, out var inputSource, out current))
+                {
+                    message.AppendInt(InputSource.FixTag, inputSource);
+                }
 
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
+                if (Side.TryDecode(pointer, current, out var side, out current))
+                {
+                    message.AppendInt(Side.FixTag, side);
+                }
 
                 current += Pad6.Length;
 

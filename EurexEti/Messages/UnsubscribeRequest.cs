@@ -45,8 +45,14 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var refApplSubId = (uint)message.GetInt(RefApplSubId.FixTag);
-            RefApplSubId.Encode(pointer, current, refApplSubId, out current);
+            if (message.TryGetInt(RefApplSubId.FixTag, out var refApplSubId))
+            {
+                RefApplSubId.Encode(pointer, current, (uint)refApplSubId, out current);
+            }
+            else
+            {
+                RefApplSubId.SetNull(pointer, current, out current);
+            }
 
             Pad4.Encode(pointer, current, out current);
 
@@ -75,14 +81,20 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var refApplSubId = (int)RefApplSubId.Decode(pointer, current, out current);
-            message.AppendInt(RefApplSubId.FixTag, refApplSubId);
+            if (RefApplSubId.TryDecode(pointer, current, out var refApplSubId, out current))
+            {
+                message.AppendInt(RefApplSubId.FixTag, (int)refApplSubId);
+            }
 
             current += Pad4.Length;
 

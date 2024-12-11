@@ -22,11 +22,23 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in enrichmentRulesGrpComp.sectionList)
             {
-                var enrichmentRuleId = (ushort)group.GetInt(EnrichmentRuleId.FixTag);
-                EnrichmentRuleId.Encode(pointer, current, enrichmentRuleId, out current);
+                if (group.TryGetInt(EnrichmentRuleId.FixTag, out var enrichmentRuleId))
+                {
+                    EnrichmentRuleId.Encode(pointer, current, (ushort)enrichmentRuleId, out current);
+                }
+                else
+                {
+                    EnrichmentRuleId.SetNull(pointer, current, out current);
+                }
 
-                var partyIdOriginationMarket = (byte)group.GetInt(PartyIdOriginationMarket.FixTag);
-                PartyIdOriginationMarket.Encode(pointer, current, partyIdOriginationMarket, out current);
+                if (group.TryGetInt(PartyIdOriginationMarket.FixTag, out var partyIdOriginationMarket))
+                {
+                    PartyIdOriginationMarket.Encode(pointer, current, (byte)partyIdOriginationMarket, out current);
+                }
+                else
+                {
+                    PartyIdOriginationMarket.SetNull(pointer, current, out current);
+                }
 
                 if (group.TryGetString(Account.FixTag, out var account))
                 {
@@ -115,11 +127,15 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var enrichmentRuleId = (short)EnrichmentRuleId.Decode(pointer, current, out current);
-                message.AppendInt(EnrichmentRuleId.FixTag, enrichmentRuleId);
+                if (EnrichmentRuleId.TryDecode(pointer, current, out var enrichmentRuleId, out current))
+                {
+                    message.AppendInt(EnrichmentRuleId.FixTag, (short)enrichmentRuleId);
+                }
 
-                var partyIdOriginationMarket = PartyIdOriginationMarket.Decode(pointer, current, out current);
-                message.AppendInt(PartyIdOriginationMarket.FixTag, partyIdOriginationMarket);
+                if (PartyIdOriginationMarket.TryDecode(pointer, current, out var partyIdOriginationMarket, out current))
+                {
+                    message.AppendInt(PartyIdOriginationMarket.FixTag, partyIdOriginationMarket);
+                }
 
                 if (Account.TryDecode(pointer, current, out var account, out current))
                 {

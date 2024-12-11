@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  List Update Action: Enum
     /// </summary>
 
-    public sealed class ListUpdateAction
+    public static class ListUpdateAction
     {
         /// <summary>
         ///  Add (Invocation)

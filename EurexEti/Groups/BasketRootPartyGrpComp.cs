@@ -22,8 +22,14 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in basketRootPartyGrpComp.sectionList)
             {
-                var rootPartySubIdType = (ushort)group.GetInt(RootPartySubIdType.FixTag);
-                RootPartySubIdType.Encode(pointer, current, rootPartySubIdType, out current);
+                if (group.TryGetInt(RootPartySubIdType.FixTag, out var rootPartySubIdType))
+                {
+                    RootPartySubIdType.Encode(pointer, current, (ushort)rootPartySubIdType, out current);
+                }
+                else
+                {
+                    RootPartySubIdType.SetNull(pointer, current, out current);
+                }
 
                 if (group.TryGetString(RootPartyContraFirm.FixTag, out var rootPartyContraFirm))
                 {
@@ -73,8 +79,10 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var rootPartySubIdType = (short)RootPartySubIdType.Decode(pointer, current, out current);
-                message.AppendInt(RootPartySubIdType.FixTag, rootPartySubIdType);
+                if (RootPartySubIdType.TryDecode(pointer, current, out var rootPartySubIdType, out current))
+                {
+                    message.AppendInt(RootPartySubIdType.FixTag, (short)rootPartySubIdType);
+                }
 
                 if (RootPartyContraFirm.TryDecode(pointer, current, out var rootPartyContraFirm, out current))
                 {

@@ -22,8 +22,14 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in srqsQuoteGrpComp.sectionList)
             {
-                var quoteId = group.GetULong(QuoteId.FixTag);
-                QuoteId.Encode(pointer, current, quoteId, out current);
+                if (group.TryGetULong(QuoteId.FixTag, out var quoteId))
+                {
+                    QuoteId.Encode(pointer, current, quoteId, out current);
+                }
+                else
+                {
+                    QuoteId.SetNull(pointer, current, out current);
+                }
 
             }
         }
@@ -44,8 +50,10 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var quoteId = QuoteId.Decode(pointer, current, out current);
-                message.AppendULong(QuoteId.FixTag, quoteId);
+                if (QuoteId.TryDecode(pointer, current, out var quoteId, out current))
+                {
+                    message.AppendULong(QuoteId.FixTag, quoteId);
+                }
 
             }
         }

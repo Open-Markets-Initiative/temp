@@ -7,7 +7,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Root Party Id Execution Venue: Optional Fixed Length String Field
     /// </summary>
 
-    public sealed class RootPartyIdExecutionVenue
+    public static class RootPartyIdExecutionVenue
     {
         /// <summary>
         ///  Fix Tag for Root Party Id Execution Venue
@@ -116,6 +116,12 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, out string value, out int current)
         {
+            value = string.Empty;
+
+            if (*(pointer + offset) == 0)
+            {
+                return false;
+            }
             value = Decode(pointer, offset, out current);
 
             return !string.IsNullOrEmpty(value);

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Quote Entry Reject Reason: Enum
     /// </summary>
 
-    public sealed class QuoteEntryRejectReason
+    public static class QuoteEntryRejectReason
     {
         /// <summary>
         ///  Unknown security
@@ -213,15 +213,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Quote Entry Reject Reason to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + QuoteEntryRejectReason.Length)
+            {
+                throw new System.Exception("Invalid Length for Quote Entry Reject Reason");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Quote Entry Reject Reason to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + QuoteEntryRejectReason.Length;
+        }
+
+        /// <summary>
+        ///  Set Quote Entry Reject Reason to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(uint*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Quote Entry Reject Reason
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out uint value, out int current)
         {
             if (length > offset + QuoteEntryRejectReason.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -229,6 +260,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Quote Entry Reject Reason
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out uint value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

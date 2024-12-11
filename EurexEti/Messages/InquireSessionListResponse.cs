@@ -30,8 +30,14 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var requestTime = message.GetULong(RequestTime.FixTag);
-            RequestTime.Encode(pointer, current, requestTime, out current);
+            if (message.TryGetULong(RequestTime.FixTag, out var requestTime))
+            {
+                RequestTime.Encode(pointer, current, requestTime, out current);
+            }
+            else
+            {
+                RequestTime.SetNull(pointer, current, out current);
+            }
 
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
@@ -79,14 +85,20 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var requestTime = RequestTime.Decode(pointer, current, out current);
-            message.AppendULong(RequestTime.FixTag, requestTime);
+            if (RequestTime.TryDecode(pointer, current, out var requestTime, out current))
+            {
+                message.AppendULong(RequestTime.FixTag, requestTime);
+            }
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
             current += Pad4.Length;
 

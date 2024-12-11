@@ -30,8 +30,14 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var requestTime = message.GetULong(RequestTime.FixTag);
-            RequestTime.Encode(pointer, current, requestTime, out current);
+            if (message.TryGetULong(RequestTime.FixTag, out var requestTime))
+            {
+                RequestTime.Encode(pointer, current, requestTime, out current);
+            }
+            else
+            {
+                RequestTime.SetNull(pointer, current, out current);
+            }
 
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
@@ -41,17 +47,41 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad4.Encode(pointer, current, out current);
 
-            var securityId = message.GetLong(SecurityId.FixTag);
-            SecurityId.Encode(pointer, current, securityId, out current);
+            if (message.TryGetLong(SecurityId.FixTag, out var securityId))
+            {
+                SecurityId.Encode(pointer, current, securityId, out current);
+            }
+            else
+            {
+                SecurityId.SetNull(pointer, current, out current);
+            }
 
-            var negotiationId = (uint)message.GetInt(NegotiationId.FixTag);
-            NegotiationId.Encode(pointer, current, negotiationId, out current);
+            if (message.TryGetInt(NegotiationId.FixTag, out var negotiationId))
+            {
+                NegotiationId.Encode(pointer, current, (uint)negotiationId, out current);
+            }
+            else
+            {
+                NegotiationId.SetNull(pointer, current, out current);
+            }
 
-            var tradeId = (uint)message.GetInt(TradeId.FixTag);
-            TradeId.Encode(pointer, current, tradeId, out current);
+            if (message.TryGetInt(TradeId.FixTag, out var tradeId))
+            {
+                TradeId.Encode(pointer, current, (uint)tradeId, out current);
+            }
+            else
+            {
+                TradeId.SetNull(pointer, current, out current);
+            }
 
-            var secondaryTradeId = (uint)message.GetInt(SecondaryTradeId.FixTag);
-            SecondaryTradeId.Encode(pointer, current, secondaryTradeId, out current);
+            if (message.TryGetInt(SecondaryTradeId.FixTag, out var secondaryTradeId))
+            {
+                SecondaryTradeId.Encode(pointer, current, (uint)secondaryTradeId, out current);
+            }
+            else
+            {
+                SecondaryTradeId.SetNull(pointer, current, out current);
+            }
 
             var isSrqsQuoteGrpComp = message.TryGetGroup(NoSrqsQuoteGrps.FixTag, out var srqsQuoteGrpComp) && srqsQuoteGrpComp.sectionList.Count > 0;
             if (isSrqsQuoteGrpComp)
@@ -109,28 +139,42 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var requestTime = RequestTime.Decode(pointer, current, out current);
-            message.AppendULong(RequestTime.FixTag, requestTime);
+            if (RequestTime.TryDecode(pointer, current, out var requestTime, out current))
+            {
+                message.AppendULong(RequestTime.FixTag, requestTime);
+            }
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
             current += Pad4.Length;
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
+            if (SecurityId.TryDecode(pointer, current, out var securityId, out current))
+            {
+                message.AppendLong(SecurityId.FixTag, securityId);
+            }
 
-            var negotiationId = (int)NegotiationId.Decode(pointer, current, out current);
-            message.AppendInt(NegotiationId.FixTag, negotiationId);
+            if (NegotiationId.TryDecode(pointer, current, out var negotiationId, out current))
+            {
+                message.AppendInt(NegotiationId.FixTag, (int)negotiationId);
+            }
 
-            var tradeId = (int)TradeId.Decode(pointer, current, out current);
-            message.AppendInt(TradeId.FixTag, tradeId);
+            if (TradeId.TryDecode(pointer, current, out var tradeId, out current))
+            {
+                message.AppendInt(TradeId.FixTag, (int)tradeId);
+            }
 
-            var secondaryTradeId = (int)SecondaryTradeId.Decode(pointer, current, out current);
-            message.AppendInt(SecondaryTradeId.FixTag, secondaryTradeId);
+            if (SecondaryTradeId.TryDecode(pointer, current, out var secondaryTradeId, out current))
+            {
+                message.AppendInt(SecondaryTradeId.FixTag, (int)secondaryTradeId);
+            }
 
             var noSrqsQuoteGrps = (int)NoSrqsQuoteGrps.Decode(pointer, current, out current);
 

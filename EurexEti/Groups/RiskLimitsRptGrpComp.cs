@@ -22,32 +22,86 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in riskLimitsRptGrpComp.sectionList)
             {
-                var riskLimitQty = group.GetDouble(RiskLimitQty.FixTag);
-                RiskLimitQty.Encode(pointer, current, riskLimitQty, out current);
+                if (group.TryGetDouble(RiskLimitQty.FixTag, out var riskLimitQty))
+                {
+                    RiskLimitQty.Encode(pointer, current, riskLimitQty, out current);
+                }
+                else
+                {
+                    RiskLimitQty.SetNull(pointer, current, out current);
+                }
 
-                var riskLimitOpenQty = group.GetDouble(RiskLimitOpenQty.FixTag);
-                RiskLimitOpenQty.Encode(pointer, current, riskLimitOpenQty, out current);
+                if (group.TryGetDouble(RiskLimitOpenQty.FixTag, out var riskLimitOpenQty))
+                {
+                    RiskLimitOpenQty.Encode(pointer, current, riskLimitOpenQty, out current);
+                }
+                else
+                {
+                    RiskLimitOpenQty.SetNull(pointer, current, out current);
+                }
 
-                var riskLimitNetPositionQty = group.GetDouble(RiskLimitNetPositionQty.FixTag);
-                RiskLimitNetPositionQty.Encode(pointer, current, riskLimitNetPositionQty, out current);
+                if (group.TryGetDouble(RiskLimitNetPositionQty.FixTag, out var riskLimitNetPositionQty))
+                {
+                    RiskLimitNetPositionQty.Encode(pointer, current, riskLimitNetPositionQty, out current);
+                }
+                else
+                {
+                    RiskLimitNetPositionQty.SetNull(pointer, current, out current);
+                }
 
-                var nettingCoefficient = group.GetDouble(NettingCoefficient.FixTag);
-                NettingCoefficient.Encode(pointer, current, nettingCoefficient, out current);
+                if (group.TryGetDouble(NettingCoefficient.FixTag, out var nettingCoefficient))
+                {
+                    NettingCoefficient.Encode(pointer, current, nettingCoefficient, out current);
+                }
+                else
+                {
+                    NettingCoefficient.SetNull(pointer, current, out current);
+                }
 
-                var quoteWeightingCoefficient = group.GetDouble(QuoteWeightingCoefficient.FixTag);
-                QuoteWeightingCoefficient.Encode(pointer, current, quoteWeightingCoefficient, out current);
+                if (group.TryGetDouble(QuoteWeightingCoefficient.FixTag, out var quoteWeightingCoefficient))
+                {
+                    QuoteWeightingCoefficient.Encode(pointer, current, quoteWeightingCoefficient, out current);
+                }
+                else
+                {
+                    QuoteWeightingCoefficient.SetNull(pointer, current, out current);
+                }
 
-                var activationDate = (uint)group.GetInt(ActivationDate.FixTag);
-                ActivationDate.Encode(pointer, current, activationDate, out current);
+                if (group.TryGetInt(ActivationDate.FixTag, out var activationDate))
+                {
+                    ActivationDate.Encode(pointer, current, (uint)activationDate, out current);
+                }
+                else
+                {
+                    ActivationDate.SetNull(pointer, current, out current);
+                }
 
-                var riskLimitType = (byte)group.GetInt(RiskLimitType.FixTag);
-                RiskLimitType.Encode(pointer, current, riskLimitType, out current);
+                if (group.TryGetInt(RiskLimitType.FixTag, out var riskLimitType))
+                {
+                    RiskLimitType.Encode(pointer, current, (byte)riskLimitType, out current);
+                }
+                else
+                {
+                    RiskLimitType.SetNull(pointer, current, out current);
+                }
 
-                var riskLimitRequestingPartyRole = (byte)group.GetInt(RiskLimitRequestingPartyRole.FixTag);
-                RiskLimitRequestingPartyRole.Encode(pointer, current, riskLimitRequestingPartyRole, out current);
+                if (group.TryGetInt(RiskLimitRequestingPartyRole.FixTag, out var riskLimitRequestingPartyRole))
+                {
+                    RiskLimitRequestingPartyRole.Encode(pointer, current, (byte)riskLimitRequestingPartyRole, out current);
+                }
+                else
+                {
+                    RiskLimitRequestingPartyRole.SetNull(pointer, current, out current);
+                }
 
-                var riskLimitViolationIndicator = (byte)group.GetInt(RiskLimitViolationIndicator.FixTag);
-                RiskLimitViolationIndicator.Encode(pointer, current, riskLimitViolationIndicator, out current);
+                if (group.TryGetInt(RiskLimitViolationIndicator.FixTag, out var riskLimitViolationIndicator))
+                {
+                    RiskLimitViolationIndicator.Encode(pointer, current, (byte)riskLimitViolationIndicator, out current);
+                }
+                else
+                {
+                    RiskLimitViolationIndicator.SetNull(pointer, current, out current);
+                }
 
                 if (group.TryGetString(RiskLimitGroup.FixTag, out var riskLimitGroup))
                 {
@@ -79,32 +133,50 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var riskLimitQty = RiskLimitQty.Decode(pointer, current, out current);
-                message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);
+                if (RiskLimitQty.TryDecode(pointer, current, out var riskLimitQty, out current))
+                {
+                    message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);
+                }
 
-                var riskLimitOpenQty = RiskLimitOpenQty.Decode(pointer, current, out current);
-                message.AppendDouble(RiskLimitOpenQty.FixTag, riskLimitOpenQty);
+                if (RiskLimitOpenQty.TryDecode(pointer, current, out var riskLimitOpenQty, out current))
+                {
+                    message.AppendDouble(RiskLimitOpenQty.FixTag, riskLimitOpenQty);
+                }
 
-                var riskLimitNetPositionQty = RiskLimitNetPositionQty.Decode(pointer, current, out current);
-                message.AppendDouble(RiskLimitNetPositionQty.FixTag, riskLimitNetPositionQty);
+                if (RiskLimitNetPositionQty.TryDecode(pointer, current, out var riskLimitNetPositionQty, out current))
+                {
+                    message.AppendDouble(RiskLimitNetPositionQty.FixTag, riskLimitNetPositionQty);
+                }
 
-                var nettingCoefficient = NettingCoefficient.Decode(pointer, current, out current);
-                message.AppendDouble(NettingCoefficient.FixTag, nettingCoefficient);
+                if (NettingCoefficient.TryDecode(pointer, current, out var nettingCoefficient, out current))
+                {
+                    message.AppendDouble(NettingCoefficient.FixTag, nettingCoefficient);
+                }
 
-                var quoteWeightingCoefficient = QuoteWeightingCoefficient.Decode(pointer, current, out current);
-                message.AppendDouble(QuoteWeightingCoefficient.FixTag, quoteWeightingCoefficient);
+                if (QuoteWeightingCoefficient.TryDecode(pointer, current, out var quoteWeightingCoefficient, out current))
+                {
+                    message.AppendDouble(QuoteWeightingCoefficient.FixTag, quoteWeightingCoefficient);
+                }
 
-                var activationDate = (int)ActivationDate.Decode(pointer, current, out current);
-                message.AppendInt(ActivationDate.FixTag, activationDate);
+                if (ActivationDate.TryDecode(pointer, current, out var activationDate, out current))
+                {
+                    message.AppendInt(ActivationDate.FixTag, (int)activationDate);
+                }
 
-                var riskLimitType = RiskLimitType.Decode(pointer, current, out current);
-                message.AppendInt(RiskLimitType.FixTag, riskLimitType);
+                if (RiskLimitType.TryDecode(pointer, current, out var riskLimitType, out current))
+                {
+                    message.AppendInt(RiskLimitType.FixTag, riskLimitType);
+                }
 
-                var riskLimitRequestingPartyRole = RiskLimitRequestingPartyRole.Decode(pointer, current, out current);
-                message.AppendInt(RiskLimitRequestingPartyRole.FixTag, riskLimitRequestingPartyRole);
+                if (RiskLimitRequestingPartyRole.TryDecode(pointer, current, out var riskLimitRequestingPartyRole, out current))
+                {
+                    message.AppendInt(RiskLimitRequestingPartyRole.FixTag, riskLimitRequestingPartyRole);
+                }
 
-                var riskLimitViolationIndicator = RiskLimitViolationIndicator.Decode(pointer, current, out current);
-                message.AppendInt(RiskLimitViolationIndicator.FixTag, riskLimitViolationIndicator);
+                if (RiskLimitViolationIndicator.TryDecode(pointer, current, out var riskLimitViolationIndicator, out current))
+                {
+                    message.AppendInt(RiskLimitViolationIndicator.FixTag, riskLimitViolationIndicator);
+                }
 
                 if (RiskLimitGroup.TryDecode(pointer, current, out var riskLimitGroup, out current))
                 {

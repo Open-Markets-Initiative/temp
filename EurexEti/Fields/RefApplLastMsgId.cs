@@ -7,7 +7,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Ref Appl Last Msg Id: Fixed Length Data Field
     /// </summary>
 
-    public sealed class RefApplLastMsgId
+    public static class RefApplLastMsgId
     {
         /// <summary>
         ///  Fix Tag for Ref Appl Last Msg Id

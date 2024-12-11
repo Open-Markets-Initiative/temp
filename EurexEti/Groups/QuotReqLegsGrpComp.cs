@@ -22,20 +22,50 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in quotReqLegsGrpComp.sectionList)
             {
-                var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-                LegSecurityId.Encode(pointer, current, legSecurityId, out current);
+                if (group.TryGetLong(LegSecurityId.FixTag, out var legSecurityId))
+                {
+                    LegSecurityId.Encode(pointer, current, legSecurityId, out current);
+                }
+                else
+                {
+                    LegSecurityId.SetNull(pointer, current, out current);
+                }
 
-                var legRatioQty = (uint)group.GetInt(LegRatioQty.FixTag);
-                LegRatioQty.Encode(pointer, current, legRatioQty, out current);
+                if (group.TryGetInt(LegRatioQty.FixTag, out var legRatioQty))
+                {
+                    LegRatioQty.Encode(pointer, current, (uint)legRatioQty, out current);
+                }
+                else
+                {
+                    LegRatioQty.SetNull(pointer, current, out current);
+                }
 
-                var legSymbol = group.GetInt(LegSymbol.FixTag);
-                LegSymbol.Encode(pointer, current, legSymbol, out current);
+                if (group.TryGetInt(LegSymbol.FixTag, out var legSymbol))
+                {
+                    LegSymbol.Encode(pointer, current, legSymbol, out current);
+                }
+                else
+                {
+                    LegSymbol.SetNull(pointer, current, out current);
+                }
 
-                var legSecurityType = (byte)group.GetInt(LegSecurityType.FixTag);
-                LegSecurityType.Encode(pointer, current, legSecurityType, out current);
+                if (group.TryGetInt(LegSecurityType.FixTag, out var legSecurityType))
+                {
+                    LegSecurityType.Encode(pointer, current, (byte)legSecurityType, out current);
+                }
+                else
+                {
+                    LegSecurityType.SetNull(pointer, current, out current);
+                }
 
-                var legSide = (byte)group.GetInt(LegSide.FixTag);
-                LegSide.Encode(pointer, current, legSide, out current);
+                if (group.TryGetInt(LegSide.FixTag, out var legSide))
+                {
+                    LegSide.Encode(pointer, current, (byte)legSide, out current);
+                }
+                else
+                {
+                    LegSide.SetNull(pointer, current, out current);
+                }
 
                 Pad6.Encode(pointer, current, out current);
 
@@ -58,20 +88,30 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-                message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+                if (LegSecurityId.TryDecode(pointer, current, out var legSecurityId, out current))
+                {
+                    message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+                }
 
-                var legRatioQty = (int)LegRatioQty.Decode(pointer, current, out current);
-                message.AppendInt(LegRatioQty.FixTag, legRatioQty);
+                if (LegRatioQty.TryDecode(pointer, current, out var legRatioQty, out current))
+                {
+                    message.AppendInt(LegRatioQty.FixTag, (int)legRatioQty);
+                }
 
-                var legSymbol = LegSymbol.Decode(pointer, current, out current);
-                message.AppendInt(LegSymbol.FixTag, legSymbol);
+                if (LegSymbol.TryDecode(pointer, current, out var legSymbol, out current))
+                {
+                    message.AppendInt(LegSymbol.FixTag, legSymbol);
+                }
 
-                var legSecurityType = LegSecurityType.Decode(pointer, current, out current);
-                message.AppendInt(LegSecurityType.FixTag, legSecurityType);
+                if (LegSecurityType.TryDecode(pointer, current, out var legSecurityType, out current))
+                {
+                    message.AppendInt(LegSecurityType.FixTag, legSecurityType);
+                }
 
-                var legSide = LegSide.Decode(pointer, current, out current);
-                message.AppendInt(LegSide.FixTag, legSide);
+                if (LegSide.TryDecode(pointer, current, out var legSide, out current))
+                {
+                    message.AppendInt(LegSide.FixTag, legSide);
+                }
 
                 current += Pad6.Length;
 

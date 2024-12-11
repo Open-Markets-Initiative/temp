@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Position Effect: Enum
     /// </summary>
 
-    public sealed class PositionEffect
+    public static class PositionEffect
     {
         /// <summary>
         ///  Close

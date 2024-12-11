@@ -33,31 +33,79 @@ namespace Eurex.EtiDerivatives.v130
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
-            var applSubId = (uint)message.GetInt(ApplSubId.FixTag);
-            ApplSubId.Encode(pointer, current, applSubId, out current);
+            if (message.TryGetInt(ApplSubId.FixTag, out var applSubId))
+            {
+                ApplSubId.Encode(pointer, current, (uint)applSubId, out current);
+            }
+            else
+            {
+                ApplSubId.SetNull(pointer, current, out current);
+            }
 
-            var applId = (byte)message.GetInt(ApplId.FixTag);
-            ApplId.Encode(pointer, current, applId, out current);
+            if (message.TryGetInt(ApplId.FixTag, out var applId))
+            {
+                ApplId.Encode(pointer, current, (byte)applId, out current);
+            }
+            else
+            {
+                ApplId.SetNull(pointer, current, out current);
+            }
 
-            var lastFragment = (byte)message.GetInt(LastFragment.FixTag);
-            LastFragment.Encode(pointer, current, lastFragment, out current);
+            if (message.TryGetInt(LastFragment.FixTag, out var lastFragment))
+            {
+                LastFragment.Encode(pointer, current, (byte)lastFragment, out current);
+            }
+            else
+            {
+                LastFragment.SetNull(pointer, current, out current);
+            }
 
             Pad2.Encode(pointer, current, out current);
 
-            var selectiveRequestForQuoteServiceTradeDate = (uint)message.GetInt(SelectiveRequestForQuoteServiceTradeDate.FixTag);
-            SelectiveRequestForQuoteServiceTradeDate.Encode(pointer, current, selectiveRequestForQuoteServiceTradeDate, out current);
+            if (message.TryGetInt(SelectiveRequestForQuoteServiceTradeDate.FixTag, out var selectiveRequestForQuoteServiceTradeDate))
+            {
+                SelectiveRequestForQuoteServiceTradeDate.Encode(pointer, current, (uint)selectiveRequestForQuoteServiceTradeDate, out current);
+            }
+            else
+            {
+                SelectiveRequestForQuoteServiceTradeDate.SetNull(pointer, current, out current);
+            }
 
-            var selectiveRequestForQuoteServiceStatus = (byte)message.GetInt(SelectiveRequestForQuoteServiceStatus.FixTag);
-            SelectiveRequestForQuoteServiceStatus.Encode(pointer, current, selectiveRequestForQuoteServiceStatus, out current);
+            if (message.TryGetInt(SelectiveRequestForQuoteServiceStatus.FixTag, out var selectiveRequestForQuoteServiceStatus))
+            {
+                SelectiveRequestForQuoteServiceStatus.Encode(pointer, current, (byte)selectiveRequestForQuoteServiceStatus, out current);
+            }
+            else
+            {
+                SelectiveRequestForQuoteServiceStatus.SetNull(pointer, current, out current);
+            }
 
-            var selectiveRequestForQuoteRtmServiceStatus = (byte)message.GetInt(SelectiveRequestForQuoteRtmServiceStatus.FixTag);
-            SelectiveRequestForQuoteRtmServiceStatus.Encode(pointer, current, selectiveRequestForQuoteRtmServiceStatus, out current);
+            if (message.TryGetInt(SelectiveRequestForQuoteRtmServiceStatus.FixTag, out var selectiveRequestForQuoteRtmServiceStatus))
+            {
+                SelectiveRequestForQuoteRtmServiceStatus.Encode(pointer, current, (byte)selectiveRequestForQuoteRtmServiceStatus, out current);
+            }
+            else
+            {
+                SelectiveRequestForQuoteRtmServiceStatus.SetNull(pointer, current, out current);
+            }
 
-            var newsRtmServiceStatus = (byte)message.GetInt(NewsRtmServiceStatus.FixTag);
-            NewsRtmServiceStatus.Encode(pointer, current, newsRtmServiceStatus, out current);
+            if (message.TryGetInt(NewsRtmServiceStatus.FixTag, out var newsRtmServiceStatus))
+            {
+                NewsRtmServiceStatus.Encode(pointer, current, (byte)newsRtmServiceStatus, out current);
+            }
+            else
+            {
+                NewsRtmServiceStatus.SetNull(pointer, current, out current);
+            }
 
-            var riskControlRtmServiceStatus = (byte)message.GetInt(RiskControlRtmServiceStatus.FixTag);
-            RiskControlRtmServiceStatus.Encode(pointer, current, riskControlRtmServiceStatus, out current);
+            if (message.TryGetInt(RiskControlRtmServiceStatus.FixTag, out var riskControlRtmServiceStatus))
+            {
+                RiskControlRtmServiceStatus.Encode(pointer, current, (byte)riskControlRtmServiceStatus, out current);
+            }
+            else
+            {
+                RiskControlRtmServiceStatus.SetNull(pointer, current, out current);
+            }
 
             // --- complete header ---
 
@@ -79,34 +127,52 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var applSubId = (int)ApplSubId.Decode(pointer, current, out current);
-            message.AppendInt(ApplSubId.FixTag, applSubId);
+            if (ApplSubId.TryDecode(pointer, current, out var applSubId, out current))
+            {
+                message.AppendInt(ApplSubId.FixTag, (int)applSubId);
+            }
 
-            var applId = ApplId.Decode(pointer, current, out current);
-            message.AppendInt(ApplId.FixTag, applId);
+            if (ApplId.TryDecode(pointer, current, out var applId, out current))
+            {
+                message.AppendInt(ApplId.FixTag, applId);
+            }
 
-            var lastFragment = LastFragment.Decode(pointer, current, out current);
-            message.AppendInt(LastFragment.FixTag, lastFragment);
+            if (LastFragment.TryDecode(pointer, current, out var lastFragment, out current))
+            {
+                message.AppendInt(LastFragment.FixTag, lastFragment);
+            }
 
             current += Pad2.Length;
 
-            var selectiveRequestForQuoteServiceTradeDate = (int)SelectiveRequestForQuoteServiceTradeDate.Decode(pointer, current, out current);
-            message.AppendInt(SelectiveRequestForQuoteServiceTradeDate.FixTag, selectiveRequestForQuoteServiceTradeDate);
+            if (SelectiveRequestForQuoteServiceTradeDate.TryDecode(pointer, current, out var selectiveRequestForQuoteServiceTradeDate, out current))
+            {
+                message.AppendInt(SelectiveRequestForQuoteServiceTradeDate.FixTag, (int)selectiveRequestForQuoteServiceTradeDate);
+            }
 
-            var selectiveRequestForQuoteServiceStatus = SelectiveRequestForQuoteServiceStatus.Decode(pointer, current, out current);
-            message.AppendInt(SelectiveRequestForQuoteServiceStatus.FixTag, selectiveRequestForQuoteServiceStatus);
+            if (SelectiveRequestForQuoteServiceStatus.TryDecode(pointer, current, out var selectiveRequestForQuoteServiceStatus, out current))
+            {
+                message.AppendInt(SelectiveRequestForQuoteServiceStatus.FixTag, selectiveRequestForQuoteServiceStatus);
+            }
 
-            var selectiveRequestForQuoteRtmServiceStatus = SelectiveRequestForQuoteRtmServiceStatus.Decode(pointer, current, out current);
-            message.AppendInt(SelectiveRequestForQuoteRtmServiceStatus.FixTag, selectiveRequestForQuoteRtmServiceStatus);
+            if (SelectiveRequestForQuoteRtmServiceStatus.TryDecode(pointer, current, out var selectiveRequestForQuoteRtmServiceStatus, out current))
+            {
+                message.AppendInt(SelectiveRequestForQuoteRtmServiceStatus.FixTag, selectiveRequestForQuoteRtmServiceStatus);
+            }
 
-            var newsRtmServiceStatus = NewsRtmServiceStatus.Decode(pointer, current, out current);
-            message.AppendInt(NewsRtmServiceStatus.FixTag, newsRtmServiceStatus);
+            if (NewsRtmServiceStatus.TryDecode(pointer, current, out var newsRtmServiceStatus, out current))
+            {
+                message.AppendInt(NewsRtmServiceStatus.FixTag, newsRtmServiceStatus);
+            }
 
-            var riskControlRtmServiceStatus = RiskControlRtmServiceStatus.Decode(pointer, current, out current);
-            message.AppendInt(RiskControlRtmServiceStatus.FixTag, riskControlRtmServiceStatus);
+            if (RiskControlRtmServiceStatus.TryDecode(pointer, current, out var riskControlRtmServiceStatus, out current))
+            {
+                message.AppendInt(RiskControlRtmServiceStatus.FixTag, riskControlRtmServiceStatus);
+            }
 
             return FixErrorCode.None;
         }

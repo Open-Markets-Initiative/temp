@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Appl Usage Quotes: Enum
     /// </summary>
 
-    public sealed class ApplUsageQuotes
+    public static class ApplUsageQuotes
     {
         /// <summary>
         ///  Automated

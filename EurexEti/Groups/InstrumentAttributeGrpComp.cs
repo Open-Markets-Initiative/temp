@@ -22,8 +22,14 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in instrumentAttributeGrpComp.sectionList)
             {
-                var instrAttribType = (byte)group.GetInt(InstrAttribType.FixTag);
-                InstrAttribType.Encode(pointer, current, instrAttribType, out current);
+                if (group.TryGetInt(InstrAttribType.FixTag, out var instrAttribType))
+                {
+                    InstrAttribType.Encode(pointer, current, (byte)instrAttribType, out current);
+                }
+                else
+                {
+                    InstrAttribType.SetNull(pointer, current, out current);
+                }
 
                 if (group.TryGetString(InstrAttribValue.FixTag, out var instrAttribValue))
                 {
@@ -55,8 +61,10 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var instrAttribType = InstrAttribType.Decode(pointer, current, out current);
-                message.AppendInt(InstrAttribType.FixTag, instrAttribType);
+                if (InstrAttribType.TryDecode(pointer, current, out var instrAttribType, out current))
+                {
+                    message.AppendInt(InstrAttribType.FixTag, instrAttribType);
+                }
 
                 if (InstrAttribValue.TryDecode(pointer, current, out var instrAttribValue, out current))
                 {

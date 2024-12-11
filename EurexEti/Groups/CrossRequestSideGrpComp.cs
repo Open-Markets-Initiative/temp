@@ -22,47 +22,131 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in crossRequestSideGrpComp.sectionList)
             {
-                var partyIdClientId = group.GetULong(PartyIdClientId.FixTag);
-                PartyIdClientId.Encode(pointer, current, partyIdClientId, out current);
+                if (group.TryGetULong(PartyIdClientId.FixTag, out var partyIdClientId))
+                {
+                    PartyIdClientId.Encode(pointer, current, partyIdClientId, out current);
+                }
+                else
+                {
+                    PartyIdClientId.SetNull(pointer, current, out current);
+                }
 
-                var partyIdInvestmentDecisionMaker = group.GetULong(PartyIdInvestmentDecisionMaker.FixTag);
-                PartyIdInvestmentDecisionMaker.Encode(pointer, current, partyIdInvestmentDecisionMaker, out current);
+                if (group.TryGetULong(PartyIdInvestmentDecisionMaker.FixTag, out var partyIdInvestmentDecisionMaker))
+                {
+                    PartyIdInvestmentDecisionMaker.Encode(pointer, current, partyIdInvestmentDecisionMaker, out current);
+                }
+                else
+                {
+                    PartyIdInvestmentDecisionMaker.SetNull(pointer, current, out current);
+                }
 
-                var executingTrader = group.GetULong(ExecutingTrader.FixTag);
-                ExecutingTrader.Encode(pointer, current, executingTrader, out current);
+                if (group.TryGetULong(ExecutingTrader.FixTag, out var executingTrader))
+                {
+                    ExecutingTrader.Encode(pointer, current, executingTrader, out current);
+                }
+                else
+                {
+                    ExecutingTrader.SetNull(pointer, current, out current);
+                }
 
-                var maximumPrice = group.GetDouble(MaximumPrice.FixTag);
-                MaximumPrice.Encode(pointer, current, maximumPrice, out current);
+                if (group.TryGetDouble(MaximumPrice.FixTag, out var maximumPrice))
+                {
+                    MaximumPrice.Encode(pointer, current, maximumPrice, out current);
+                }
+                else
+                {
+                    MaximumPrice.SetNull(pointer, current, out current);
+                }
 
-                var matchInstCrossId = (uint)group.GetInt(MatchInstCrossId.FixTag);
-                MatchInstCrossId.Encode(pointer, current, matchInstCrossId, out current);
+                if (group.TryGetInt(MatchInstCrossId.FixTag, out var matchInstCrossId))
+                {
+                    MatchInstCrossId.Encode(pointer, current, (uint)matchInstCrossId, out current);
+                }
+                else
+                {
+                    MatchInstCrossId.SetNull(pointer, current, out current);
+                }
 
-                var inputSource = (byte)group.GetInt(InputSource.FixTag);
-                InputSource.Encode(pointer, current, inputSource, out current);
+                if (group.TryGetInt(InputSource.FixTag, out var inputSource))
+                {
+                    InputSource.Encode(pointer, current, (byte)inputSource, out current);
+                }
+                else
+                {
+                    InputSource.SetNull(pointer, current, out current);
+                }
 
-                var side = (byte)group.GetInt(Side.FixTag);
-                Side.Encode(pointer, current, side, out current);
+                if (group.TryGetInt(Side.FixTag, out var side))
+                {
+                    Side.Encode(pointer, current, (byte)side, out current);
+                }
+                else
+                {
+                    Side.SetNull(pointer, current, out current);
+                }
 
-                var selfMatchPreventionInstruction = (byte)group.GetInt(SelfMatchPreventionInstruction.FixTag);
-                SelfMatchPreventionInstruction.Encode(pointer, current, selfMatchPreventionInstruction, out current);
+                if (group.TryGetInt(SelfMatchPreventionInstruction.FixTag, out var selfMatchPreventionInstruction))
+                {
+                    SelfMatchPreventionInstruction.Encode(pointer, current, (byte)selfMatchPreventionInstruction, out current);
+                }
+                else
+                {
+                    SelfMatchPreventionInstruction.SetNull(pointer, current, out current);
+                }
 
-                var tradingCapacity = (byte)group.GetInt(TradingCapacity.FixTag);
-                TradingCapacity.Encode(pointer, current, tradingCapacity, out current);
+                if (group.TryGetInt(TradingCapacity.FixTag, out var tradingCapacity))
+                {
+                    TradingCapacity.Encode(pointer, current, (byte)tradingCapacity, out current);
+                }
+                else
+                {
+                    TradingCapacity.SetNull(pointer, current, out current);
+                }
 
-                var executingTraderQualifier = (byte)group.GetInt(ExecutingTraderQualifier.FixTag);
-                ExecutingTraderQualifier.Encode(pointer, current, executingTraderQualifier, out current);
+                if (group.TryGetInt(ExecutingTraderQualifier.FixTag, out var executingTraderQualifier))
+                {
+                    ExecutingTraderQualifier.Encode(pointer, current, (byte)executingTraderQualifier, out current);
+                }
+                else
+                {
+                    ExecutingTraderQualifier.SetNull(pointer, current, out current);
+                }
 
-                var orderAttributeLiquidityProvision = (byte)group.GetInt(OrderAttributeLiquidityProvision.FixTag);
-                OrderAttributeLiquidityProvision.Encode(pointer, current, orderAttributeLiquidityProvision, out current);
+                if (group.TryGetInt(OrderAttributeLiquidityProvision.FixTag, out var orderAttributeLiquidityProvision))
+                {
+                    OrderAttributeLiquidityProvision.Encode(pointer, current, (byte)orderAttributeLiquidityProvision, out current);
+                }
+                else
+                {
+                    OrderAttributeLiquidityProvision.SetNull(pointer, current, out current);
+                }
 
-                var partyIdInvestmentDecisionMakerQualifier = (byte)group.GetInt(PartyIdInvestmentDecisionMakerQualifier.FixTag);
-                PartyIdInvestmentDecisionMakerQualifier.Encode(pointer, current, partyIdInvestmentDecisionMakerQualifier, out current);
+                if (group.TryGetInt(PartyIdInvestmentDecisionMakerQualifier.FixTag, out var partyIdInvestmentDecisionMakerQualifier))
+                {
+                    PartyIdInvestmentDecisionMakerQualifier.Encode(pointer, current, (byte)partyIdInvestmentDecisionMakerQualifier, out current);
+                }
+                else
+                {
+                    PartyIdInvestmentDecisionMakerQualifier.SetNull(pointer, current, out current);
+                }
 
-                var orderAttributeRiskReduction = (byte)group.GetInt(OrderAttributeRiskReduction.FixTag);
-                OrderAttributeRiskReduction.Encode(pointer, current, orderAttributeRiskReduction, out current);
+                if (group.TryGetInt(OrderAttributeRiskReduction.FixTag, out var orderAttributeRiskReduction))
+                {
+                    OrderAttributeRiskReduction.Encode(pointer, current, (byte)orderAttributeRiskReduction, out current);
+                }
+                else
+                {
+                    OrderAttributeRiskReduction.SetNull(pointer, current, out current);
+                }
 
-                var orderOrigination = (byte)group.GetInt(OrderOrigination.FixTag);
-                OrderOrigination.Encode(pointer, current, orderOrigination, out current);
+                if (group.TryGetInt(OrderOrigination.FixTag, out var orderOrigination))
+                {
+                    OrderOrigination.Encode(pointer, current, (byte)orderOrigination, out current);
+                }
+                else
+                {
+                    OrderOrigination.SetNull(pointer, current, out current);
+                }
 
                 var positionEffect = group.GetToken(PositionEffect.FixTag);
                 PositionEffect.Encode(pointer, current, positionEffect, out current);
@@ -190,47 +274,75 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var partyIdClientId = PartyIdClientId.Decode(pointer, current, out current);
-                message.AppendULong(PartyIdClientId.FixTag, partyIdClientId);
+                if (PartyIdClientId.TryDecode(pointer, current, out var partyIdClientId, out current))
+                {
+                    message.AppendULong(PartyIdClientId.FixTag, partyIdClientId);
+                }
 
-                var partyIdInvestmentDecisionMaker = PartyIdInvestmentDecisionMaker.Decode(pointer, current, out current);
-                message.AppendULong(PartyIdInvestmentDecisionMaker.FixTag, partyIdInvestmentDecisionMaker);
+                if (PartyIdInvestmentDecisionMaker.TryDecode(pointer, current, out var partyIdInvestmentDecisionMaker, out current))
+                {
+                    message.AppendULong(PartyIdInvestmentDecisionMaker.FixTag, partyIdInvestmentDecisionMaker);
+                }
 
-                var executingTrader = ExecutingTrader.Decode(pointer, current, out current);
-                message.AppendULong(ExecutingTrader.FixTag, executingTrader);
+                if (ExecutingTrader.TryDecode(pointer, current, out var executingTrader, out current))
+                {
+                    message.AppendULong(ExecutingTrader.FixTag, executingTrader);
+                }
 
-                var maximumPrice = MaximumPrice.Decode(pointer, current, out current);
-                message.AppendDouble(MaximumPrice.FixTag, maximumPrice);
+                if (MaximumPrice.TryDecode(pointer, current, out var maximumPrice, out current))
+                {
+                    message.AppendDouble(MaximumPrice.FixTag, maximumPrice);
+                }
 
-                var matchInstCrossId = (int)MatchInstCrossId.Decode(pointer, current, out current);
-                message.AppendInt(MatchInstCrossId.FixTag, matchInstCrossId);
+                if (MatchInstCrossId.TryDecode(pointer, current, out var matchInstCrossId, out current))
+                {
+                    message.AppendInt(MatchInstCrossId.FixTag, (int)matchInstCrossId);
+                }
 
-                var inputSource = InputSource.Decode(pointer, current, out current);
-                message.AppendInt(InputSource.FixTag, inputSource);
+                if (InputSource.TryDecode(pointer, current, out var inputSource, out current))
+                {
+                    message.AppendInt(InputSource.FixTag, inputSource);
+                }
 
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
+                if (Side.TryDecode(pointer, current, out var side, out current))
+                {
+                    message.AppendInt(Side.FixTag, side);
+                }
 
-                var selfMatchPreventionInstruction = SelfMatchPreventionInstruction.Decode(pointer, current, out current);
-                message.AppendInt(SelfMatchPreventionInstruction.FixTag, selfMatchPreventionInstruction);
+                if (SelfMatchPreventionInstruction.TryDecode(pointer, current, out var selfMatchPreventionInstruction, out current))
+                {
+                    message.AppendInt(SelfMatchPreventionInstruction.FixTag, selfMatchPreventionInstruction);
+                }
 
-                var tradingCapacity = TradingCapacity.Decode(pointer, current, out current);
-                message.AppendInt(TradingCapacity.FixTag, tradingCapacity);
+                if (TradingCapacity.TryDecode(pointer, current, out var tradingCapacity, out current))
+                {
+                    message.AppendInt(TradingCapacity.FixTag, tradingCapacity);
+                }
 
-                var executingTraderQualifier = ExecutingTraderQualifier.Decode(pointer, current, out current);
-                message.AppendInt(ExecutingTraderQualifier.FixTag, executingTraderQualifier);
+                if (ExecutingTraderQualifier.TryDecode(pointer, current, out var executingTraderQualifier, out current))
+                {
+                    message.AppendInt(ExecutingTraderQualifier.FixTag, executingTraderQualifier);
+                }
 
-                var orderAttributeLiquidityProvision = OrderAttributeLiquidityProvision.Decode(pointer, current, out current);
-                message.AppendInt(OrderAttributeLiquidityProvision.FixTag, orderAttributeLiquidityProvision);
+                if (OrderAttributeLiquidityProvision.TryDecode(pointer, current, out var orderAttributeLiquidityProvision, out current))
+                {
+                    message.AppendInt(OrderAttributeLiquidityProvision.FixTag, orderAttributeLiquidityProvision);
+                }
 
-                var partyIdInvestmentDecisionMakerQualifier = PartyIdInvestmentDecisionMakerQualifier.Decode(pointer, current, out current);
-                message.AppendInt(PartyIdInvestmentDecisionMakerQualifier.FixTag, partyIdInvestmentDecisionMakerQualifier);
+                if (PartyIdInvestmentDecisionMakerQualifier.TryDecode(pointer, current, out var partyIdInvestmentDecisionMakerQualifier, out current))
+                {
+                    message.AppendInt(PartyIdInvestmentDecisionMakerQualifier.FixTag, partyIdInvestmentDecisionMakerQualifier);
+                }
 
-                var orderAttributeRiskReduction = OrderAttributeRiskReduction.Decode(pointer, current, out current);
-                message.AppendInt(OrderAttributeRiskReduction.FixTag, orderAttributeRiskReduction);
+                if (OrderAttributeRiskReduction.TryDecode(pointer, current, out var orderAttributeRiskReduction, out current))
+                {
+                    message.AppendInt(OrderAttributeRiskReduction.FixTag, orderAttributeRiskReduction);
+                }
 
-                var orderOrigination = OrderOrigination.Decode(pointer, current, out current);
-                message.AppendInt(OrderOrigination.FixTag, orderOrigination);
+                if (OrderOrigination.TryDecode(pointer, current, out var orderOrigination, out current))
+                {
+                    message.AppendInt(OrderOrigination.FixTag, orderOrigination);
+                }
 
                 var positionEffect = PositionEffect.Decode(pointer, current, out current);
                 message.AppendToken(PositionEffect.FixTag, positionEffect);

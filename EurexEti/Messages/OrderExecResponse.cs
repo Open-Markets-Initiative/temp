@@ -30,17 +30,41 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var requestTime = message.GetULong(RequestTime.FixTag);
-            RequestTime.Encode(pointer, current, requestTime, out current);
+            if (message.TryGetULong(RequestTime.FixTag, out var requestTime))
+            {
+                RequestTime.Encode(pointer, current, requestTime, out current);
+            }
+            else
+            {
+                RequestTime.SetNull(pointer, current, out current);
+            }
 
-            var trdRegTsTimeIn = message.GetULong(TrdRegTsTimeIn.FixTag);
-            TrdRegTsTimeIn.Encode(pointer, current, trdRegTsTimeIn, out current);
+            if (message.TryGetULong(TrdRegTsTimeIn.FixTag, out var trdRegTsTimeIn))
+            {
+                TrdRegTsTimeIn.Encode(pointer, current, trdRegTsTimeIn, out current);
+            }
+            else
+            {
+                TrdRegTsTimeIn.SetNull(pointer, current, out current);
+            }
 
-            var trdRegTsTimeOut = message.GetULong(TrdRegTsTimeOut.FixTag);
-            TrdRegTsTimeOut.Encode(pointer, current, trdRegTsTimeOut, out current);
+            if (message.TryGetULong(TrdRegTsTimeOut.FixTag, out var trdRegTsTimeOut))
+            {
+                TrdRegTsTimeOut.Encode(pointer, current, trdRegTsTimeOut, out current);
+            }
+            else
+            {
+                TrdRegTsTimeOut.SetNull(pointer, current, out current);
+            }
 
-            var responseIn = message.GetULong(ResponseIn.FixTag);
-            ResponseIn.Encode(pointer, current, responseIn, out current);
+            if (message.TryGetULong(ResponseIn.FixTag, out var responseIn))
+            {
+                ResponseIn.Encode(pointer, current, responseIn, out current);
+            }
+            else
+            {
+                ResponseIn.SetNull(pointer, current, out current);
+            }
 
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
@@ -48,50 +72,134 @@ namespace Eurex.EtiDerivatives.v130
             var msgSeqNum = (uint)message.msgSeqNum;
             MsgSeqNum.Encode(pointer, current, msgSeqNum, out current);
 
-            var partitionId = (ushort)message.GetInt(PartitionId.FixTag);
-            PartitionId.Encode(pointer, current, partitionId, out current);
+            if (message.TryGetInt(PartitionId.FixTag, out var partitionId))
+            {
+                PartitionId.Encode(pointer, current, (ushort)partitionId, out current);
+            }
+            else
+            {
+                PartitionId.SetNull(pointer, current, out current);
+            }
 
-            var applId = (byte)message.GetInt(ApplId.FixTag);
-            ApplId.Encode(pointer, current, applId, out current);
+            if (message.TryGetInt(ApplId.FixTag, out var applId))
+            {
+                ApplId.Encode(pointer, current, (byte)applId, out current);
+            }
+            else
+            {
+                ApplId.SetNull(pointer, current, out current);
+            }
 
             var applMsgId = message.GetData(ApplMsgId.FixTag);
             ApplMsgId.Encode(pointer, current, applMsgId, out current);
 
-            var lastFragment = (byte)message.GetInt(LastFragment.FixTag);
-            LastFragment.Encode(pointer, current, lastFragment, out current);
+            if (message.TryGetInt(LastFragment.FixTag, out var lastFragment))
+            {
+                LastFragment.Encode(pointer, current, (byte)lastFragment, out current);
+            }
+            else
+            {
+                LastFragment.SetNull(pointer, current, out current);
+            }
 
-            var orderId = message.GetULong(OrderId.FixTag);
-            OrderId.Encode(pointer, current, orderId, out current);
+            if (message.TryGetULong(OrderId.FixTag, out var orderId))
+            {
+                OrderId.Encode(pointer, current, orderId, out current);
+            }
+            else
+            {
+                OrderId.SetNull(pointer, current, out current);
+            }
 
-            var clOrdId = message.GetULong(ClOrdId.FixTag);
-            ClOrdId.Encode(pointer, current, clOrdId, out current);
+            if (message.TryGetULong(ClOrdId.FixTag, out var clOrdId))
+            {
+                ClOrdId.Encode(pointer, current, clOrdId, out current);
+            }
+            else
+            {
+                ClOrdId.SetNull(pointer, current, out current);
+            }
 
-            var origClOrdId = message.GetULong(OrigClOrdId.FixTag);
-            OrigClOrdId.Encode(pointer, current, origClOrdId, out current);
+            if (message.TryGetULong(OrigClOrdId.FixTag, out var origClOrdId))
+            {
+                OrigClOrdId.Encode(pointer, current, origClOrdId, out current);
+            }
+            else
+            {
+                OrigClOrdId.SetNull(pointer, current, out current);
+            }
 
-            var securityId = message.GetLong(SecurityId.FixTag);
-            SecurityId.Encode(pointer, current, securityId, out current);
+            if (message.TryGetLong(SecurityId.FixTag, out var securityId))
+            {
+                SecurityId.Encode(pointer, current, securityId, out current);
+            }
+            else
+            {
+                SecurityId.SetNull(pointer, current, out current);
+            }
 
-            var execId = message.GetULong(ExecId.FixTag);
-            ExecId.Encode(pointer, current, execId, out current);
+            if (message.TryGetULong(ExecId.FixTag, out var execId))
+            {
+                ExecId.Encode(pointer, current, execId, out current);
+            }
+            else
+            {
+                ExecId.SetNull(pointer, current, out current);
+            }
 
-            var trdRegTsEntryTime = message.GetULong(TrdRegTsEntryTime.FixTag);
-            TrdRegTsEntryTime.Encode(pointer, current, trdRegTsEntryTime, out current);
+            if (message.TryGetULong(TrdRegTsEntryTime.FixTag, out var trdRegTsEntryTime))
+            {
+                TrdRegTsEntryTime.Encode(pointer, current, trdRegTsEntryTime, out current);
+            }
+            else
+            {
+                TrdRegTsEntryTime.SetNull(pointer, current, out current);
+            }
 
-            var trdRegTsTimePriority = message.GetULong(TrdRegTsTimePriority.FixTag);
-            TrdRegTsTimePriority.Encode(pointer, current, trdRegTsTimePriority, out current);
+            if (message.TryGetULong(TrdRegTsTimePriority.FixTag, out var trdRegTsTimePriority))
+            {
+                TrdRegTsTimePriority.Encode(pointer, current, trdRegTsTimePriority, out current);
+            }
+            else
+            {
+                TrdRegTsTimePriority.SetNull(pointer, current, out current);
+            }
 
-            var leavesQty = message.GetDouble(LeavesQty.FixTag);
-            LeavesQty.Encode(pointer, current, leavesQty, out current);
+            if (message.TryGetDouble(LeavesQty.FixTag, out var leavesQty))
+            {
+                LeavesQty.Encode(pointer, current, leavesQty, out current);
+            }
+            else
+            {
+                LeavesQty.SetNull(pointer, current, out current);
+            }
 
-            var cumQty = message.GetDouble(CumQty.FixTag);
-            CumQty.Encode(pointer, current, cumQty, out current);
+            if (message.TryGetDouble(CumQty.FixTag, out var cumQty))
+            {
+                CumQty.Encode(pointer, current, cumQty, out current);
+            }
+            else
+            {
+                CumQty.SetNull(pointer, current, out current);
+            }
 
-            var cxlQty = message.GetDouble(CxlQty.FixTag);
-            CxlQty.Encode(pointer, current, cxlQty, out current);
+            if (message.TryGetDouble(CxlQty.FixTag, out var cxlQty))
+            {
+                CxlQty.Encode(pointer, current, cxlQty, out current);
+            }
+            else
+            {
+                CxlQty.SetNull(pointer, current, out current);
+            }
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
             var isInstrmntLegExecGrpComp = message.TryGetGroup(NoLegExecs.FixTag, out var instrmntLegExecGrpComp) && instrmntLegExecGrpComp.sectionList.Count > 0;
             if (isInstrmntLegExecGrpComp)
@@ -104,14 +212,32 @@ namespace Eurex.EtiDerivatives.v130
                 NoLegExecs.Zero(pointer, current, out current);
             }
 
-            var execRestatementReason = (ushort)message.GetInt(ExecRestatementReason.FixTag);
-            ExecRestatementReason.Encode(pointer, current, execRestatementReason, out current);
+            if (message.TryGetInt(ExecRestatementReason.FixTag, out var execRestatementReason))
+            {
+                ExecRestatementReason.Encode(pointer, current, (ushort)execRestatementReason, out current);
+            }
+            else
+            {
+                ExecRestatementReason.SetNull(pointer, current, out current);
+            }
 
-            var side = (byte)message.GetInt(Side.FixTag);
-            Side.Encode(pointer, current, side, out current);
+            if (message.TryGetInt(Side.FixTag, out var side))
+            {
+                Side.Encode(pointer, current, (byte)side, out current);
+            }
+            else
+            {
+                Side.SetNull(pointer, current, out current);
+            }
 
-            var productComplex = (byte)message.GetInt(ProductComplex.FixTag);
-            ProductComplex.Encode(pointer, current, productComplex, out current);
+            if (message.TryGetInt(ProductComplex.FixTag, out var productComplex))
+            {
+                ProductComplex.Encode(pointer, current, (byte)productComplex, out current);
+            }
+            else
+            {
+                ProductComplex.SetNull(pointer, current, out current);
+            }
 
             var ordStatus = message.GetToken(OrdStatus.FixTag);
             OrdStatus.Encode(pointer, current, ordStatus, out current);
@@ -119,14 +245,32 @@ namespace Eurex.EtiDerivatives.v130
             var execType = message.GetToken(ExecType.FixTag);
             ExecType.Encode(pointer, current, execType, out current);
 
-            var triggered = (byte)message.GetInt(Triggered.FixTag);
-            Triggered.Encode(pointer, current, triggered, out current);
+            if (message.TryGetInt(Triggered.FixTag, out var triggered))
+            {
+                Triggered.Encode(pointer, current, (byte)triggered, out current);
+            }
+            else
+            {
+                Triggered.SetNull(pointer, current, out current);
+            }
 
-            var crossedIndicator = (byte)message.GetInt(CrossedIndicator.FixTag);
-            CrossedIndicator.Encode(pointer, current, crossedIndicator, out current);
+            if (message.TryGetInt(CrossedIndicator.FixTag, out var crossedIndicator))
+            {
+                CrossedIndicator.Encode(pointer, current, (byte)crossedIndicator, out current);
+            }
+            else
+            {
+                CrossedIndicator.SetNull(pointer, current, out current);
+            }
 
-            var transactionDelayIndicator = (byte)message.GetInt(TransactionDelayIndicator.FixTag);
-            TransactionDelayIndicator.Encode(pointer, current, transactionDelayIndicator, out current);
+            if (message.TryGetInt(TransactionDelayIndicator.FixTag, out var transactionDelayIndicator))
+            {
+                TransactionDelayIndicator.Encode(pointer, current, (byte)transactionDelayIndicator, out current);
+            }
+            else
+            {
+                TransactionDelayIndicator.SetNull(pointer, current, out current);
+            }
 
             var isFillsGrpComp = message.TryGetGroup(NoFills.FixTag, out var fillsGrpComp) && fillsGrpComp.sectionList.Count > 0;
             if (isFillsGrpComp)
@@ -187,79 +331,125 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var requestTime = RequestTime.Decode(pointer, current, out current);
-            message.AppendULong(RequestTime.FixTag, requestTime);
+            if (RequestTime.TryDecode(pointer, current, out var requestTime, out current))
+            {
+                message.AppendULong(RequestTime.FixTag, requestTime);
+            }
 
-            var trdRegTsTimeIn = TrdRegTsTimeIn.Decode(pointer, current, out current);
-            message.AppendULong(TrdRegTsTimeIn.FixTag, trdRegTsTimeIn);
+            if (TrdRegTsTimeIn.TryDecode(pointer, current, out var trdRegTsTimeIn, out current))
+            {
+                message.AppendULong(TrdRegTsTimeIn.FixTag, trdRegTsTimeIn);
+            }
 
-            var trdRegTsTimeOut = TrdRegTsTimeOut.Decode(pointer, current, out current);
-            message.AppendULong(TrdRegTsTimeOut.FixTag, trdRegTsTimeOut);
+            if (TrdRegTsTimeOut.TryDecode(pointer, current, out var trdRegTsTimeOut, out current))
+            {
+                message.AppendULong(TrdRegTsTimeOut.FixTag, trdRegTsTimeOut);
+            }
 
-            var responseIn = ResponseIn.Decode(pointer, current, out current);
-            message.AppendULong(ResponseIn.FixTag, responseIn);
+            if (ResponseIn.TryDecode(pointer, current, out var responseIn, out current))
+            {
+                message.AppendULong(ResponseIn.FixTag, responseIn);
+            }
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var partitionId = (short)PartitionId.Decode(pointer, current, out current);
-            message.AppendInt(PartitionId.FixTag, partitionId);
+            if (PartitionId.TryDecode(pointer, current, out var partitionId, out current))
+            {
+                message.AppendInt(PartitionId.FixTag, (short)partitionId);
+            }
 
-            var applId = ApplId.Decode(pointer, current, out current);
-            message.AppendInt(ApplId.FixTag, applId);
+            if (ApplId.TryDecode(pointer, current, out var applId, out current))
+            {
+                message.AppendInt(ApplId.FixTag, applId);
+            }
 
             var applMsgId = ApplMsgId.Decode(pointer, current, out current);
             message.AppendData(ApplMsgId.FixTag, applMsgId);
 
-            var lastFragment = LastFragment.Decode(pointer, current, out current);
-            message.AppendInt(LastFragment.FixTag, lastFragment);
+            if (LastFragment.TryDecode(pointer, current, out var lastFragment, out current))
+            {
+                message.AppendInt(LastFragment.FixTag, lastFragment);
+            }
 
-            var orderId = OrderId.Decode(pointer, current, out current);
-            message.AppendULong(OrderId.FixTag, orderId);
+            if (OrderId.TryDecode(pointer, current, out var orderId, out current))
+            {
+                message.AppendULong(OrderId.FixTag, orderId);
+            }
 
-            var clOrdId = ClOrdId.Decode(pointer, current, out current);
-            message.AppendULong(ClOrdId.FixTag, clOrdId);
+            if (ClOrdId.TryDecode(pointer, current, out var clOrdId, out current))
+            {
+                message.AppendULong(ClOrdId.FixTag, clOrdId);
+            }
 
-            var origClOrdId = OrigClOrdId.Decode(pointer, current, out current);
-            message.AppendULong(OrigClOrdId.FixTag, origClOrdId);
+            if (OrigClOrdId.TryDecode(pointer, current, out var origClOrdId, out current))
+            {
+                message.AppendULong(OrigClOrdId.FixTag, origClOrdId);
+            }
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
+            if (SecurityId.TryDecode(pointer, current, out var securityId, out current))
+            {
+                message.AppendLong(SecurityId.FixTag, securityId);
+            }
 
-            var execId = ExecId.Decode(pointer, current, out current);
-            message.AppendULong(ExecId.FixTag, execId);
+            if (ExecId.TryDecode(pointer, current, out var execId, out current))
+            {
+                message.AppendULong(ExecId.FixTag, execId);
+            }
 
-            var trdRegTsEntryTime = TrdRegTsEntryTime.Decode(pointer, current, out current);
-            message.AppendULong(TrdRegTsEntryTime.FixTag, trdRegTsEntryTime);
+            if (TrdRegTsEntryTime.TryDecode(pointer, current, out var trdRegTsEntryTime, out current))
+            {
+                message.AppendULong(TrdRegTsEntryTime.FixTag, trdRegTsEntryTime);
+            }
 
-            var trdRegTsTimePriority = TrdRegTsTimePriority.Decode(pointer, current, out current);
-            message.AppendULong(TrdRegTsTimePriority.FixTag, trdRegTsTimePriority);
+            if (TrdRegTsTimePriority.TryDecode(pointer, current, out var trdRegTsTimePriority, out current))
+            {
+                message.AppendULong(TrdRegTsTimePriority.FixTag, trdRegTsTimePriority);
+            }
 
-            var leavesQty = LeavesQty.Decode(pointer, current, out current);
-            message.AppendDouble(LeavesQty.FixTag, leavesQty);
+            if (LeavesQty.TryDecode(pointer, current, out var leavesQty, out current))
+            {
+                message.AppendDouble(LeavesQty.FixTag, leavesQty);
+            }
 
-            var cumQty = CumQty.Decode(pointer, current, out current);
-            message.AppendDouble(CumQty.FixTag, cumQty);
+            if (CumQty.TryDecode(pointer, current, out var cumQty, out current))
+            {
+                message.AppendDouble(CumQty.FixTag, cumQty);
+            }
 
-            var cxlQty = CxlQty.Decode(pointer, current, out current);
-            message.AppendDouble(CxlQty.FixTag, cxlQty);
+            if (CxlQty.TryDecode(pointer, current, out var cxlQty, out current))
+            {
+                message.AppendDouble(CxlQty.FixTag, cxlQty);
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
             var noLegExecs = (int)NoLegExecs.Decode(pointer, current, out current);
 
-            var execRestatementReason = (short)ExecRestatementReason.Decode(pointer, current, out current);
-            message.AppendInt(ExecRestatementReason.FixTag, execRestatementReason);
+            if (ExecRestatementReason.TryDecode(pointer, current, out var execRestatementReason, out current))
+            {
+                message.AppendInt(ExecRestatementReason.FixTag, (short)execRestatementReason);
+            }
 
-            var side = Side.Decode(pointer, current, out current);
-            message.AppendInt(Side.FixTag, side);
+            if (Side.TryDecode(pointer, current, out var side, out current))
+            {
+                message.AppendInt(Side.FixTag, side);
+            }
 
-            var productComplex = ProductComplex.Decode(pointer, current, out current);
-            message.AppendInt(ProductComplex.FixTag, productComplex);
+            if (ProductComplex.TryDecode(pointer, current, out var productComplex, out current))
+            {
+                message.AppendInt(ProductComplex.FixTag, productComplex);
+            }
 
             var ordStatus = OrdStatus.Decode(pointer, current, out current);
             message.AppendToken(OrdStatus.FixTag, ordStatus);
@@ -267,14 +457,20 @@ namespace Eurex.EtiDerivatives.v130
             var execType = ExecType.Decode(pointer, current, out current);
             message.AppendToken(ExecType.FixTag, execType);
 
-            var triggered = Triggered.Decode(pointer, current, out current);
-            message.AppendInt(Triggered.FixTag, triggered);
+            if (Triggered.TryDecode(pointer, current, out var triggered, out current))
+            {
+                message.AppendInt(Triggered.FixTag, triggered);
+            }
 
-            var crossedIndicator = CrossedIndicator.Decode(pointer, current, out current);
-            message.AppendInt(CrossedIndicator.FixTag, crossedIndicator);
+            if (CrossedIndicator.TryDecode(pointer, current, out var crossedIndicator, out current))
+            {
+                message.AppendInt(CrossedIndicator.FixTag, crossedIndicator);
+            }
 
-            var transactionDelayIndicator = TransactionDelayIndicator.Decode(pointer, current, out current);
-            message.AppendInt(TransactionDelayIndicator.FixTag, transactionDelayIndicator);
+            if (TransactionDelayIndicator.TryDecode(pointer, current, out var transactionDelayIndicator, out current))
+            {
+                message.AppendInt(TransactionDelayIndicator.FixTag, transactionDelayIndicator);
+            }
 
             var noFills = (int)NoFills.Decode(pointer, current, out current);
 

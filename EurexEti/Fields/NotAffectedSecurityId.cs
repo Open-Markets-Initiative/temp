@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Not Affected Security Id: 8 Byte Fixed Width Integer
+    ///  Not Affected Security Id: Optional 8 Byte Fixed Width Integer
     /// </summary>
 
-    public sealed class NotAffectedSecurityId
+    public static class NotAffectedSecurityId
     {
         /// <summary>
         ///  Fix Tag for Not Affected Security Id
@@ -17,6 +17,11 @@ namespace Eurex.EtiDerivatives.v130
         ///  Length of Not Affected Security Id in bytes
         /// </summary>
         public const int Length = 8;
+
+        /// <summary>
+        ///  Null value for Not Affected Security Id
+        /// </summary>
+        public const ulong NoValue = 0xFFFFFFFFFFFFFFFF;
 
         /// <summary>
         ///  Encode Not Affected Security Id
@@ -52,15 +57,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Not Affected Security Id to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + NotAffectedSecurityId.Length)
+            {
+                throw new System.Exception("Invalid Length for Not Affected Security Id");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Not Affected Security Id to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + NotAffectedSecurityId.Length;
+        }
+
+        /// <summary>
+        ///  Set Not Affected Security Id to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(ulong*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Not Affected Security Id
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out ulong value, out int current)
         {
             if (length > offset + NotAffectedSecurityId.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +104,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Not Affected Security Id
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out ulong value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

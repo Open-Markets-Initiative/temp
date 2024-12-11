@@ -45,11 +45,23 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var subscriptionScope = (uint)message.GetInt(SubscriptionScope.FixTag);
-            SubscriptionScope.Encode(pointer, current, subscriptionScope, out current);
+            if (message.TryGetInt(SubscriptionScope.FixTag, out var subscriptionScope))
+            {
+                SubscriptionScope.Encode(pointer, current, (uint)subscriptionScope, out current);
+            }
+            else
+            {
+                SubscriptionScope.SetNull(pointer, current, out current);
+            }
 
-            var refApplId = (byte)message.GetInt(RefApplId.FixTag);
-            RefApplId.Encode(pointer, current, refApplId, out current);
+            if (message.TryGetInt(RefApplId.FixTag, out var refApplId))
+            {
+                RefApplId.Encode(pointer, current, (byte)refApplId, out current);
+            }
+            else
+            {
+                RefApplId.SetNull(pointer, current, out current);
+            }
 
             Pad3.Encode(pointer, current, out current);
 
@@ -78,17 +90,25 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var subscriptionScope = (int)SubscriptionScope.Decode(pointer, current, out current);
-            message.AppendInt(SubscriptionScope.FixTag, subscriptionScope);
+            if (SubscriptionScope.TryDecode(pointer, current, out var subscriptionScope, out current))
+            {
+                message.AppendInt(SubscriptionScope.FixTag, (int)subscriptionScope);
+            }
 
-            var refApplId = RefApplId.Decode(pointer, current, out current);
-            message.AppendInt(RefApplId.FixTag, refApplId);
+            if (RefApplId.TryDecode(pointer, current, out var refApplId, out current))
+            {
+                message.AppendInt(RefApplId.FixTag, refApplId);
+            }
 
             current += Pad3.Length;
 

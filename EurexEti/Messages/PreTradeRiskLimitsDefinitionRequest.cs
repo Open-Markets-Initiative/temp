@@ -45,17 +45,41 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var nettingCoefficient = message.GetDouble(NettingCoefficient.FixTag);
-            NettingCoefficient.Encode(pointer, current, nettingCoefficient, out current);
+            if (message.TryGetDouble(NettingCoefficient.FixTag, out var nettingCoefficient))
+            {
+                NettingCoefficient.Encode(pointer, current, nettingCoefficient, out current);
+            }
+            else
+            {
+                NettingCoefficient.SetNull(pointer, current, out current);
+            }
 
-            var quoteWeightingCoefficient = message.GetDouble(QuoteWeightingCoefficient.FixTag);
-            QuoteWeightingCoefficient.Encode(pointer, current, quoteWeightingCoefficient, out current);
+            if (message.TryGetDouble(QuoteWeightingCoefficient.FixTag, out var quoteWeightingCoefficient))
+            {
+                QuoteWeightingCoefficient.Encode(pointer, current, quoteWeightingCoefficient, out current);
+            }
+            else
+            {
+                QuoteWeightingCoefficient.SetNull(pointer, current, out current);
+            }
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var riskLimitPlatform = (byte)message.GetInt(RiskLimitPlatform.FixTag);
-            RiskLimitPlatform.Encode(pointer, current, riskLimitPlatform, out current);
+            if (message.TryGetInt(RiskLimitPlatform.FixTag, out var riskLimitPlatform))
+            {
+                RiskLimitPlatform.Encode(pointer, current, (byte)riskLimitPlatform, out current);
+            }
+            else
+            {
+                RiskLimitPlatform.SetNull(pointer, current, out current);
+            }
 
             var isRiskLimitQtyGrpComp = message.TryGetGroup(NoRiskLimitsQty.FixTag, out var riskLimitQtyGrpComp) && riskLimitQtyGrpComp.sectionList.Count > 0;
             if (isRiskLimitQtyGrpComp)
@@ -68,8 +92,14 @@ namespace Eurex.EtiDerivatives.v130
                 NoRiskLimitsQty.Zero(pointer, current, out current);
             }
 
-            var partyDetailStatus = (byte)message.GetInt(PartyDetailStatus.FixTag);
-            PartyDetailStatus.Encode(pointer, current, partyDetailStatus, out current);
+            if (message.TryGetInt(PartyDetailStatus.FixTag, out var partyDetailStatus))
+            {
+                PartyDetailStatus.Encode(pointer, current, (byte)partyDetailStatus, out current);
+            }
+            else
+            {
+                PartyDetailStatus.SetNull(pointer, current, out current);
+            }
 
             if (message.TryGetString(RiskLimitGroup.FixTag, out var riskLimitGroup))
             {
@@ -121,28 +151,42 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var nettingCoefficient = NettingCoefficient.Decode(pointer, current, out current);
-            message.AppendDouble(NettingCoefficient.FixTag, nettingCoefficient);
+            if (NettingCoefficient.TryDecode(pointer, current, out var nettingCoefficient, out current))
+            {
+                message.AppendDouble(NettingCoefficient.FixTag, nettingCoefficient);
+            }
 
-            var quoteWeightingCoefficient = QuoteWeightingCoefficient.Decode(pointer, current, out current);
-            message.AppendDouble(QuoteWeightingCoefficient.FixTag, quoteWeightingCoefficient);
+            if (QuoteWeightingCoefficient.TryDecode(pointer, current, out var quoteWeightingCoefficient, out current))
+            {
+                message.AppendDouble(QuoteWeightingCoefficient.FixTag, quoteWeightingCoefficient);
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var riskLimitPlatform = RiskLimitPlatform.Decode(pointer, current, out current);
-            message.AppendInt(RiskLimitPlatform.FixTag, riskLimitPlatform);
+            if (RiskLimitPlatform.TryDecode(pointer, current, out var riskLimitPlatform, out current))
+            {
+                message.AppendInt(RiskLimitPlatform.FixTag, riskLimitPlatform);
+            }
 
             var noRiskLimitsQty = (int)NoRiskLimitsQty.Decode(pointer, current, out current);
 
-            var partyDetailStatus = PartyDetailStatus.Decode(pointer, current, out current);
-            message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
+            if (PartyDetailStatus.TryDecode(pointer, current, out var partyDetailStatus, out current))
+            {
+                message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
+            }
 
             if (RiskLimitGroup.TryDecode(pointer, current, out var riskLimitGroup, out current))
             {

@@ -33,11 +33,23 @@ namespace Eurex.EtiDerivatives.v130
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
-            var applIdStatus = (uint)message.GetInt(ApplIdStatus.FixTag);
-            ApplIdStatus.Encode(pointer, current, applIdStatus, out current);
+            if (message.TryGetInt(ApplIdStatus.FixTag, out var applIdStatus))
+            {
+                ApplIdStatus.Encode(pointer, current, (uint)applIdStatus, out current);
+            }
+            else
+            {
+                ApplIdStatus.SetNull(pointer, current, out current);
+            }
 
-            var refApplSubId = (uint)message.GetInt(RefApplSubId.FixTag);
-            RefApplSubId.Encode(pointer, current, refApplSubId, out current);
+            if (message.TryGetInt(RefApplSubId.FixTag, out var refApplSubId))
+            {
+                RefApplSubId.Encode(pointer, current, (uint)refApplSubId, out current);
+            }
+            else
+            {
+                RefApplSubId.SetNull(pointer, current, out current);
+            }
 
             var isVarText = message.TryGetString(VarText.FixTag, out var varText);
             if (isVarText)
@@ -50,11 +62,23 @@ namespace Eurex.EtiDerivatives.v130
                 VarTextLen.Zero(pointer, current, out current);
             }
 
-            var refApplId = (byte)message.GetInt(RefApplId.FixTag);
-            RefApplId.Encode(pointer, current, refApplId, out current);
+            if (message.TryGetInt(RefApplId.FixTag, out var refApplId))
+            {
+                RefApplId.Encode(pointer, current, (byte)refApplId, out current);
+            }
+            else
+            {
+                RefApplId.SetNull(pointer, current, out current);
+            }
 
-            var sessionStatus = (byte)message.GetInt(SessionStatus.FixTag);
-            SessionStatus.Encode(pointer, current, sessionStatus, out current);
+            if (message.TryGetInt(SessionStatus.FixTag, out var sessionStatus))
+            {
+                SessionStatus.Encode(pointer, current, (byte)sessionStatus, out current);
+            }
+            else
+            {
+                SessionStatus.SetNull(pointer, current, out current);
+            }
 
             if (isVarText)
             {
@@ -81,22 +105,32 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var applIdStatus = (int)ApplIdStatus.Decode(pointer, current, out current);
-            message.AppendInt(ApplIdStatus.FixTag, applIdStatus);
+            if (ApplIdStatus.TryDecode(pointer, current, out var applIdStatus, out current))
+            {
+                message.AppendInt(ApplIdStatus.FixTag, (int)applIdStatus);
+            }
 
-            var refApplSubId = (int)RefApplSubId.Decode(pointer, current, out current);
-            message.AppendInt(RefApplSubId.FixTag, refApplSubId);
+            if (RefApplSubId.TryDecode(pointer, current, out var refApplSubId, out current))
+            {
+                message.AppendInt(RefApplSubId.FixTag, (int)refApplSubId);
+            }
 
             var varTextLen = VarTextLen.Decode(pointer, current, out current);
 
-            var refApplId = RefApplId.Decode(pointer, current, out current);
-            message.AppendInt(RefApplId.FixTag, refApplId);
+            if (RefApplId.TryDecode(pointer, current, out var refApplId, out current))
+            {
+                message.AppendInt(RefApplId.FixTag, refApplId);
+            }
 
-            var sessionStatus = SessionStatus.Decode(pointer, current, out current);
-            message.AppendInt(SessionStatus.FixTag, sessionStatus);
+            if (SessionStatus.TryDecode(pointer, current, out var sessionStatus, out current))
+            {
+                message.AppendInt(SessionStatus.FixTag, sessionStatus);
+            }
 
             if (VarText.TryDecode(pointer, current, varTextLen, out var varText, out current))
             {

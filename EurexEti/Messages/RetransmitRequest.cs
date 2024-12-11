@@ -45,17 +45,41 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var applBegSeqNum = message.GetULong(ApplBegSeqNum.FixTag);
-            ApplBegSeqNum.Encode(pointer, current, applBegSeqNum, out current);
+            if (message.TryGetULong(ApplBegSeqNum.FixTag, out var applBegSeqNum))
+            {
+                ApplBegSeqNum.Encode(pointer, current, applBegSeqNum, out current);
+            }
+            else
+            {
+                ApplBegSeqNum.SetNull(pointer, current, out current);
+            }
 
-            var applEndSeqNum = message.GetULong(ApplEndSeqNum.FixTag);
-            ApplEndSeqNum.Encode(pointer, current, applEndSeqNum, out current);
+            if (message.TryGetULong(ApplEndSeqNum.FixTag, out var applEndSeqNum))
+            {
+                ApplEndSeqNum.Encode(pointer, current, applEndSeqNum, out current);
+            }
+            else
+            {
+                ApplEndSeqNum.SetNull(pointer, current, out current);
+            }
 
-            var partitionId = (ushort)message.GetInt(PartitionId.FixTag);
-            PartitionId.Encode(pointer, current, partitionId, out current);
+            if (message.TryGetInt(PartitionId.FixTag, out var partitionId))
+            {
+                PartitionId.Encode(pointer, current, (ushort)partitionId, out current);
+            }
+            else
+            {
+                PartitionId.SetNull(pointer, current, out current);
+            }
 
-            var refApplId = (byte)message.GetInt(RefApplId.FixTag);
-            RefApplId.Encode(pointer, current, refApplId, out current);
+            if (message.TryGetInt(RefApplId.FixTag, out var refApplId))
+            {
+                RefApplId.Encode(pointer, current, (byte)refApplId, out current);
+            }
+            else
+            {
+                RefApplId.SetNull(pointer, current, out current);
+            }
 
             Pad5.Encode(pointer, current, out current);
 
@@ -84,23 +108,35 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var applBegSeqNum = ApplBegSeqNum.Decode(pointer, current, out current);
-            message.AppendULong(ApplBegSeqNum.FixTag, applBegSeqNum);
+            if (ApplBegSeqNum.TryDecode(pointer, current, out var applBegSeqNum, out current))
+            {
+                message.AppendULong(ApplBegSeqNum.FixTag, applBegSeqNum);
+            }
 
-            var applEndSeqNum = ApplEndSeqNum.Decode(pointer, current, out current);
-            message.AppendULong(ApplEndSeqNum.FixTag, applEndSeqNum);
+            if (ApplEndSeqNum.TryDecode(pointer, current, out var applEndSeqNum, out current))
+            {
+                message.AppendULong(ApplEndSeqNum.FixTag, applEndSeqNum);
+            }
 
-            var partitionId = (short)PartitionId.Decode(pointer, current, out current);
-            message.AppendInt(PartitionId.FixTag, partitionId);
+            if (PartitionId.TryDecode(pointer, current, out var partitionId, out current))
+            {
+                message.AppendInt(PartitionId.FixTag, (short)partitionId);
+            }
 
-            var refApplId = RefApplId.Decode(pointer, current, out current);
-            message.AppendInt(RefApplId.FixTag, refApplId);
+            if (RefApplId.TryDecode(pointer, current, out var refApplId, out current))
+            {
+                message.AppendInt(RefApplId.FixTag, refApplId);
+            }
 
             current += Pad5.Length;
 

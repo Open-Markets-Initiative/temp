@@ -45,8 +45,14 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var username = (uint)message.GetInt(Username.FixTag);
-            Username.Encode(pointer, current, username, out current);
+            if (message.TryGetInt(Username.FixTag, out var username))
+            {
+                Username.Encode(pointer, current, (uint)username, out current);
+            }
+            else
+            {
+                Username.SetNull(pointer, current, out current);
+            }
 
             if (message.TryGetString(EncryptedPassword.FixTag, out var encryptedPassword))
             {
@@ -82,14 +88,20 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var username = (int)Username.Decode(pointer, current, out current);
-            message.AppendInt(Username.FixTag, username);
+            if (Username.TryDecode(pointer, current, out var username, out current))
+            {
+                message.AppendInt(Username.FixTag, (int)username);
+            }
 
             if (EncryptedPassword.TryDecode(pointer, current, out var encryptedPassword, out current))
             {

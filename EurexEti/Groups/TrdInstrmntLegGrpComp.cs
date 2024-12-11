@@ -22,14 +22,32 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in trdInstrmntLegGrpComp.sectionList)
             {
-                var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-                LegSecurityId.Encode(pointer, current, legSecurityId, out current);
+                if (group.TryGetLong(LegSecurityId.FixTag, out var legSecurityId))
+                {
+                    LegSecurityId.Encode(pointer, current, legSecurityId, out current);
+                }
+                else
+                {
+                    LegSecurityId.SetNull(pointer, current, out current);
+                }
 
-                var legPrice = group.GetDouble(LegPrice.FixTag);
-                LegPrice.Encode(pointer, current, legPrice, out current);
+                if (group.TryGetDouble(LegPrice.FixTag, out var legPrice))
+                {
+                    LegPrice.Encode(pointer, current, legPrice, out current);
+                }
+                else
+                {
+                    LegPrice.SetNull(pointer, current, out current);
+                }
 
-                var legQty = group.GetDouble(LegQty.FixTag);
-                LegQty.Encode(pointer, current, legQty, out current);
+                if (group.TryGetDouble(LegQty.FixTag, out var legQty))
+                {
+                    LegQty.Encode(pointer, current, legQty, out current);
+                }
+                else
+                {
+                    LegQty.SetNull(pointer, current, out current);
+                }
 
             }
         }
@@ -50,14 +68,20 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-                message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+                if (LegSecurityId.TryDecode(pointer, current, out var legSecurityId, out current))
+                {
+                    message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+                }
 
-                var legPrice = LegPrice.Decode(pointer, current, out current);
-                message.AppendDouble(LegPrice.FixTag, legPrice);
+                if (LegPrice.TryDecode(pointer, current, out var legPrice, out current))
+                {
+                    message.AppendDouble(LegPrice.FixTag, legPrice);
+                }
 
-                var legQty = LegQty.Decode(pointer, current, out current);
-                message.AppendDouble(LegQty.FixTag, legQty);
+                if (LegQty.TryDecode(pointer, current, out var legQty, out current))
+                {
+                    message.AppendDouble(LegQty.FixTag, legQty);
+                }
 
             }
         }

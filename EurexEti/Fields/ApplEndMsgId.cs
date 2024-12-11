@@ -7,7 +7,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Appl End Msg Id: Fixed Length Data Field
     /// </summary>
 
-    public sealed class ApplEndMsgId
+    public static class ApplEndMsgId
     {
         /// <summary>
         ///  Fix Tag for Appl End Msg Id

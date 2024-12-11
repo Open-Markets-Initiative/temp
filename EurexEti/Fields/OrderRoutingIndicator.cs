@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Order Routing Indicator: Enum
     /// </summary>
 
-    public sealed class OrderRoutingIndicator
+    public static class OrderRoutingIndicator
     {
         /// <summary>
         ///  Yes

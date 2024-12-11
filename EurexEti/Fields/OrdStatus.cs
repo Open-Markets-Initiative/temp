@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Ord Status: Enum
     /// </summary>
 
-    public sealed class OrdStatus
+    public static class OrdStatus
     {
         /// <summary>
         ///  New

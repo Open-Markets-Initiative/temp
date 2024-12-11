@@ -22,11 +22,23 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in riskLimitQtyGrpComp.sectionList)
             {
-                var riskLimitQty = group.GetDouble(RiskLimitQty.FixTag);
-                RiskLimitQty.Encode(pointer, current, riskLimitQty, out current);
+                if (group.TryGetDouble(RiskLimitQty.FixTag, out var riskLimitQty))
+                {
+                    RiskLimitQty.Encode(pointer, current, riskLimitQty, out current);
+                }
+                else
+                {
+                    RiskLimitQty.SetNull(pointer, current, out current);
+                }
 
-                var riskLimitType = (byte)group.GetInt(RiskLimitType.FixTag);
-                RiskLimitType.Encode(pointer, current, riskLimitType, out current);
+                if (group.TryGetInt(RiskLimitType.FixTag, out var riskLimitType))
+                {
+                    RiskLimitType.Encode(pointer, current, (byte)riskLimitType, out current);
+                }
+                else
+                {
+                    RiskLimitType.SetNull(pointer, current, out current);
+                }
 
                 Pad7.Encode(pointer, current, out current);
 
@@ -49,11 +61,15 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var riskLimitQty = RiskLimitQty.Decode(pointer, current, out current);
-                message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);
+                if (RiskLimitQty.TryDecode(pointer, current, out var riskLimitQty, out current))
+                {
+                    message.AppendDouble(RiskLimitQty.FixTag, riskLimitQty);
+                }
 
-                var riskLimitType = RiskLimitType.Decode(pointer, current, out current);
-                message.AppendInt(RiskLimitType.FixTag, riskLimitType);
+                if (RiskLimitType.TryDecode(pointer, current, out var riskLimitType, out current))
+                {
+                    message.AppendInt(RiskLimitType.FixTag, riskLimitType);
+                }
 
                 current += Pad7.Length;
 

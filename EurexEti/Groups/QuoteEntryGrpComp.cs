@@ -22,20 +22,50 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in quoteEntryGrpComp.sectionList)
             {
-                var securityId = group.GetLong(SecurityId.FixTag);
-                SecurityId.Encode(pointer, current, securityId, out current);
+                if (group.TryGetLong(SecurityId.FixTag, out var securityId))
+                {
+                    SecurityId.Encode(pointer, current, securityId, out current);
+                }
+                else
+                {
+                    SecurityId.SetNull(pointer, current, out current);
+                }
 
-                var bidPx = group.GetDouble(BidPx.FixTag);
-                BidPx.Encode(pointer, current, bidPx, out current);
+                if (group.TryGetDouble(BidPx.FixTag, out var bidPx))
+                {
+                    BidPx.Encode(pointer, current, bidPx, out current);
+                }
+                else
+                {
+                    BidPx.SetNull(pointer, current, out current);
+                }
 
-                var bidSize = group.GetDouble(BidSize.FixTag);
-                BidSize.Encode(pointer, current, bidSize, out current);
+                if (group.TryGetDouble(BidSize.FixTag, out var bidSize))
+                {
+                    BidSize.Encode(pointer, current, bidSize, out current);
+                }
+                else
+                {
+                    BidSize.SetNull(pointer, current, out current);
+                }
 
-                var offerPx = group.GetDouble(OfferPx.FixTag);
-                OfferPx.Encode(pointer, current, offerPx, out current);
+                if (group.TryGetDouble(OfferPx.FixTag, out var offerPx))
+                {
+                    OfferPx.Encode(pointer, current, offerPx, out current);
+                }
+                else
+                {
+                    OfferPx.SetNull(pointer, current, out current);
+                }
 
-                var offerSize = group.GetDouble(OfferSize.FixTag);
-                OfferSize.Encode(pointer, current, offerSize, out current);
+                if (group.TryGetDouble(OfferSize.FixTag, out var offerSize))
+                {
+                    OfferSize.Encode(pointer, current, offerSize, out current);
+                }
+                else
+                {
+                    OfferSize.SetNull(pointer, current, out current);
+                }
 
             }
         }
@@ -56,20 +86,30 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var securityId = SecurityId.Decode(pointer, current, out current);
-                message.AppendLong(SecurityId.FixTag, securityId);
+                if (SecurityId.TryDecode(pointer, current, out var securityId, out current))
+                {
+                    message.AppendLong(SecurityId.FixTag, securityId);
+                }
 
-                var bidPx = BidPx.Decode(pointer, current, out current);
-                message.AppendDouble(BidPx.FixTag, bidPx);
+                if (BidPx.TryDecode(pointer, current, out var bidPx, out current))
+                {
+                    message.AppendDouble(BidPx.FixTag, bidPx);
+                }
 
-                var bidSize = BidSize.Decode(pointer, current, out current);
-                message.AppendDouble(BidSize.FixTag, bidSize);
+                if (BidSize.TryDecode(pointer, current, out var bidSize, out current))
+                {
+                    message.AppendDouble(BidSize.FixTag, bidSize);
+                }
 
-                var offerPx = OfferPx.Decode(pointer, current, out current);
-                message.AppendDouble(OfferPx.FixTag, offerPx);
+                if (OfferPx.TryDecode(pointer, current, out var offerPx, out current))
+                {
+                    message.AppendDouble(OfferPx.FixTag, offerPx);
+                }
 
-                var offerSize = OfferSize.Decode(pointer, current, out current);
-                message.AppendDouble(OfferSize.FixTag, offerSize);
+                if (OfferSize.TryDecode(pointer, current, out var offerSize, out current))
+                {
+                    message.AppendDouble(OfferSize.FixTag, offerSize);
+                }
 
             }
         }

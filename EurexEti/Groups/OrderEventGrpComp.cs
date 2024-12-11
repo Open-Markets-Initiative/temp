@@ -22,17 +22,41 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in orderEventGrpComp.sectionList)
             {
-                var orderEventPx = group.GetDouble(OrderEventPx.FixTag);
-                OrderEventPx.Encode(pointer, current, orderEventPx, out current);
+                if (group.TryGetDouble(OrderEventPx.FixTag, out var orderEventPx))
+                {
+                    OrderEventPx.Encode(pointer, current, orderEventPx, out current);
+                }
+                else
+                {
+                    OrderEventPx.SetNull(pointer, current, out current);
+                }
 
-                var orderEventQty = group.GetDouble(OrderEventQty.FixTag);
-                OrderEventQty.Encode(pointer, current, orderEventQty, out current);
+                if (group.TryGetDouble(OrderEventQty.FixTag, out var orderEventQty))
+                {
+                    OrderEventQty.Encode(pointer, current, orderEventQty, out current);
+                }
+                else
+                {
+                    OrderEventQty.SetNull(pointer, current, out current);
+                }
 
-                var orderEventMatchId = (uint)group.GetInt(OrderEventMatchId.FixTag);
-                OrderEventMatchId.Encode(pointer, current, orderEventMatchId, out current);
+                if (group.TryGetInt(OrderEventMatchId.FixTag, out var orderEventMatchId))
+                {
+                    OrderEventMatchId.Encode(pointer, current, (uint)orderEventMatchId, out current);
+                }
+                else
+                {
+                    OrderEventMatchId.SetNull(pointer, current, out current);
+                }
 
-                var orderEventReason = (byte)group.GetInt(OrderEventReason.FixTag);
-                OrderEventReason.Encode(pointer, current, orderEventReason, out current);
+                if (group.TryGetInt(OrderEventReason.FixTag, out var orderEventReason))
+                {
+                    OrderEventReason.Encode(pointer, current, (byte)orderEventReason, out current);
+                }
+                else
+                {
+                    OrderEventReason.SetNull(pointer, current, out current);
+                }
 
                 Pad3.Encode(pointer, current, out current);
 
@@ -55,17 +79,25 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var orderEventPx = OrderEventPx.Decode(pointer, current, out current);
-                message.AppendDouble(OrderEventPx.FixTag, orderEventPx);
+                if (OrderEventPx.TryDecode(pointer, current, out var orderEventPx, out current))
+                {
+                    message.AppendDouble(OrderEventPx.FixTag, orderEventPx);
+                }
 
-                var orderEventQty = OrderEventQty.Decode(pointer, current, out current);
-                message.AppendDouble(OrderEventQty.FixTag, orderEventQty);
+                if (OrderEventQty.TryDecode(pointer, current, out var orderEventQty, out current))
+                {
+                    message.AppendDouble(OrderEventQty.FixTag, orderEventQty);
+                }
 
-                var orderEventMatchId = (int)OrderEventMatchId.Decode(pointer, current, out current);
-                message.AppendInt(OrderEventMatchId.FixTag, orderEventMatchId);
+                if (OrderEventMatchId.TryDecode(pointer, current, out var orderEventMatchId, out current))
+                {
+                    message.AppendInt(OrderEventMatchId.FixTag, (int)orderEventMatchId);
+                }
 
-                var orderEventReason = OrderEventReason.Decode(pointer, current, out current);
-                message.AppendInt(OrderEventReason.FixTag, orderEventReason);
+                if (OrderEventReason.TryDecode(pointer, current, out var orderEventReason, out current))
+                {
+                    message.AppendInt(OrderEventReason.FixTag, orderEventReason);
+                }
 
                 current += Pad3.Length;
 

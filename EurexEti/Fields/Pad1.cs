@@ -7,7 +7,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Pad 1: Fixed Length Padding
     /// </summary>
 
-    public sealed class Pad1
+    public static class Pad1
     {
         /// <summary>
         ///  Fix Tag for Pad 1

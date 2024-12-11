@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Message Event Source: Enum
     /// </summary>
 
-    public sealed class MessageEventSource
+    public static class MessageEventSource
     {
         /// <summary>
         ///  Broadcast to initiator

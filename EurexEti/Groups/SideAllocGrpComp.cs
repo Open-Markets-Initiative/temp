@@ -22,17 +22,41 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in sideAllocGrpComp.sectionList)
             {
-                var allocQty = group.GetDouble(AllocQty.FixTag);
-                AllocQty.Encode(pointer, current, allocQty, out current);
+                if (group.TryGetDouble(AllocQty.FixTag, out var allocQty))
+                {
+                    AllocQty.Encode(pointer, current, allocQty, out current);
+                }
+                else
+                {
+                    AllocQty.SetNull(pointer, current, out current);
+                }
 
-                var individualAllocId = (uint)group.GetInt(IndividualAllocId.FixTag);
-                IndividualAllocId.Encode(pointer, current, individualAllocId, out current);
+                if (group.TryGetInt(IndividualAllocId.FixTag, out var individualAllocId))
+                {
+                    IndividualAllocId.Encode(pointer, current, (uint)individualAllocId, out current);
+                }
+                else
+                {
+                    IndividualAllocId.SetNull(pointer, current, out current);
+                }
 
-                var tesEnrichmentRuleId = (uint)group.GetInt(TesEnrichmentRuleId.FixTag);
-                TesEnrichmentRuleId.Encode(pointer, current, tesEnrichmentRuleId, out current);
+                if (group.TryGetInt(TesEnrichmentRuleId.FixTag, out var tesEnrichmentRuleId))
+                {
+                    TesEnrichmentRuleId.Encode(pointer, current, (uint)tesEnrichmentRuleId, out current);
+                }
+                else
+                {
+                    TesEnrichmentRuleId.SetNull(pointer, current, out current);
+                }
 
-                var side = (byte)group.GetInt(Side.FixTag);
-                Side.Encode(pointer, current, side, out current);
+                if (group.TryGetInt(Side.FixTag, out var side))
+                {
+                    Side.Encode(pointer, current, (byte)side, out current);
+                }
+                else
+                {
+                    Side.SetNull(pointer, current, out current);
+                }
 
                 if (group.TryGetString(PartyExecutingFirm.FixTag, out var partyExecutingFirm))
                 {
@@ -73,17 +97,25 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var allocQty = AllocQty.Decode(pointer, current, out current);
-                message.AppendDouble(AllocQty.FixTag, allocQty);
+                if (AllocQty.TryDecode(pointer, current, out var allocQty, out current))
+                {
+                    message.AppendDouble(AllocQty.FixTag, allocQty);
+                }
 
-                var individualAllocId = (int)IndividualAllocId.Decode(pointer, current, out current);
-                message.AppendInt(IndividualAllocId.FixTag, individualAllocId);
+                if (IndividualAllocId.TryDecode(pointer, current, out var individualAllocId, out current))
+                {
+                    message.AppendInt(IndividualAllocId.FixTag, (int)individualAllocId);
+                }
 
-                var tesEnrichmentRuleId = (int)TesEnrichmentRuleId.Decode(pointer, current, out current);
-                message.AppendInt(TesEnrichmentRuleId.FixTag, tesEnrichmentRuleId);
+                if (TesEnrichmentRuleId.TryDecode(pointer, current, out var tesEnrichmentRuleId, out current))
+                {
+                    message.AppendInt(TesEnrichmentRuleId.FixTag, (int)tesEnrichmentRuleId);
+                }
 
-                var side = Side.Decode(pointer, current, out current);
-                message.AppendInt(Side.FixTag, side);
+                if (Side.TryDecode(pointer, current, out var side, out current))
+                {
+                    message.AppendInt(Side.FixTag, side);
+                }
 
                 if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
                 {

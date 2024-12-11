@@ -45,11 +45,23 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var riskLimitPlatform = (byte)message.GetInt(RiskLimitPlatform.FixTag);
-            RiskLimitPlatform.Encode(pointer, current, riskLimitPlatform, out current);
+            if (message.TryGetInt(RiskLimitPlatform.FixTag, out var riskLimitPlatform))
+            {
+                RiskLimitPlatform.Encode(pointer, current, (byte)riskLimitPlatform, out current);
+            }
+            else
+            {
+                RiskLimitPlatform.SetNull(pointer, current, out current);
+            }
 
             if (message.TryGetString(PartyExecutingUnit.FixTag, out var partyExecutingUnit))
             {
@@ -96,17 +108,25 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var riskLimitPlatform = RiskLimitPlatform.Decode(pointer, current, out current);
-            message.AppendInt(RiskLimitPlatform.FixTag, riskLimitPlatform);
+            if (RiskLimitPlatform.TryDecode(pointer, current, out var riskLimitPlatform, out current))
+            {
+                message.AppendInt(RiskLimitPlatform.FixTag, riskLimitPlatform);
+            }
 
             if (PartyExecutingUnit.TryDecode(pointer, current, out var partyExecutingUnit, out current))
             {

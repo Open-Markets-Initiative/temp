@@ -45,23 +45,59 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var packageId = (uint)message.GetInt(PackageId.FixTag);
-            PackageId.Encode(pointer, current, packageId, out current);
+            if (message.TryGetInt(PackageId.FixTag, out var packageId))
+            {
+                PackageId.Encode(pointer, current, (uint)packageId, out current);
+            }
+            else
+            {
+                PackageId.SetNull(pointer, current, out current);
+            }
 
-            var allocId = (uint)message.GetInt(AllocId.FixTag);
-            AllocId.Encode(pointer, current, allocId, out current);
+            if (message.TryGetInt(AllocId.FixTag, out var allocId))
+            {
+                AllocId.Encode(pointer, current, (uint)allocId, out current);
+            }
+            else
+            {
+                AllocId.SetNull(pointer, current, out current);
+            }
 
-            var tesExecId = (uint)message.GetInt(TesExecId.FixTag);
-            TesExecId.Encode(pointer, current, tesExecId, out current);
+            if (message.TryGetInt(TesExecId.FixTag, out var tesExecId))
+            {
+                TesExecId.Encode(pointer, current, (uint)tesExecId, out current);
+            }
+            else
+            {
+                TesExecId.SetNull(pointer, current, out current);
+            }
 
-            var relatedMarketSegmentId = message.GetInt(RelatedMarketSegmentId.FixTag);
-            RelatedMarketSegmentId.Encode(pointer, current, relatedMarketSegmentId, out current);
+            if (message.TryGetInt(RelatedMarketSegmentId.FixTag, out var relatedMarketSegmentId))
+            {
+                RelatedMarketSegmentId.Encode(pointer, current, relatedMarketSegmentId, out current);
+            }
+            else
+            {
+                RelatedMarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var trdType = (ushort)message.GetInt(TrdType.FixTag);
-            TrdType.Encode(pointer, current, trdType, out current);
+            if (message.TryGetInt(TrdType.FixTag, out var trdType))
+            {
+                TrdType.Encode(pointer, current, (ushort)trdType, out current);
+            }
+            else
+            {
+                TrdType.SetNull(pointer, current, out current);
+            }
 
             if (message.TryGetString(TradeReportId.FixTag, out var tradeReportId))
             {
@@ -99,29 +135,45 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var packageId = (int)PackageId.Decode(pointer, current, out current);
-            message.AppendInt(PackageId.FixTag, packageId);
+            if (PackageId.TryDecode(pointer, current, out var packageId, out current))
+            {
+                message.AppendInt(PackageId.FixTag, (int)packageId);
+            }
 
-            var allocId = (int)AllocId.Decode(pointer, current, out current);
-            message.AppendInt(AllocId.FixTag, allocId);
+            if (AllocId.TryDecode(pointer, current, out var allocId, out current))
+            {
+                message.AppendInt(AllocId.FixTag, (int)allocId);
+            }
 
-            var tesExecId = (int)TesExecId.Decode(pointer, current, out current);
-            message.AppendInt(TesExecId.FixTag, tesExecId);
+            if (TesExecId.TryDecode(pointer, current, out var tesExecId, out current))
+            {
+                message.AppendInt(TesExecId.FixTag, (int)tesExecId);
+            }
 
-            var relatedMarketSegmentId = RelatedMarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(RelatedMarketSegmentId.FixTag, relatedMarketSegmentId);
+            if (RelatedMarketSegmentId.TryDecode(pointer, current, out var relatedMarketSegmentId, out current))
+            {
+                message.AppendInt(RelatedMarketSegmentId.FixTag, relatedMarketSegmentId);
+            }
 
-            var trdType = (short)TrdType.Decode(pointer, current, out current);
-            message.AppendInt(TrdType.FixTag, trdType);
+            if (TrdType.TryDecode(pointer, current, out var trdType, out current))
+            {
+                message.AppendInt(TrdType.FixTag, (short)trdType);
+            }
 
             if (TradeReportId.TryDecode(pointer, current, out var tradeReportId, out current))
             {

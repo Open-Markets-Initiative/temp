@@ -30,8 +30,14 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad2.Encode(pointer, current, out current);
 
-            var requestTime = message.GetULong(RequestTime.FixTag);
-            RequestTime.Encode(pointer, current, requestTime, out current);
+            if (message.TryGetULong(RequestTime.FixTag, out var requestTime))
+            {
+                RequestTime.Encode(pointer, current, requestTime, out current);
+            }
+            else
+            {
+                RequestTime.SetNull(pointer, current, out current);
+            }
 
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
@@ -41,23 +47,59 @@ namespace Eurex.EtiDerivatives.v130
 
             Pad4.Encode(pointer, current, out current);
 
-            var throttleTimeInterval = message.GetLong(ThrottleTimeInterval.FixTag);
-            ThrottleTimeInterval.Encode(pointer, current, throttleTimeInterval, out current);
+            if (message.TryGetLong(ThrottleTimeInterval.FixTag, out var throttleTimeInterval))
+            {
+                ThrottleTimeInterval.Encode(pointer, current, throttleTimeInterval, out current);
+            }
+            else
+            {
+                ThrottleTimeInterval.SetNull(pointer, current, out current);
+            }
 
-            var throttleNoMsgs = (uint)message.GetInt(ThrottleNoMsgs.FixTag);
-            ThrottleNoMsgs.Encode(pointer, current, throttleNoMsgs, out current);
+            if (message.TryGetInt(ThrottleNoMsgs.FixTag, out var throttleNoMsgs))
+            {
+                ThrottleNoMsgs.Encode(pointer, current, (uint)throttleNoMsgs, out current);
+            }
+            else
+            {
+                ThrottleNoMsgs.SetNull(pointer, current, out current);
+            }
 
-            var throttleDisconnectLimit = (uint)message.GetInt(ThrottleDisconnectLimit.FixTag);
-            ThrottleDisconnectLimit.Encode(pointer, current, throttleDisconnectLimit, out current);
+            if (message.TryGetInt(ThrottleDisconnectLimit.FixTag, out var throttleDisconnectLimit))
+            {
+                ThrottleDisconnectLimit.Encode(pointer, current, (uint)throttleDisconnectLimit, out current);
+            }
+            else
+            {
+                ThrottleDisconnectLimit.SetNull(pointer, current, out current);
+            }
 
-            var heartBtInt = (uint)message.GetInt(HeartBtInt.FixTag);
-            HeartBtInt.Encode(pointer, current, heartBtInt, out current);
+            if (message.TryGetInt(HeartBtInt.FixTag, out var heartBtInt))
+            {
+                HeartBtInt.Encode(pointer, current, (uint)heartBtInt, out current);
+            }
+            else
+            {
+                HeartBtInt.SetNull(pointer, current, out current);
+            }
 
-            var sessionInstanceId = (uint)message.GetInt(SessionInstanceId.FixTag);
-            SessionInstanceId.Encode(pointer, current, sessionInstanceId, out current);
+            if (message.TryGetInt(SessionInstanceId.FixTag, out var sessionInstanceId))
+            {
+                SessionInstanceId.Encode(pointer, current, (uint)sessionInstanceId, out current);
+            }
+            else
+            {
+                SessionInstanceId.SetNull(pointer, current, out current);
+            }
 
-            var latestPublicKeySeqNo = (uint)message.GetInt(LatestPublicKeySeqNo.FixTag);
-            LatestPublicKeySeqNo.Encode(pointer, current, latestPublicKeySeqNo, out current);
+            if (message.TryGetInt(LatestPublicKeySeqNo.FixTag, out var latestPublicKeySeqNo))
+            {
+                LatestPublicKeySeqNo.Encode(pointer, current, (uint)latestPublicKeySeqNo, out current);
+            }
+            else
+            {
+                LatestPublicKeySeqNo.SetNull(pointer, current, out current);
+            }
 
             var isPublicKey = message.TryGetString(PublicKey.FixTag, out var publicKey);
             if (isPublicKey)
@@ -70,11 +112,23 @@ namespace Eurex.EtiDerivatives.v130
                 PublicKeyLen.Zero(pointer, current, out current);
             }
 
-            var marketId = (ushort)message.GetInt(MarketId.FixTag);
-            MarketId.Encode(pointer, current, marketId, out current);
+            if (message.TryGetInt(MarketId.FixTag, out var marketId))
+            {
+                MarketId.Encode(pointer, current, (ushort)marketId, out current);
+            }
+            else
+            {
+                MarketId.SetNull(pointer, current, out current);
+            }
 
-            var tradSesMode = (byte)message.GetInt(TradSesMode.FixTag);
-            TradSesMode.Encode(pointer, current, tradSesMode, out current);
+            if (message.TryGetInt(TradSesMode.FixTag, out var tradSesMode))
+            {
+                TradSesMode.Encode(pointer, current, (byte)tradSesMode, out current);
+            }
+            else
+            {
+                TradSesMode.SetNull(pointer, current, out current);
+            }
 
             if (message.TryGetString(DefaultCstmApplVerId.FixTag, out var defaultCstmApplVerId))
             {
@@ -119,42 +173,64 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var requestTime = RequestTime.Decode(pointer, current, out current);
-            message.AppendULong(RequestTime.FixTag, requestTime);
+            if (RequestTime.TryDecode(pointer, current, out var requestTime, out current))
+            {
+                message.AppendULong(RequestTime.FixTag, requestTime);
+            }
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
             current += Pad4.Length;
 
-            var throttleTimeInterval = ThrottleTimeInterval.Decode(pointer, current, out current);
-            message.AppendLong(ThrottleTimeInterval.FixTag, throttleTimeInterval);
+            if (ThrottleTimeInterval.TryDecode(pointer, current, out var throttleTimeInterval, out current))
+            {
+                message.AppendLong(ThrottleTimeInterval.FixTag, throttleTimeInterval);
+            }
 
-            var throttleNoMsgs = (int)ThrottleNoMsgs.Decode(pointer, current, out current);
-            message.AppendInt(ThrottleNoMsgs.FixTag, throttleNoMsgs);
+            if (ThrottleNoMsgs.TryDecode(pointer, current, out var throttleNoMsgs, out current))
+            {
+                message.AppendInt(ThrottleNoMsgs.FixTag, (int)throttleNoMsgs);
+            }
 
-            var throttleDisconnectLimit = (int)ThrottleDisconnectLimit.Decode(pointer, current, out current);
-            message.AppendInt(ThrottleDisconnectLimit.FixTag, throttleDisconnectLimit);
+            if (ThrottleDisconnectLimit.TryDecode(pointer, current, out var throttleDisconnectLimit, out current))
+            {
+                message.AppendInt(ThrottleDisconnectLimit.FixTag, (int)throttleDisconnectLimit);
+            }
 
-            var heartBtInt = (int)HeartBtInt.Decode(pointer, current, out current);
-            message.AppendInt(HeartBtInt.FixTag, heartBtInt);
+            if (HeartBtInt.TryDecode(pointer, current, out var heartBtInt, out current))
+            {
+                message.AppendInt(HeartBtInt.FixTag, (int)heartBtInt);
+            }
 
-            var sessionInstanceId = (int)SessionInstanceId.Decode(pointer, current, out current);
-            message.AppendInt(SessionInstanceId.FixTag, sessionInstanceId);
+            if (SessionInstanceId.TryDecode(pointer, current, out var sessionInstanceId, out current))
+            {
+                message.AppendInt(SessionInstanceId.FixTag, (int)sessionInstanceId);
+            }
 
-            var latestPublicKeySeqNo = (int)LatestPublicKeySeqNo.Decode(pointer, current, out current);
-            message.AppendInt(LatestPublicKeySeqNo.FixTag, latestPublicKeySeqNo);
+            if (LatestPublicKeySeqNo.TryDecode(pointer, current, out var latestPublicKeySeqNo, out current))
+            {
+                message.AppendInt(LatestPublicKeySeqNo.FixTag, (int)latestPublicKeySeqNo);
+            }
 
             var publicKeyLen = PublicKeyLen.Decode(pointer, current, out current);
 
-            var marketId = (short)MarketId.Decode(pointer, current, out current);
-            message.AppendInt(MarketId.FixTag, marketId);
+            if (MarketId.TryDecode(pointer, current, out var marketId, out current))
+            {
+                message.AppendInt(MarketId.FixTag, (short)marketId);
+            }
 
-            var tradSesMode = TradSesMode.Decode(pointer, current, out current);
-            message.AppendInt(TradSesMode.FixTag, tradSesMode);
+            if (TradSesMode.TryDecode(pointer, current, out var tradSesMode, out current))
+            {
+                message.AppendInt(TradSesMode.FixTag, tradSesMode);
+            }
 
             if (DefaultCstmApplVerId.TryDecode(pointer, current, out var defaultCstmApplVerId, out current))
             {

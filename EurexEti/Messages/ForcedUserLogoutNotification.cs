@@ -33,8 +33,14 @@ namespace Eurex.EtiDerivatives.v130
             var sendingTime = (ulong)message.sendingTime.Ticks;
             SendingTime.Encode(pointer, current, sendingTime, out current);
 
-            var username = (uint)message.GetInt(Username.FixTag);
-            Username.Encode(pointer, current, username, out current);
+            if (message.TryGetInt(Username.FixTag, out var username))
+            {
+                Username.Encode(pointer, current, (uint)username, out current);
+            }
+            else
+            {
+                Username.SetNull(pointer, current, out current);
+            }
 
             var isVarText = message.TryGetString(VarText.FixTag, out var varText);
             if (isVarText)
@@ -47,8 +53,14 @@ namespace Eurex.EtiDerivatives.v130
                 VarTextLen.Zero(pointer, current, out current);
             }
 
-            var userStatus = (byte)message.GetInt(UserStatus.FixTag);
-            UserStatus.Encode(pointer, current, userStatus, out current);
+            if (message.TryGetInt(UserStatus.FixTag, out var userStatus))
+            {
+                UserStatus.Encode(pointer, current, (byte)userStatus, out current);
+            }
+            else
+            {
+                UserStatus.SetNull(pointer, current, out current);
+            }
 
             if (isVarText)
             {
@@ -75,16 +87,22 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var sendingTime = SendingTime.Decode(pointer, current, out current);
-            message.sendingTime = new System.DateTime((long)sendingTime);
+            if (SendingTime.TryDecode(pointer, current, out var sendingTime, out current))
+            {
+                message.sendingTime = new System.DateTime((long)sendingTime);
+            }
 
-            var username = (int)Username.Decode(pointer, current, out current);
-            message.AppendInt(Username.FixTag, username);
+            if (Username.TryDecode(pointer, current, out var username, out current))
+            {
+                message.AppendInt(Username.FixTag, (int)username);
+            }
 
             var varTextLen = VarTextLen.Decode(pointer, current, out current);
 
-            var userStatus = UserStatus.Decode(pointer, current, out current);
-            message.AppendInt(UserStatus.FixTag, userStatus);
+            if (UserStatus.TryDecode(pointer, current, out var userStatus, out current))
+            {
+                message.AppendInt(UserStatus.FixTag, userStatus);
+            }
 
             if (VarText.TryDecode(pointer, current, varTextLen, out var varText, out current))
             {

@@ -7,7 +7,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Root Party Id Beneficiary: Optional Fixed Length String Field
     /// </summary>
 
-    public sealed class RootPartyIdBeneficiary
+    public static class RootPartyIdBeneficiary
     {
         /// <summary>
         ///  Fix Tag for Root Party Id Beneficiary
@@ -116,6 +116,12 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, out string value, out int current)
         {
+            value = string.Empty;
+
+            if (*(pointer + offset) == 0)
+            {
+                return false;
+            }
             value = Decode(pointer, offset, out current);
 
             return !string.IsNullOrEmpty(value);

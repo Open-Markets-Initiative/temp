@@ -7,7 +7,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Charge Id: Optional Fixed Length String Field
     /// </summary>
 
-    public sealed class ChargeId
+    public static class ChargeId
     {
         /// <summary>
         ///  Fix Tag for Charge Id
@@ -116,6 +116,12 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, out string value, out int current)
         {
+            value = string.Empty;
+
+            if (*(pointer + offset) == 0)
+            {
+                return false;
+            }
             value = Decode(pointer, offset, out current);
 
             return !string.IsNullOrEmpty(value);

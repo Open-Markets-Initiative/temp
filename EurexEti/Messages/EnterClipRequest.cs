@@ -45,23 +45,59 @@ namespace Eurex.EtiDerivatives.v130
             var senderSubId = uint.Parse(message.senderSubID);
             SenderSubId.Encode(pointer, current, senderSubId, out current);
 
-            var securityId = message.GetLong(SecurityId.FixTag);
-            SecurityId.Encode(pointer, current, securityId, out current);
+            if (message.TryGetLong(SecurityId.FixTag, out var securityId))
+            {
+                SecurityId.Encode(pointer, current, securityId, out current);
+            }
+            else
+            {
+                SecurityId.SetNull(pointer, current, out current);
+            }
 
-            var price = message.GetDouble(Price.FixTag);
-            Price.Encode(pointer, current, price, out current);
+            if (message.TryGetDouble(Price.FixTag, out var price))
+            {
+                Price.Encode(pointer, current, price, out current);
+            }
+            else
+            {
+                Price.SetNull(pointer, current, out current);
+            }
 
-            var orderQty = message.GetDouble(OrderQty.FixTag);
-            OrderQty.Encode(pointer, current, orderQty, out current);
+            if (message.TryGetDouble(OrderQty.FixTag, out var orderQty))
+            {
+                OrderQty.Encode(pointer, current, orderQty, out current);
+            }
+            else
+            {
+                OrderQty.SetNull(pointer, current, out current);
+            }
 
-            var marketSegmentId = message.GetInt(MarketSegmentId.FixTag);
-            MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            if (message.TryGetInt(MarketSegmentId.FixTag, out var marketSegmentId))
+            {
+                MarketSegmentId.Encode(pointer, current, marketSegmentId, out current);
+            }
+            else
+            {
+                MarketSegmentId.SetNull(pointer, current, out current);
+            }
 
-            var crossId = message.GetInt(CrossId.FixTag);
-            CrossId.Encode(pointer, current, crossId, out current);
+            if (message.TryGetInt(CrossId.FixTag, out var crossId))
+            {
+                CrossId.Encode(pointer, current, crossId, out current);
+            }
+            else
+            {
+                CrossId.SetNull(pointer, current, out current);
+            }
 
-            var crossRequestId = message.GetInt(CrossRequestId.FixTag);
-            CrossRequestId.Encode(pointer, current, crossRequestId, out current);
+            if (message.TryGetInt(CrossRequestId.FixTag, out var crossRequestId))
+            {
+                CrossRequestId.Encode(pointer, current, crossRequestId, out current);
+            }
+            else
+            {
+                CrossRequestId.SetNull(pointer, current, out current);
+            }
 
             var isCrossRequestSideGrpComp = message.TryGetGroup(NoSides.FixTag, out var crossRequestSideGrpComp) && crossRequestSideGrpComp.sectionList.Count > 0;
             if (isCrossRequestSideGrpComp)
@@ -85,29 +121,77 @@ namespace Eurex.EtiDerivatives.v130
                 NoCrossLegs.Zero(pointer, current, out current);
             }
 
-            var crossRequestType = (byte)message.GetInt(CrossRequestType.FixTag);
-            CrossRequestType.Encode(pointer, current, crossRequestType, out current);
+            if (message.TryGetInt(CrossRequestType.FixTag, out var crossRequestType))
+            {
+                CrossRequestType.Encode(pointer, current, (byte)crossRequestType, out current);
+            }
+            else
+            {
+                CrossRequestType.SetNull(pointer, current, out current);
+            }
 
-            var crossType = (byte)message.GetInt(CrossType.FixTag);
-            CrossType.Encode(pointer, current, crossType, out current);
+            if (message.TryGetInt(CrossType.FixTag, out var crossType))
+            {
+                CrossType.Encode(pointer, current, (byte)crossType, out current);
+            }
+            else
+            {
+                CrossType.SetNull(pointer, current, out current);
+            }
 
-            var crossPrioritization = (byte)message.GetInt(CrossPrioritization.FixTag);
-            CrossPrioritization.Encode(pointer, current, crossPrioritization, out current);
+            if (message.TryGetInt(CrossPrioritization.FixTag, out var crossPrioritization))
+            {
+                CrossPrioritization.Encode(pointer, current, (byte)crossPrioritization, out current);
+            }
+            else
+            {
+                CrossPrioritization.SetNull(pointer, current, out current);
+            }
 
-            var sideDisclosureInstruction = (byte)message.GetInt(SideDisclosureInstruction.FixTag);
-            SideDisclosureInstruction.Encode(pointer, current, sideDisclosureInstruction, out current);
+            if (message.TryGetInt(SideDisclosureInstruction.FixTag, out var sideDisclosureInstruction))
+            {
+                SideDisclosureInstruction.Encode(pointer, current, (byte)sideDisclosureInstruction, out current);
+            }
+            else
+            {
+                SideDisclosureInstruction.SetNull(pointer, current, out current);
+            }
 
-            var priceDisclosureInstruction = (byte)message.GetInt(PriceDisclosureInstruction.FixTag);
-            PriceDisclosureInstruction.Encode(pointer, current, priceDisclosureInstruction, out current);
+            if (message.TryGetInt(PriceDisclosureInstruction.FixTag, out var priceDisclosureInstruction))
+            {
+                PriceDisclosureInstruction.Encode(pointer, current, (byte)priceDisclosureInstruction, out current);
+            }
+            else
+            {
+                PriceDisclosureInstruction.SetNull(pointer, current, out current);
+            }
 
-            var orderQtyDisclosureInstruction = (byte)message.GetInt(OrderQtyDisclosureInstruction.FixTag);
-            OrderQtyDisclosureInstruction.Encode(pointer, current, orderQtyDisclosureInstruction, out current);
+            if (message.TryGetInt(OrderQtyDisclosureInstruction.FixTag, out var orderQtyDisclosureInstruction))
+            {
+                OrderQtyDisclosureInstruction.Encode(pointer, current, (byte)orderQtyDisclosureInstruction, out current);
+            }
+            else
+            {
+                OrderQtyDisclosureInstruction.SetNull(pointer, current, out current);
+            }
 
-            var priceValidityCheckType = (byte)message.GetInt(PriceValidityCheckType.FixTag);
-            PriceValidityCheckType.Encode(pointer, current, priceValidityCheckType, out current);
+            if (message.TryGetInt(PriceValidityCheckType.FixTag, out var priceValidityCheckType))
+            {
+                PriceValidityCheckType.Encode(pointer, current, (byte)priceValidityCheckType, out current);
+            }
+            else
+            {
+                PriceValidityCheckType.SetNull(pointer, current, out current);
+            }
 
-            var valueCheckTypeValue = (byte)message.GetInt(ValueCheckTypeValue.FixTag);
-            ValueCheckTypeValue.Encode(pointer, current, valueCheckTypeValue, out current);
+            if (message.TryGetInt(ValueCheckTypeValue.FixTag, out var valueCheckTypeValue))
+            {
+                ValueCheckTypeValue.Encode(pointer, current, (byte)valueCheckTypeValue, out current);
+            }
+            else
+            {
+                ValueCheckTypeValue.SetNull(pointer, current, out current);
+            }
 
             if (message.TryGetString(RootPartyContraFirm.FixTag, out var rootPartyContraFirm))
             {
@@ -164,57 +248,89 @@ namespace Eurex.EtiDerivatives.v130
 
             current += Pad2.Length;
 
-            var msgSeqNum = MsgSeqNum.Decode(pointer, current, out current);
-            message.msgSeqNum = (int)msgSeqNum;
+            if (MsgSeqNum.TryDecode(pointer, current, out var msgSeqNum, out current))
+            {
+                message.msgSeqNum = (int)msgSeqNum;
+            }
 
-            var senderSubId = SenderSubId.Decode(pointer, current, out current);
-            message.senderSubID = senderSubId.ToString();
+            if (SenderSubId.TryDecode(pointer, current, out var senderSubId, out current))
+            {
+                message.senderSubID = senderSubId.ToString();
+            }
 
-            var securityId = SecurityId.Decode(pointer, current, out current);
-            message.AppendLong(SecurityId.FixTag, securityId);
+            if (SecurityId.TryDecode(pointer, current, out var securityId, out current))
+            {
+                message.AppendLong(SecurityId.FixTag, securityId);
+            }
 
-            var price = Price.Decode(pointer, current, out current);
-            message.AppendDouble(Price.FixTag, price);
+            if (Price.TryDecode(pointer, current, out var price, out current))
+            {
+                message.AppendDouble(Price.FixTag, price);
+            }
 
-            var orderQty = OrderQty.Decode(pointer, current, out current);
-            message.AppendDouble(OrderQty.FixTag, orderQty);
+            if (OrderQty.TryDecode(pointer, current, out var orderQty, out current))
+            {
+                message.AppendDouble(OrderQty.FixTag, orderQty);
+            }
 
-            var marketSegmentId = MarketSegmentId.Decode(pointer, current, out current);
-            message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            if (MarketSegmentId.TryDecode(pointer, current, out var marketSegmentId, out current))
+            {
+                message.AppendInt(MarketSegmentId.FixTag, marketSegmentId);
+            }
 
-            var crossId = CrossId.Decode(pointer, current, out current);
-            message.AppendInt(CrossId.FixTag, crossId);
+            if (CrossId.TryDecode(pointer, current, out var crossId, out current))
+            {
+                message.AppendInt(CrossId.FixTag, crossId);
+            }
 
-            var crossRequestId = CrossRequestId.Decode(pointer, current, out current);
-            message.AppendInt(CrossRequestId.FixTag, crossRequestId);
+            if (CrossRequestId.TryDecode(pointer, current, out var crossRequestId, out current))
+            {
+                message.AppendInt(CrossRequestId.FixTag, crossRequestId);
+            }
 
             var noSides = (int)NoSides.Decode(pointer, current, out current);
 
             var noCrossLegs = (int)NoCrossLegs.Decode(pointer, current, out current);
 
-            var crossRequestType = CrossRequestType.Decode(pointer, current, out current);
-            message.AppendInt(CrossRequestType.FixTag, crossRequestType);
+            if (CrossRequestType.TryDecode(pointer, current, out var crossRequestType, out current))
+            {
+                message.AppendInt(CrossRequestType.FixTag, crossRequestType);
+            }
 
-            var crossType = CrossType.Decode(pointer, current, out current);
-            message.AppendInt(CrossType.FixTag, crossType);
+            if (CrossType.TryDecode(pointer, current, out var crossType, out current))
+            {
+                message.AppendInt(CrossType.FixTag, crossType);
+            }
 
-            var crossPrioritization = CrossPrioritization.Decode(pointer, current, out current);
-            message.AppendInt(CrossPrioritization.FixTag, crossPrioritization);
+            if (CrossPrioritization.TryDecode(pointer, current, out var crossPrioritization, out current))
+            {
+                message.AppendInt(CrossPrioritization.FixTag, crossPrioritization);
+            }
 
-            var sideDisclosureInstruction = SideDisclosureInstruction.Decode(pointer, current, out current);
-            message.AppendInt(SideDisclosureInstruction.FixTag, sideDisclosureInstruction);
+            if (SideDisclosureInstruction.TryDecode(pointer, current, out var sideDisclosureInstruction, out current))
+            {
+                message.AppendInt(SideDisclosureInstruction.FixTag, sideDisclosureInstruction);
+            }
 
-            var priceDisclosureInstruction = PriceDisclosureInstruction.Decode(pointer, current, out current);
-            message.AppendInt(PriceDisclosureInstruction.FixTag, priceDisclosureInstruction);
+            if (PriceDisclosureInstruction.TryDecode(pointer, current, out var priceDisclosureInstruction, out current))
+            {
+                message.AppendInt(PriceDisclosureInstruction.FixTag, priceDisclosureInstruction);
+            }
 
-            var orderQtyDisclosureInstruction = OrderQtyDisclosureInstruction.Decode(pointer, current, out current);
-            message.AppendInt(OrderQtyDisclosureInstruction.FixTag, orderQtyDisclosureInstruction);
+            if (OrderQtyDisclosureInstruction.TryDecode(pointer, current, out var orderQtyDisclosureInstruction, out current))
+            {
+                message.AppendInt(OrderQtyDisclosureInstruction.FixTag, orderQtyDisclosureInstruction);
+            }
 
-            var priceValidityCheckType = PriceValidityCheckType.Decode(pointer, current, out current);
-            message.AppendInt(PriceValidityCheckType.FixTag, priceValidityCheckType);
+            if (PriceValidityCheckType.TryDecode(pointer, current, out var priceValidityCheckType, out current))
+            {
+                message.AppendInt(PriceValidityCheckType.FixTag, priceValidityCheckType);
+            }
 
-            var valueCheckTypeValue = ValueCheckTypeValue.Decode(pointer, current, out current);
-            message.AppendInt(ValueCheckTypeValue.FixTag, valueCheckTypeValue);
+            if (ValueCheckTypeValue.TryDecode(pointer, current, out var valueCheckTypeValue, out current))
+            {
+                message.AppendInt(ValueCheckTypeValue.FixTag, valueCheckTypeValue);
+            }
 
             if (RootPartyContraFirm.TryDecode(pointer, current, out var rootPartyContraFirm, out current))
             {

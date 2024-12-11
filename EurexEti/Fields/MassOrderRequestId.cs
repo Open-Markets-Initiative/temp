@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Mass Order Request Id: 8 Byte Fixed Width Integer
+    ///  Mass Order Request Id: Optional 8 Byte Fixed Width Integer
     /// </summary>
 
-    public sealed class MassOrderRequestId
+    public static class MassOrderRequestId
     {
         /// <summary>
         ///  Fix Tag for Mass Order Request Id
@@ -17,6 +17,11 @@ namespace Eurex.EtiDerivatives.v130
         ///  Length of Mass Order Request Id in bytes
         /// </summary>
         public const int Length = 8;
+
+        /// <summary>
+        ///  Null value for Mass Order Request Id
+        /// </summary>
+        public const ulong NoValue = 0xFFFFFFFFFFFFFFFF;
 
         /// <summary>
         ///  Encode Mass Order Request Id
@@ -52,15 +57,46 @@ namespace Eurex.EtiDerivatives.v130
         }
 
         /// <summary>
+        ///  Check available length and set Mass Order Request Id to no value
+        /// </summary>
+        public unsafe static void SetNull(byte* pointer, int offset, int length, out int current)
+        {
+            if (length > offset + MassOrderRequestId.Length)
+            {
+                throw new System.Exception("Invalid Length for Mass Order Request Id");
+            }
+
+            SetNull(pointer, offset, out current);
+        }
+
+        /// <summary>
+        ///  Set Mass Order Request Id to no value and update index
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset, out int current)
+        {
+            SetNull(pointer, offset);
+
+            current = offset + MassOrderRequestId.Length;
+        }
+
+        /// <summary>
+        ///  Set Mass Order Request Id to no value
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void SetNull(byte* pointer, int offset)
+        {
+            *(ulong*) (pointer + offset) = NoValue;
+        }
+
+        /// <summary>
         ///  TryDecode Mass Order Request Id
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, int length, out ulong value, out int current)
         {
             if (length > offset + MassOrderRequestId.Length)
             {
-                value = Decode(pointer, offset, out current);
-
-                return true;
+                return TryDecode(pointer, offset, out value, out current);
             }
 
             value = default;
@@ -68,6 +104,16 @@ namespace Eurex.EtiDerivatives.v130
             current = offset;
 
             return false;
+        }
+
+        /// <summary>
+        ///  TryDecode Mass Order Request Id
+        /// </summary>
+        public unsafe static bool TryDecode(byte* pointer, int offset, out ulong value, out int current)
+        {
+            value = Decode(pointer, offset, out current);
+
+            return value != NoValue;
         }
 
         /// <summary>

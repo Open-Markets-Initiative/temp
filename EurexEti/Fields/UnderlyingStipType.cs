@@ -7,7 +7,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Underlying Stip Type: Optional Fixed Length String Field
     /// </summary>
 
-    public sealed class UnderlyingStipType
+    public static class UnderlyingStipType
     {
         /// <summary>
         ///  Fix Tag for Underlying Stip Type
@@ -116,6 +116,12 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static bool TryDecode(byte* pointer, int offset, out string value, out int current)
         {
+            value = string.Empty;
+
+            if (*(pointer + offset) == 0)
+            {
+                return false;
+            }
             value = Decode(pointer, offset, out current);
 
             return !string.IsNullOrEmpty(value);

@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Cust Order Handling Inst: Enum
     /// </summary>
 
-    public sealed class CustOrderHandlingInst
+    public static class CustOrderHandlingInst
     {
         /// <summary>
         ///  Desk

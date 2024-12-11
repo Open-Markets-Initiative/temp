@@ -6,7 +6,7 @@ namespace Eurex.EtiDerivatives.v130
     ///  Leg Position Effect: Enum
     /// </summary>
 
-    public sealed class LegPositionEffect
+    public static class LegPositionEffect
     {
         /// <summary>
         ///  Close

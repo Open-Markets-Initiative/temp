@@ -22,8 +22,14 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in partyDetailsGrpComp.sectionList)
             {
-                var partyDetailIdExecutingTrader = (uint)group.GetInt(PartyDetailIdExecutingTrader.FixTag);
-                PartyDetailIdExecutingTrader.Encode(pointer, current, partyDetailIdExecutingTrader, out current);
+                if (group.TryGetInt(PartyDetailIdExecutingTrader.FixTag, out var partyDetailIdExecutingTrader))
+                {
+                    PartyDetailIdExecutingTrader.Encode(pointer, current, (uint)partyDetailIdExecutingTrader, out current);
+                }
+                else
+                {
+                    PartyDetailIdExecutingTrader.SetNull(pointer, current, out current);
+                }
 
                 if (group.TryGetString(PartyDetailExecutingTrader.FixTag, out var partyDetailExecutingTrader))
                 {
@@ -34,11 +40,23 @@ namespace Eurex.EtiDerivatives.v130
                     PartyDetailExecutingTrader.SetNull(pointer, current, out current);
                 }
 
-                var partyDetailRoleQualifier = (byte)group.GetInt(PartyDetailRoleQualifier.FixTag);
-                PartyDetailRoleQualifier.Encode(pointer, current, partyDetailRoleQualifier, out current);
+                if (group.TryGetInt(PartyDetailRoleQualifier.FixTag, out var partyDetailRoleQualifier))
+                {
+                    PartyDetailRoleQualifier.Encode(pointer, current, (byte)partyDetailRoleQualifier, out current);
+                }
+                else
+                {
+                    PartyDetailRoleQualifier.SetNull(pointer, current, out current);
+                }
 
-                var partyDetailStatus = (byte)group.GetInt(PartyDetailStatus.FixTag);
-                PartyDetailStatus.Encode(pointer, current, partyDetailStatus, out current);
+                if (group.TryGetInt(PartyDetailStatus.FixTag, out var partyDetailStatus))
+                {
+                    PartyDetailStatus.Encode(pointer, current, (byte)partyDetailStatus, out current);
+                }
+                else
+                {
+                    PartyDetailStatus.SetNull(pointer, current, out current);
+                }
 
                 if (group.TryGetString(PartyDetailDeskId.FixTag, out var partyDetailDeskId))
                 {
@@ -70,19 +88,25 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var partyDetailIdExecutingTrader = (int)PartyDetailIdExecutingTrader.Decode(pointer, current, out current);
-                message.AppendInt(PartyDetailIdExecutingTrader.FixTag, partyDetailIdExecutingTrader);
+                if (PartyDetailIdExecutingTrader.TryDecode(pointer, current, out var partyDetailIdExecutingTrader, out current))
+                {
+                    message.AppendInt(PartyDetailIdExecutingTrader.FixTag, (int)partyDetailIdExecutingTrader);
+                }
 
                 if (PartyDetailExecutingTrader.TryDecode(pointer, current, out var partyDetailExecutingTrader, out current))
                 {
                     message.AppendString(PartyDetailExecutingTrader.FixTag, partyDetailExecutingTrader);
                 }
 
-                var partyDetailRoleQualifier = PartyDetailRoleQualifier.Decode(pointer, current, out current);
-                message.AppendInt(PartyDetailRoleQualifier.FixTag, partyDetailRoleQualifier);
+                if (PartyDetailRoleQualifier.TryDecode(pointer, current, out var partyDetailRoleQualifier, out current))
+                {
+                    message.AppendInt(PartyDetailRoleQualifier.FixTag, partyDetailRoleQualifier);
+                }
 
-                var partyDetailStatus = PartyDetailStatus.Decode(pointer, current, out current);
-                message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
+                if (PartyDetailStatus.TryDecode(pointer, current, out var partyDetailStatus, out current))
+                {
+                    message.AppendInt(PartyDetailStatus.FixTag, partyDetailStatus);
+                }
 
                 if (PartyDetailDeskId.TryDecode(pointer, current, out var partyDetailDeskId, out current))
                 {

@@ -22,11 +22,23 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in instrumentEventGrpComp.sectionList)
             {
-                var eventDate = (uint)group.GetInt(EventDate.FixTag);
-                EventDate.Encode(pointer, current, eventDate, out current);
+                if (group.TryGetInt(EventDate.FixTag, out var eventDate))
+                {
+                    EventDate.Encode(pointer, current, (uint)eventDate, out current);
+                }
+                else
+                {
+                    EventDate.SetNull(pointer, current, out current);
+                }
 
-                var eventType = (byte)group.GetInt(EventType.FixTag);
-                EventType.Encode(pointer, current, eventType, out current);
+                if (group.TryGetInt(EventType.FixTag, out var eventType))
+                {
+                    EventType.Encode(pointer, current, (byte)eventType, out current);
+                }
+                else
+                {
+                    EventType.SetNull(pointer, current, out current);
+                }
 
                 Pad3.Encode(pointer, current, out current);
 
@@ -49,11 +61,15 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var eventDate = (int)EventDate.Decode(pointer, current, out current);
-                message.AppendInt(EventDate.FixTag, eventDate);
+                if (EventDate.TryDecode(pointer, current, out var eventDate, out current))
+                {
+                    message.AppendInt(EventDate.FixTag, (int)eventDate);
+                }
 
-                var eventType = EventType.Decode(pointer, current, out current);
-                message.AppendInt(EventType.FixTag, eventType);
+                if (EventType.TryDecode(pointer, current, out var eventType, out current))
+                {
+                    message.AppendInt(EventType.FixTag, eventType);
+                }
 
                 current += Pad3.Length;
 

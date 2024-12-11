@@ -22,11 +22,23 @@ namespace Eurex.EtiDerivatives.v130
 
             foreach (var group in trdClearingPriceLegGrpComp.sectionList)
             {
-                var legSecurityId = group.GetLong(LegSecurityId.FixTag);
-                LegSecurityId.Encode(pointer, current, legSecurityId, out current);
+                if (group.TryGetLong(LegSecurityId.FixTag, out var legSecurityId))
+                {
+                    LegSecurityId.Encode(pointer, current, legSecurityId, out current);
+                }
+                else
+                {
+                    LegSecurityId.SetNull(pointer, current, out current);
+                }
 
-                var legClearingTradePrice = group.GetDouble(LegClearingTradePrice.FixTag);
-                LegClearingTradePrice.Encode(pointer, current, legClearingTradePrice, out current);
+                if (group.TryGetDouble(LegClearingTradePrice.FixTag, out var legClearingTradePrice))
+                {
+                    LegClearingTradePrice.Encode(pointer, current, legClearingTradePrice, out current);
+                }
+                else
+                {
+                    LegClearingTradePrice.SetNull(pointer, current, out current);
+                }
 
             }
         }
@@ -47,11 +59,15 @@ namespace Eurex.EtiDerivatives.v130
 
             while (count-- > 0)
             {
-                var legSecurityId = LegSecurityId.Decode(pointer, current, out current);
-                message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+                if (LegSecurityId.TryDecode(pointer, current, out var legSecurityId, out current))
+                {
+                    message.AppendLong(LegSecurityId.FixTag, legSecurityId);
+                }
 
-                var legClearingTradePrice = LegClearingTradePrice.Decode(pointer, current, out current);
-                message.AppendDouble(LegClearingTradePrice.FixTag, legClearingTradePrice);
+                if (LegClearingTradePrice.TryDecode(pointer, current, out var legClearingTradePrice, out current))
+                {
+                    message.AppendDouble(LegClearingTradePrice.FixTag, legClearingTradePrice);
+                }
 
             }
         }

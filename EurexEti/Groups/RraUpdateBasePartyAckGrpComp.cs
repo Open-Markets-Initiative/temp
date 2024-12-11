@@ -33,8 +33,14 @@ namespace Eurex.EtiDerivatives.v130
 
                 Pad1.Encode(pointer, current, out current);
 
-                var riskLimitResult = (ushort)group.GetInt(RiskLimitResult.FixTag);
-                RiskLimitResult.Encode(pointer, current, riskLimitResult, out current);
+                if (group.TryGetInt(RiskLimitResult.FixTag, out var riskLimitResult))
+                {
+                    RiskLimitResult.Encode(pointer, current, (ushort)riskLimitResult, out current);
+                }
+                else
+                {
+                    RiskLimitResult.SetNull(pointer, current, out current);
+                }
 
             }
         }
@@ -62,8 +68,10 @@ namespace Eurex.EtiDerivatives.v130
 
                 current += Pad1.Length;
 
-                var riskLimitResult = (short)RiskLimitResult.Decode(pointer, current, out current);
-                message.AppendInt(RiskLimitResult.FixTag, riskLimitResult);
+                if (RiskLimitResult.TryDecode(pointer, current, out var riskLimitResult, out current))
+                {
+                    message.AppendInt(RiskLimitResult.FixTag, (short)riskLimitResult);
+                }
 
             }
         }

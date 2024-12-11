@@ -34,6 +34,11 @@ namespace Eurex.EtiDerivatives.v130
         public const int Length = 1;
 
         /// <summary>
+        ///  Null value for Price Validity Check Type
+        /// </summary>
+        public const byte NoValue = 0xFF;
+
+        /// <summary>
         ///  Encode Price Validity Check Type
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, byte value, int length, out int current)

@@ -34,6 +34,11 @@ namespace Eurex.EtiDerivatives.v130
         public const int Length = 2;
 
         /// <summary>
+        ///  Null value for Market Id
+        /// </summary>
+        public const ushort NoValue = 0xFFFF;
+
+        /// <summary>
         ///  Encode Market Id
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, ushort value, int length, out int current)

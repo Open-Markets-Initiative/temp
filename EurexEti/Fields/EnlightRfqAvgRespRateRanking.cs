@@ -34,6 +34,11 @@ namespace Eurex.EtiDerivatives.v130
         public const int Length = 1;
 
         /// <summary>
+        ///  Null value for Enlight Rfq Avg Resp Rate Ranking
+        /// </summary>
+        public const byte NoValue = 0xFF;
+
+        /// <summary>
         ///  Encode Enlight Rfq Avg Resp Rate Ranking
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, byte value, int length, out int current)

@@ -24,6 +24,11 @@ namespace Eurex.EtiDerivatives.v130
         public const int Length = 1;
 
         /// <summary>
+        ///  Null value for Party Id Origination Market
+        /// </summary>
+        public const byte NoValue = 0xFF;
+
+        /// <summary>
         ///  Encode Party Id Origination Market
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, byte value, int length, out int current)

@@ -29,6 +29,11 @@ namespace Eurex.EtiDerivatives.v130
         public const int Length = 2;
 
         /// <summary>
+        ///  Null value for Side Trd Sub Typ
+        /// </summary>
+        public const ushort NoValue = 0xFFFF;
+
+        /// <summary>
         ///  Encode Side Trd Sub Typ
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, ushort value, int length, out int current)

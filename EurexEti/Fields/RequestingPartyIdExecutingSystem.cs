@@ -29,6 +29,11 @@ namespace Eurex.EtiDerivatives.v130
         public const int Length = 4;
 
         /// <summary>
+        ///  Null value for Requesting Party Id Executing System
+        /// </summary>
+        public const uint NoValue = 0xFFFFFFFF;
+
+        /// <summary>
         ///  Encode Requesting Party Id Executing System
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, uint value, int length, out int current)

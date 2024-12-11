@@ -29,6 +29,11 @@ namespace Eurex.EtiDerivatives.v130
         public const int Length = 1;
 
         /// <summary>
+        ///  Null value for Party Action Type
+        /// </summary>
+        public const byte NoValue = 0xFF;
+
+        /// <summary>
         ///  Encode Party Action Type
         /// </summary>
         public unsafe static void Encode(byte* pointer, int offset, byte value, int length, out int current)

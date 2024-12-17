@@ -42,8 +42,14 @@ namespace Eurex.EtiDerivatives.v130
             var msgSeqNum = (uint)message.msgSeqNum;
             MsgSeqNum.Encode(pointer, current, msgSeqNum, out current);
 
-            var senderSubId = uint.Parse(message.senderSubID);
-            SenderSubId.Encode(pointer, current, senderSubId, out current);
+            if (uint.TryParse(message.senderSubID, out var senderSubId))
+            {
+                SenderSubId.Encode(pointer, current, senderSubId, out current);
+            }
+            else
+            {
+                SenderSubId.SetNull(pointer, current, out current);
+            }
 
             var lastEntityProcessed = message.GetData(LastEntityProcessed.FixTag);
             LastEntityProcessed.Encode(pointer, current, lastEntityProcessed, out current);

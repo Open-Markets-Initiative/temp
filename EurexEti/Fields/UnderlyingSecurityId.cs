@@ -117,6 +117,7 @@ namespace Eurex.EtiDerivatives.v130
         public unsafe static bool TryDecode(byte* pointer, int offset, out string value, out int current)
         {
             current = offset + UnderlyingSecurityId.Length;
+
             value = string.Empty;
 
             if (*(pointer + offset) == 0)

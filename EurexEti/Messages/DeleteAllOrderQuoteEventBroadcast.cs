@@ -156,7 +156,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Delete All Order Quote Event Broadcast Message
         /// </summary>
-        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, int length, out int current)
         {
             current = offset;
 

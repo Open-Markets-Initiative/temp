@@ -445,7 +445,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Modify Order Single Request Message
         /// </summary>
-        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, int length, out int current)
         {
             current = offset;
 

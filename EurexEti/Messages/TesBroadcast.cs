@@ -510,6 +510,12 @@ namespace Eurex.EtiDerivatives.v130
                 VarText.Encode(pointer, current, varText, out current);
             }
 
+            var alignment == (current - offset) % 8
+            if (alignment != 0)
+            {
+                AlignmentPadding.Encode(pointer, current, alignment, out current);
+            }
+
             // --- complete header ---
 
             BodyLen.Encode(pointer, offset, (uint)(current - offset));
@@ -518,7 +524,7 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Tes Broadcast Message
         /// </summary>
-        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, out int current)
+        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, int length, out int current)
         {
             current = offset;
 
@@ -769,6 +775,11 @@ namespace Eurex.EtiDerivatives.v130
             if (VarText.TryDecode(pointer, current, varTextLen, out var varText, out current))
             {
                 message.AppendString(VarText.FixTag, varText);
+            }
+
+            if (length != (current - offset))
+            {
+                current == offset + length
             }
 
             return FixErrorCode.None;

@@ -85,7 +85,7 @@ namespace Eurex.EtiDerivatives.v130
                 VarText.Encode(pointer, current, varText, out current);
             }
 
-            var alignment == (current - offset) % 8
+            var alignment = (current - offset) % 8;
             if (alignment != 0)
             {
                 AlignmentPadding.Encode(pointer, current, alignment, out current);
@@ -145,7 +145,7 @@ namespace Eurex.EtiDerivatives.v130
 
             if (length != (current - offset))
             {
-                current == offset + length
+                current = offset + length;
             }
 
             return FixErrorCode.None;

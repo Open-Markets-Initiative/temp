@@ -11,7 +11,7 @@ public static partial class Eti130
 
         // --- eti message header ---
 
-        var bodyLen = Eurex.EtiDerivatives.v130.BodyLen.Decode(pointer, current, out current);
+        var bodyLen = (int)Eurex.EtiDerivatives.v130.BodyLen.Decode(pointer, current, out current);
 
         if (bodyLen + offset > length)
         {

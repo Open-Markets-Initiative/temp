@@ -140,10 +140,8 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Pre Trade Risk Limits Definition Request Message
         /// </summary>
-        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, int length, out int current)
+        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, int length, ref int current)
         {
-            current = offset;
-
             message.Reset();
 
             message.msgType = PreTradeRiskLimitsDefinitionRequest.Identifier;

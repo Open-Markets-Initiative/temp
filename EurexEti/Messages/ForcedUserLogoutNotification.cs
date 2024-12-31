@@ -81,10 +81,8 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Forced User Logout Notification Message
         /// </summary>
-        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, int length, out int current)
+        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, int length, ref int current)
         {
-            current = offset;
-
             message.Reset();
 
             message.msgType = ForcedUserLogoutNotification.Identifier;

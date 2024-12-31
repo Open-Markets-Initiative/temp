@@ -384,10 +384,8 @@ namespace Eurex.EtiDerivatives.v130
         /// <summary>
         ///  Decode Enter Tes Trade Request Message
         /// </summary>
-        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, int length, out int current)
+        public static unsafe FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, int length, ref int current)
         {
-            current = offset;
-
             message.Reset();
 
             message.msgType = EnterTesTradeRequest.Identifier;

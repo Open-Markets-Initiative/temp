@@ -67,8 +67,8 @@ namespace Eurex.EtiDerivatives.v130
                 VarText.Encode(pointer, current, varText, out current);
             }
 
-            var alignment = (current - offset) % 8;
-            if (alignment != 0)
+            var alignment = 8 - ((current - offset) % 8);
+            if (alignment != 8)
             {
                 AlignmentPadding.Encode(pointer, current, alignment, out current);
             }

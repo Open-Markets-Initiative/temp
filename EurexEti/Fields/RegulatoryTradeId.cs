@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Regulatory Trade Id: Optional Fixed Length String Field
+    ///  Regulatory Trade Id: Optional Fixed Length Space Filled String Field
     /// </summary>
 
     public static class RegulatoryTradeId
@@ -50,7 +50,7 @@ namespace Eurex.EtiDerivatives.v130
 
             for(var i = 0; i < end; i++)
             {
-                *(position++) = 0;
+                *(position++) = (byte)' ';
             }
 
             current = offset + RegulatoryTradeId.Length;
@@ -145,7 +145,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static string Decode(byte* pointer, int offset)
         {
-            return new string ((sbyte*)pointer, offset, RegulatoryTradeId.Length).Trim('\0');
+            return new string ((sbyte*)pointer, offset, RegulatoryTradeId.Length).Trim();
         }
     }
 }

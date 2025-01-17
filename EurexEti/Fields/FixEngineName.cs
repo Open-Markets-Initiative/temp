@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Fix Engine Name: Optional Fixed Length Space Filled String Field
+    ///  Fix Engine Name: Optional Fixed Length String Field
     /// </summary>
 
     public static class FixEngineName
@@ -50,7 +50,7 @@ namespace Eurex.EtiDerivatives.v130
 
             for(var i = 0; i < end; i++)
             {
-                *(position++) = (byte)' ';
+                *(position++) = 0;
             }
 
             current = offset + FixEngineName.Length;
@@ -145,7 +145,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static string Decode(byte* pointer, int offset)
         {
-            return new string ((sbyte*)pointer, offset, FixEngineName.Length).Trim();
+            return new string ((sbyte*)pointer, offset, FixEngineName.Length).Trim('\0');
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Application System Version: Optional Fixed Length Space Filled String Field
+    ///  Application System Version: Optional Fixed Length String Field
     /// </summary>
 
     public static class ApplicationSystemVersion
@@ -50,7 +50,7 @@ namespace Eurex.EtiDerivatives.v130
 
             for(var i = 0; i < end; i++)
             {
-                *(position++) = (byte)' ';
+                *(position++) = 0;
             }
 
             current = offset + ApplicationSystemVersion.Length;
@@ -145,7 +145,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static string Decode(byte* pointer, int offset)
         {
-            return new string ((sbyte*)pointer, offset, ApplicationSystemVersion.Length).Trim();
+            return new string ((sbyte*)pointer, offset, ApplicationSystemVersion.Length).Trim('\0');
         }
     }
 }

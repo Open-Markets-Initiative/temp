@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Fee Idnt Code: Optional Fixed Length String Field
+    ///  Fee Idnt Code: Optional Fixed Length Space Filled String Field
     /// </summary>
 
     public static class FeeIdntCode
@@ -50,7 +50,7 @@ namespace Eurex.EtiDerivatives.v130
 
             for(var i = 0; i < end; i++)
             {
-                *(position++) = 0;
+                *(position++) = (byte)' ';
             }
 
             current = offset + FeeIdntCode.Length;
@@ -145,7 +145,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static string Decode(byte* pointer, int offset)
         {
-            return new string ((sbyte*)pointer, offset, FeeIdntCode.Length).Trim('\0');
+            return new string ((sbyte*)pointer, offset, FeeIdntCode.Length).Trim();
         }
     }
 }

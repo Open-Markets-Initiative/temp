@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Risk Limit Group: Optional Fixed Length String Field
+    ///  Risk Limit Group: Optional Fixed Length Space Filled String Field
     /// </summary>
 
     public static class RiskLimitGroup
@@ -50,7 +50,7 @@ namespace Eurex.EtiDerivatives.v130
 
             for(var i = 0; i < end; i++)
             {
-                *(position++) = 0;
+                *(position++) = (byte)' ';
             }
 
             current = offset + RiskLimitGroup.Length;
@@ -145,7 +145,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static string Decode(byte* pointer, int offset)
         {
-            return new string ((sbyte*)pointer, offset, RiskLimitGroup.Length).Trim('\0');
+            return new string ((sbyte*)pointer, offset, RiskLimitGroup.Length).Trim();
         }
     }
 }

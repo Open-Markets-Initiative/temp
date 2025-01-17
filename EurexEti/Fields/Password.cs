@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace Eurex.EtiDerivatives.v130
 {
     /// <summary>
-    ///  Password: Optional Fixed Length Space Filled String Field
+    ///  Password: Optional Fixed Length String Field
     /// </summary>
 
     public static class Password
@@ -50,7 +50,7 @@ namespace Eurex.EtiDerivatives.v130
 
             for(var i = 0; i < end; i++)
             {
-                *(position++) = (byte)' ';
+                *(position++) = 0;
             }
 
             current = offset + Password.Length;
@@ -145,7 +145,7 @@ namespace Eurex.EtiDerivatives.v130
         /// </summary>
         public unsafe static string Decode(byte* pointer, int offset)
         {
-            return new string ((sbyte*)pointer, offset, Password.Length).Trim();
+            return new string ((sbyte*)pointer, offset, Password.Length).Trim('\0');
         }
     }
 }

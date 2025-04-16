@@ -100,8 +100,10 @@ public static partial class DeleteOrderBroadcast
 
         Pad2.Encode(pointer, current, out current);
 
-        var affectedOrdGrpComp = message.GetString(AffectedOrdGrpComp.FixTag);
-        AffectedOrdGrpComp.Encode(pointer, current, affectedOrdGrpComp, out current);
+        if (isAffectedOrdGrpComp)
+        {
+            AffectedOrdGrpComp.Encode(pointer, current, affectedOrdGrpComp, out current);
+        }
 
         // --- complete header ---
 
@@ -160,8 +162,7 @@ public static partial class DeleteOrderBroadcast
 
         current += Pad2.Length;
 
-        var affectedOrdGrpComp = AffectedOrdGrpComp.Decode(pointer, current, out current);
-        message.AppendString(AffectedOrdGrpComp.FixTag, affectedOrdGrpComp);
+        AffectedOrdGrpComp.Decode(ref message, pointer, current, noAffectedOrders, out current);
 
         return FixErrorCode.None;
     }

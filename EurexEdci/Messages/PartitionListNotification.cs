@@ -46,8 +46,10 @@ public static partial class PartitionListNotification
 
         Pad7.Encode(pointer, current, out current);
 
-        var partitionGrpComp = message.GetString(PartitionGrpComp.FixTag);
-        PartitionGrpComp.Encode(pointer, current, partitionGrpComp, out current);
+        if (isPartitionGrpComp)
+        {
+            PartitionGrpComp.Encode(pointer, current, partitionGrpComp, out current);
+        }
 
         // --- complete header ---
 
@@ -76,8 +78,7 @@ public static partial class PartitionListNotification
 
         current += Pad7.Length;
 
-        var partitionGrpComp = PartitionGrpComp.Decode(pointer, current, out current);
-        message.AppendString(PartitionGrpComp.FixTag, partitionGrpComp);
+        PartitionGrpComp.Decode(ref message, pointer, current, noPartitions, out current);
 
         return FixErrorCode.None;
     }

@@ -424,8 +424,10 @@ public static partial class OrderExecReportBroadcast
 
         Pad7.Encode(pointer, current, out current);
 
-        var fillsGrpComp = message.GetString(FillsGrpComp.FixTag);
-        FillsGrpComp.Encode(pointer, current, fillsGrpComp, out current);
+        if (isFillsGrpComp)
+        {
+            FillsGrpComp.Encode(pointer, current, fillsGrpComp, out current);
+        }
 
         // --- complete header ---
 
@@ -668,8 +670,7 @@ public static partial class OrderExecReportBroadcast
 
         current += Pad7.Length;
 
-        var fillsGrpComp = FillsGrpComp.Decode(pointer, current, out current);
-        message.AppendString(FillsGrpComp.FixTag, fillsGrpComp);
+        FillsGrpComp.Decode(ref message, pointer, current, noFills, out current);
 
         return FixErrorCode.None;
     }

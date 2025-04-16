@@ -46,8 +46,10 @@ public static partial class SessionListNotification
 
         Pad6.Encode(pointer, current, out current);
 
-        var sessionsGrpComp = message.GetString(SessionsGrpComp.FixTag);
-        SessionsGrpComp.Encode(pointer, current, sessionsGrpComp, out current);
+        if (isSessionsGrpComp)
+        {
+            SessionsGrpComp.Encode(pointer, current, sessionsGrpComp, out current);
+        }
 
         // --- complete header ---
 
@@ -76,8 +78,7 @@ public static partial class SessionListNotification
 
         current += Pad6.Length;
 
-        var sessionsGrpComp = SessionsGrpComp.Decode(pointer, current, out current);
-        message.AppendString(SessionsGrpComp.FixTag, sessionsGrpComp);
+        SessionsGrpComp.Decode(ref message, pointer, current, noSessions, out current);
 
         return FixErrorCode.None;
     }

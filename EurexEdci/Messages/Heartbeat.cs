@@ -9,7 +9,7 @@ namespace Eurex.Edci.v130;
 public static partial class Heartbeat
 {
     /// <summary>
-    ///  Eti Identifier for Heartbeat
+    ///  Edci Identifier for Heartbeat
     /// </summary>
     public const string Identifier = "10011";
 

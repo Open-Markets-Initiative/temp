@@ -9,7 +9,7 @@ namespace Eurex.Edci.v130;
 public static partial class Reject
 {
     /// <summary>
-    ///  Eti Identifier for Reject
+    ///  Edci Identifier for Reject
     /// </summary>
     public const string Identifier = "10010";
 

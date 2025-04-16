@@ -9,7 +9,7 @@ namespace Eurex.Edci.v130;
 public static partial class DeleteOrderBroadcast
 {
     /// <summary>
-    ///  Eti Identifier for Delete Order Broadcast
+    ///  Edci Identifier for Delete Order Broadcast
     /// </summary>
     public const string Identifier = "10902";
 

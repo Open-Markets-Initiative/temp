@@ -9,7 +9,7 @@ namespace Eurex.Edci.v130;
 public static partial class ForcedLogoutNotification
 {
     /// <summary>
-    ///  Eti Identifier for Forced Logout Notification
+    ///  Edci Identifier for Forced Logout Notification
     /// </summary>
     public const string Identifier = "10012";
 

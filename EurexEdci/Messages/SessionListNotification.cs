@@ -9,7 +9,7 @@ namespace Eurex.Edci.v130;
 public static partial class SessionListNotification
 {
     /// <summary>
-    ///  Eti Identifier for Session List Notification
+    ///  Edci Identifier for Session List Notification
     /// </summary>
     public const string Identifier = "10036";
 

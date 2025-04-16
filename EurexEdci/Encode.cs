@@ -64,7 +64,7 @@ public static partial class Edci130
                 break;
 
             default:
-                throw new System.Exception("Unknown Eti Message Type");
+                throw new System.Exception("Unknown Edci Message Type");
         }
     }
 };

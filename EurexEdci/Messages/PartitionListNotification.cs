@@ -9,7 +9,7 @@ namespace Eurex.Edci.v130;
 public static partial class PartitionListNotification
 {
     /// <summary>
-    ///  Eti Identifier for Partition List Notification
+    ///  Edci Identifier for Partition List Notification
     /// </summary>
     public const string Identifier = "10037";
 

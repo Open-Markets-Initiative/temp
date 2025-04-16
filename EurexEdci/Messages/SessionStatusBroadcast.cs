@@ -9,7 +9,7 @@ namespace Eurex.Edci.v130;
 public static partial class SessionStatusBroadcast
 {
     /// <summary>
-    ///  Eti Identifier for Session Status Broadcast
+    ///  Edci Identifier for Session Status Broadcast
     /// </summary>
     public const string Identifier = "10903";
 

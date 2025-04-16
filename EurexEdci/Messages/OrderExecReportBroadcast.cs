@@ -9,7 +9,7 @@ namespace Eurex.Edci.v130;
 public static partial class OrderExecReportBroadcast
 {
     /// <summary>
-    ///  Eti Identifier for Order Exec Report Broadcast
+    ///  Edci Identifier for Order Exec Report Broadcast
     /// </summary>
     public const string Identifier = "10901";
 

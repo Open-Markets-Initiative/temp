@@ -3,7 +3,7 @@ namespace SRFixBase;
 public static partial class Edci130
 {
     /// <summary>
-    ///  Decode Eti Binary to Fix Binary
+    ///  Decode Edci Binary to Fix Binary
     /// </summary>
     public unsafe static FixErrorCode Decode(ref FixMessage message, byte* pointer, int offset, int length, out int current)
     {

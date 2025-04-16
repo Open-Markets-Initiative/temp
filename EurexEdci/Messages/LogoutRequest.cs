@@ -9,7 +9,7 @@ namespace Eurex.Edci.v130;
 public static partial class LogoutRequest
 {
     /// <summary>
-    ///  Eti Identifier for Logout Request
+    ///  Edci Identifier for Logout Request
     /// </summary>
     public const string Identifier = "10002";
 

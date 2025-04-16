@@ -9,7 +9,7 @@ namespace Eurex.Edci.v130;
 public static partial class LogonResponse
 {
     /// <summary>
-    ///  Eti Identifier for Logon Response
+    ///  Edci Identifier for Logon Response
     /// </summary>
     public const string Identifier = "10001";
 

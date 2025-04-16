@@ -424,41 +424,8 @@ public static partial class OrderExecReportBroadcast
 
         Pad7.Encode(pointer, current, out current);
 
-        if (group.TryGetDouble(FillPx.FixTag, out var fillPx))
-        {
-            FillPx.Encode(pointer, current, fillPx, out current);
-        }
-        else
-        {
-            FillPx.SetNull(pointer, current, out current);
-        }
-
-        if (group.TryGetDouble(FillQty.FixTag, out var fillQty))
-        {
-            FillQty.Encode(pointer, current, fillQty, out current);
-        }
-        else
-        {
-            FillQty.SetNull(pointer, current, out current);
-        }
-
-        if (group.TryGetInt(FillMatchId.FixTag, out var fillMatchId))
-        {
-            FillMatchId.Encode(pointer, current, (uint)fillMatchId, out current);
-        }
-        else
-        {
-            FillMatchId.SetNull(pointer, current, out current);
-        }
-
-        if (group.TryGetInt(FillExecId.FixTag, out var fillExecId))
-        {
-            FillExecId.Encode(pointer, current, fillExecId, out current);
-        }
-        else
-        {
-            FillExecId.SetNull(pointer, current, out current);
-        }
+        var fillsGrpComp = message.GetString(FillsGrpComp.FixTag);
+        FillsGrpComp.Encode(pointer, current, fillsGrpComp, out current);
 
         // --- complete header ---
 
@@ -701,25 +668,8 @@ public static partial class OrderExecReportBroadcast
 
         current += Pad7.Length;
 
-        if (FillPx.TryDecode(pointer, current, out var fillPx, out current))
-        {
-            message.AppendDouble(FillPx.FixTag, fillPx);
-        }
-
-        if (FillQty.TryDecode(pointer, current, out var fillQty, out current))
-        {
-            message.AppendDouble(FillQty.FixTag, fillQty);
-        }
-
-        if (FillMatchId.TryDecode(pointer, current, out var fillMatchId, out current))
-        {
-            message.AppendInt(FillMatchId.FixTag, (int)fillMatchId);
-        }
-
-        if (FillExecId.TryDecode(pointer, current, out var fillExecId, out current))
-        {
-            message.AppendInt(FillExecId.FixTag, fillExecId);
-        }
+        var fillsGrpComp = FillsGrpComp.Decode(pointer, current, out current);
+        message.AppendString(FillsGrpComp.FixTag, fillsGrpComp);
 
         return FixErrorCode.None;
     }

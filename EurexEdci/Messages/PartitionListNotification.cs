@@ -46,16 +46,8 @@ public static partial class PartitionListNotification
 
         Pad7.Encode(pointer, current, out current);
 
-        if (group.TryGetInt(PartitionId.FixTag, out var partitionId))
-        {
-            PartitionId.Encode(pointer, current, (ushort)partitionId, out current);
-        }
-        else
-        {
-            PartitionId.SetNull(pointer, current, out current);
-        }
-
-        Pad6.Encode(pointer, current, out current);
+        var partitionGrpComp = message.GetString(PartitionGrpComp.FixTag);
+        PartitionGrpComp.Encode(pointer, current, partitionGrpComp, out current);
 
         // --- complete header ---
 
@@ -84,12 +76,8 @@ public static partial class PartitionListNotification
 
         current += Pad7.Length;
 
-        if (PartitionId.TryDecode(pointer, current, out var partitionId, out current))
-        {
-            message.AppendInt(PartitionId.FixTag, (short)partitionId);
-        }
-
-        current += Pad6.Length;
+        var partitionGrpComp = PartitionGrpComp.Decode(pointer, current, out current);
+        message.AppendString(PartitionGrpComp.FixTag, partitionGrpComp);
 
         return FixErrorCode.None;
     }

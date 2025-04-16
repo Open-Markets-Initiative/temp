@@ -46,34 +46,8 @@ public static partial class SessionListNotification
 
         Pad6.Encode(pointer, current, out current);
 
-        if (group.TryGetInt(PartyIdSessionId.FixTag, out var partyIdSessionId))
-        {
-            PartyIdSessionId.Encode(pointer, current, (uint)partyIdSessionId, out current);
-        }
-        else
-        {
-            PartyIdSessionId.SetNull(pointer, current, out current);
-        }
-
-        if (group.TryGetInt(SessionMode.FixTag, out var sessionMode))
-        {
-            SessionMode.Encode(pointer, current, (byte)sessionMode, out current);
-        }
-        else
-        {
-            SessionMode.SetNull(pointer, current, out current);
-        }
-
-        if (group.TryGetString(PartyExecutingFirm.FixTag, out var partyExecutingFirm))
-        {
-            PartyExecutingFirm.Encode(pointer, current, partyExecutingFirm, out current);
-        }
-        else
-        {
-            PartyExecutingFirm.SetNull(pointer, current, out current);
-        }
-
-        Pad6.Encode(pointer, current, out current);
+        var sessionsGrpComp = message.GetString(SessionsGrpComp.FixTag);
+        SessionsGrpComp.Encode(pointer, current, sessionsGrpComp, out current);
 
         // --- complete header ---
 
@@ -102,22 +76,8 @@ public static partial class SessionListNotification
 
         current += Pad6.Length;
 
-        if (PartyIdSessionId.TryDecode(pointer, current, out var partyIdSessionId, out current))
-        {
-            message.AppendInt(PartyIdSessionId.FixTag, (int)partyIdSessionId);
-        }
-
-        if (SessionMode.TryDecode(pointer, current, out var sessionMode, out current))
-        {
-            message.AppendInt(SessionMode.FixTag, sessionMode);
-        }
-
-        if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
-        {
-            message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
-        }
-
-        current += Pad6.Length;
+        var sessionsGrpComp = SessionsGrpComp.Decode(pointer, current, out current);
+        message.AppendString(SessionsGrpComp.FixTag, sessionsGrpComp);
 
         return FixErrorCode.None;
     }

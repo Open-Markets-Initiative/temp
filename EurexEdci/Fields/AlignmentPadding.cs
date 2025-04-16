@@ -1,7 +1,5 @@
-using System;
-using System.Runtime.CompilerServices;
-
 namespace Eurex.Edci.v130;
+
 /// <summary>
 ///  Alignment Padding: Alignment Padding
 /// </summary>

@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Eurex.Edci.v130;
+namespace Eurex.Edci.v131;
 
 /// <summary>
 ///  Orig Cl Ord Id: Optional 8 Byte Fixed Width Integer

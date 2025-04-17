@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Eurex.Edci.v130;
+namespace Eurex.Edci.v131;
 
 /// <summary>
 ///  Party End Client Identification: Optional Fixed Length Space Filled String Field

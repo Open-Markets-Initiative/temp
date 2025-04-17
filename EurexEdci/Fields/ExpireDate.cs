@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Eurex.Edci.v130;
+namespace Eurex.Edci.v131;
 
 /// <summary>
 ///  Expire Date: Optional 4 Byte Fixed Width Integer

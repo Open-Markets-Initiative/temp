@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Eurex.Edci.v130;
+namespace Eurex.Edci.v131;
 
 /// <summary>
 ///  Partition Id: Optional 2 Byte Fixed Width Integer

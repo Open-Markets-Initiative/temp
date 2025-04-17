@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Eurex.Edci.v130;
+namespace Eurex.Edci.v131;
 
 /// <summary>
 ///  Product Complex: Enum
@@ -57,6 +57,11 @@ public static class ProductComplex
     ///  Non-Standard Volatility Strategy
     /// </summary>
     public const byte Nonstandardvolatilitystrategy = 13;
+
+    /// <summary>
+    ///  Total Return Future Strategy
+    /// </summary>
+    public const byte Totalreturnfuturestrategy = 14;
 
     /// <summary>
     ///  Fix Tag for Product Complex

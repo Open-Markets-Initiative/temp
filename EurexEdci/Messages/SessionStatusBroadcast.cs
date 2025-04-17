@@ -1,6 +1,6 @@
 using SRFixBase;
 
-namespace Eurex.Edci.v130;
+namespace Eurex.Edci.v131;
 
 /// <summary>
 ///  Session Status Broadcast Message Methods

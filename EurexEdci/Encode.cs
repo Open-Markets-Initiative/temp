@@ -1,6 +1,6 @@
 namespace SRFixBase;
 
-public static partial class Edci130
+public static partial class Edci131
 {
     /// <summary>
     ///  Encode Payload
@@ -11,56 +11,56 @@ public static partial class Edci130
 
         switch (message.msgType)
         {
-            case Eurex.Edci.v130.DeleteOrderBroadcast.Identifier:
-                Eurex.Edci.v130.DeleteOrderBroadcast.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.DeleteOrderBroadcast.Identifier:
+                Eurex.Edci.v131.DeleteOrderBroadcast.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.ForcedLogoutNotification.Identifier:
-                Eurex.Edci.v130.ForcedLogoutNotification.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.ForcedLogoutNotification.Identifier:
+                Eurex.Edci.v131.ForcedLogoutNotification.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.Heartbeat.Identifier:
-                Eurex.Edci.v130.Heartbeat.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.Heartbeat.Identifier:
+                Eurex.Edci.v131.Heartbeat.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.HeartbeatNotification.Identifier:
-                Eurex.Edci.v130.HeartbeatNotification.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.HeartbeatNotification.Identifier:
+                Eurex.Edci.v131.HeartbeatNotification.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.LogonRequest.Identifier:
-                Eurex.Edci.v130.LogonRequest.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.LogonRequest.Identifier:
+                Eurex.Edci.v131.LogonRequest.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.LogonResponse.Identifier:
-                Eurex.Edci.v130.LogonResponse.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.LogonResponse.Identifier:
+                Eurex.Edci.v131.LogonResponse.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.LogoutRequest.Identifier:
-                Eurex.Edci.v130.LogoutRequest.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.LogoutRequest.Identifier:
+                Eurex.Edci.v131.LogoutRequest.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.LogoutResponse.Identifier:
-                Eurex.Edci.v130.LogoutResponse.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.LogoutResponse.Identifier:
+                Eurex.Edci.v131.LogoutResponse.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.OrderExecReportBroadcast.Identifier:
-                Eurex.Edci.v130.OrderExecReportBroadcast.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.OrderExecReportBroadcast.Identifier:
+                Eurex.Edci.v131.OrderExecReportBroadcast.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.PartitionListNotification.Identifier:
-                Eurex.Edci.v130.PartitionListNotification.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.PartitionListNotification.Identifier:
+                Eurex.Edci.v131.PartitionListNotification.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.Reject.Identifier:
-                Eurex.Edci.v130.Reject.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.Reject.Identifier:
+                Eurex.Edci.v131.Reject.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.SessionListNotification.Identifier:
-                Eurex.Edci.v130.SessionListNotification.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.SessionListNotification.Identifier:
+                Eurex.Edci.v131.SessionListNotification.Encode(message, pointer, current, length, out current);
                 break;
 
-            case Eurex.Edci.v130.SessionStatusBroadcast.Identifier:
-                Eurex.Edci.v130.SessionStatusBroadcast.Encode(message, pointer, current, out current);
+            case Eurex.Edci.v131.SessionStatusBroadcast.Identifier:
+                Eurex.Edci.v131.SessionStatusBroadcast.Encode(message, pointer, current, length, out current);
                 break;
 
             default:

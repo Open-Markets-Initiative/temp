@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Eurex.Edci.v130;
+namespace Eurex.Edci.v131;
 
 /// <summary>
 ///  Price: 8 Byte Fixed Width Nullable Integer with 8 Decimal Place Precision

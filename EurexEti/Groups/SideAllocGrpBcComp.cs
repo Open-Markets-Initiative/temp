@@ -1,0 +1,162 @@
+using SRFixBase;
+
+namespace Eurex.Eti.v131;
+
+/// <summary>
+///  Side Alloc Grp Bc Comp Message Methods
+/// </summary>
+
+public static partial class SideAllocGrpBcComp
+{
+    /// <summary>
+    ///  Fix Tag for Side Alloc Grp Bc Comp (Generated)
+    /// </summary>
+    public const ushort FixTag = 39138;
+
+    /// <summary>
+    ///  Encode Side Alloc Grp Bc Comp
+    /// </summary>
+    public static unsafe void Encode(byte* pointer, int offset, FixRepeatGroup sideAllocGrpBcComp, out int current)
+    {
+        current = offset;
+
+        foreach (var group in sideAllocGrpBcComp.sectionList)
+        {
+            if (group.TryGetDouble(AllocQty.FixTag, out var allocQty))
+            {
+                AllocQty.Encode(pointer, current, allocQty, out current);
+            }
+            else
+            {
+                AllocQty.SetNull(pointer, current, out current);
+            }
+
+            if (group.TryGetULong(ReversalApprovalTime.FixTag, out var reversalApprovalTime))
+            {
+                ReversalApprovalTime.Encode(pointer, current, reversalApprovalTime, out current);
+            }
+            else
+            {
+                ReversalApprovalTime.SetNull(pointer, current, out current);
+            }
+
+            if (group.TryGetInt(IndividualAllocId.FixTag, out var individualAllocId))
+            {
+                IndividualAllocId.Encode(pointer, current, (uint)individualAllocId, out current);
+            }
+            else
+            {
+                IndividualAllocId.SetNull(pointer, current, out current);
+            }
+
+            if (group.TryGetInt(TesEnrichmentRuleId.FixTag, out var tesEnrichmentRuleId))
+            {
+                TesEnrichmentRuleId.Encode(pointer, current, (uint)tesEnrichmentRuleId, out current);
+            }
+            else
+            {
+                TesEnrichmentRuleId.SetNull(pointer, current, out current);
+            }
+
+            if (group.TryGetString(PartyExecutingFirm.FixTag, out var partyExecutingFirm))
+            {
+                PartyExecutingFirm.Encode(pointer, current, partyExecutingFirm, out current);
+            }
+            else
+            {
+                PartyExecutingFirm.SetNull(pointer, current, out current);
+            }
+
+            if (group.TryGetString(PartyExecutingTrader.FixTag, out var partyExecutingTrader))
+            {
+                PartyExecutingTrader.Encode(pointer, current, partyExecutingTrader, out current);
+            }
+            else
+            {
+                PartyExecutingTrader.SetNull(pointer, current, out current);
+            }
+
+            if (group.TryGetInt(Side.FixTag, out var side))
+            {
+                Side.Encode(pointer, current, (byte)side, out current);
+            }
+            else
+            {
+                Side.SetNull(pointer, current, out current);
+            }
+
+            if (group.TryGetInt(TradeAllocStatus.FixTag, out var tradeAllocStatus))
+            {
+                TradeAllocStatus.Encode(pointer, current, (byte)tradeAllocStatus, out current);
+            }
+            else
+            {
+                TradeAllocStatus.SetNull(pointer, current, out current);
+            }
+
+            Pad3.Encode(pointer, current, out current);
+
+        }
+    }
+
+    /// <summary>
+    ///  Decode Side Alloc Grp Bc Comp
+    /// </summary>
+    public static unsafe void Decode(ref FixMessage message, byte* pointer, int offset, int count, out int current)
+    {
+        current = offset;
+
+        if (count < 1)
+        {
+            return;
+        }
+
+        message.AppendInt(NoSideAllocs.FixTag, count);
+
+        while (count-- > 0)
+        {
+            if (AllocQty.TryDecode(pointer, current, out var allocQty, out current))
+            {
+                message.AppendDouble(AllocQty.FixTag, allocQty);
+            }
+
+            if (ReversalApprovalTime.TryDecode(pointer, current, out var reversalApprovalTime, out current))
+            {
+                message.AppendULong(ReversalApprovalTime.FixTag, reversalApprovalTime);
+            }
+
+            if (IndividualAllocId.TryDecode(pointer, current, out var individualAllocId, out current))
+            {
+                message.AppendInt(IndividualAllocId.FixTag, (int)individualAllocId);
+            }
+
+            if (TesEnrichmentRuleId.TryDecode(pointer, current, out var tesEnrichmentRuleId, out current))
+            {
+                message.AppendInt(TesEnrichmentRuleId.FixTag, (int)tesEnrichmentRuleId);
+            }
+
+            if (PartyExecutingFirm.TryDecode(pointer, current, out var partyExecutingFirm, out current))
+            {
+                message.AppendString(PartyExecutingFirm.FixTag, partyExecutingFirm);
+            }
+
+            if (PartyExecutingTrader.TryDecode(pointer, current, out var partyExecutingTrader, out current))
+            {
+                message.AppendString(PartyExecutingTrader.FixTag, partyExecutingTrader);
+            }
+
+            if (Side.TryDecode(pointer, current, out var side, out current))
+            {
+                message.AppendInt(Side.FixTag, side);
+            }
+
+            if (TradeAllocStatus.TryDecode(pointer, current, out var tradeAllocStatus, out current))
+            {
+                message.AppendInt(TradeAllocStatus.FixTag, tradeAllocStatus);
+            }
+
+            current += Pad3.Length;
+
+        }
+    }
+}

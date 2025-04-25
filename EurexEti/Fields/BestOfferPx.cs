@@ -47,7 +47,7 @@ public static class BestOfferPx
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public unsafe static void Encode(byte* pointer, int offset, double value, out int current)
     {
-        *(ulong*) (pointer + offset) = (ulong)(value * Factor);
+        *(ulong*) (pointer + offset) = (ulong)double.Round(value * Factor);
 
         current = offset + BestOfferPx.Length;
     }
